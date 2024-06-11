@@ -10,6 +10,6 @@
 
 ## To start the frontend server, run
 
-#### `npm start`
+#### `npm run dev`
 
 # Backend Server
