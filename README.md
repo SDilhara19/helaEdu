@@ -1,13 +1,13 @@
-## Frontend Server
+# Frontend Server
 
-# Navigate to client folder
+## Navigate to client folder
 
-### `cd client`
+#### `cd client`
 
-# To install client dependencies, run
+## To install client dependencies, run
 
-### `npm i`
+#### `npm i`
 
-# To start the frontend server, run
+## To start the frontend server, run
 
-### `npm start`
+#### `npm start`
