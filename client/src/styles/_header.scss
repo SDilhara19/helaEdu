@@ -1,0 +1,34 @@
+header {
+    background: $primary-color;
+    min-height: 10vh;
+
+    .header-wrapper {
+        width: 95%;
+        margin: auto;
+    }
+
+    .nav-text {
+        color: $white-color;
+        background-clip: text;
+        background-image: linear-gradient(to right,
+                $secondary-color,
+                $secondary-color 50%,
+                $white-color 50%);
+        background-size: 200% 100%;
+        background-position: 100%;
+        transition: all 0.3s ease-in-out;
+
+        h4 {
+            color: transparent;
+        }
+
+        &:hover {
+            background-position: 0;
+        }
+
+    }
+
+
+
+
+}

@@ -1,4 +1,3 @@
-body {
-    background-color: beige;
-    min-height: 50vh;
-}
+@import "./global.module";
+@import "./common";
+@import "./header";

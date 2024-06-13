@@ -1,0 +1,109 @@
+.button {
+    border-radius: 15px;
+    padding: 0 1rem;
+}
+
+.black-button {
+    @extend .button;
+    color: $black-text-color;
+    background: $white-color;
+    border: 2px solid $primary-color;
+
+    &:hover {
+        color: $white-color;
+        background: $secondary-color;
+    }
+}
+
+.blue-button {
+    @extend .button;
+    color: $black-text-color;
+    background: $white-color;
+    border: 2px solid $primary-color;
+
+    &:hover {
+        color: $white-color;
+        background: $primary-color;
+    }
+}
+
+.gold-button {
+    @extend .button;
+    border: 2px solid $secondary-color;
+    font-size: 0.5rem;
+    margin: 0.5rem;
+    text-wrap: nowrap;
+    color: $primary-color;
+    background: $white-color;
+    background-image: linear-gradient(to right,
+            $secondary-color,
+            $secondary-color 50%,
+            $white-color 50%);
+    background-size: 200% 100%;
+    background-position: 100%;
+    transition: all 0.3s ease-in-out;
+
+    h4 {
+        color: transparent;
+        background-clip: text;
+        background-size: 200% 100%;
+        background-position: 100%;
+        background-image: linear-gradient(to right,
+                $white-color,
+                $white-color 50%,
+                $secondary-color 50%);
+    }
+
+
+
+    &:hover {
+        background-position: 0;
+
+        h4 {
+            background-position: 0;
+        }
+    }
+}
+
+.flex-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.flex-sa {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.flex-sb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-col-sa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.flex-col-sa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+#logo {
+    cursor: pointer;
+    width: 30%;
+}
