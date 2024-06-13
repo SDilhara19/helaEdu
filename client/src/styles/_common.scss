@@ -29,16 +29,19 @@
 
 .gold-button {
     @extend .button;
-    border: 2px solid $secondary-color;
+
+    border: 1.5px solid $secondary-color;
     font-size: 0.5rem;
     margin: 0.5rem;
     text-wrap: nowrap;
     color: $primary-color;
     background: $white-color;
+
     background-image: linear-gradient(to right,
             $secondary-color,
             $secondary-color 50%,
             $white-color 50%);
+
     background-size: 200% 100%;
     background-position: 100%;
     transition: all 0.3s ease-in-out;
@@ -52,9 +55,10 @@
                 $white-color,
                 $white-color 50%,
                 $secondary-color 50%);
+
+        transition: all 0.3s ease-in-out;
+
     }
-
-
 
     &:hover {
         background-position: 0;
