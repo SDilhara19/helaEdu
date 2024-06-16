@@ -13,6 +13,7 @@
 */*.local
 
 # Editor directories and files
+*/serviceAccountKey.json
 */.vscode/*
 */!.vscode/extensions.json
 */.idea
