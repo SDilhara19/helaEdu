@@ -14,19 +14,20 @@ function Header() {
             <h4>Home</h4>
           </a>
           <a className="nav-text flex-c m-4 cursor-pointer">
-            <h4>Home</h4>
+            <h4>Categories</h4>
           </a>
           <a className="nav-text flex-c m-4 cursor-pointer">
-            <h4>Home</h4>
+            <h4>Quiz</h4>
           </a>
           <a className="nav-text flex-c m-4 cursor-pointer">
-            <h4>Home</h4>
+            <h4>Leaderboard</h4>
           </a>
+
           <button className="gold-button">
-            <h4>Foo IN</h4>
+            <h4>Login</h4>
           </button>
           <button className="gold-button">
-            <h4>Foo Out</h4>
+            <h4>Sign Up</h4>
           </button>
         </nav>
       </div>
