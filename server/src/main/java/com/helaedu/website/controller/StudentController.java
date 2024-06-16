@@ -5,6 +5,7 @@ import com.helaedu.website.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -14,6 +15,12 @@ public class StudentController {
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudentDto>> getAllStudents() throws ExecutionException, InterruptedException {
+        List<StudentDto> students = studentService.getAllStudents();
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/{userId}")
