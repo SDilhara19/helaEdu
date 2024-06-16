@@ -1,12 +1,12 @@
-package com.helaedu.website.Entity;
+package com.helaedu.website.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Test {
-    private String document_id;
+public class TestDto {
+    private String documentId;
     private String name;
     private int age;
 }
