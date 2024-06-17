@@ -1,11 +1,7 @@
 package com.helaedu.website.repository;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Student;
 import org.springframework.stereotype.Repository;
@@ -16,7 +12,12 @@ import java.util.concurrent.ExecutionException;
 
 @Repository
 public class StudentRepository {
-
+    public String createStudent(Student student) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference  = dbFirestore.collection("students").document(student.getUserId());
+        documentReference .set(student);
+        return student.getUserId();
+    }
     public List<Student> getAllStudents() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference studentsCollection = dbFirestore.collection("students");
@@ -29,7 +30,6 @@ public class StudentRepository {
         }
         return students;
     }
-
     public Student getStudentById(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("students").document(userId);
@@ -40,5 +40,19 @@ public class StudentRepository {
             student = document.toObject(Student.class);
         }
         return student;
+    }
+
+    public String updateStudent(String userId, Student student) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("students").document(userId);
+        ApiFuture<WriteResult> future = documentReference.set(student);
+        return future.get().getUpdateTime().toString();
+    }
+
+    public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("students").document(userId);
+        ApiFuture<WriteResult> future = documentReference.delete();
+        return future.get().getUpdateTime().toString();
     }
 }

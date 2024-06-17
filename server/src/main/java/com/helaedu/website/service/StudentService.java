@@ -18,6 +18,19 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
+        Student student = new Student(
+                studentDto.getUserId(),
+                studentDto.getFirstName(),
+                studentDto.getLastName(),
+                studentDto.getEmail(),
+                studentDto.getRegTimestamp(),
+                studentDto.getNoteId(),
+                studentDto.getSubscriptionId()
+        );
+        return studentRepository.createStudent(student);
+    }
+
     public List<StudentDto> getAllStudents() throws ExecutionException, InterruptedException {
         List<Student> students = studentRepository.getAllStudents();
         return students.stream().map(student ->
@@ -48,5 +61,22 @@ public class StudentService {
             );
         }
         return null;
+    }
+
+    public String updateStudent(String userId, StudentDto studentDto) throws ExecutionException, InterruptedException {
+        Student student = new Student(
+                studentDto.getUserId(),
+                studentDto.getFirstName(),
+                studentDto.getLastName(),
+                studentDto.getEmail(),
+                studentDto.getRegTimestamp(),
+                studentDto.getNoteId(),
+                studentDto.getSubscriptionId()
+        );
+        return studentRepository.updateStudent(userId, student);
+    }
+
+    public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
+        return studentRepository.deleteStudent(userId);
     }
 }
