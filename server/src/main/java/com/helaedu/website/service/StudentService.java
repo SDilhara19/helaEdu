@@ -6,6 +6,7 @@ import com.helaedu.website.repository.StudentRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 import java.util.concurrent.ExecutionException;
@@ -20,6 +21,11 @@ public class StudentService {
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
+        Student existingStudent = studentRepository.getStudentByEmail(studentDto.getEmail());
+        if (existingStudent != null) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Student student = new Student(
                 studentDto.getUserId(),
@@ -27,7 +33,7 @@ public class StudentService {
                 studentDto.getLastName(),
                 studentDto.getEmail(),
                 encoder.encode(studentDto.getPassword()),
-                studentDto.getRegTimestamp(),
+                Instant.now().toString(),
                 studentDto.getNoteId(),
                 studentDto.getSubscriptionId()
         );
@@ -69,12 +75,14 @@ public class StudentService {
     }
 
     public String updateStudent(String userId, StudentDto studentDto) throws ExecutionException, InterruptedException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         Student student = new Student(
                 studentDto.getUserId(),
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
-                studentDto.getPassword(),
+                encoder.encode(studentDto.getPassword()),
                 studentDto.getRegTimestamp(),
                 studentDto.getNoteId(),
                 studentDto.getSubscriptionId()
