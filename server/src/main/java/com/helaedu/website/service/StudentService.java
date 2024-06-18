@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.StudentRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class StudentService {
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Student student = new Student(
                 studentDto.getUserId(),
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
+                encoder.encode(studentDto.getPassword()),
                 studentDto.getRegTimestamp(),
                 studentDto.getNoteId(),
                 studentDto.getSubscriptionId()
@@ -39,6 +42,7 @@ public class StudentService {
                                 student.getFirstName(),
                                 student.getLastName(),
                                 student.getEmail(),
+                                student.getPassword(),
                                 student.getRegTimestamp(),
                                 student.getNoteId(),
                                 student.getSubscriptionId()
@@ -55,6 +59,7 @@ public class StudentService {
                     student.getFirstName(),
                     student.getLastName(),
                     student.getEmail(),
+                    student.getPassword(),
                     student.getRegTimestamp(),
                     student.getNoteId(),
                     student.getSubscriptionId()
@@ -69,6 +74,7 @@ public class StudentService {
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
+                studentDto.getPassword(),
                 studentDto.getRegTimestamp(),
                 studentDto.getNoteId(),
                 studentDto.getSubscriptionId()
