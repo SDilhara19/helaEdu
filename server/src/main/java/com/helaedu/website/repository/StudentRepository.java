@@ -55,4 +55,12 @@ public class StudentRepository {
         ApiFuture<WriteResult> future = documentReference.delete();
         return future.get().getUpdateTime().toString();
     }
+
+    public Student getStudentByEmail(String email) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference studentsCollection = dbFirestore.collection("students");
+        ApiFuture<QuerySnapshot> future = studentsCollection.whereEqualTo("email", email).get();
+        List<Student> students = future.get().toObjects(Student.class);
+        return students.isEmpty() ? null : students.get(0);
+    }
 }
