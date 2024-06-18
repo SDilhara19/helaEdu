@@ -1,3 +1,4 @@
+
 package com.helaedu.website.entity;
 
 import lombok.AllArgsConstructor;
@@ -21,4 +22,5 @@ public class Article {
     private String additionalFile;
     private String teacherId;
     private String articleStatus;
+
 }

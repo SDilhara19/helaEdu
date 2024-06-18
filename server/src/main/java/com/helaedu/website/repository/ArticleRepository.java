@@ -1,3 +1,4 @@
+
 package com.helaedu.website.repository;
 
 import com.google.api.core.ApiFuture;
@@ -74,4 +75,5 @@ public class ArticleRepository {
         ApiFuture<WriteResult> future = documentReference.set(article);
         return future.get().getUpdateTime().toString();
     }
+
 }
