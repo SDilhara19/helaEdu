@@ -12,6 +12,7 @@ public class StudentDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String regTimestamp;
     private String noteId;
     private String subscriptionId;
