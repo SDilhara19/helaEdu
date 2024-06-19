@@ -1,11 +1,14 @@
 package com.helaedu.website.controller;
 
+import com.google.api.Http;
 import com.helaedu.website.dto.StudentDto;
+import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +25,21 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createStudent(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> createStudent(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            for(FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorResponse.addViolation(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
             String studentId = studentService.createStudent(studentDto);
             return new ResponseEntity<>(studentId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("email", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating student", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,24 +52,49 @@ public class StudentController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<StudentDto> getStudent(@PathVariable String userId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> getStudent(@PathVariable String userId) throws ExecutionException, InterruptedException {
         StudentDto studentDto = studentService.getStudent(userId);
         if (studentDto != null) {
             return ResponseEntity.ok(studentDto);
         } else {
-            return ResponseEntity.notFound().build();
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", "Student not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<String> updateStudent(@PathVariable String userId, @RequestBody StudentDto studentDto) throws ExecutionException, InterruptedException {
-        String result = studentService.updateStudent(userId, studentDto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Object> updateStudent(@PathVariable String userId, @Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        if(bindingResult.hasErrors()) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorResponse.addViolation(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            String result = studentService.updateStudent(userId, studentDto);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error updating student", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable String userId) throws ExecutionException, InterruptedException {
-        String result = studentService.deleteStudent(userId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Object> deleteStudent(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        try {
+            String result = studentService.deleteStudent(userId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error deleting student", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

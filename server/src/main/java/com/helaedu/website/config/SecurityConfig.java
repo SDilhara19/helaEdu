@@ -31,6 +31,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/students/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/students/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/students/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});

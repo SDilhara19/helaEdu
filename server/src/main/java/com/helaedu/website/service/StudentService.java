@@ -75,8 +75,12 @@ public class StudentService {
     }
 
     public String updateStudent(String userId, StudentDto studentDto) throws ExecutionException, InterruptedException {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Student existingStudent = studentRepository.getStudentById(userId);
+        if(existingStudent == null) {
+            throw new IllegalArgumentException("Student not found");
+        }
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Student student = new Student(
                 studentDto.getUserId(),
                 studentDto.getFirstName(),
