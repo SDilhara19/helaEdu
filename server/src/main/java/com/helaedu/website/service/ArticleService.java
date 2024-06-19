@@ -1,10 +1,14 @@
 package com.helaedu.website.service;
 
 import com.helaedu.website.dto.ArticleDto;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Article;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.ArticleRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -17,6 +21,20 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
+    public String createArticle(ArticleDto articleDto) throws ExecutionException, InterruptedException {
+
+        Article article= new Article(
+                articleDto.getArticleId(),
+                articleDto.getTitle(),
+                articleDto.getTags(),
+                articleDto.getContent(),
+                articleDto.getImg(),
+                articleDto.getAdditionalFile(),
+                articleDto.getTeacherId(),
+                "pending"
+        );
+        return articleRepository.createArticle(article);
+    }
     public List<ArticleDto> getAllArticles() throws ExecutionException, InterruptedException {
         List<Article> articles = articleRepository.getAllArticles();
         return articles.stream().map(article ->
@@ -106,5 +124,10 @@ public class ArticleService {
     public String approveArticle(String articleId) throws ExecutionException, InterruptedException {
         return articleRepository.updateArticleStatus(articleId, "approved");
     }
+    //   decline relevant articles as approved
+    public String declineArticle(String articleId) throws ExecutionException, InterruptedException {
+        return articleRepository.updateArticleStatus(articleId, "decline");
+    }
+
 
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Getter
@@ -21,4 +20,5 @@ public class Article {
     private String additionalFile;
     private String teacherId;
     private String articleStatus;
+
 }

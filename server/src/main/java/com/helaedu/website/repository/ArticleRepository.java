@@ -5,6 +5,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Article;
 import com.helaedu.website.entity.Article;
+import com.helaedu.website.entity.Student;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,6 +14,14 @@ import java.util.concurrent.ExecutionException;
 
 @Repository
 public class ArticleRepository {
+
+//    create an article
+    public String createArticle(Article article) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference  = dbFirestore.collection("articles").document(article.getArticleId());
+        documentReference .set(article);
+        return article.getArticleId();
+    }
     public List<Article> getAllArticles() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference articlesCollection = dbFirestore.collection("articles");
