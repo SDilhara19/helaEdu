@@ -57,4 +57,16 @@ public class ArticleController{
         String result = articleService.updateArticle(articleId, articleDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+//    get all pending artilces
+    @GetMapping("/pending")
+    public ResponseEntity<List<ArticleDto>> getPendingArticles() throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getPendingArticles();
+        return ResponseEntity.ok(articles);
+    }
+//    approve relevant articles as approved
+    @PutMapping("/{articleId}/approve")
+    public ResponseEntity<String> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
+        String result = articleService.approveArticle(articleId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

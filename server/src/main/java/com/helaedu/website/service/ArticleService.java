@@ -33,6 +33,7 @@ public class ArticleService {
                 )
                 .collect(Collectors.toList());
     }
+//    get article by articleId
     public ArticleDto getArticle(String articleId) throws ExecutionException, InterruptedException {
         Article article = articleRepository.getArticleById(articleId);
         if (article != null) {
@@ -49,6 +50,7 @@ public class ArticleService {
         }
         return null;
     }
+//    get articles by teacher's id
     public ArticleDto getArticleByTeacherId(String teacherId) throws ExecutionException, InterruptedException {
         Article article = articleRepository.getArticleByTeacherId(teacherId);
         if (article != null) {
@@ -65,24 +67,7 @@ public class ArticleService {
         }
         return null;
     }
-//    public ArticleDto getArticlesByStatus() throws ExecutionException, InterruptedException {
-//        List<Article> article = articleRepository.getArticlesByStatus("pending");
-//        if (article != null) {
-//            ArticleDto articleDto = new ArticleDto(
-//                    article.getArticleId,
-//                    article.getTitle(),
-//                    article.getTags(),
-//                    article.getContent(),
-//                    article.getImg(),
-//                    article.getAdditionalFile(),
-//                    article.getTeacherId(),
-//                    article.getArticleStatus()
-//
-//            );
-//            return articleDto;
-//        }
-//        return null;
-//    }
+
 
     public String deleteArticle(String articleId) throws ExecutionException, InterruptedException {
         return articleRepository.deleteArticle(articleId);
@@ -100,6 +85,26 @@ public class ArticleService {
 
         );
         return articleRepository.updateArticle(articleId, article);
+    }
+//    select all articles that status==pending
+    public List<ArticleDto> getPendingArticles() throws ExecutionException, InterruptedException {
+        List<Article> articles = articleRepository.getArticlesByStatus("pending");
+        return articles.stream().map(article ->
+                new ArticleDto(
+                        article.getArticleId(),
+                        article.getTitle(),
+                        article.getTags(),
+                        article.getContent(),
+                        article.getImg(),
+                        article.getAdditionalFile(),
+                        article.getTeacherId(),
+                        article.getArticleStatus()
+                )
+        ).collect(Collectors.toList());
+    }
+    //    approve relevant articles as approved
+    public String approveArticle(String articleId) throws ExecutionException, InterruptedException {
+        return articleRepository.updateArticleStatus(articleId, "approved");
     }
 
 }

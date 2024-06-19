@@ -25,19 +25,7 @@ public class ArticleRepository {
         }
         return articles;
     }
-    //    public List<Article> getArticlesByStatus(String articleStatus) throws ExecutionException, InterruptedException {
-//        Firestore dbFirestore = FirestoreClient.getFirestore();
-//        CollectionReference articlesCollection = dbFirestore.collection("articles");
-//        Query query = articlesCollection.whereEqualTo("articleStatus", articleStatus);
-//        ApiFuture<QuerySnapshot> future = query.get();
-//        List<Article> articles = new ArrayList<>();
-//        QuerySnapshot querySnapshot = future.get();
-//        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-//            Article article = document.toObject(Article.class);
-//            articles.add(article);
-//        }
-//        return articles;
-//    }
+
     public Article getArticleById(String articleId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
@@ -72,6 +60,26 @@ public class ArticleRepository {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
         ApiFuture<WriteResult> future = documentReference.set(article);
+        return future.get().getUpdateTime().toString();
+    }
+    public List<Article> getArticlesByStatus(String status) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference articlesCollection = dbFirestore.collection("articles");
+        Query query = articlesCollection.whereEqualTo("articleStatus", status);
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<Article> articles = new ArrayList<>();
+        QuerySnapshot querySnapshot = future.get();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Article article = document.toObject(Article.class);
+            articles.add(article);
+        }
+        return articles;
+    }
+    //    approve relevant articles as approved
+    public String updateArticleStatus(String articleId, String newStatus) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
+        ApiFuture<WriteResult> future = documentReference.update("articleStatus", newStatus);
         return future.get().getUpdateTime().toString();
     }
 }
