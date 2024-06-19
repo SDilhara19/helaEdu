@@ -4,12 +4,9 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Article;
-import com.helaedu.website.entity.Article;
-import com.helaedu.website.entity.Student;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -57,6 +54,36 @@ public class ArticleRepository {
             article = document.toObject(Article.class);
         }
         return article;
+    }
+
+//    get list of teachers who add more than 10 articles
+    public int countArticlesByTeacherId(String teacherId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference articlesCollection = dbFirestore.collection("articles");
+        Query query = articlesCollection.whereEqualTo("teacherId", teacherId);
+        ApiFuture<QuerySnapshot> future = query.get();
+        return future.get().size();
+    }
+
+    public List<String> getTeachersWithArticleCountGreaterThan(int count) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference articlesCollection = dbFirestore.collection("articles");
+        ApiFuture<QuerySnapshot> future = articlesCollection.get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        Map<String, Integer> teacherArticleCounts = new HashMap<>();
+        for (DocumentSnapshot document : documents) {
+            String teacherId = document.getString("teacherId");
+            teacherArticleCounts.put(teacherId, teacherArticleCounts.getOrDefault(teacherId, 0) + 1);
+        }
+
+        List<String> qualifiedTeachers = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : teacherArticleCounts.entrySet()) {
+            if (entry.getValue() >= count) {
+                qualifiedTeachers.add(entry.getKey());
+            }
+        }
+        return qualifiedTeachers;
     }
 
     public String deleteArticle(String articleId) throws ExecutionException, InterruptedException {

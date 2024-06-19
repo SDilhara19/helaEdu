@@ -1,11 +1,8 @@
 package com.helaedu.website.service;
 
 import com.helaedu.website.dto.ArticleDto;
-import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Article;
-import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.ArticleRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -35,6 +32,7 @@ public class ArticleService {
         );
         return articleRepository.createArticle(article);
     }
+
     public List<ArticleDto> getAllArticles() throws ExecutionException, InterruptedException {
         List<Article> articles = articleRepository.getAllArticles();
         return articles.stream().map(article ->
@@ -127,6 +125,11 @@ public class ArticleService {
     //   decline relevant articles as approved
     public String declineArticle(String articleId) throws ExecutionException, InterruptedException {
         return articleRepository.updateArticleStatus(articleId, "decline");
+    }
+
+//    get article count for teacherId
+    public List<String> getTeachersWithArticleCountGreaterThan(int count) throws ExecutionException, InterruptedException {
+        return articleRepository.getTeachersWithArticleCountGreaterThan(count);
     }
 
 

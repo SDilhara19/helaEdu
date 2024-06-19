@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class BadgeDto {
-    private Long badgeId;
+    private String badgeId;
     private String name;
     private String description;
     private String imageUrl;
