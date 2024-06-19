@@ -39,6 +39,7 @@ public class StudentService {
                 studentDto.getNoteId(),
                 studentDto.getSubscriptionId()
         );
+        studentDto.setUserId(student.getUserId());
         return studentRepository.createStudent(student);
     }
 
@@ -81,10 +82,10 @@ public class StudentService {
         if(existingStudent == null) {
             throw new IllegalArgumentException("Student not found");
         }
-
+        studentDto.setUserId(userId);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Student student = new Student(
-                userId,
+                studentDto.getUserId(),
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
