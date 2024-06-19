@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -27,8 +28,9 @@ public class StudentService {
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String userId = generateUniqueUserId();
         Student student = new Student(
-                studentDto.getUserId(),
+                userId,
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
@@ -61,7 +63,7 @@ public class StudentService {
         Student student = studentRepository.getStudentById(userId);
         if (student != null) {
             return new StudentDto(
-                    student.getUserId(),
+                    userId,
                     student.getFirstName(),
                     student.getLastName(),
                     student.getEmail(),
@@ -82,7 +84,7 @@ public class StudentService {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Student student = new Student(
-                studentDto.getUserId(),
+                userId,
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
@@ -96,5 +98,13 @@ public class StudentService {
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
         return studentRepository.deleteStudent(userId);
+    }
+
+    private String generateUniqueUserId() throws ExecutionException, InterruptedException {
+        String userId;
+        do {
+            userId = "st" + UUID.randomUUID();
+        } while (studentRepository.getStudentById(userId) != null);
+        return userId;
     }
 }
