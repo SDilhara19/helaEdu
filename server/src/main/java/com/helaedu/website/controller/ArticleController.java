@@ -1,3 +1,4 @@
+
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
@@ -70,6 +71,7 @@ public class ArticleController{
         String result = articleService.updateArticle(articleId, articleDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 //    get all pending articles
     @GetMapping("/pending")
     public ResponseEntity<List<ArticleDto>> getPendingArticles() throws ExecutionException, InterruptedException {
@@ -89,3 +91,5 @@ public class ArticleController{
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
+
+

@@ -1,3 +1,4 @@
+
 package com.helaedu.website.repository;
 
 import com.google.api.core.ApiFuture;
@@ -98,6 +99,7 @@ public class ArticleRepository {
         ApiFuture<WriteResult> future = documentReference.set(article);
         return future.get().getUpdateTime().toString();
     }
+
     public List<Article> getArticlesByStatus(String status) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference articlesCollection = dbFirestore.collection("articles");
@@ -118,4 +120,5 @@ public class ArticleRepository {
         ApiFuture<WriteResult> future = documentReference.update("articleStatus", newStatus);
         return future.get().getUpdateTime().toString();
     }
+
 }
