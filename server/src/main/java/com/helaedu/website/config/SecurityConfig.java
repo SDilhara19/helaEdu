@@ -34,9 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/articles/**").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/articles/**").authenticated()
-
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});
