@@ -3,6 +3,7 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
 import jakarta.validation.Valid;
@@ -111,6 +112,27 @@ public class StudentController {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", "Student not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{userId}/note")
+    public ResponseEntity<Object> updateNote(@PathVariable String userId, @Valid @RequestBody NoteDto noteDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        if(bindingResult.hasErrors()) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorResponse.addViolation(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            String result = noteService.updateNote(studentService.getStudent(userId).getNoteId(), noteDto);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error updating note", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
