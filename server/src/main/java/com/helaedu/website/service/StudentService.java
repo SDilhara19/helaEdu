@@ -1,7 +1,10 @@
 package com.helaedu.website.service;
 
+import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
+import com.helaedu.website.entity.Note;
 import com.helaedu.website.entity.Student;
+import com.helaedu.website.repository.NoteRepository;
 import com.helaedu.website.repository.StudentRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,11 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final NoteRepository noteRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository) {
         this.studentRepository = studentRepository;
+        this.noteRepository = noteRepository;
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
@@ -29,6 +34,11 @@ public class StudentService {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String userId = generateUniqueUserId();
+        String noteId = generateUniqueNoteId();
+
+        Note note = new Note(noteId, "");
+        noteRepository.createNote(note);
+
         Student student = new Student(
                 userId,
                 studentDto.getFirstName(),
@@ -36,10 +46,11 @@ public class StudentService {
                 studentDto.getEmail(),
                 encoder.encode(studentDto.getPassword()),
                 Instant.now().toString(),
-                studentDto.getNoteId(),
+                noteId,
                 studentDto.getSubscriptionId()
         );
         studentDto.setUserId(student.getUserId());
+        studentDto.setNoteId(noteId);
         return studentRepository.createStudent(student);
     }
 
@@ -107,5 +118,13 @@ public class StudentService {
             userId = "st" + UUID.randomUUID();
         } while (studentRepository.getStudentById(userId) != null);
         return userId;
+    }
+
+    private String generateUniqueNoteId() throws ExecutionException, InterruptedException {
+        String noteId;
+        do {
+            noteId = "sn" + UUID.randomUUID();
+        } while (noteRepository.getNoteById(noteId) != null);
+        return noteId;
     }
 }

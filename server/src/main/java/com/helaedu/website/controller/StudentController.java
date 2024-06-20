@@ -1,8 +1,9 @@
 package com.helaedu.website.controller;
 
-import com.google.api.Http;
+import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class StudentController {
     private final StudentService studentService;
+    private final NoteService noteService;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, NoteService noteService) {
         this.studentService = studentService;
+        this.noteService = noteService;
     }
 
     @PostMapping("/create")
@@ -95,6 +98,19 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error deleting student", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{userId}/note")
+    public ResponseEntity<Object> getNote(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        StudentDto studentDto = studentService.getStudent(userId);
+        NoteDto noteDto = noteService.getNote(studentDto.getNoteId());
+        if (noteDto != null) {
+            return ResponseEntity.ok(noteDto);
+        } else {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", "Student not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 }
