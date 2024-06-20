@@ -30,4 +30,11 @@ public class NoteRepository {
         }
         return note;
     }
+
+    public String updateNote(String noteId, Note note) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("notes").document(noteId);
+        ApiFuture<WriteResult> future = documentReference.set(note);
+        return future.get().getUpdateTime().toString();
+    }
 }

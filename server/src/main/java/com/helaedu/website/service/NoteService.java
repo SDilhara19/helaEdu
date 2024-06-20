@@ -1,8 +1,11 @@
 package com.helaedu.website.service;
 
 import com.helaedu.website.dto.NoteDto;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Note;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.NoteRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -24,5 +27,18 @@ public class NoteService {
             );
         }
         return null;
+    }
+
+    public String updateNote(String noteId, NoteDto noteDto) throws ExecutionException, InterruptedException {
+        Note existingNote = noteRepository.getNoteById(noteId);
+        if(existingNote == null) {
+            throw new IllegalArgumentException("Note not found");
+        }
+        noteDto.setNoteId(noteId);
+        Note note = new Note(
+                noteDto.getNoteId(),
+                noteDto.getContent()
+        );
+        return noteRepository.updateNote(noteId, note);
     }
 }
