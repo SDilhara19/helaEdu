@@ -2,7 +2,7 @@ package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
-import com.helaedu.website.service.TeacherService;
+import com.helaedu.website.service.ModeratorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +14,17 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/moderators")
 @CrossOrigin(origins = "*")
-public class TeacherController {
-    private final TeacherService teacherService;
+public class ModeratorController {
+    private final ModeratorService moderatorService;
 
-    public TeacherController(TeacherService teacherService) {
-        this.teacherService = teacherService;
+    public ModeratorController(ModeratorService moderatorService) {
+        this.moderatorService = moderatorService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createTeacher(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> createModerator(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if (bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             for(FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -33,37 +33,51 @@ public class TeacherController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String teacherId = teacherService.createTeacher(teacherDto);
-            return new ResponseEntity<>(teacherId, HttpStatus.CREATED);
+            String moderatorId = moderatorService.createModerator(teacherDto);
+            return new ResponseEntity<>(moderatorId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("email", e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         } catch (ExecutionException | InterruptedException e) {
-            return new ResponseEntity<>("Error creating teacher", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error creating moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllTeachers() throws ExecutionException, InterruptedException {
-        List<TeacherDto> teachers = teacherService.getAllTeachers();
-        return ResponseEntity.ok(teachers);
+    public ResponseEntity<List<TeacherDto>> getAllModerators() throws ExecutionException, InterruptedException {
+        List<TeacherDto> moderators = moderatorService.getAllModerators();
+        return ResponseEntity.ok(moderators);
+    }
+
+    @PutMapping("/{userId}/demote")
+    public ResponseEntity<Object> demoteToTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        try {
+            String result = moderatorService.demoteToTeacher(userId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error demoting moderator to teacher", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
-        TeacherDto teacherDto = teacherService.getTeacher(userId);
+    public ResponseEntity<Object> getModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        TeacherDto teacherDto = moderatorService.getModerator(userId);
         if (teacherDto != null) {
             return ResponseEntity.ok(teacherDto);
         } else {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
-            errorResponse.addViolation("userId", "Teacher not found");
+            errorResponse.addViolation("userId", "Moderator not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Object> updateTeacher(@PathVariable String userId, @Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> updateModerator(@PathVariable String userId, @Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if(bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -72,42 +86,28 @@ public class TeacherController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String result = teacherService.updateTeacher(userId, teacherDto);
+            String result = moderatorService.updateModerator(userId, teacherDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         } catch (ExecutionException | InterruptedException e) {
-            return new ResponseEntity<>("Error updating teacher", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error updating moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Object> deleteTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> deleteModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
         try {
-            String result = teacherService.deleteTeacher(userId);
+            String result = moderatorService.deleteModerator(userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         } catch (ExecutionException | InterruptedException e) {
-            return new ResponseEntity<>("Error deleting teacher", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PutMapping("/{userId}/promote")
-    public ResponseEntity<Object> promoteToModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
-        try {
-            String result = teacherService.promoteToModerator(userId);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
-            errorResponse.addViolation("userId", e.getMessage());
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        } catch (ExecutionException | InterruptedException e) {
-            return new ResponseEntity<>("Error promoting teacher to moderator", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error deleting moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.helaedu.website.service;
 
-import com.helaedu.website.Util.UniqueIdGenerator;
+import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.entity.Teacher;
 import com.helaedu.website.repository.TeacherRepository;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -80,7 +79,7 @@ public class TeacherService {
 
     public String updateTeacher(String userId, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
         Teacher existingTeacher = teacherRepository.getTeacherById(userId);
-        if(existingTeacher == null) {
+        if(existingTeacher == null || existingTeacher.getIsModerator()) {
             throw new IllegalArgumentException("Teacher not found");
         }
         teacherDto.setUserId(userId);
@@ -99,6 +98,14 @@ public class TeacherService {
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {
+        Teacher existingTeacher = teacherRepository.getTeacherById(userId);
+        if (existingTeacher == null || existingTeacher.getIsModerator()) {
+            throw new IllegalArgumentException("Teacher not found");
+        }
         return teacherRepository.deleteTeacher(userId);
+    }
+
+    public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
+        return teacherRepository.promoteToModerator(userId);
     }
 }

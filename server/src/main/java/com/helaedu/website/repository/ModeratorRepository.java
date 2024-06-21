@@ -11,77 +11,77 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Repository
-public class TeacherRepository {
-    public String createTeacher(Teacher teacher) {
+public class ModeratorRepository {
+    public String createModerator(Teacher moderator) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference  = dbFirestore.collection("teachers").document(teacher.getUserId());
-        documentReference .set(teacher);
-        return teacher.getUserId();
+        DocumentReference documentReference  = dbFirestore.collection("teachers").document(moderator.getUserId());
+        documentReference .set(moderator);
+        return moderator.getUserId();
     }
 
-    public List<Teacher> getAllTeachers() throws ExecutionException, InterruptedException {
+    public List<Teacher> getAllModerators() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference teachersCollection = dbFirestore.collection("teachers");
-        ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("isModerator", false).get();
-        List<Teacher> teachers = new ArrayList<>();
+        ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("isModerator", true).get();
+        List<Teacher> moderators = new ArrayList<>();
         QuerySnapshot querySnapshot = future.get();
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-            Teacher teacher = document.toObject(Teacher.class);
-            teachers.add(teacher);
+            Teacher moderator = document.toObject(Teacher.class);
+            moderators.add(moderator);
         }
-        return teachers;
+        return moderators;
     }
 
-    public Teacher getTeacherById(String userId) throws ExecutionException, InterruptedException {
+    public Teacher getModeratorById(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
-        Teacher teacher = null;
+        Teacher moderator = null;
         if (document.exists()) {
-            teacher = document.toObject(Teacher.class);
-            if (teacher.getIsModerator()) {
-                teacher = null;
+            moderator = document.toObject(Teacher.class);
+            if (!moderator.getIsModerator()) {
+                moderator = null;
             }
         }
-        return teacher;
+        return moderator;
     }
 
-    public String updateTeacher(String userId, Teacher teacher) throws ExecutionException, InterruptedException {
+    public String updateModerator(String userId, Teacher moderator) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
         if (document.exists()) {
             Teacher existingTeacher = document.toObject(Teacher.class);
-            if (existingTeacher.getIsModerator()) {
-                throw new IllegalArgumentException("Teacher not found");
+            if (!existingTeacher.getIsModerator()) {
+                throw new IllegalArgumentException("Moderator not found");
             }
-            ApiFuture<WriteResult> writeFuture = documentReference.set(teacher);
+            ApiFuture<WriteResult> writeFuture = documentReference.set(moderator);
             return writeFuture.get().getUpdateTime().toString();
         } else {
-            throw new IllegalArgumentException("Teacher not found");
+            throw new IllegalArgumentException("Moderator not found");
         }
     }
 
-    public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {
+    public String deleteModerator(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
         if (document.exists()) {
-            Teacher existingTeacher = document.toObject(Teacher.class);
-            if (existingTeacher.getIsModerator()) {
-                throw new IllegalArgumentException("Teacher not found");
+            Teacher existingModerator = document.toObject(Teacher.class);
+            if (!existingModerator.getIsModerator()) {
+                throw new IllegalArgumentException("Moderator not found");
             }
             ApiFuture<WriteResult> writeFuture = documentReference.delete();
             return writeFuture.get().getUpdateTime().toString();
         } else {
-            throw new IllegalArgumentException("Teacher not found");
+            throw new IllegalArgumentException("Moderator not found");
         }
     }
 
-    public Teacher getTeacherByEmail(String email) throws ExecutionException, InterruptedException {
+    public Teacher getModeratorByEmail(String email) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference teachersCollection = dbFirestore.collection("teachers");
         ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("email", email).get();
@@ -90,17 +90,17 @@ public class TeacherRepository {
     }
 
     public boolean exists(String userId) throws ExecutionException, InterruptedException {
-        return getTeacherById(userId) != null;
+        return getModeratorById(userId) != null;
     }
 
-    public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
+    public String demoteToTeacher(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
         if (document.exists()) {
-            documentReference.update("isModerator", true);
-            return "Teacher promoted to moderator";
+            documentReference.update("isModerator", false);
+            return "Moderator demoted to teacher";
         } else {
             throw new IllegalArgumentException("Teacher not found");
         }
