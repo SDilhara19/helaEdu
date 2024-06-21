@@ -1,6 +1,6 @@
 package com.helaedu.website.service;
 
-import com.helaedu.website.Util.UniqueIdGenerator;
+import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Note;
 import com.helaedu.website.entity.Student;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 

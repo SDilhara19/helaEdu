@@ -1,4 +1,4 @@
-package com.helaedu.website.Util;
+package com.helaedu.website.util;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
