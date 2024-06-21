@@ -37,4 +37,8 @@ public class NoteRepository {
         ApiFuture<WriteResult> future = documentReference.set(note);
         return future.get().getUpdateTime().toString();
     }
+
+    public boolean exists(String userId) throws ExecutionException, InterruptedException {
+        return getNoteById(userId) != null;
+    }
 }

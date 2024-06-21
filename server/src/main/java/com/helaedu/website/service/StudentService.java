@@ -1,5 +1,6 @@
 package com.helaedu.website.service;
 
+import com.helaedu.website.Util.UniqueIdGenerator;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Note;
 import com.helaedu.website.entity.Student;
@@ -32,8 +33,8 @@ public class StudentService {
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String userId = generateUniqueUserId();
-        String noteId = generateUniqueNoteId();
+        String userId = UniqueIdGenerator.generateUniqueId("st", studentRepository::exists);
+        String noteId = UniqueIdGenerator.generateUniqueId("sn", noteRepository::exists);
 
         Note note = new Note(noteId, "");
         noteRepository.createNote(note);
@@ -109,21 +110,5 @@ public class StudentService {
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
         return studentRepository.deleteStudent(userId);
-    }
-
-    private String generateUniqueUserId() throws ExecutionException, InterruptedException {
-        String userId;
-        do {
-            userId = "st" + UUID.randomUUID();
-        } while (studentRepository.getStudentById(userId) != null);
-        return userId;
-    }
-
-    private String generateUniqueNoteId() throws ExecutionException, InterruptedException {
-        String noteId;
-        do {
-            noteId = "sn" + UUID.randomUUID();
-        } while (noteRepository.getNoteById(noteId) != null);
-        return noteId;
     }
 }
