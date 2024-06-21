@@ -1,7 +1,9 @@
 package com.helaedu.website.service;
 
+import com.helaedu.website.entity.Admin;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.entity.Teacher;
+import com.helaedu.website.repository.AdminRepository;
 import com.helaedu.website.repository.StudentRepository;
 import com.helaedu.website.repository.TeacherRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,10 +21,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
+    private final AdminRepository adminRepository;
 
-    public CustomUserDetailsService(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public CustomUserDetailsService(StudentRepository studentRepository, TeacherRepository teacherRepository, AdminRepository adminRepository) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.adminRepository = adminRepository;
     }
 
     @Override
@@ -38,6 +42,12 @@ public class CustomUserDetailsService implements UserDetailsService {
             if (teacher != null) {
                 return new User(teacher.getUserId(), teacher.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(teacher.getRole())));
+            }
+
+            Admin admin = adminRepository.getAdminByEmail(email);
+            if (admin != null) {
+                return new User(admin.getUserId(), admin.getPassword(),
+                        Collections.singletonList(new SimpleGrantedAuthority(admin.getRole())));
             }
 
             throw new UsernameNotFoundException("User not found");

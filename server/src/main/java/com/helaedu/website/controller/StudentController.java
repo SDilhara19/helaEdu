@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -67,6 +68,7 @@ public class StudentController {
     }
 
     @PutMapping("/{userId}")
+    @PreAuthorize("#userId == authentication.principal.username")
     public ResponseEntity<Object> updateStudent(@PathVariable String userId, @Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if(bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
