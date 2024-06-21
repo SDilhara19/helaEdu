@@ -38,7 +38,7 @@ public class ModeratorService {
                 Instant.now().toString(),
                 true,
                 teacherDto.getProofRef(),
-                "ROLE_TEACHER"
+                "ROLE_MODERATOR"
         );
         teacherDto.setUserId(moderator.getUserId());
         return moderatorRepository.createModerator(moderator);
