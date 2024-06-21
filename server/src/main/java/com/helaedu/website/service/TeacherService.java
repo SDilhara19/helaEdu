@@ -79,7 +79,7 @@ public class TeacherService {
 
     public String updateTeacher(String userId, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
         Teacher existingTeacher = teacherRepository.getTeacherById(userId);
-        if(existingTeacher == null) {
+        if(existingTeacher == null || existingTeacher.getIsModerator()) {
             throw new IllegalArgumentException("Teacher not found");
         }
         teacherDto.setUserId(userId);
@@ -98,6 +98,14 @@ public class TeacherService {
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {
+        Teacher existingTeacher = teacherRepository.getTeacherById(userId);
+        if (existingTeacher == null || existingTeacher.getIsModerator()) {
+            throw new IllegalArgumentException("Teacher not found");
+        }
         return teacherRepository.deleteTeacher(userId);
+    }
+
+    public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
+        return teacherRepository.promoteToModerator(userId);
     }
 }
