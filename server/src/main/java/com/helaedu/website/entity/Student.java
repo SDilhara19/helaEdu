@@ -13,8 +13,9 @@ import lombok.Setter;
 public class Student extends User {
     private String noteId;
     private String subscriptionId;
+    private String role;
 
-    public Student(String userId, String firstName, String lastName, String email, String password, String regTimestamp, String noteId, String subscriptionId) {
+    public Student(String userId, String firstName, String lastName, String email, String password, String regTimestamp, String noteId, String subscriptionId, String role) {
         super.setUserId(userId);
         super.setFirstName(firstName);
         super.setLastName(lastName);
@@ -23,5 +24,6 @@ public class Student extends User {
         super.setRegTimestamp(regTimestamp);
         this.noteId = noteId;
         this.subscriptionId = subscriptionId;
+        this.role = role;
     }
 }
