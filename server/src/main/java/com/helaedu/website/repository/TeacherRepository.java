@@ -100,6 +100,7 @@ public class TeacherRepository {
         DocumentSnapshot document = future.get();
         if (document.exists()) {
             documentReference.update("isModerator", true);
+            documentReference.update("role", "ROLE_MODERATOR");
             return "Teacher promoted to moderator";
         } else {
             throw new IllegalArgumentException("Teacher not found");

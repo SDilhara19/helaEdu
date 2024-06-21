@@ -28,4 +28,5 @@ public class StudentDto {
     private String regTimestamp;
     private String noteId;
     private String subscriptionId;
+    private String role;
 }

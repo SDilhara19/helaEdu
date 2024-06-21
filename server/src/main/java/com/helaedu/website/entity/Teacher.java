@@ -12,8 +12,9 @@ import lombok.Setter;
 public class Teacher extends User{
     private Boolean isModerator;
     private String proofRef;
+    private String role;
 
-    public Teacher(String userId, String firstName, String lastName, String email, String password, String regTimestamp, Boolean isModerator, String proofRef) {
+    public Teacher(String userId, String firstName, String lastName, String email, String password, String regTimestamp, Boolean isModerator, String proofRef, String role) {
         super.setUserId(userId);
         super.setFirstName(firstName);
         super.setLastName(lastName);
@@ -22,5 +23,6 @@ public class Teacher extends User{
         super.setRegTimestamp(regTimestamp);
         this.isModerator = isModerator;
         this.proofRef = proofRef;
+        this.role = role;
     }
 }

@@ -4,7 +4,6 @@ import com.helaedu.website.repository.ModeratorRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.entity.Teacher;
-import com.helaedu.website.repository.TeacherRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +37,8 @@ public class ModeratorService {
                 encoder.encode(teacherDto.getPassword()),
                 Instant.now().toString(),
                 true,
-                teacherDto.getProofRef()
+                teacherDto.getProofRef(),
+                "ROLE_MODERATOR"
         );
         teacherDto.setUserId(moderator.getUserId());
         return moderatorRepository.createModerator(moderator);
@@ -46,16 +46,17 @@ public class ModeratorService {
 
     public List<TeacherDto> getAllModerators() throws ExecutionException, InterruptedException {
         List<Teacher> moderators = moderatorRepository.getAllModerators();
-        return moderators.stream().map(teacher ->
+        return moderators.stream().map(moderator ->
                         new TeacherDto(
-                                teacher.getUserId(),
-                                teacher.getFirstName(),
-                                teacher.getLastName(),
-                                teacher.getEmail(),
-                                teacher.getPassword(),
-                                teacher.getRegTimestamp(),
-                                teacher.getIsModerator(),
-                                teacher.getProofRef()
+                                moderator.getUserId(),
+                                moderator.getFirstName(),
+                                moderator.getLastName(),
+                                moderator.getEmail(),
+                                moderator.getPassword(),
+                                moderator.getRegTimestamp(),
+                                moderator.getIsModerator(),
+                                moderator.getProofRef(),
+                                moderator.getRole()
                         )
                 )
                 .collect(Collectors.toList());
@@ -72,7 +73,8 @@ public class ModeratorService {
                     moderator.getPassword(),
                     moderator.getRegTimestamp(),
                     moderator.getIsModerator(),
-                    moderator.getProofRef()
+                    moderator.getProofRef(),
+                    moderator.getRole()
             );
         }
         return null;
@@ -93,7 +95,8 @@ public class ModeratorService {
                 encoder.encode(teacherDto.getPassword()),
                 teacherDto.getRegTimestamp(),
                 teacherDto.getIsModerator(),
-                teacherDto.getProofRef()
+                teacherDto.getProofRef(),
+                teacherDto.getRole()
         );
         return moderatorRepository.updateModerator(userId, moderator);
     }

@@ -30,4 +30,6 @@ public class TeacherDto {
 
     @NotEmpty(message = "Proof is required")
     private String proofRef;
+
+    private String role;
 }

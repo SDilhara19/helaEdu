@@ -37,7 +37,8 @@ public class TeacherService {
                 encoder.encode(teacherDto.getPassword()),
                 Instant.now().toString(),
                 false,
-                teacherDto.getProofRef()
+                teacherDto.getProofRef(),
+                "ROLE_TEACHER"
         );
         teacherDto.setUserId(teacher.getUserId());
         return teacherRepository.createTeacher(teacher);
@@ -54,7 +55,8 @@ public class TeacherService {
                                 teacher.getPassword(),
                                 teacher.getRegTimestamp(),
                                 teacher.getIsModerator(),
-                                teacher.getProofRef()
+                                teacher.getProofRef(),
+                                teacher.getRole()
                         )
                 )
                 .collect(Collectors.toList());
@@ -71,7 +73,8 @@ public class TeacherService {
                     teacher.getPassword(),
                     teacher.getRegTimestamp(),
                     teacher.getIsModerator(),
-                    teacher.getProofRef()
+                    teacher.getProofRef(),
+                    teacher.getRole()
             );
         }
         return null;
@@ -92,7 +95,8 @@ public class TeacherService {
                 encoder.encode(teacherDto.getPassword()),
                 teacherDto.getRegTimestamp(),
                 teacherDto.getIsModerator(),
-                teacherDto.getProofRef()
+                teacherDto.getProofRef(),
+                teacherDto.getRole()
         );
         return teacherRepository.updateTeacher(userId, teacher);
     }

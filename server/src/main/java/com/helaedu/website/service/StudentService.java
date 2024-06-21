@@ -46,7 +46,8 @@ public class StudentService {
                 encoder.encode(studentDto.getPassword()),
                 Instant.now().toString(),
                 noteId,
-                studentDto.getSubscriptionId()
+                studentDto.getSubscriptionId(),
+                "ROLE_STUDENT"
         );
         studentDto.setUserId(student.getUserId());
         studentDto.setNoteId(noteId);
@@ -64,7 +65,8 @@ public class StudentService {
                                 student.getPassword(),
                                 student.getRegTimestamp(),
                                 student.getNoteId(),
-                                student.getSubscriptionId()
+                                student.getSubscriptionId(),
+                                student.getRole()
                         )
                 )
                 .collect(Collectors.toList());
@@ -81,7 +83,8 @@ public class StudentService {
                     student.getPassword(),
                     student.getRegTimestamp(),
                     student.getNoteId(),
-                    student.getSubscriptionId()
+                    student.getSubscriptionId(),
+                    student.getRole()
             );
         }
         return null;
@@ -102,7 +105,8 @@ public class StudentService {
                 encoder.encode(studentDto.getPassword()),
                 studentDto.getRegTimestamp(),
                 studentDto.getNoteId(),
-                studentDto.getSubscriptionId()
+                studentDto.getSubscriptionId(),
+                studentDto.getRole()
         );
         return studentRepository.updateStudent(userId, student);
     }
