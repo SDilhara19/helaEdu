@@ -63,4 +63,8 @@ public class StudentRepository {
         List<Student> students = future.get().toObjects(Student.class);
         return students.isEmpty() ? null : students.get(0);
     }
+
+    public boolean exists(String userId) throws ExecutionException, InterruptedException {
+        return getStudentById(userId) != null;
+    }
 }

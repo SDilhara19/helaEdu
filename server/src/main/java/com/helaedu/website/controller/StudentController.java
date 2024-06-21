@@ -3,7 +3,6 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
-import com.helaedu.website.entity.Student;
 import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
 import jakarta.validation.Valid;
