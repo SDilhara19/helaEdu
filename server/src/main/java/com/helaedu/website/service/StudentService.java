@@ -1,5 +1,7 @@
 package com.helaedu.website.service;
 
+import com.helaedu.website.entity.Subscription;
+import com.helaedu.website.repository.SubscriptionRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Note;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import java.util.concurrent.ExecutionException;
@@ -19,10 +22,12 @@ import java.util.stream.Collectors;
 public class StudentService {
     private final StudentRepository studentRepository;
     private final NoteRepository noteRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
-    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository) {
+    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
         this.noteRepository = noteRepository;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
@@ -113,5 +118,26 @@ public class StudentService {
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
         return studentRepository.deleteStudent(userId);
+    }
+
+    public String createSubscription(String userId, long paidAmount) throws ExecutionException, InterruptedException {
+        String subscriptionId = UniqueIdGenerator.generateUniqueId("sub", subscriptionRepository::exists);
+        String startTimestamp = Instant.now().toString();
+        String endTimestamp = Instant.now().plus(30, ChronoUnit.DAYS).toString();
+
+        Subscription subscription = new Subscription(
+                subscriptionId,
+                paidAmount,
+                startTimestamp,
+                endTimestamp,
+                false
+        );
+        subscriptionRepository.createSubscription(subscription);
+
+        Student student = studentRepository.getStudentById(userId);
+        student.setSubscriptionId(subscriptionId);
+        studentRepository.updateStudent(userId, student);
+
+        return subscriptionId;
     }
 }
