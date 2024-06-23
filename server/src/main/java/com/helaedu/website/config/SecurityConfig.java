@@ -49,6 +49,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/moderators/**").hasRole("MODERATOR")
+
+                        .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});
