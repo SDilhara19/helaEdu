@@ -1,13 +1,13 @@
 package com.helaedu.website.repository;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Subscription;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -28,6 +28,19 @@ public class SubscriptionRepository {
             subscription = document.toObject(Subscription.class);
         }
         return subscription;
+    }
+
+    public List<Subscription> getAllSubscriptions() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference subscriptionsCollection = dbFirestore.collection("subscriptions");
+        ApiFuture<QuerySnapshot> future = subscriptionsCollection.get();
+        List<Subscription> subscriptions = new ArrayList<>();
+        QuerySnapshot querySnapshot = future.get();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Subscription subscription = document.toObject(Subscription.class);
+            subscriptions.add(subscription);
+        }
+        return subscriptions;
     }
 
     public void updateSubscription(Subscription subscription) throws ExecutionException, InterruptedException {

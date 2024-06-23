@@ -9,8 +9,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class SubscriptionService {
@@ -34,6 +36,33 @@ public class SubscriptionService {
             );
         }
         return null;
+    }
+
+    public List<SubscriptionDto> getAllSubscriptions() throws ExecutionException, InterruptedException {
+        List<Subscription> subscriptions = subscriptionRepository.getAllSubscriptions();
+        return subscriptions.stream().map(subscription -> new SubscriptionDto(
+                subscription.getSubscriptionId(),
+                subscription.getPaidAmount(),
+                subscription.getStartTimestamp(),
+                subscription.getEndTimestamp(),
+                subscription.isCanceled()
+        )).collect(Collectors.toList());
+    }
+
+    public List<SubscriptionDto> getActiveSubscriptions() throws ExecutionException, InterruptedException {
+        List<Subscription> subscriptions = subscriptionRepository.getAllSubscriptions();
+        Instant now = Instant.now();
+        Instant thirtyDaysAgo = now.minus(30, ChronoUnit.DAYS);
+
+        return subscriptions.stream()
+                .filter(subscription -> !subscription.isCanceled() && Instant.parse(subscription.getStartTimestamp()).isAfter(thirtyDaysAgo))
+                .map(subscription -> new SubscriptionDto(
+                        subscription.getSubscriptionId(),
+                        subscription.getPaidAmount(),
+                        subscription.getStartTimestamp(),
+                        subscription.getEndTimestamp(),
+                        subscription.isCanceled()
+                )).collect(Collectors.toList());
     }
 
     public void cancelSubscription(String subscriptionId) throws ExecutionException, InterruptedException {
