@@ -2,9 +2,11 @@ package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
+import com.helaedu.website.dto.SubscriptionDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
+import com.helaedu.website.service.SubscriptionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,12 @@ import java.util.concurrent.ExecutionException;
 public class StudentController {
     private final StudentService studentService;
     private final NoteService noteService;
+    private final SubscriptionService subscriptionService;
 
-    public StudentController(StudentService studentService, NoteService noteService) {
+    public StudentController(StudentService studentService, NoteService noteService, SubscriptionService subscriptionService) {
         this.studentService = studentService;
         this.noteService = noteService;
+        this.subscriptionService = subscriptionService;
     }
 
     @PostMapping("/create")
@@ -134,6 +138,79 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error updating note", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/{userId}/subscribe")
+    public ResponseEntity<Object> subscribeStudent(@PathVariable String userId, @RequestParam long paidAmount) throws ExecutionException, InterruptedException {
+        try {
+            String subscriptionId = studentService.createSubscription(userId, paidAmount);
+            return new ResponseEntity<>(subscriptionId, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error creating subscription", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{userId}/unsubscribe")
+    public ResponseEntity<Object> unsubscribeStudent(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        StudentDto studentDto = studentService.getStudent(userId);
+        if(studentDto == null) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("UserId", "Student not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        String subscriptionId = studentDto.getSubscriptionId();
+        if(subscriptionId == null) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("subscriptionId", "No active subscription found for this student");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        SubscriptionDto subscriptionDto = subscriptionService.getSubscription(subscriptionId);
+        if (subscriptionDto == null) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("subscriptionId", "Subscription not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            studentDto.setSubscriptionId(null);
+            studentService.updateStudent(userId, studentDto);
+            subscriptionService.cancelSubscription(subscriptionId);
+            return new ResponseEntity<>("Unsubscribed successfully", HttpStatus.OK);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error unsubscribing student", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{userId}/subscription")
+    public ResponseEntity<Object> getSubscription(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        StudentDto studentDto = studentService.getStudent(userId);
+        if(studentDto == null) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("UserId", "Student not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        String subscriptionId = studentDto.getSubscriptionId();
+        if (subscriptionId == null || subscriptionId.isEmpty()) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("subscriptionId", "No active subscription found for this student");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        SubscriptionDto subscriptionDto = subscriptionService.getSubscription(subscriptionId);
+        if (subscriptionDto != null) {
+            return ResponseEntity.ok(subscriptionDto);
+        } else {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("subscriptionId", "Subscription not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 }
