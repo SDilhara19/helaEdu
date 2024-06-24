@@ -140,4 +140,37 @@ public class StudentService {
 
         return subscriptionId;
     }
+
+    public List<StudentDto> getStudentsWithActiveSubscriptions() throws ExecutionException, InterruptedException {
+        List<Student> students = studentRepository.getAllStudents();
+        Instant now = Instant.now();
+        Instant thirtyDaysAgo = now.minus(30, ChronoUnit.DAYS);
+
+        return students.stream()
+                .filter(student -> {
+                    String subscriptionId = student.getSubscriptionId();
+                    if (subscriptionId == null || subscriptionId.isEmpty()) {
+                        return false;
+                    }
+                    Subscription subscription = null;
+                    try {
+                        subscription = subscriptionRepository.getSubscriptionById(subscriptionId);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return subscription != null && !subscription.isCanceled() && Instant.parse(subscription.getStartTimestamp()).isAfter(thirtyDaysAgo);
+                })
+                .map(student -> new StudentDto(
+                        student.getUserId(),
+                        student.getFirstName(),
+                        student.getLastName(),
+                        student.getEmail(),
+                        student.getPassword(),
+                        student.getRegTimestamp(),
+                        student.getNoteId(),
+                        student.getSubscriptionId(),
+                        student.getRole()
+                ))
+                .collect(Collectors.toList());
+    }
 }

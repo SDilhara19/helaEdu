@@ -213,4 +213,10 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/active-subscriptions")
+    public ResponseEntity<List<StudentDto>> getStudentsWithActiveSubscriptions() throws ExecutionException, InterruptedException {
+        List<StudentDto> students = studentService.getStudentsWithActiveSubscriptions();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
 }
