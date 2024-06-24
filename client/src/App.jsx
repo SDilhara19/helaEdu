@@ -1,8 +1,11 @@
-import Header from "./components/Header";
+import { Landing } from "@/components/landing";
+import { Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div>
-      <Header />
+      <Routes>
+        <Route path="/" element={<Landing />}></Route>
+      </Routes>
     </div>
   );
 }
