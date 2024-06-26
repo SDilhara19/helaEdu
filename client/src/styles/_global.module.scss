@@ -1,7 +1,7 @@
 $primary-color: #0A6CF5;
 $secondary-color: #F5A711;
 $white-color: #ffffff;
-$black-text-color: #000000;
+$black-color: #1F2937;
 
 $header1: 2.5rem;
 $header2: 3rem;
@@ -27,7 +27,6 @@ h1 {
 
 button,
 label,
-input,
 p,
 li,
 a {
@@ -43,7 +42,8 @@ h3 {
 }
 
 h4,
-h5 {
+h5,
+input {
     font-size: $header4;
 }
 
