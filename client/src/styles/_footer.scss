@@ -7,6 +7,23 @@ footer {
         color: $white-color;
         width: 80%;
         margin: auto;
+
+        h2 {
+            border-bottom: 3px solid $secondary-color;
+        }
     }
+
+    .nav-link-wrapper {
+        width: 20%;
+    }
+
+    .copyright-text {
+        border-top: 3px solid $white-color;
+        width: 90%;
+        margin: 1rem auto;
+        color: $white-color;
+    }
+
+    @media screen and (max-width: 800px) {}
 
 }
