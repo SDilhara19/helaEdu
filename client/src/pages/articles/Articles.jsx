@@ -1,7 +1,7 @@
 import React from 'react'
 import Header  from "@/components/teacher_com/Header";
 import Banner from '../../components/articles/Banner'
-import ArticleCards from '@/components/articles/ArticleCards';
+import ArticleCards from '@/components/articles/ArticleHead';
 
 const Articles = () => {
   return (

@@ -6,9 +6,9 @@ import { secondaryColor } from "@styles/_global.module.scss";
 
 function Banner() {
   return (
-    <main className="hero flex-sb">
+    <main className="hero_tec flex-sb">
       <div className="left-pannel">
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo"  className="logo"  />
         
         <img src={bookLogo} className="absolute book" alt="" />
       </div>

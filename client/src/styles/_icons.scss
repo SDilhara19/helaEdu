@@ -1,0 +1,13 @@
+.like-icon {
+    color: white; /* Initial icon color */
+    border: 1px solid transparent; /* Initial border style */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    font-size: 24px; /* Adjust icon size */
+    padding: 8px; /* Optional: Adjust padding around the icon */
+  }
+  
+  .like-icon:hover {
+    border-color: blue; /* Border color on hover */
+    cursor: pointer; /* Optional: Change cursor to pointer */
+  }
+  
