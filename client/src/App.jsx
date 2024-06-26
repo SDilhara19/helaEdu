@@ -1,4 +1,4 @@
-import { Landing } from "@/components/landing";
+import { Landing } from "@components/landing";
 import { Route, Routes } from "react-router-dom";
 function App() {
   return (
