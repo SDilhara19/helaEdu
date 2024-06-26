@@ -1,16 +1,16 @@
 import React from 'react';
 import ArticleCard from '@components/articles/ArticleCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
+
 export default function ArticleCards() {
   return (
     <div className='mt-10'>
       <h1 className='text-center text-5xl font-bold text-black'>Articles</h1>
       <hr className='my-4 border-yellow leading-8' />
       <div className='flex justify-end items-center m-20'>
-        {/* <div className='flex  space-x-4'>
-          <span className='text-gray-600'>Sort By</span>
-        </div> */}
+      
         <div className='flex space-x-4 text-sm'>
             <span className='text-gray text-3xl'>Sort By</span>
             <button className='text-3xl px-6 py-2 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
@@ -20,13 +20,13 @@ export default function ArticleCards() {
               Date
             </button>
             <button className='text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Grade
+              Grade  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
             </button>
             <button className='text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Subject
+              Subject  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
             </button>
             <button className=' text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Tags
+              Tags  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
             </button>
         </div>
        
@@ -41,12 +41,9 @@ export default function ArticleCards() {
         <ArticleCard/>
     </div>
     
-    <div className='items-center flex justify-center'>
-        <button className="px-7 py-2 bg-white border-blue hover:bg-yellow hover:border-yellow-500 rounded-xl">
-            Add your articles <FontAwesomeIcon icon={faArrowDown} className="text-blue-500 text-lg" />
-        </button>
-</div>
-
+    
+  
+ 
 
 </div>
     

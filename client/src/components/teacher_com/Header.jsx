@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "@assets/icons/logo.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { secondaryColor } from "@styles/_global.module.scss";
+
 function Header() {
   return (
     <header>
@@ -15,18 +15,19 @@ function Header() {
               <h4>Home</h4>
             </a>
             <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Assignments</h4>
+              <h4>Categories</h4>
             </a>
             <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Articles</h4>
+              <h4>Quiz</h4>
             </a>
-            
+            <a className="nav-text flex-c m-4 cursor-pointer">
+              <h4>Leaderboard</h4>
+            </a>
           </div>
           <div className="auth-control">
-            <div className="bg-yellow rounded-badge ">
-                <FontAwesomeIcon icon={faUser} className="text-blue-500 text-lg size-10" />
-            </div>
-           
+            <button className="btn gold-button">
+              <h4>Login</h4>
+            </button>
             <button className="btn gold-button">
               <h4>Sign Up</h4>
             </button>
