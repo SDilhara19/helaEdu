@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react';
 import Header from '@/components/teacher_com/Header'
 import TableRaw from '@/components/articles/TableRaw'
+import Pagination from '@/components/articles/Pagination'
+
+import AddArticleForm from '@/components/articles/AddArticleForm';
+
+
 export default function AddArticles() {
+    
   return (
     <div >
       <Header />
@@ -20,9 +26,14 @@ export default function AddArticles() {
         <TableRaw />
         <TableRaw />
         <TableRaw />
+        <TableRaw />
+        <TableRaw />
       </div>
-      
-
+      <div>
+        <Pagination totalPages={10} />
+      </div>
+     
+ 
     </div>
   )
 }
