@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import AddReply from './AddReply'; // Import AddReply component
 
-function Comment({ comment }) {
+function Comment({ comment, onAddReply }) {
   const [showReplies, setShowReplies] = useState(false);
+  const [showAddReply, setShowAddReply] = useState(false);
+
+  const handleAddReply = (replyText) => {
+    onAddReply(replyText);
+    setShowAddReply(false); // Hide AddReply component after adding reply
+  };
 
   return (
+    <div>
     <div className="flex mt-6">
       <img
         className="w-12 h-12 rounded-full"
@@ -28,18 +36,24 @@ function Comment({ comment }) {
             <FontAwesomeIcon icon={faChevronDown} className="mr-1" />
             {comment.replies.length}
           </span>
-          <span className="cursor-pointer">Reply</span>
+          <span className="cursor-pointer" onClick={() => setShowAddReply(true)}>Reply</span>
           <span className="cursor-pointer">Report</span>
         </div>
         {showReplies && comment.replies.length > 0 && (
           <div className="ml-10 mt-4">
             {comment.replies.map((reply, index) => (
-              <Comment key={index} comment={reply} />
+              <Comment key={index} comment={reply} onAddReply={onAddReply} />
             ))}
           </div>
         )}
+        
       </div>
+      
     </div>
+    {showAddReply && (
+        <AddReply onCancel={() => setShowAddReply(false)} onPostReply={handleAddReply} />
+      )}
+      </div>
   );
 }
 

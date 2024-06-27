@@ -1,10 +1,12 @@
 import AddArticleBtn from '@/components/articles/AddArticleBtn'
+import AddComment from '@/components/articles/AddComment'
 import CommentList from '@/components/articles/CommentList'
 import Comments from '@/components/articles/Comments'
 import PopArticleCard from '@/components/articles/PopArticleCard'
 import ViewArticle from '@/components/articles/ViewArticle'
 import Header from '@/components/teacher_com/Header'
 import React from 'react'
+import { Footer } from '@/components/common'
 
 export default function ReadArticle() {
   return (
@@ -32,6 +34,11 @@ export default function ReadArticle() {
             <CommentList />
             {/* <Comments /> */}
         </div>
+        <div>
+            
+            <Footer />
+        </div>
+          
        
     </div>
   )

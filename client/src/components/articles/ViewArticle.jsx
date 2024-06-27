@@ -5,7 +5,7 @@ export default function ViewArticle() {
     <div>
       <div className='border border-blue rounded-2xl p-10 m-12'>
         <h1 className='text-5xl'>The standard Lorem Ipsum passage, used since the 1500s</h1>
-        <div className='card-actions flex justify-between mt-20'>
+        <div className='card-actions flex justify-between mt-10'>
             <div className='flex justify-start align-baseline'>
                 <img className="w-10 h-10 rounded-full" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Rounded avatar" />
                 <span className='text-2xl'> M.Perera</span>
