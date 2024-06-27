@@ -1,0 +1,85 @@
+.hero {
+    background: $primary-color;
+    min-height: 70vh;
+    flex-wrap: wrap;
+
+    .left-pannel,
+    .right-pannel {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 40rem;
+    }
+
+    .left-pannel {
+        color: $white-color;
+        text-align: center;
+
+        .hero-text-box {
+            width: 80%;
+        }
+
+        .book {
+            left: 5%;
+            width: 30%;
+            margin: 2rem;
+
+        }
+    }
+
+    .right-pannel {
+        img {
+            position: absolute;
+            right: 0;
+            width: 40%;
+            z-index: 0;
+        }
+
+        .chat-box {
+            h2 {
+                margin: 1rem;
+                color: $black-color ;
+            }
+
+            input {
+                width: 100%;
+                padding: 0.5rem 1rem;
+                margin: 1rem;
+            }
+
+            border-radius: 2rem;
+            padding: 2rem;
+            background: $white-color;
+            transform: translateY(60%);
+            z-index: 1;
+
+
+
+        }
+    }
+
+    .test-button {
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 800px) {
+        .left-pannel {
+            display: none;
+        }
+
+        .right-pannel {
+            img {
+                right: 0;
+            }
+
+            .chat-box {
+                position: static;
+                transform: translateY(0);
+                min-height: 30vh;
+            }
+        }
+
+    }
+}
