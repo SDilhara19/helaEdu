@@ -10,7 +10,7 @@ const Articles = () => {
         <Header/>
         <Banner />
         <ArticleCards/>
-        <AddArticleBtn />
+        <AddArticleBtn  buttonText="Add your Article" />
         <br></br>
         <iframe></iframe>
         <Footer />
