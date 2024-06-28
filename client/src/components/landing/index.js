@@ -1,1 +1,1 @@
-export { default as Landing } from "@/components/landing/Landing";
+export { default as Landing } from "@components/landing/Landing";
