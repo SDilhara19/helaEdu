@@ -3,6 +3,7 @@ import Header from '@/components/teacher_com/Header'
 import TableRaw from '@/components/articles/TableRaw'
 import Pagination from '@/components/articles/Pagination'
 import { Link } from 'react-router-dom';
+import { Footer } from '@/components/common';
 
 
 export default function AddArticles() {
@@ -34,6 +35,7 @@ export default function AddArticles() {
       <div>
         <Pagination totalPages={10} />
       </div>
+      <Footer />
      
  
     </div>

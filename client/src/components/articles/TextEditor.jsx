@@ -7,8 +7,8 @@ export default function TextEditor() {
     const editor = useRef(null);
     const [content, setContent]= useState('')
     return (
-        <div  >
-        <JoditEditor ref={editor} value={content}  onChange={newContent => setContent(newContent) }/>
+        <div  className='my-7 border border-blue rounded-xl'>
+        <JoditEditor ref={editor} value={content}  onChange={newContent => setContent(newContent) } />
             {/* <div >{HTMLReactParser(content)}</div> */}
         </div>
     )

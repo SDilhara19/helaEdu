@@ -1,4 +1,4 @@
-import { Header } from '@/components/common'
+import { Footer, Header } from '@/components/common'
 import React from 'react'
 import AddArticlesForm from '@/components/articles/AddArticlesForm'
 export default function AddArticleForm() {
@@ -6,6 +6,7 @@ export default function AddArticleForm() {
     <div>
       <Header />
       <AddArticlesForm />
+      <Footer />
     </div>
   )
 }
