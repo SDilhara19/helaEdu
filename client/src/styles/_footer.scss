@@ -1,0 +1,31 @@
+footer {
+    background: $black-color;
+    border-radius: 1.5rem 1.5rem 0 0;
+    padding: 1rem 0;
+    min-height: 30vh;
+
+
+    nav {
+        color: $white-color;
+        width: 80%;
+        margin: auto;
+
+        h2 {
+            border-bottom: 3px solid $secondary-color;
+        }
+    }
+
+    .nav-link-wrapper {
+        width: 20%;
+    }
+
+    .copyright-text {
+        border-top: 3px solid $white-color;
+        width: 90%;
+        margin: 1rem auto;
+        color: $white-color;
+    }
+
+    @media screen and (max-width: 800px) {}
+
+}
