@@ -30,15 +30,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.PUT, "/students/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/students/**").hasRole("STUDENT")
                         .requestMatchers(HttpMethod.POST, "/students/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/students/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/students/**").authenticated()
 
                         .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/articles/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/teachers/**").permitAll()
