@@ -105,6 +105,12 @@
     align-items: flex-start;
 }
 
+.flex-col-end {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 .flex-sa {
     display: flex;
     align-items: center;

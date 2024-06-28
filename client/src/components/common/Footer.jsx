@@ -11,39 +11,39 @@ import {
 
 function Footer() {
   return (
-    <footer>
+    <footer className="flex-end">
       <div>
         <nav className="flex-sb-start">
           <div className="flex-c">
             <img src={logo} alt="" srcset="" />
           </div>
           <div className="flex-col-start nav-link-wrapper">
-            <h2>HelaEdu</h2>
+            <h3>HelaEdu</h3>
             <ul>
               <li>
-                <h4>About Us</h4>
+                <h5>About Us</h5>
               </li>
               <li>
-                <h4>Terms of service</h4>
+                <h5>Terms of service</h5>
               </li>
               <li>
-                <h4>Privacy policy</h4>
+                <h5>Privacy policy</h5>
               </li>
             </ul>
           </div>
           <div className="flex-col-start nav-link-wrapper">
-            <h2>Get Help</h2>
+            <h3>Get Help</h3>
             <ul>
               <li>
-                <h4>FAQ</h4>
+                <h5>FAQ</h5>
               </li>
               <li>
-                <h4>Payment options</h4>
+                <h5>Payment options</h5>
               </li>
             </ul>
           </div>
           <div className="flex-col-start nav-link-wrapper">
-            <h2>Get Help</h2>
+            <h3>Get Help</h3>
 
             <ul className="flex-sb w-full">
               <li>
@@ -66,7 +66,7 @@ function Footer() {
         </nav>
       </div>
       <div className="flex-c copyright-text">
-        <h4>HelaEdu Team</h4>
+        <h5>HelaEdu Team</h5>
       </div>
     </footer>
   );
