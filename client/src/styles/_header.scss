@@ -1,11 +1,10 @@
 header {
     background: $primary-color;
-    min-height: 10vh;
+    min-height: 7.5vh;
 
     nav {
         z-index: 1;
     }
-
     .header-wrapper {
         width: 95%;
         margin: auto;
@@ -14,12 +13,10 @@ header {
         &>div {
             flex: 1 1 40rem;
         }
-
         &>nav {
             flex: 1 1 40rem;
         }
     }
-
     .logo-wrapper {
         flex-grow: 1;
     }

@@ -7,7 +7,7 @@ import ViewArticle from '@/components/articles/ViewArticle'
 import Header from '@/components/teacher_com/Header'
 import React from 'react'
 import { Footer } from '@/components/common'
-
+import { Link } from 'react-router-dom'
 export default function ReadArticle() {
   return (
     <div>
@@ -25,7 +25,10 @@ export default function ReadArticle() {
             <PopArticleCard />
             <PopArticleCard />
             <PopArticleCard />
-            <AddArticleBtn />
+            <Link to="/addArticleForm">
+                <AddArticleBtn />
+            </Link>
+           
             <iframe></iframe>
         </div>
         

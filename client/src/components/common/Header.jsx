@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "@assets/icons/logo.svg";
 import { secondaryColor } from "@styles/_global.module.scss";
-
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <header>
@@ -14,9 +14,12 @@ function Header() {
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Home</h4>
             </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Categories</h4>
-            </a>
+            <Link to="/articles">
+              {/* <a className="nav-text flex-c m-4 cursor-pointer"> */}
+                <h4>Categories</h4>
+              {/* </a> */}
+            </Link>
+            
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Quiz</h4>
             </a>

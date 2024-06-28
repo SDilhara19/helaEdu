@@ -47,8 +47,7 @@ function Comment({ comment, onAddReply }) {
           </div>
         )}
         
-      </div>
-      
+      </div>   
     </div>
     {showAddReply && (
         <AddReply onCancel={() => setShowAddReply(false)} onPostReply={handleAddReply} />

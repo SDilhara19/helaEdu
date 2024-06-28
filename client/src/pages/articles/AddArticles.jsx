@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Header from '@/components/teacher_com/Header'
 import TableRaw from '@/components/articles/TableRaw'
 import Pagination from '@/components/articles/Pagination'
-
-import AddArticleForm from '@/components/articles/AddArticleForm';
+import { Link } from 'react-router-dom';
 
 
 export default function AddArticles() {
@@ -17,7 +16,10 @@ export default function AddArticles() {
             <hr></hr>
         </div>
         <div >
-            <button className='bg-yellow text-white rounded-xl p-4 text-3xl'>Add Article</button>
+            <Link to="/addArticleForm" >
+                <button className='bg-yellow text-white rounded-xl p-4 text-3xl'>Add Article</button>
+            </Link>
+           
         </div>
       </div>
       <div>
