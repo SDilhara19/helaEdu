@@ -1,6 +1,5 @@
 import { Landing } from "@/components/landing";
 import { Route, Routes } from "react-router-dom";
-import { Route, Routes } from "react-router-dom";
 import Quiz from "./pages/quizes/Quiz";
 import Articles from "./pages/articles/Articles";
 import ReadArticles from "./pages/articles/ReadArticles";
