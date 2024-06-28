@@ -81,24 +81,36 @@ public class TeacherService {
     }
 
     public String updateTeacher(String userId, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         Teacher existingTeacher = teacherRepository.getTeacherById(userId);
         if(existingTeacher == null || existingTeacher.getIsModerator()) {
             throw new IllegalArgumentException("Teacher not found");
         }
-        teacherDto.setUserId(userId);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Teacher teacher = new Teacher(
-                teacherDto.getUserId(),
-                teacherDto.getFirstName(),
-                teacherDto.getLastName(),
-                teacherDto.getEmail(),
-                encoder.encode(teacherDto.getPassword()),
-                teacherDto.getRegTimestamp(),
-                teacherDto.getIsModerator(),
-                teacherDto.getProofRef(),
-                teacherDto.getRole()
-        );
-        return teacherRepository.updateTeacher(userId, teacher);
+
+        if(teacherDto.getFirstName() != null || !teacherDto.getFirstName().equals(existingTeacher.getFirstName())) {
+            existingTeacher.setFirstName(teacherDto.getFirstName());
+        }
+        if(teacherDto.getLastName() != null || !teacherDto.getLastName().equals(existingTeacher.getLastName())) {
+            existingTeacher.setLastName(teacherDto.getLastName());
+        }
+        if(teacherDto.getEmail() != null || !teacherDto.getEmail().equals(existingTeacher.getEmail())) {
+            existingTeacher.setEmail(teacherDto.getEmail());
+        }
+        if(teacherDto.getPassword() != null || !(encoder.encode(teacherDto.getPassword()).equals(encoder.encode(existingTeacher.getPassword())))) {
+            existingTeacher.setPassword(encoder.encode(teacherDto.getPassword()));
+        }
+        if(teacherDto.getRegTimestamp() != null) {
+            existingTeacher.setRegTimestamp(teacherDto.getRegTimestamp());
+        }
+        if(teacherDto.getIsModerator() != null) {
+            existingTeacher.setIsModerator(teacherDto.getIsModerator());
+        }
+        if(teacherDto.getProofRef() != null || !teacherDto.getProofRef().equals(existingTeacher.getProofRef())) {
+            existingTeacher.setProofRef(teacherDto.getProofRef());
+        }
+
+        return teacherRepository.updateTeacher(userId, existingTeacher);
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {

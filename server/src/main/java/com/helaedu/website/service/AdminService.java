@@ -75,22 +75,30 @@ public class AdminService {
     }
 
     public String updateAdmin(String userId, AdminDto adminDto) throws ExecutionException, InterruptedException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         Admin existingAdmin = adminRepository.getAdminById(userId);
         if(existingAdmin == null) {
             throw new IllegalArgumentException("Admin not found");
         }
-        adminDto.setUserId(userId);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Admin admin = new Admin(
-                adminDto.getUserId(),
-                adminDto.getFirstName(),
-                adminDto.getLastName(),
-                adminDto.getEmail(),
-                encoder.encode(adminDto.getPassword()),
-                adminDto.getRegTimestamp(),
-                adminDto.getRole()
-        );
-        return adminRepository.updateAdmin(userId, admin);
+
+        if(adminDto.getFirstName() != null || !adminDto.getFirstName().equals(existingAdmin.getFirstName())) {
+            existingAdmin.setFirstName(adminDto.getFirstName());
+        }
+        if(adminDto.getLastName() != null || !adminDto.getLastName().equals(existingAdmin.getLastName())) {
+            existingAdmin.setLastName(adminDto.getLastName());
+        }
+        if(adminDto.getEmail() != null || !adminDto.getEmail().equals(existingAdmin.getEmail())) {
+            existingAdmin.setEmail(adminDto.getEmail());
+        }
+        if(adminDto.getPassword() != null || !(encoder.encode(adminDto.getPassword()).equals(encoder.encode(existingAdmin.getPassword())))) {
+            existingAdmin.setPassword(encoder.encode(adminDto.getPassword()));
+        }
+        if(adminDto.getRegTimestamp() != null) {
+            existingAdmin.setRegTimestamp(adminDto.getRegTimestamp());
+        }
+
+        return adminRepository.updateAdmin(userId, existingAdmin);
     }
 
     public String deleteAdmin(String userId) throws ExecutionException, InterruptedException {
