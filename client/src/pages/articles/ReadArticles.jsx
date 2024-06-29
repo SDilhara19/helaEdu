@@ -1,9 +1,9 @@
-import AddArticleBtn from "@/components/articles/AddArticleBtn";
-import AddComment from "@/components/articles/AddComment";
-import CommentList from "@/components/articles/CommentList";
-import Comments from "@/components/articles/Comments";
-import PopArticleCard from "@/components/articles/PopArticleCard";
-import ViewArticle from "@/components/articles/ViewArticle";
+import AddArticleBtn from "@components/articles/AddArticleBtn";
+import AddComment from "@components/articles/AddComment";
+import CommentList from "@components/articles/CommentList";
+import Comments from "@components/articles/Comments";
+import PopArticleCard from "@components/articles/PopArticleCard";
+import ViewArticle from "@components/articles/ViewArticle";
 import React from "react";
 import { Footer, Header } from "@components/common";
 

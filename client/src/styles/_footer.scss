@@ -5,6 +5,7 @@ footer {
     min-height: 30vh;
 
 
+
     nav {
         color: $white-color;
         width: 80%;
@@ -13,17 +14,46 @@ footer {
         h2 {
             border-bottom: 3px solid $secondary-color;
         }
+
     }
 
     .nav-link-wrapper {
-        width: 20%;
+        width: 30%;
+
+        ul {
+            margin-top: 1rem;
+        }
+
+    }
+
+    .nav-link-wrapper-social {
+        li {
+            margin: 1rem;
+            cursor: pointer;
+        }
     }
 
     .copyright-text {
         border-top: 3px solid $white-color;
-        width: 90%;
-        margin: 1rem auto;
         color: $white-color;
+    }
+
+    li {
+        padding: 0.5rem 0;
+        color: $white-color;
+    }
+
+    h3 {
+        border-bottom: 3px solid $secondary-color;
+    }
+
+    h5 {
+        cursor: pointer;
+    }
+
+    .footer-wrapper {
+        width: 95%;
+        margin: 1rem auto;
     }
 
     @media screen and (max-width: 800px) {}

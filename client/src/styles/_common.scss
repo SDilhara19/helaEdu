@@ -45,43 +45,20 @@
     @extend .button;
     border: 3px solid $secondary-color;
     font-size: 0.5rem;
+    border-radius: 20rem;
     margin: 0.5rem;
+    padding: 0.75rem 1rem;
     text-wrap: nowrap;
     height: 100%;
     color: $primary-color;
-    background: $white-color;
-
-    background-image: linear-gradient(to right,
-            $secondary-color,
-            $secondary-color 50%,
-            $white-color 50%);
-
-    background-size: 210% 100%;
-    background-position: 100%;
+    background: $secondary-color;
     transition: all 0.3s ease-in-out;
 
     h4 {
-        color: transparent;
-        background-clip: text;
-        background-size: 200% 100%;
-        background-position: 100%;
-        background-image: linear-gradient(to right,
-                $white-color,
-                $white-color 50%,
-                $primary-color 50%);
-
-        transition: all 0.3s ease-in-out;
-
+        color: $white-color;
     }
 
-    &:hover {
 
-        background-position: 0;
-
-        h4 {
-            background-position: 0;
-        }
-    }
 }
 
 .text-input {
@@ -103,12 +80,21 @@
 .flex-start {
     display: flex;
     align-items: flex-start;
+    justify-content: flex-start;
 }
+
+.flex-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
 
 .flex-col-end {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-content: flex-end;
 }
 
 .flex-sa {
