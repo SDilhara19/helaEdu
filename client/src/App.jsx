@@ -6,7 +6,10 @@ import ReadArticles from "./pages/articles/ReadArticles";
 import Auth from "@pages/auth/Auth";
 import AddArticles from "./pages/articles/AddArticles";
 import AddArticleForm from "./pages/articles/AddArticleForm";
-import TextEditor from "./components/articles/TextEditor";
+import ReviewList from "./pages/articles/reviewList";
+import ReviewArticle from "./pages/articles/ReviewArticle";
+import AssignmentList from "./pages/assignments/AssignmentList";
+import createAssignments from "@pages/assignments/createAssignments";
 function App() {
   return (
     <div>
@@ -18,7 +21,10 @@ function App() {
         <Route path="/readArticles" element={<ReadArticles />}></Route>
         <Route path="/addArticles" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
-        <Route path="/textEditor" element={<TextEditor />}></Route>
+        <Route path="/reviewList" element={<ReviewList />}></Route>
+        <Route path="/reviewArticle" element={<ReviewArticle />}></Route>
+        <Route path="/assignmentList" element={<AssignmentList/>}></Route>
+        <Route path="/createAssignments" element={<createAssignments/>}></Route>
       </Routes>
     </div>
   );

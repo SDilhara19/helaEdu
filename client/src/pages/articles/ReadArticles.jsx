@@ -18,7 +18,7 @@ export default function ReadArticle() {
         </div>
         <div className="m-12">
           <h1>Top Articles</h1>
-          <hr></hr>
+          <hr className="border-yellow border-t-4 w-1/4"></hr>
           <br></br>
           <PopArticleCard />
           <PopArticleCard />
