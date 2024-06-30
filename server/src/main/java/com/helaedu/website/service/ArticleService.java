@@ -6,6 +6,7 @@ import com.helaedu.website.repository.ArticleRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class ArticleService {
                 articleDto.getReviewedModeratorId(),
                 articleDto.getRejectedReason(),
                 articleDto.getUserId(),
-                0
+                new ArrayList<>()
         );
         return articleRepository.createArticle(article);
     }
@@ -93,23 +94,31 @@ public class ArticleService {
         if(existingArticle == null) {
             throw new IllegalArgumentException("Article not found");
         }
-        articleDto.setArticleId(articleId);
-        Article article = new Article(
-                articleDto.getArticleId(),
-                articleDto.getTitle(),
-                articleDto.getContent(),
-                articleDto.getImageRef(),
-                articleDto.getAdditionalFilesRefs(),
-                articleDto.getTags(),
-                articleDto.getPublishedTimestamp(),
-                articleDto.getLastUpdatedTimestamp(),
-                articleDto.getStatus(),
-                articleDto.getReviewedModeratorId(),
-                articleDto.getRejectedReason(),
-                articleDto.getUserId(),
-                articleDto.getUpvote()
-        );
-        return articleRepository.updateArticle(articleId, article);
+        if(articleDto.getTitle() != null && !articleDto.getTitle().equals(existingArticle.getTitle())) {
+            existingArticle.setTitle(articleDto.getTitle());
+        }
+        if(articleDto.getContent() != null && !articleDto.getContent().equals(existingArticle.getContent())) {
+            existingArticle.setContent(articleDto.getContent());
+        }
+        if(articleDto.getImageRef() != null && !articleDto.getImageRef().equals(existingArticle.getImageRef())) {
+            existingArticle.setImageRef(articleDto.getImageRef());
+        }
+        if(articleDto.getAdditionalFilesRefs() != null && !articleDto.getAdditionalFilesRefs().equals(existingArticle.getAdditionalFilesRefs())) {
+            existingArticle.setAdditionalFilesRefs(articleDto.getAdditionalFilesRefs());
+        }
+        if(articleDto.getTags() != null && !articleDto.getTags().equals(existingArticle.getTags())) {
+            existingArticle.setTags(articleDto.getTags());
+        }
+        if(articleDto.getStatus() != null && !articleDto.getStatus().equals(existingArticle.getStatus())) {
+            existingArticle.setStatus(articleDto.getStatus());
+        }
+        if(articleDto.getReviewedModeratorId() != null && !articleDto.getReviewedModeratorId().equals(existingArticle.getReviewedModeratorId())) {
+            existingArticle.setReviewedModeratorId(articleDto.getReviewedModeratorId());
+        }
+        if(articleDto.getRejectedReason() != null && !articleDto.getRejectedReason().equals(existingArticle.getRejectedReason())) {
+            existingArticle.setRejectedReason(articleDto.getRejectedReason());
+        }
+        return articleRepository.updateArticle(articleId, existingArticle);
     }
 
     public List<ArticleDto> getPendingArticles() throws ExecutionException, InterruptedException {
@@ -161,6 +170,17 @@ public class ArticleService {
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    public void upvoteArticle(String articleId, String userId) throws ExecutionException, InterruptedException {
+        Article article = articleRepository.getArticleById(articleId);
+        if(article == null) {
+            throw new IllegalArgumentException("Article not found");
+        }
+        if (!article.getUpvote().contains(userId)) {
+            article.getUpvote().add(userId);
+            articleRepository.updateArticle(articleId, article);
+        }
     }
 
 

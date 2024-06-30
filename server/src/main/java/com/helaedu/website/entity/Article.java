@@ -25,5 +25,5 @@ public class Article {
     private String reviewedModeratorId;
     private String rejectedReason;
     private String userId;
-    private int upvote;
+    private ArrayList<String> upvote;
 }

@@ -103,16 +103,16 @@ public class StudentService {
             throw new IllegalArgumentException("Student not found");
         }
 
-        if(studentDto.getFirstName() != null || !studentDto.getFirstName().equals(existingStudent.getFirstName())) {
+        if(studentDto.getFirstName() != null && !studentDto.getFirstName().equals(existingStudent.getFirstName())) {
             existingStudent.setFirstName(studentDto.getFirstName());
         }
-        if(studentDto.getLastName() != null || !studentDto.getLastName().equals(existingStudent.getLastName())) {
+        if(studentDto.getLastName() != null && !studentDto.getLastName().equals(existingStudent.getLastName())) {
             existingStudent.setLastName(studentDto.getLastName());
         }
-        if(studentDto.getEmail() != null || !studentDto.getEmail().equals(existingStudent.getEmail())) {
+        if(studentDto.getEmail() != null && !studentDto.getEmail().equals(existingStudent.getEmail())) {
             existingStudent.setEmail(studentDto.getEmail());
         }
-        if(studentDto.getPassword() != null || !(encoder.encode(studentDto.getPassword()).equals(encoder.encode(existingStudent.getPassword())))) {
+        if(studentDto.getPassword() != null && !(encoder.encode(studentDto.getPassword()).equals(encoder.encode(existingStudent.getPassword())))) {
             existingStudent.setPassword(encoder.encode(studentDto.getPassword()));
         }
         if(studentDto.getRegTimestamp() != null) {

@@ -244,6 +244,12 @@ public class StudentController {
         return getNote(userId);
     }
 
+    @PutMapping("/me/note")
+    public ResponseEntity<Object> updateCurrentUserNote(@Valid @RequestBody NoteDto noteDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateNote(userId, noteDto, bindingResult);
+    }
+
     @GetMapping("/me/subscription")
     public ResponseEntity<Object> getCurrentStudentSubscription() throws ExecutionException, InterruptedException {
         String userId = UserUtil.getCurrentUserId();

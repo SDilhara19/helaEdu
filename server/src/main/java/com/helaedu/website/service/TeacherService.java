@@ -88,16 +88,16 @@ public class TeacherService {
             throw new IllegalArgumentException("Teacher not found");
         }
 
-        if(teacherDto.getFirstName() != null || !teacherDto.getFirstName().equals(existingTeacher.getFirstName())) {
+        if(teacherDto.getFirstName() != null && !teacherDto.getFirstName().equals(existingTeacher.getFirstName())) {
             existingTeacher.setFirstName(teacherDto.getFirstName());
         }
-        if(teacherDto.getLastName() != null || !teacherDto.getLastName().equals(existingTeacher.getLastName())) {
+        if(teacherDto.getLastName() != null && !teacherDto.getLastName().equals(existingTeacher.getLastName())) {
             existingTeacher.setLastName(teacherDto.getLastName());
         }
-        if(teacherDto.getEmail() != null || !teacherDto.getEmail().equals(existingTeacher.getEmail())) {
+        if(teacherDto.getEmail() != null && !teacherDto.getEmail().equals(existingTeacher.getEmail())) {
             existingTeacher.setEmail(teacherDto.getEmail());
         }
-        if(teacherDto.getPassword() != null || !(encoder.encode(teacherDto.getPassword()).equals(encoder.encode(existingTeacher.getPassword())))) {
+        if(teacherDto.getPassword() != null && !(encoder.encode(teacherDto.getPassword()).equals(encoder.encode(existingTeacher.getPassword())))) {
             existingTeacher.setPassword(encoder.encode(teacherDto.getPassword()));
         }
         if(teacherDto.getRegTimestamp() != null) {
@@ -106,7 +106,7 @@ public class TeacherService {
         if(teacherDto.getIsModerator() != null) {
             existingTeacher.setIsModerator(teacherDto.getIsModerator());
         }
-        if(teacherDto.getProofRef() != null || !teacherDto.getProofRef().equals(existingTeacher.getProofRef())) {
+        if(teacherDto.getProofRef() != null && !teacherDto.getProofRef().equals(existingTeacher.getProofRef())) {
             existingTeacher.setProofRef(teacherDto.getProofRef());
         }
 
