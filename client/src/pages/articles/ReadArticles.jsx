@@ -12,9 +12,9 @@ export default function ReadArticle() {
   return (
     <div>
       <Header />
-      <div className='flex justify-between'>
-        <div className='w-5/6'>
-            <ViewArticle />
+      <div className="flex justify-between">
+        <div className="w-5/6">
+          <ViewArticle />
         </div>
         <div className='m-12'>
             <h1>Top Articles</h1>
@@ -31,18 +31,14 @@ export default function ReadArticle() {
            
             <iframe></iframe>
         </div>
-        
       </div>
       <div>
-            <CommentList />
-            {/* <Comments /> */}
-        </div>
-        <div>
-            
-            <Footer />
-        </div>
-          
-       
+        <CommentList />
+        {/* <Comments /> */}
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
-  )
+  );
 }

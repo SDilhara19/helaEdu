@@ -3,6 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import ArticleCard from '@components/articles/ArticleCard';
 
+
+const sampleData = {
+    imageUrl: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+    authorImageUrl: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+    authorName: "M. Perera",
+    date: "23 March 2024",
+    title: "Sinhabahu Natakaya",
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    badges: ["NEW", "HOT", "TRENDING"]
+  };
+
+
 const CardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(5); // Default to 5 visible cards
@@ -57,7 +69,15 @@ const CardCarousel = () => {
               key={index}
               className={`flex-shrink-0 p-2 ${visibleCards === 2 ? 'w-1/3' : 'w-1/5'}`}
             >
-              <ArticleCard />
+              <ArticleCard
+                imageUrl={sampleData.imageUrl}
+                authorImageUrl={sampleData.authorImageUrl}
+                authorName={sampleData.authorName}
+                date={sampleData.date}
+                title={sampleData.title}
+                description={sampleData.description}
+                badges={sampleData.badges}
+            />
             </div>
           ))}
         </div>

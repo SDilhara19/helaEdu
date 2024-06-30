@@ -34,6 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             Student student = studentRepository.getStudentByEmail(email);
             if (student != null) {
+
                 return new User(student.getUserId(), student.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(student.getRole())));
             }

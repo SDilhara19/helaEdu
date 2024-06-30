@@ -1,7 +1,8 @@
 import React from "react";
 import logo from "@assets/icons/logo.svg";
 import { secondaryColor } from "@styles/_global.module.scss";
-import { Link } from "react-router-dom";
+import { Link, redirect, NavLink } from "react-router-dom";
+
 function Header() {
   return (
     <header>
@@ -23,6 +24,11 @@ function Header() {
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Quiz</h4>
             </a>
+            <Link to="/readArticles">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Articles</h4>
+              </a>
+            </Link>
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Leaderboard</h4>
             </a>

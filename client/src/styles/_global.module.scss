@@ -7,6 +7,7 @@ $header1: 2.5rem;
 $header2: 3rem;
 $header3: 2.5rem;
 $header4: 1.75rem;
+$header5: 1.5rem;
 $text: 2.5rem;
 
 * {
@@ -42,9 +43,12 @@ h3 {
 }
 
 h4,
-h5,
 input {
     font-size: $header4;
+}
+
+h5 {
+    font-size: $header5;
 }
 
 ul {

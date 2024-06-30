@@ -4,10 +4,10 @@ export default {
 
     extend: {
       colors: {
-        "blue" : "#0A6CF5",
-        'yellow' : '#F5A711',
-        'white' : '#FFFFFF',
-        'black' : '#000000'
+        blue: "#0A6CF5",
+        yellow: "#F5A711",
+        white: "#FFFFFF",
+        black: "#000000",
       },
       screens: {
        'mw': { 'max': '800px' },
@@ -16,10 +16,11 @@ export default {
     },
   },
 
-  plugins: [require("daisyui")
-             ],
-   
+  plugins: [
+    require("daisyui"),
+
+    // require("nightwind")
+  ],
 
   darkMode: "class", // Enable dark mode support
-
 };
