@@ -153,6 +153,12 @@ public class StudentService {
         return subscriptionId;
     }
 
+    public void cancelSubscription(String userId) throws ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentById(userId);
+        student.setSubscriptionId(null);
+        studentRepository.updateStudent(userId, student);
+    }
+
     public List<StudentDto> getStudentsWithActiveSubscriptions() throws ExecutionException, InterruptedException {
         List<Student> students = studentRepository.getAllStudents();
         Instant now = Instant.now();
