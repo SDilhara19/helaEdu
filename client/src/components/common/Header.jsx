@@ -8,7 +8,9 @@ function Header() {
     <header>
       <div className="flex-c header-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+          <Link to="/">
+            <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+          </Link>
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
@@ -31,12 +33,20 @@ function Header() {
             </a>
           </div>
           <div className="auth-control">
-            <button className="btn gold-button">
+            <Link
+              className="btn gold-button"
+              to="/auth"
+              state={{ authType: "login" }}
+            >
               <h4>Login</h4>
-            </button>
-            <button className="btn gold-button">
+            </Link>
+            <Link
+              className="btn gold-button"
+              to="/auth"
+              state={{ authType: "signup" }}
+            >
               <h4>Sign Up</h4>
-            </button>
+            </Link>
           </div>
         </nav>
       </div>
