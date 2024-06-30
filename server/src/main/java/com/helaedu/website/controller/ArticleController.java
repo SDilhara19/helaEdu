@@ -129,7 +129,15 @@ public class ArticleController{
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            String result = articleService.approveArticle(articleId);
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String userId;
+            if (principal instanceof UserDetails) {
+                userId = ((UserDetails) principal).getUsername();
+            } else {
+                userId = principal.toString();
+            }
+
+            String result = articleService.approveArticle(articleId, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
@@ -143,7 +151,15 @@ public class ArticleController{
     @PutMapping("/{articleId}/decline")
     public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
         try {
-            String result = articleService.declineArticle(articleId, rejectedReason);
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String userId;
+            if (principal instanceof UserDetails) {
+                userId = ((UserDetails) principal).getUsername();
+            } else {
+                userId = principal.toString();
+            }
+
+            String result = articleService.declineArticle(articleId, rejectedReason, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();

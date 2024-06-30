@@ -35,6 +35,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/students/**").authenticated()
 
+                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/approve").hasRole("MODERATOR")
+                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/decline").hasRole("MODERATOR")
                         .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/articles/**").hasAnyRole("TEACHER", "MODERATOR")
                         .requestMatchers(HttpMethod.DELETE, "/articles/**").permitAll()
