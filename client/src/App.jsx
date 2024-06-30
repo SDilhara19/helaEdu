@@ -9,7 +9,8 @@ import AddArticleForm from "@pages/articles/AddArticleForm";
 import ReviewList from "@pages/articles/reviewList";
 import ReviewArticle from "@pages/articles/ReviewArticle";
 import AssignmentList from "@pages/assignments/AssignmentList";
-import CreateAssignments from "@pages/assignments/createAssignments";
+import CreateAssignments from "@pages/assignments/CreateAssignments";
+import QuizFormat from "@pages/assignments/QuizFormat";
 function App() {
   return (
     <div>
@@ -28,6 +29,7 @@ function App() {
           path="/createAssignments"
           element={<CreateAssignments />}
         ></Route>
+        <Route path="/quizFormat" element={<QuizFormat/>}></Route>
       </Routes>
     </div>
   );
