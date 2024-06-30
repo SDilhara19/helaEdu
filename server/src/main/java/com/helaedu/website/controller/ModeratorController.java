@@ -1,7 +1,9 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.ModeratorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class ModeratorController {
     private final ModeratorService moderatorService;
+    private final ArticleService articleService;
 
-    public ModeratorController(ModeratorService moderatorService) {
+    public ModeratorController(ModeratorService moderatorService, ArticleService articleService) {
         this.moderatorService = moderatorService;
+        this.articleService = articleService;
     }
 
     @PostMapping("/create")
@@ -109,5 +113,11 @@ public class ModeratorController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error deleting moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/{userId}/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+        return ResponseEntity.ok(articles);
     }
 }
