@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-const Pagination = ({ totalPages }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handleClick = (page) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+      onPageChange(page);
     }
   };
 

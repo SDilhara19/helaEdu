@@ -6,7 +6,7 @@ import Articles from "./pages/articles/Articles";
 import ReadArticles from "./pages/articles/ReadArticles";
 import AddArticles from "./pages/articles/AddArticles";
 import AddArticleForm from "./pages/articles/AddArticleForm";
-import TextEditor from "./components/articles/TextEditor";
+import ReviewList from "./pages/articles/reviewList"
 function App() {
   return (
     <div>
@@ -20,7 +20,7 @@ function App() {
         <Route path="/readArticles" element={<ReadArticles />}></Route>
         <Route path="/addArticles" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
-        <Route path="/textEditor" element={<TextEditor />}></Route>
+        <Route path="/reviewList" element={<ReviewList />}></Route>
       </Routes>
    
    </div> 

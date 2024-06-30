@@ -1,6 +1,7 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+
     extend: {
       colors: {
         "blue" : "#0A6CF5",
@@ -8,6 +9,10 @@ export default {
         'white' : '#FFFFFF',
         'black' : '#000000'
       },
+      screens: {
+       'mw': { 'max': '800px' },
+        
+      }
     },
   },
 
