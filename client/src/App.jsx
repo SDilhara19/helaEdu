@@ -8,6 +8,7 @@ import AddArticleForm from "./pages/articles/AddArticleForm";
 import ReviewList from "./pages/articles/reviewList";
 import ReviewArticle from "./pages/articles/ReviewArticle";
 import AssignmentList from "./pages/assignments/AssignmentList";
+import createAssignments from "@pages/assignments/createAssignments";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/reviewList" element={<ReviewList />}></Route>
         <Route path="/reviewArticle" element={<ReviewArticle />}></Route>
         <Route path="/assignmentList" element={<AssignmentList/>}></Route>
+        <Route path="/createAssignments" element={<createAssignments/>}></Route>
       </Routes>
     </div>
   );

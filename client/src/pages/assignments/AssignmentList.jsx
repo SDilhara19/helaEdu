@@ -75,7 +75,10 @@ export default function AssignmentList() {
           <hr className='border-yellow border-t-4 w-full hover:border-white transition duration-300 ease-in-out'></hr>
         </div>
         <div>
-            <button className='bg-yellow text-white rounded-xl p-4 text-3xl'>Create Assignment</button>
+            <Link to="./createAssignments">
+                <button className='bg-yellow text-white rounded-xl p-4 text-3xl'>Create Assignment</button>
+            </Link>
+          
         </div>
       </div>
       <div>
