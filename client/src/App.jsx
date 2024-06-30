@@ -5,7 +5,9 @@ import Articles from "./pages/articles/Articles";
 import ReadArticles from "./pages/articles/ReadArticles";
 import AddArticles from "./pages/articles/AddArticles";
 import AddArticleForm from "./pages/articles/AddArticleForm";
-import ReviewList from "./pages/articles/reviewList"
+import ReviewList from "./pages/articles/reviewList";
+import ReviewArticle from "./pages/articles/ReviewArticle";
+import AssignmentList from "./pages/assignments/AssignmentList";
 function App() {
   return (
     <div>
@@ -19,6 +21,8 @@ function App() {
         <Route path="/addArticles" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
         <Route path="/reviewList" element={<ReviewList />}></Route>
+        <Route path="/reviewArticle" element={<ReviewArticle />}></Route>
+        <Route path="/assignmentList" element={<AssignmentList/>}></Route>
       </Routes>
     </div>
   );

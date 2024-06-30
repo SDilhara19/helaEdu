@@ -9,7 +9,7 @@ export default function reviewList() {
   return (
     <div>
       <Header />
-    <Banner />
+      <Banner />
       <ArticleHead/>
       <CardCarousel />
      {/* <Footer /> */}
