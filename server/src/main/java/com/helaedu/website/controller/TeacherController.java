@@ -1,7 +1,9 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -18,9 +21,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class TeacherController {
     private final TeacherService teacherService;
+    private final ArticleService articleService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, ArticleService articleService) {
         this.teacherService = teacherService;
+        this.articleService = articleService;
     }
 
     @PostMapping("/create")
@@ -109,5 +114,11 @@ public class TeacherController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error promoting teacher to moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/{userId}/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+        return ResponseEntity.ok(articles);
     }
 }

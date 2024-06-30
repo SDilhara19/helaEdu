@@ -3,12 +3,18 @@ package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
 //import com.helaedu.website.dto.StudentDto;
+import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;
+import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +24,31 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/articles")
 @CrossOrigin(origins = "*")
 public class ArticleController{
+
     private final ArticleService articleService;
     public ArticleController(ArticleService articleService){
         this.articleService = articleService;
     }
-//add an article
-    @PostMapping("/createArticle")
-    public ResponseEntity<String> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            for(FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorResponse.addViolation(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String userId;
+            if (principal instanceof UserDetails) {
+                userId = ((UserDetails) principal).getUsername();
+            } else {
+                userId = principal.toString();
+            }
+
+            articleDto.setUserId(userId);
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -37,58 +57,101 @@ public class ArticleController{
             return new ResponseEntity<>("Error creating article", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping
     public ResponseEntity<Object> getAllArticles() throws ExecutionException, InterruptedException{
         List<ArticleDto> articles = articleService.getAllArticles();
         return ResponseEntity.ok(articles);
     }
+
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleDto> getArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> getArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         ArticleDto articleDto = articleService.getArticle(articleId);
         if (articleDto != null) {
             return ResponseEntity.ok(articleDto);
         } else {
-            return ResponseEntity.notFound().build();
-        }
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", "Article not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);        }
     }
 
-    @GetMapping("/teacher/{teacherId}")
-    public ResponseEntity<ArticleDto> getArticleTeacherId(@PathVariable String teacherId) throws ExecutionException, InterruptedException {
-        ArticleDto articleDto = articleService.getArticle(teacherId);
-        if (articleDto != null) {
-            return ResponseEntity.ok(articleDto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/teacher/{teacherId}")
+//    public ResponseEntity<ArticleDto> getArticleTeacherId(@PathVariable String teacherId) throws ExecutionException, InterruptedException {
+//        ArticleDto articleDto = articleService.getArticle(teacherId);
+//        if (articleDto != null) {
+//            return ResponseEntity.ok(articleDto);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
     @DeleteMapping("/{articleId}")
-    public ResponseEntity<String> deleteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
-        String result = articleService.deleteArticle(articleId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-    @PutMapping("/{articleId}")
-    public ResponseEntity<String> updateArticle(@PathVariable String articleId, @RequestBody ArticleDto articleDto) throws ExecutionException, InterruptedException {
-        String result = articleService.updateArticle(articleId, articleDto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Object> deleteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
+        try {
+            String result = articleService.deleteArticle(articleId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error deleting article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-//    get all pending articles
+    @PutMapping("/{articleId}")
+    public ResponseEntity<Object> updateArticle(@PathVariable String articleId, @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        if(bindingResult.hasErrors()) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorResponse.addViolation(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            String result = articleService.updateArticle(articleId, articleDto);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error updating article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/pending")
     public ResponseEntity<List<ArticleDto>> getPendingArticles() throws ExecutionException, InterruptedException {
         List<ArticleDto> articles = articleService.getPendingArticles();
         return ResponseEntity.ok(articles);
     }
-//    approve relevant articles as approved
+
     @PutMapping("/{articleId}/approve")
-    public ResponseEntity<String> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
-        String result = articleService.approveArticle(articleId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
+        try {
+            String result = articleService.approveArticle(articleId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error approving article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    //    decline relevant articles
+
     @PutMapping("/{articleId}/decline")
-    public ResponseEntity<String> declineArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
-        String result = articleService.declineArticle(articleId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
+        try {
+            String result = articleService.declineArticle(articleId, rejectedReason);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error declining article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 
