@@ -2,15 +2,11 @@
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
-//import com.helaedu.website.dto.StudentDto;
-import com.helaedu.website.dto.NoteDto;
-import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
