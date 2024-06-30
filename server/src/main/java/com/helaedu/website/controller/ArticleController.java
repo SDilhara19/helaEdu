@@ -4,11 +4,10 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
+import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +35,7 @@ public class ArticleController{
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String userId;
-            if (principal instanceof UserDetails) {
-                userId = ((UserDetails) principal).getUsername();
-            } else {
-                userId = principal.toString();
-            }
-
+            String userId = UserUtil.getCurrentUserId();
             articleDto.setUserId(userId);
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
@@ -125,13 +117,7 @@ public class ArticleController{
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String userId;
-            if (principal instanceof UserDetails) {
-                userId = ((UserDetails) principal).getUsername();
-            } else {
-                userId = principal.toString();
-            }
+            String userId = UserUtil.getCurrentUserId();
 
             String result = articleService.approveArticle(articleId, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -147,13 +133,7 @@ public class ArticleController{
     @PutMapping("/{articleId}/decline")
     public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
         try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String userId;
-            if (principal instanceof UserDetails) {
-                userId = ((UserDetails) principal).getUsername();
-            } else {
-                userId = principal.toString();
-            }
+            String userId = UserUtil.getCurrentUserId();
 
             String result = articleService.declineArticle(articleId, rejectedReason, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
