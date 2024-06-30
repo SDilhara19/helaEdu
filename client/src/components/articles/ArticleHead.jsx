@@ -28,11 +28,8 @@ export default function ArticleCards() {
             <button className=' text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
               Tags  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
             </button>
-        </div>
-       
+        </div>     
     </div>
-    
-    {/* article cards */}
     <div className='flex justify-evenly m-20'>
         <ArticleCard />
         <ArticleCard/>

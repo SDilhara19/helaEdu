@@ -11,11 +11,7 @@ export default {
     },
   },
 
-  plugins: [
-    require("daisyui"),
-
-    // require("nightwind")
-  ],
+  plugins: [require("daisyui")],
 
   darkMode: "class", // Enable dark mode support
 };

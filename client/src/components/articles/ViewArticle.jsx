@@ -1,4 +1,7 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function ViewArticle() {
   return (
@@ -34,8 +37,16 @@ export default function ViewArticle() {
             odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p> 
 
         </div>
-        <div>
-            
+        <div className='flex justify-between'>
+            <div className='border border-blue rounded-xl p-6 m-2'>
+                <FontAwesomeIcon icon={faFile} className='text-4xl m-2 hover:text-yellow  hover:translate-x-1'/>
+                <span className='text-3xl'>myFile.pdf  </span>
+            </div>
+            <div>
+
+                <FontAwesomeIcon icon="fa-regular fa-thumbs-up"  className='text-xl' style={{color: "#74C0FC",}} />
+                <FontAwesomeIcon icon="fa-regular fa-thumbs-up" style={{color: "#74C0FC",}} />
+            </div>
         </div>
       </div>
     </div>
