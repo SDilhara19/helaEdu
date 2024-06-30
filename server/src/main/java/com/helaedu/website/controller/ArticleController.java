@@ -145,6 +145,21 @@ public class ArticleController{
             return new ResponseEntity<>("Error declining article", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/{articleId}/upvote")
+    public ResponseEntity<Object> upvoteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
+        try {
+            String userId = UserUtil.getCurrentUserId();
+            articleService.upvoteArticle(articleId, userId);
+            return new ResponseEntity<>("Article upvoted", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("articleId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error upvoting article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
 

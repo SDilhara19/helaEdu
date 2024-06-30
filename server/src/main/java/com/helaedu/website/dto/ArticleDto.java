@@ -34,5 +34,5 @@ public class ArticleDto {
 
     private String userId;
     
-    private int upvote;
+    private ArrayList<String> upvote;
 }

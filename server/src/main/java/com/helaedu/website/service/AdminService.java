@@ -82,16 +82,16 @@ public class AdminService {
             throw new IllegalArgumentException("Admin not found");
         }
 
-        if(adminDto.getFirstName() != null || !adminDto.getFirstName().equals(existingAdmin.getFirstName())) {
+        if(adminDto.getFirstName() != null && !adminDto.getFirstName().equals(existingAdmin.getFirstName())) {
             existingAdmin.setFirstName(adminDto.getFirstName());
         }
-        if(adminDto.getLastName() != null || !adminDto.getLastName().equals(existingAdmin.getLastName())) {
+        if(adminDto.getLastName() != null && !adminDto.getLastName().equals(existingAdmin.getLastName())) {
             existingAdmin.setLastName(adminDto.getLastName());
         }
-        if(adminDto.getEmail() != null || !adminDto.getEmail().equals(existingAdmin.getEmail())) {
+        if(adminDto.getEmail() != null && !adminDto.getEmail().equals(existingAdmin.getEmail())) {
             existingAdmin.setEmail(adminDto.getEmail());
         }
-        if(adminDto.getPassword() != null || !(encoder.encode(adminDto.getPassword()).equals(encoder.encode(existingAdmin.getPassword())))) {
+        if(adminDto.getPassword() != null && !(encoder.encode(adminDto.getPassword()).equals(encoder.encode(existingAdmin.getPassword())))) {
             existingAdmin.setPassword(encoder.encode(adminDto.getPassword()));
         }
         if(adminDto.getRegTimestamp() != null) {
