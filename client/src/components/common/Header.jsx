@@ -17,9 +17,9 @@ function Header() {
               <h4>Home</h4>
             </a>
             <Link to="/articles">
-              {/* <a className="nav-text flex-c m-4 cursor-pointer"> */}
-              <h4>Categories</h4>
-              {/* </a> */}
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Categories</h4>
+              </a>
             </Link>
 
             <a className="nav-text flex-c m-4 cursor-pointer">

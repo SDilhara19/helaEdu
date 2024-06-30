@@ -1,5 +1,61 @@
 .auth {
+
+
     min-height: 100vh;
     width: 100%;
     display: flex;
+
+    .login-left-pannel {
+        width: 50%;
+
+        .login-details {
+            width: 50%;
+        }
+
+
+        h2 {
+            color: $secondary-color;
+        }
+
+    }
+
+    .text-input {
+        transition: all 0.15s ease;
+        box-shadow: $primary-color 0px 4px;
+
+        &:hover {
+            box-shadow: $black-color 0px 4px;
+
+            .icon,
+            input::placeholder {
+                color: $black-color;
+            }
+        }
+
+
+        input::placeholder {
+            color: $primary-color;
+        }
+
+    }
+
+
+    .icon {
+        margin: 0.5rem 0.75rem;
+        color: $primary-color;
+    }
+
+    .login-right-pannel {
+        width: 50%;
+        background: $primary-color;
+        color: $white-color;
+
+        p {
+            text-align: center;
+        }
+
+        .login-banner {
+            width: 70%;
+        }
+    }
 }
