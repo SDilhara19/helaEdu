@@ -5,8 +5,8 @@ import Comments from "@/components/articles/Comments";
 import PopArticleCard from "@/components/articles/PopArticleCard";
 import ViewArticle from "@/components/articles/ViewArticle";
 import React from "react";
-import { Footer, Header } from "@components/common";
-
+import { Footer,Header } from "@/components/common";
+import { Link } from "react-router-dom";
 export default function ReadArticle() {
   return (
     <div>
@@ -17,14 +17,17 @@ export default function ReadArticle() {
         </div>
         <div className="m-12">
           <h1>Top Articles</h1>
-          <hr></hr>
+          <hr className="border-yellow border-t-4 w-1/4"></hr>
           <br></br>
           <PopArticleCard />
           <PopArticleCard />
           <PopArticleCard />
           <PopArticleCard />
           <PopArticleCard />
-          <AddArticleBtn />
+          <Link to="/addArticleForm">
+            <AddArticleBtn />
+          </Link>
+
           <iframe></iframe>
         </div>
       </div>

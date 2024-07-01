@@ -8,14 +8,13 @@ export default {
         white: "#FFFFFF",
         black: "#000000",
       },
+      screens: {
+        mw: { max: "800px" },
+      },
     },
   },
 
-  plugins: [
-    require("daisyui"),
-
-    // require("nightwind")
-  ],
+  plugins: [require("daisyui")],
 
   darkMode: "class", // Enable dark mode support
 };
