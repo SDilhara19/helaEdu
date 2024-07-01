@@ -5,7 +5,8 @@ import Comments from "@/components/articles/Comments";
 import PopArticleCard from "@/components/articles/PopArticleCard";
 import ViewArticle from "@/components/articles/ViewArticle";
 import React from "react";
-import { Footer,Header } from "@/components/common";
+import { Footer} from "@/components/common";
+import Header from "@components/teacher_com/Header";
 import { Link } from "react-router-dom";
 export default function ReadArticle() {
   return (

@@ -1,36 +1,42 @@
 import React from "react";
 import logo from "@assets/icons/logo.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import Profile from "@assets/img/profile.jpg"
 function Header() {
   return (
     <header>
       <div className="flex-c header-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+          <Link to="/">
+            <img id="logo" className="mb-6" src={logo} alt="Logo" />
+          </Link>
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
-            <a className="nav-text flex-c m-4 cursor-pointer">
+            <Link to="/" className="nav-text flex-c m-4 cursor-pointer">
               <h4>Home</h4>
-            </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
+            </Link>
+            <Link to="/articles" className="nav-text flex-c m-4 cursor-pointer">
+              <h4>Articles</h4>
+            </Link>
+            <Link to="/assignmentList" className="nav-text flex-c m-4 cursor-pointer">
+              <h4>Assignments</h4>
+            </Link>
+            <Link to="/leaderboard" className="nav-text flex-c m-4 cursor-pointer">
               <h4>Categories</h4>
-            </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Quiz</h4>
-            </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Leaderboard</h4>
-            </a>
+            </Link>
           </div>
-          <div className="auth-control">
-            <button className="btn gold-button">
-              <h4>Login</h4>
-            </button>
-            <button className="btn gold-button">
-              <h4>Sign Up</h4>
-            </button>
+          <div className="flex items-center">
+            <Link to="/notifications" className="icon-wrapper mx-4">
+              <FontAwesomeIcon icon={faBell} style={{ color: "#ffffff", cursor: 'pointer' }}  size="lg" />
+            </Link>
+            <Link to="/t_profile" className="icon-wrapper mx-4">
+              <img  src={Profile} className="w-32 h-24 rounded-full "></img>
+              {/* <FontAwesomeIcon icon={faUser} size="lg" /> */}
+            </Link>
+
           </div>
         </nav>
       </div>

@@ -1,9 +1,10 @@
 
-import { Footer, Header } from '@components/common'
+import { Footer } from '@components/common'
+import Header from '@components/teacher_com/Header'
 import ProfileHero from '@components/teacher_com/ProfileHero'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faPencil} from '@fortawesome/free-solid-svg-icons'
 export default function T_profile() {
   return (
     <div>
@@ -20,17 +21,19 @@ export default function T_profile() {
                 <p className='text-2xl m-4'><span className='text-blue'>Teaching Subject</span>   :      Science</p>
             </div>
             <div className='flex justify-end'>
-                <div className='rounded-full w-20 h-20 bg-yellow items-center'><FontAwesomeIcon icon={faEdit} /></div>
+            <div className='flex items-center justify-center rounded-full w-20 h-20 bg-yellow'>
+                <FontAwesomeIcon icon={faPencil} className='size-8' />
+            </div>
             </div>
         </div>
         <div className='w-1/2 grid grid-cols-2 gap-8 mt-12'>
-          <div className='shadow-xl border-blue rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
+          <div className='shadow-xl  rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
             20 Articles
           </div>
           <div className='shadow-xl rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
             20 Articles
           </div>
-          <div className='shadow-xl rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
+          <div className='shadow-xl   rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
             20 Assignments
           </div>
           <div className='shadow-xl rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>

@@ -1,6 +1,6 @@
-import { Footer, Header } from '@components/common'
+import { Footer} from '@components/common'
 import React from 'react'
-
+import Header from '@components/teacher_com/Header'
 export default function QuizFormat() {
   return (
     <div>
