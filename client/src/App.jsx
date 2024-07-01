@@ -1,6 +1,7 @@
 import { Landing } from "@/components/landing";
 import { Route, Routes } from "react-router-dom";
 import Quiz from "@pages/quizes/Quiz";
+import QuizHome from "@pages/quizes/QuizHome";
 import Articles from "@pages/articles/Articles";
 import ReadArticles from "@pages/articles/ReadArticles";
 import Auth from "@pages/auth/Auth";
@@ -18,7 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}></Route>
         <Route path="/auth" element={<Auth />}></Route>
-        <Route path="/quiz" element={<Quiz />}></Route>
+        {/* http://localhost:5173/quiz */}
+        <Route path='/quiz' element={<QuizHome />}></Route>
+        {/* http://localhost:5173/quiz/id */}
+         <Route path='/quiz/1' element={<Quiz />}></Route>
         <Route path="/articles" element={<Articles />}></Route>
         <Route path="/readArticles" element={<ReadArticles />}></Route>
         <Route path="/addArticles" element={<AddArticles />}></Route>
@@ -37,4 +41,9 @@ function App() {
   );
 }
 
+
+
+    </div>
+  )
+}
 export default App;
