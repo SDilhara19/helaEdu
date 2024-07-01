@@ -15,11 +15,15 @@ import java.util.ArrayList;
 public class Article {
     private String articleId;
     private String title;
-    private ArrayList<String> tags;
     private String content;
-    private String img;
-    private String additionalFile;
-    private String teacherId;
-    private String articleStatus;
-
+    private String imageRef;
+    private ArrayList<String> additionalFilesRefs;
+    private ArrayList<String> tags;
+    private String publishedTimestamp;
+    private String lastUpdatedTimestamp;
+    private String status;
+    private String reviewedModeratorId;
+    private String rejectedReason;
+    private String userId;
+    private ArrayList<String> upvote;
 }

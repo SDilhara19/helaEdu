@@ -7,6 +7,7 @@ import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
 import com.helaedu.website.service.SubscriptionService;
+import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -179,8 +180,7 @@ public class StudentController {
         }
 
         try {
-            studentDto.setSubscriptionId(null);
-            studentService.updateStudent(userId, studentDto);
+            studentService.cancelSubscription(userId);
             subscriptionService.cancelSubscription(subscriptionId);
             return new ResponseEntity<>("Unsubscribed successfully", HttpStatus.OK);
         } catch (ExecutionException | InterruptedException e) {
@@ -212,5 +212,59 @@ public class StudentController {
             errorResponse.addViolation("subscriptionId", "Subscription not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/active-subscriptions")
+    public ResponseEntity<List<StudentDto>> getStudentsWithActiveSubscriptions() throws ExecutionException, InterruptedException {
+        List<StudentDto> students = studentService.getStudentsWithActiveSubscriptions();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentStudent() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getStudent(userId);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<Object> updateCurrentStudent(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateStudent(userId, studentDto, bindingResult);
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Object> deleteCurrentStudent() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return deleteStudent(userId);
+    }
+
+    @GetMapping("/me/note")
+    public ResponseEntity<Object> getCurrentStudentNote() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getNote(userId);
+    }
+
+    @PutMapping("/me/note")
+    public ResponseEntity<Object> updateCurrentUserNote(@Valid @RequestBody NoteDto noteDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateNote(userId, noteDto, bindingResult);
+    }
+
+    @GetMapping("/me/subscription")
+    public ResponseEntity<Object> getCurrentStudentSubscription() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getSubscription(userId);
+    }
+
+    @PostMapping("/me/subscribe")
+    public ResponseEntity<Object> subscribeCurrentStudent(@RequestParam Long paidAmount) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return subscribeStudent(userId, paidAmount);
+    }
+
+    @PutMapping("/me/unsubscribe")
+    public ResponseEntity<Object> unsubscribeCurrentStudent() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return unsubscribeStudent(userId);
     }
 }

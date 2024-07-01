@@ -1,8 +1,11 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TeacherService;
+import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +21,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class TeacherController {
     private final TeacherService teacherService;
+    private final ArticleService articleService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, ArticleService articleService) {
         this.teacherService = teacherService;
+        this.articleService = articleService;
     }
 
     @PostMapping("/create")
@@ -109,5 +114,35 @@ public class TeacherController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error promoting teacher to moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/{userId}/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+        return ResponseEntity.ok(articles);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentTeacher() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getTeacher(userId);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<Object> updateCurrentTeacher(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateTeacher(userId, teacherDto, bindingResult);
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Object> deleteCurrentTeacher() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return deleteTeacher(userId);
+    }
+
+    @GetMapping("/me/articles")
+    public ResponseEntity<List<ArticleDto>> getCurrentTeacherArticles() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getAllArticledByTeacher(userId);
     }
 }

@@ -1,8 +1,11 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.ModeratorService;
+import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +21,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class ModeratorController {
     private final ModeratorService moderatorService;
+    private final ArticleService articleService;
 
-    public ModeratorController(ModeratorService moderatorService) {
+    public ModeratorController(ModeratorService moderatorService, ArticleService articleService) {
         this.moderatorService = moderatorService;
+        this.articleService = articleService;
     }
 
     @PostMapping("/create")
@@ -109,5 +114,35 @@ public class ModeratorController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error deleting moderator", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/{userId}/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+        return ResponseEntity.ok(articles);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentModerator() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getModerator(userId);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<Object> updateCurrentModerator(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateModerator(userId, teacherDto, bindingResult);
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Object> deleteCurrentModerator() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return deleteModerator(userId);
+    }
+
+    @GetMapping("/me/articles")
+    public ResponseEntity<List<ArticleDto>> getCurrentModeratorArticles() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getAllArticledByModerator(userId);
     }
 }

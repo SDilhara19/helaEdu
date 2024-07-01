@@ -6,12 +6,15 @@ export default {
         '128': '32rem',
       },
       colors: {
-        "blue" : "#0A6CF5",
-        'yellow' : '#F5A711',
-        'white' : '#FFFFFF',
-        'black' : '#343232',
-        'blue2' : '#B5D2FC'
+        blue: "#0A6CF5",
+        yellow: "#F5A711",
+        white: "#FFFFFF",
+        black: "#000000",
+        blue2 : '#B5D2FC'
       },
+      screens: {
+        mw: { max: "800px" },
+    
       fontSize: {
         'header1': '2.5rem', // 40px
         'header2': '3rem', // 48px
@@ -24,4 +27,5 @@ export default {
   },
 
   plugins: [require("daisyui")],
+  darkMode: "class", // Enable dark mode support
 };
