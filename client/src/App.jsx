@@ -11,6 +11,7 @@ import ReviewArticle from "@pages/articles/ReviewArticle";
 import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
+import T_profile from "@pages/profiles/T_profile";
 function App() {
   return (
     <div>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/reviewList" element={<ReviewList />}></Route>
         <Route path="/reviewArticle" element={<ReviewArticle />}></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
+        <Route path="/t_profile" element={<T_profile/>} ></Route>
         <Route
           path="/createAssignments"
           element={<CreateAssignments />}
