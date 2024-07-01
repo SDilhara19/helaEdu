@@ -7,12 +7,12 @@ export default function QuizFormat() {
       <Header/>
       <div className='border border-blue rounded-xl m-20 p-10'>
         <div className='mb-10'>
-            <h1 className='text-blue text-4xl'>Question <span>1/10</span></h1>
+            <h1 className='text-blue text-4xl'>Question <span className='text-6xl'>1</span><span>/10</span></h1>
 
         </div>
-        <div>
+        <div className='mx-10'>
             <label className=' text-3xl'>Enter your question </label><br></br><br></br>
-            <input className='border border-blue rounded-xl h-32 w-full mx-10 focus-'></input>
+            <input className='border border-blue rounded-xl h-32    w-full'></input>
         </div>
         <div className='my-10'>
             <label className='text-3xl'>Enter your options
