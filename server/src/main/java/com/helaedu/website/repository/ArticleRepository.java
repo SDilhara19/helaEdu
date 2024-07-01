@@ -120,20 +120,26 @@ public class ArticleRepository {
         return articles;
     }
 
-    public String updateArticleStatus(String articleId, String newStatus) throws ExecutionException, InterruptedException {
+    public String updateArticleStatus(String articleId, String newStatus, String reviewedModeratorId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
-        ApiFuture<WriteResult> future = documentReference.update("status", newStatus);
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("status", newStatus);
+        updates.put("reviewedModeratorId", reviewedModeratorId);
+
+        ApiFuture<WriteResult> future = documentReference.update(updates);
         return future.get().getUpdateTime().toString();
     }
 
-    public String updateArticleStatus(String articleId, String newStatus, String rejectedReason) throws ExecutionException, InterruptedException {
+    public String updateArticleStatus(String articleId, String newStatus, String rejectedReason, String reviewedModeratorId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
 
         Map<String, Object> updates = new HashMap<>();
         updates.put("status", newStatus);
         updates.put("rejectedReason", rejectedReason);
+        updates.put("reviewedModeratorId", reviewedModeratorId);
 
         ApiFuture<WriteResult> future = documentReference.update(updates);
         return future.get().getUpdateTime().toString();

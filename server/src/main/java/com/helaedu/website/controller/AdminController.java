@@ -3,6 +3,7 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.AdminDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.AdminService;
+import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +64,7 @@ public class AdminController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Object> updateEdmin(@PathVariable String userId, @Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> updateAdmin(@PathVariable String userId, @Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if(bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -95,5 +96,23 @@ public class AdminController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error deleting admin", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentAdmin() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return getAdmin(userId);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<Object> updateCurrentAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return updateAdmin(userId, adminDto, bindingResult);
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Object> deleteCurrentAdmin() throws ExecutionException, InterruptedException {
+        String userId = UserUtil.getCurrentUserId();
+        return deleteAdmin(userId);
     }
 }

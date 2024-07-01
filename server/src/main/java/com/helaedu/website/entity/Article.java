@@ -22,6 +22,8 @@ public class Article {
     private String publishedTimestamp;
     private String lastUpdatedTimestamp;
     private String status;
+    private String reviewedModeratorId;
     private String rejectedReason;
     private String userId;
+    private ArrayList<String> upvote;
 }

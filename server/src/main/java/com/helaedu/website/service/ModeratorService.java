@@ -88,16 +88,16 @@ public class ModeratorService {
             throw new IllegalArgumentException("Moderator not found");
         }
 
-        if(teacherDto.getFirstName() != null || !teacherDto.getFirstName().equals(existingModerator.getFirstName())) {
+        if(teacherDto.getFirstName() != null && !teacherDto.getFirstName().equals(existingModerator.getFirstName())) {
             existingModerator.setFirstName(teacherDto.getFirstName());
         }
-        if(teacherDto.getLastName() != null || !teacherDto.getLastName().equals(existingModerator.getLastName())) {
+        if(teacherDto.getLastName() != null && !teacherDto.getLastName().equals(existingModerator.getLastName())) {
             existingModerator.setLastName(teacherDto.getLastName());
         }
-        if(teacherDto.getEmail() != null || !teacherDto.getEmail().equals(existingModerator.getEmail())) {
+        if(teacherDto.getEmail() != null && !teacherDto.getEmail().equals(existingModerator.getEmail())) {
             existingModerator.setEmail(teacherDto.getEmail());
         }
-        if(teacherDto.getPassword() != null || !(encoder.encode(teacherDto.getPassword()).equals(encoder.encode(existingModerator.getPassword())))) {
+        if(teacherDto.getPassword() != null && !(encoder.encode(teacherDto.getPassword()).equals(encoder.encode(existingModerator.getPassword())))) {
             existingModerator.setPassword(encoder.encode(teacherDto.getPassword()));
         }
         if(teacherDto.getRegTimestamp() != null) {
@@ -106,7 +106,7 @@ public class ModeratorService {
         if(teacherDto.getIsModerator() != null) {
             existingModerator.setIsModerator(teacherDto.getIsModerator());
         }
-        if(teacherDto.getProofRef() != null || !teacherDto.getProofRef().equals(existingModerator.getProofRef())) {
+        if(teacherDto.getProofRef() != null && !teacherDto.getProofRef().equals(existingModerator.getProofRef())) {
             existingModerator.setProofRef(teacherDto.getProofRef());
         }
         return moderatorRepository.updateModerator(userId, existingModerator);
