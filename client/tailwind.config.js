@@ -2,11 +2,15 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        '128': '32rem',
+      },
       colors: {
         "blue" : "#0A6CF5",
         'yellow' : '#F5A711',
         'white' : '#FFFFFF',
-        'black' : '#1F2937'
+        'black' : '#343232',
+        'blue2' : '#B5D2FC'
       },
       fontSize: {
         'header1': '2.5rem', // 40px

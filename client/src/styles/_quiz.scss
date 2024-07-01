@@ -6,3 +6,124 @@
     border-radius: 12px;
     margin: 0 4px 0 4px;
 }
+
+.curve-text {
+    font-size: 24px;
+    fill: #000;
+    font-family: Arial, sans-serif;
+}
+.svg-container {
+    display: block;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.top-place-box{
+    height: 20rem;
+    width: 15rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-place{
+    border-radius: 100%;
+    top: 0;
+    border: 2px solid $primary-color;
+    height: 16rem;
+    width: 16rem;
+  
+
+}
+
+.top-place img{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    object-fit:cover;
+    border-radius: 100%;
+}
+.first{
+  height: 19rem;
+  width: 19rem;
+}
+
+
+.button-29 {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, $primary-color 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 60px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-29:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-29:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.subject-cards{
+    height: 120px;
+    width: 150px;
+    box-shadow: rgba(10, 108, 245, 0.16) 0px 1px 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    padding: 8px;
+    overflow: hidden;
+    border: 1px solid $primary-color;
+    border-radius: 20px;
+}
+
+.subject-cards img{
+  height: 80px;
+  width: 150px;
+  object-fit: contain;
+}
+
+.text-3d {
+  font-size: 4rem; 
+  margin-bottom: 1rem;
+  color: #333;
+  text-shadow: 
+    1px 1px 0 #e5e5e5, 
+    2px 2px 0 #c0c0c0, 
+    3px 3px 0 #ccc,
+    4px 4px 0 #ccc, 
+    5px 5px 0 #ccc,
+    6px 6px 0 #ccc;
+}

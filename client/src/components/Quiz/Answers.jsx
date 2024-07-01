@@ -11,7 +11,7 @@ const Answers = () => {
   ];
 
   return (
-    <div className='grid grid-flow-row grid-cols-2 mx-32'>
+    <div className='w-full grid grid-flow-row grid-cols-2 mx-32'>
       {answers.map((type, index) =>(
         <Answer key={index} type={type.text} id={type.id} onClick={() => answers(type.id)}/>
 

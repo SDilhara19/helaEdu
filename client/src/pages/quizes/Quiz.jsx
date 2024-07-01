@@ -8,7 +8,6 @@ const Quiz = () => {
   return (
     
     <>
-    <Header/>
     <Question/>
     <Answers/>
     <SubmitButton/>
