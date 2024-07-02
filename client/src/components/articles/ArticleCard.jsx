@@ -31,7 +31,7 @@ export default function ArticleCard({
   return (
     <div>
       <Link to="/readArticles">
-        <div className="card bg-base-100 w-96 shadow-xl hover:scale-105 transition-transform">
+        <div className="card  w-96 shadow-xl hover:scale-105 transition-transform">
           <figure>
             <img src={imageUrl} alt="Article" />
           </figure>
