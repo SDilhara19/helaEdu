@@ -21,10 +21,11 @@ function Header() {
               <h4>Categories</h4>
               {/* </a> */}
             </Link>
-
+            <Link to="/quiz">
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Quiz</h4>
             </a>
+            </Link>
             <Link to="/readArticles">
               <a className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
