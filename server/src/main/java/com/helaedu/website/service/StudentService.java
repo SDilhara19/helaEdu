@@ -1,5 +1,9 @@
 package com.helaedu.website.service;
 
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.helaedu.website.entity.Subscription;
 import com.helaedu.website.repository.SubscriptionRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -8,6 +12,8 @@ import com.helaedu.website.entity.Note;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.NoteRepository;
 import com.helaedu.website.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +26,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
+
+    @Value("${app.url}")
+    private String appUrl;
     private final StudentRepository studentRepository;
     private final NoteRepository noteRepository;
     private final SubscriptionRepository subscriptionRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
@@ -30,7 +42,7 @@ public class StudentService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
+    public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Student existingStudent = studentRepository.getStudentByEmail(studentDto.getEmail());
         if (existingStudent != null) {
             throw new IllegalArgumentException("Email already exists");
@@ -56,7 +68,43 @@ public class StudentService {
         );
         studentDto.setUserId(student.getUserId());
         studentDto.setNoteId(noteId);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(studentDto.getEmail())
+                .setEmailVerified(false)
+                .setPassword(studentDto.getPassword())
+                .setUid(student.getUserId());
+
+        UserRecord userRecord = firebaseAuth.createUser(request);
+
+        ActionCodeSettings actionCodeSettings = ActionCodeSettings.builder()
+                .setUrl(appUrl + "/verify-email?uid=" + student.getUserId())
+                .setHandleCodeInApp(true)
+                .build();
+
+        String verificationLink = firebaseAuth.generateEmailVerificationLink(studentDto.getEmail(), actionCodeSettings);
+
+        sendVerificationEmail(studentDto.getEmail(), verificationLink);
         return studentRepository.createStudent(student);
+    }
+
+    public void sendVerificationEmail(String email, String verificationLink) {
+        String subject = "Verify your email address";
+        String text = "Please click the link below to verify your email address:\n" + verificationLink;
+        emailService.sendSimpleMessage(email, subject, text);
+    }
+
+    public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
+        FirebaseAuth.getInstance();
+
+        Student student = studentRepository.getStudentById(userId);
+        if (student != null) {
+            student.setEmailVerified(true);
+            studentRepository.updateStudent(userId, student);
+        } else {
+            throw new IllegalArgumentException("Student not found");
+        }
     }
 
     public List<StudentDto> getAllStudents() throws ExecutionException, InterruptedException {
@@ -71,7 +119,8 @@ public class StudentService {
                                 student.getRegTimestamp(),
                                 student.getNoteId(),
                                 student.getSubscriptionId(),
-                                student.getRole()
+                                student.getRole(),
+                                student.isEmailVerified()
                         )
                 )
                 .collect(Collectors.toList());
@@ -89,7 +138,8 @@ public class StudentService {
                     student.getRegTimestamp(),
                     student.getNoteId(),
                     student.getSubscriptionId(),
-                    student.getRole()
+                    student.getRole(),
+                    student.isEmailVerified()
             );
         }
         return null;
@@ -187,7 +237,8 @@ public class StudentService {
                         student.getRegTimestamp(),
                         student.getNoteId(),
                         student.getSubscriptionId(),
-                        student.getRole()
+                        student.getRole(),
+                        student.isEmailVerified()
                 ))
                 .collect(Collectors.toList());
     }
