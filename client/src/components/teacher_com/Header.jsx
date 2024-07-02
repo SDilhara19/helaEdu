@@ -1,13 +1,17 @@
 import React from "react";
 import logo from "@assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
-import Profile from "@assets/img/profile.jpg"
+import Profile from "@assets/img/articles/profile.jpg"
+import { DarkModeProvider }  from "@components/common/DarkModeContext";
+import DarkModeToggle from "@components/common/DarkModeToggle";
 function Header() {
   return (
     <header>
+     
       <div className="flex-c header-wrapper">
+     
         <div className="logo-wrapper">
           <Link to="/">
             <img id="logo" className="mb-6" src={logo} alt="Logo" />
@@ -27,6 +31,7 @@ function Header() {
             <Link to="/leaderboard" className="nav-text flex-c m-4 cursor-pointer">
               <h4>Categories</h4>
             </Link>
+            
           </div>
           <div className="flex items-center">
             <Link to="/notifications" className="icon-wrapper mx-4">
@@ -38,9 +43,17 @@ function Header() {
             </Link>
 
           </div>
+          <DarkModeProvider>
+                  <DarkModeToggle />
+            </DarkModeProvider>
         </nav>
+        {/* <DarkModeProvider>
+                  <DarkModeToggle />
+            </DarkModeProvider> */}
       </div>
+      
     </header>
+
   );
 }
 

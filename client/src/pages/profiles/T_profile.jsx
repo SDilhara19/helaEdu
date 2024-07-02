@@ -5,6 +5,10 @@ import ProfileHero from '@components/teacher_com/ProfileHero'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil} from '@fortawesome/free-solid-svg-icons'
+import Assignment from '@assets/img/articles/assignments.png'
+import Articles from '@assets/img/articles/articles.png'
+import Users from '@assets/img/articles/social-media.png'
+
 export default function T_profile() {
   return (
     <div>
@@ -27,17 +31,25 @@ export default function T_profile() {
             </div>
         </div>
         <div className='w-1/2 grid grid-cols-2 gap-8 mt-12'>
-          <div className='shadow-xl  rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
-            20 Articles
+          <div className='shadow-xl  rounded-lg w-full h-56 flex-col flex-c  text-xl font-semibold'>
+            <img src={Assignment} className='w-20 h-20' ></img>
+            <br></br>
+            <p className='text-3xl'>20</p>
+            <p className='text-2xl'> Articles</p>
           </div>
-          <div className='shadow-xl rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
-            20 Articles
+          <div className='shadow-xl rounded-lg w-full h-56 flex-col flex-c text-xl font-semibold'>
+            <img src={Articles} className='w-20 h-20'  ></img>
+            <p className='text-3xl'>20</p>
+            <p className='text-2xl'> Assignments</p>
           </div>
-          <div className='shadow-xl   rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
-            20 Assignments
+          <div className='shadow-xl   rounded-lg w-full h-56 flex-col flex-c text-xl font-semibold'>
+            <img src={Users} className='w-20 h-20'  ></img>
+            <p className='text-3xl'>20</p>
+            <p className='text-2xl'> Reputaion Points</p>
           </div>
-          <div className='shadow-xl rounded-lg w-full h-56 flex items-center justify-center text-xl font-semibold'>
-            20 Assignments
+          <div className='shadow-xl rounded-lg w-full h-56 flex-col flex-c text-xl font-semibold'>
+          <p className='text-3xl'>20</p>
+          <p className='text-2xl'> Articles</p>
           </div>
         </div>
     </div>

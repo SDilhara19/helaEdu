@@ -1,6 +1,6 @@
 import React from 'react'
-import profile from "@assets/img/profile.jpg"
-import cover from "@assets/img/cover2.jpeg"
+import profile from "@assets/img/articles/profile.jpg"
+import cover from "@assets/img/articles/cover2.jpeg"
 export default function ProfileHero() {
   return (
     <div>
