@@ -1,6 +1,5 @@
 package com.helaedu.website.service;
 
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
@@ -13,7 +12,6 @@ import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.NoteRepository;
 import com.helaedu.website.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,24 +25,23 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    @Value("${app.url}")
-    private String appUrl;
     private final StudentRepository studentRepository;
     private final NoteRepository noteRepository;
     private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    private EmailService emailService;
+    private EmailVerificationService emailVerificationService;
 
-    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
+    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository, EmailVerificationService emailVerificationService) {
         this.studentRepository = studentRepository;
         this.noteRepository = noteRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Student existingStudent = studentRepository.getStudentByEmail(studentDto.getEmail());
-        if (existingStudent != null) {
+        if (existingStudent != null || emailVerificationService.isEmailExistsInFirebase(studentDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 
@@ -76,23 +73,10 @@ public class StudentService {
                 .setPassword(studentDto.getPassword())
                 .setUid(student.getUserId());
 
-        UserRecord userRecord = firebaseAuth.createUser(request);
+        firebaseAuth.createUser(request);
 
-        ActionCodeSettings actionCodeSettings = ActionCodeSettings.builder()
-                .setUrl(appUrl + "/verify-email?uid=" + student.getUserId())
-                .setHandleCodeInApp(true)
-                .build();
-
-        String verificationLink = firebaseAuth.generateEmailVerificationLink(studentDto.getEmail(), actionCodeSettings);
-
-        sendVerificationEmail(studentDto.getEmail(), verificationLink);
+        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
         return studentRepository.createStudent(student);
-    }
-
-    public void sendVerificationEmail(String email, String verificationLink) {
-        String subject = "Verify your email address";
-        String text = "Please click the link below to verify your email address:\n" + verificationLink;
-        emailService.sendSimpleMessage(email, subject, text);
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {

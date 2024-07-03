@@ -1,9 +1,14 @@
 package com.helaedu.website.service;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.helaedu.website.dto.AdminDto;
 import com.helaedu.website.entity.Admin;
+import com.helaedu.website.entity.Teacher;
 import com.helaedu.website.repository.AdminRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +21,17 @@ import java.util.stream.Collectors;
 public class AdminService {
     private final AdminRepository adminRepository;
 
-    public AdminService(AdminRepository adminRepository) {
+    @Autowired
+    private EmailVerificationService emailVerificationService;
+
+    public AdminService(AdminRepository adminRepository, EmailVerificationService emailVerificationService) {
         this.adminRepository = adminRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
-    public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException {
+    public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Admin existingAdmin = adminRepository.getAdminByEmail(adminDto.getEmail());
-        if (existingAdmin != null) {
+        if (existingAdmin != null || emailVerificationService.isEmailExistsInFirebase(adminDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 
@@ -39,7 +48,30 @@ public class AdminService {
                 "ROLE_ADMIN"
         );
         adminDto.setUserId(admin.getUserId());
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(adminDto.getEmail())
+                .setEmailVerified(false)
+                .setPassword(adminDto.getPassword())
+                .setUid(adminDto.getUserId());
+
+        firebaseAuth.createUser(request);
+
+        emailVerificationService.sendVerificationEmail(adminDto.getUserId(), adminDto.getEmail());
         return adminRepository.createAdmin(admin);
+    }
+
+    public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
+        FirebaseAuth.getInstance();
+
+        Admin admin = adminRepository.getAdminById(userId);
+        if (admin != null) {
+            admin.setEmailVerified(true);
+            adminRepository.updateAdmin(userId, admin);
+        } else {
+            throw new IllegalArgumentException("Admin not found");
+        }
     }
 
     public List<AdminDto> getAllAdmins() throws ExecutionException, InterruptedException {
@@ -52,7 +84,8 @@ public class AdminService {
                                 admin.getEmail(),
                                 admin.getPassword(),
                                 admin.getRegTimestamp(),
-                                admin.getRole()
+                                admin.getRole(),
+                                admin.isEmailVerified()
                         )
                 )
                 .collect(Collectors.toList());
@@ -68,7 +101,8 @@ public class AdminService {
                     admin.getEmail(),
                     admin.getPassword(),
                     admin.getRegTimestamp(),
-                    admin.getRole()
+                    admin.getRole(),
+                    admin.isEmailVerified()
             );
         }
         return null;
