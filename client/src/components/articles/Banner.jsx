@@ -2,7 +2,6 @@ import React from "react";
 import bookLogo from "@assets/img/book.svg";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import robotImg from "@assets/img/robot-from-the-side.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
 
 function Banner() {
   return (

@@ -1,9 +1,3 @@
-$primary-color: #0A6CF5;
-$secondary-color: #F5A711;
-$white-color: #ffffff;
-$black-color: #302A2A;
-$blue-2: #B5D2FC;
-
 $header1: 2.5rem;
 $header2: 3rem;
 $header3: 2.5rem;
@@ -66,10 +60,4 @@ input {
     &:focus-visible {
         outline: none;
     }
-}
-
-
-:export {
-    secondaryColor: $secondary-color;
-    primaryColor: $primary-color;
 }
