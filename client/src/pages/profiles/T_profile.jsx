@@ -12,7 +12,7 @@ import Users from '@assets/img/articles/social-media.png'
 export default function T_profile() {
   return (
     <div>
-      <Header/>
+      <Header />
       <ProfileHero />
     <div className='flex justify-between  mr-32 ml-32 mt-32 '>
         <div className='w-1/2   mr-12 mt-12 shadow-xl p-12'>
@@ -52,11 +52,13 @@ export default function T_profile() {
           <p className='text-2xl'> Articles</p>
           </div>
         </div>
+      </div>
+      <div className="mx-36 my-5">
+        <button className="bg-yellow w-96 h-20 rounded-xl text-3xl ">
+          Create your group
+        </button>
+      </div>
+      <Footer />
     </div>
-    <div className='mx-36 my-5'>
-        <button className='bg-yellow w-96 h-20 rounded-xl text-3xl '>Create your group</button>
-    </div>
-    <Footer />
-    </div>
-  )
+  );
 }

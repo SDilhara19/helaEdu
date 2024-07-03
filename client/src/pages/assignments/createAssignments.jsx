@@ -11,9 +11,9 @@ export default function CreateAssignments() {
           <div className="w-3/5">
             <label className="text-3xl block mb-2 ">Select a Group</label>
             <select className="border border-blue h-16 rounded-lg w-full px-4 text-xl">
-              <option className='h-16'>11C Mathematics II</option>
-              <option className='h-16'>11C Mathematics I</option>
-              <option className='h-16'>11E Mathematics I</option>
+              <option className="h-16">11C Mathematics II</option>
+              <option className="h-16">11C Mathematics I</option>
+              <option className="h-16">11E Mathematics I</option>
               {/* Add other options here */}
             </select>
           </div>
