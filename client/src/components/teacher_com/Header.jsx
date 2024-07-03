@@ -6,7 +6,7 @@ function Header() {
     <header>
       <div className="flex-c header-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+          <img id="logo" className="mb-6" src={logo} alt="" srcSet="" />
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
