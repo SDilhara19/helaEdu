@@ -40,7 +40,7 @@ public class StudentService {
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Student existingStudent = studentRepository.getStudentByEmail(studentDto.getEmail());
-        if (existingStudent != null) {
+        if (existingStudent != null || emailVerificationService.isEmailExistsInFirebase(studentDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 

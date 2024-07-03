@@ -29,7 +29,7 @@ public class ModeratorService {
 
     public String createModerator(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Teacher existingModeratorOrTeacher = moderatorRepository.getModeratorByEmail(teacherDto.getEmail());
-        if (existingModeratorOrTeacher != null) {
+        if (existingModeratorOrTeacher != null || emailVerificationService.isEmailExistsInFirebase(teacherDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
 
