@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "@assets/icons/logo.svg";
+import logo from "@assets/icons/hela-edu-white-text.svg";
 import { secondaryColor } from "@styles/_global.module.scss";
 
 function Header() {

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "@assets/icons/logo_white.svg";
+import logo from "@assets/icons/hela-edu-black-text.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,

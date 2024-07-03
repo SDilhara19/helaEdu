@@ -1,7 +1,7 @@
 import React from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "@assets/icons/logo.svg";
+import logo from "@assets/icons/hela-edu-white-text.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
 
