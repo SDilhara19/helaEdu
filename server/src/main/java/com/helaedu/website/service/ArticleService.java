@@ -142,6 +142,27 @@ public class ArticleService {
         ).collect(Collectors.toList());
     }
 
+    public List<ArticleDto> getApprovedArticles() throws ExecutionException, InterruptedException {
+        List<Article> articles = articleRepository.getArticlesByStatus("APPROVED");
+        return articles.stream().map(article ->
+                new ArticleDto(
+                        article.getArticleId(),
+                        article.getTitle(),
+                        article.getContent(),
+                        article.getImageRef(),
+                        article.getAdditionalFilesRefs(),
+                        article.getTags(),
+                        article.getPublishedTimestamp(),
+                        article.getLastUpdatedTimestamp(),
+                        article.getStatus(),
+                        article.getReviewedModeratorId(),
+                        article.getRejectedReason(),
+                        article.getUserId(),
+                        article.getUpvote()
+                )
+        ).collect(Collectors.toList());
+    }
+
     public String approveArticle(String articleId, String reviewedModeratorId) throws ExecutionException, InterruptedException {
         return articleRepository.updateArticleStatus(articleId, "APPROVED", reviewedModeratorId);
     }

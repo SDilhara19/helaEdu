@@ -45,8 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/teachers/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyRole("TEACHER", "MODERATOR")
-                        .requestMatchers(HttpMethod.GET, "/teachers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyRole("TEACHER", "MODERATOR")
 
                         .requestMatchers(HttpMethod.PUT, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/moderators/**").permitAll()
@@ -55,7 +54,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(httpBasic -> {});
         return http.build();

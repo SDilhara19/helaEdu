@@ -1,4 +1,3 @@
-
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
@@ -114,6 +113,12 @@ public class ArticleController{
         return ResponseEntity.ok(articles);
     }
 
+    @GetMapping("/approved")
+    public ResponseEntity<List<ArticleDto>> getApprovedArticles() throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getApprovedArticles();
+        return ResponseEntity.ok(articles);
+    }
+
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
@@ -129,7 +134,6 @@ public class ArticleController{
             return new ResponseEntity<>("Error approving article", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @PutMapping("/{articleId}/decline")
     public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
         try {
@@ -161,5 +165,3 @@ public class ArticleController{
         }
     }
 }
-
-
