@@ -36,9 +36,8 @@ const HomeBanner = () => {
                         <div className='text-3d text-header2 mx-auto w-full text-center'>Weekly Brain Teaser</div>
                         <StartQuiz />
                     </div>
-                    <div className='w-7/12 h-full'>
+                    <div className='w-7/12 h-full -ml-96'>
                         <Top3 />
-                        {/* <img src={bot} alt="img" className='robo-img' /> */}
                     </div>
                 </div>
 

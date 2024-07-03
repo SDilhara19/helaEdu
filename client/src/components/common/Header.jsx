@@ -31,9 +31,11 @@ function Header() {
                 <h4>Articles</h4>
               </a>
             </Link>
+            <Link to="/leaderboard/1">
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Leaderboard</h4>
             </a>
+            </Link>
           </div>
           <div className="auth-control">
             <Link
