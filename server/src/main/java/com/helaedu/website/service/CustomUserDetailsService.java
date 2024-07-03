@@ -34,19 +34,27 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             Student student = studentRepository.getStudentByEmail(email);
             if (student != null) {
-
+                if (!student.isEmailVerified()) {
+                    throw new UsernameNotFoundException("Email not verified");
+                }
                 return new User(student.getUserId(), student.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(student.getRole())));
             }
 
             Teacher teacher = teacherRepository.getTeacherByEmail(email);
             if (teacher != null) {
+                if (!teacher.isEmailVerified()) {
+                    throw new UsernameNotFoundException("Email not verified");
+                }
                 return new User(teacher.getUserId(), teacher.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(teacher.getRole())));
             }
 
             Admin admin = adminRepository.getAdminByEmail(email);
             if (admin != null) {
+                if (!admin.isEmailVerified()) {
+                    throw new UsernameNotFoundException("Email not verified");
+                }
                 return new User(admin.getUserId(), admin.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(admin.getRole())));
             }
