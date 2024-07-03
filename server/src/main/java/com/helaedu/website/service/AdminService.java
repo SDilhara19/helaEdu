@@ -31,7 +31,7 @@ public class AdminService {
 
     public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Admin existingAdmin = adminRepository.getAdminByEmail(adminDto.getEmail());
-        if (existingAdmin != null || emailVerificationService.isEmailExistsInFirebase(adminDto.getEmail())) {
+        if (existingAdmin != null) {
             throw new IllegalArgumentException("Email already exists");
         }
 

@@ -31,7 +31,7 @@ public class TeacherService {
 
     public String createTeacher(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Teacher existingTeacher = teacherRepository.getTeacherByEmail(teacherDto.getEmail());
-        if (existingTeacher != null || emailVerificationService.isEmailExistsInFirebase(teacherDto.getEmail())) {
+        if (existingTeacher != null) {
             throw new IllegalArgumentException("Email already exists");
         }
 
