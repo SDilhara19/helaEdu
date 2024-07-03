@@ -114,6 +114,12 @@ public class ArticleController{
         return ResponseEntity.ok(articles);
     }
 
+    @GetMapping("/approved")
+    public ResponseEntity<List<ArticleDto>> getApprovedArticles() throws ExecutionException, InterruptedException {
+        List<ArticleDto> articles = articleService.getApprovedArticles();
+        return ResponseEntity.ok(articles);
+    }
+
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
