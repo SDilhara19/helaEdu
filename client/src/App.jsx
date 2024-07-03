@@ -18,6 +18,7 @@ import LeaderBoard from "@pages/quizes/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
+
 function App() {
   return (
     <div>
@@ -30,6 +31,12 @@ function App() {
         <Route path='/history/1' element={<History/>}></Route>
         <Route path='/friends/1' element={<Friends/>}></Route>
         <Route path='/leaderboard/1' element={<LeaderBoard />}></Route>
+        <Route path="/quiz" element={<QuizHome />}></Route>
+        <Route path="/quiz/1" element={<Quiz />}></Route>
+        <Route path="/quizend/1" element={<QuizEnd />}></Route>
+        <Route path="/history/1" element={<History />}></Route>
+        <Route path="/friends/1" element={<Friends />}></Route>
+        <Route path="leaderboard/1" element={<LeaderBoard />}></Route>
         <Route path="/articles" element={<Articles />}></Route>
         <Route path="/readArticles/:articleId" element={<ReadArticles />}></Route>
         <Route path="/addArticles" element={<AddArticles />}></Route>
@@ -40,6 +47,8 @@ function App() {
         <Route path="/t_profile" element={<T_profile/>} ></Route>
         <Route path="/createAssignments" element={<CreateAssignments />}></Route> 
         <Route path="/quizFormat" element={<QuizFormat/>}></Route>
+        <Route path="/t_profile" element={<T_profile />}></Route>
+        <Route path="/quizFormat" element={<QuizFormat />}></Route>
       </Routes>
     </div>
   );

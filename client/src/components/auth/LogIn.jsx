@@ -6,7 +6,10 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
 
 function Login() {
-  const [formData, setFormData] = React.useState({ email: "", password: "" });
+  const [formData, setFormData] = React.useState({
+    username: "",
+    password: "",
+  });
   const signIn = useSignIn();
 
   const onSubmit = (e) => {
@@ -19,7 +22,6 @@ function Login() {
               token: res.data.jwt,
               type: "Bearer",
             },
-            refresh: res.data.jwt,
           })
         ) {
         } else {
@@ -42,10 +44,10 @@ function Login() {
               <FontAwesomeIcon icon={faEnvelope} size="1.5x" className="icon" />
               <input
                 type={"email"}
-                name="email"
+                name="username"
                 placeholder="Email"
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, username: e.target.value })
                 }
               />
             </label>
@@ -86,7 +88,7 @@ function Login() {
       <div className="login-right-pannel flex-c">
         <div className="login-banner flex-col-c">
           <h2>Welcome Back!</h2>
-          <img src={logo} alt="" srcset="" className="w-full" />
+          <img src={logo} alt="" srcSet="" className="w-full" />
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure rem id
             pariatur aspernatur quia aperiam ad vero, dolore maxime, iusto fuga
