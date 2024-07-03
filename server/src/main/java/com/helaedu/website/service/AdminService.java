@@ -24,8 +24,9 @@ public class AdminService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public AdminService(AdminRepository adminRepository) {
+    public AdminService(AdminRepository adminRepository, EmailVerificationService emailVerificationService) {
         this.adminRepository = adminRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException, FirebaseAuthException {

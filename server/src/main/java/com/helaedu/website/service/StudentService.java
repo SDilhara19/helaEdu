@@ -32,10 +32,11 @@ public class StudentService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
+    public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository, EmailVerificationService emailVerificationService) {
         this.studentRepository = studentRepository;
         this.noteRepository = noteRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
