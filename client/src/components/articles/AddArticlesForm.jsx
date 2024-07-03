@@ -32,7 +32,7 @@ export default function AddArticlesForm() {
                 <div className='p-10'>
                     <div className='flex justify-around align-baseline my-5'>
                         <div className='w-2/6 mw:w-1/3'><span className='text-3xl'>Title</span></div>
-                        <div className='w-4/6 mw:w-2/3'><input className='border border-blue rounded-2xl w-full h-20 hover:border-yellow'></input></div>
+                        <div className='w-4/6 mw:w-2/3'><input className='border border-blue rounded-2xl w-full h-20 hover:border-yellow '></input></div>
                     </div>
                     <div className='flex justify-around align-baseline my-5'>
                         <div className='w-2/6'><span className='text-3xl'>Introduction</span></div>

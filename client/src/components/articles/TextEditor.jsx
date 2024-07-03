@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import JoditEditor from 'jodit-react';
+import HTMLReactParser from 'html-react-parser';
 
 export default function TextEditor() {
     const editor = useRef(null);
@@ -12,6 +13,8 @@ export default function TextEditor() {
                 value={content} 
                 onChange={newContent => setContent(newContent)} 
             />
+            {/* <div>{content}</div>
+            <div>{HTMLReactParser(content)}</div> */}
             <style jsx global>{`
                 .jodit-status-bar-link {
                     color:white !important;

@@ -49,9 +49,9 @@ export default function ArticleCard({
             <p className='text-lg mt-2'>{description}</p>
             <div className="card-actions justify-end mt-2"></div>
             <div className="flex justify-start mt-2">
-              {badges.map((badge, index) => (
+              {/* {badges.map((badge, index) => (
                 <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue p-2">{badge}</div>
-              ))}
+              ))} */}
             </div>
             <div >
             <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-10 m-2' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />

@@ -4,7 +4,7 @@ import TableRaw from '@/components/articles/TableRaw';
 import Pagination from '@/components/articles/Pagination';
 import { Link } from 'react-router-dom';
 import { Footer } from '@/components/common';
-import { listArticles } from '@/services/ArticleService';
+import { listArticlesByTeacher } from '@/services/ArticleService';
 
 export default function AddArticles() {
   const [currentPage, setCurrentPage] = useState(1);

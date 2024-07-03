@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles.css */
 :root {
     --color-bg: #ffffff;
     --color-text: #000000;
@@ -12,7 +11,7 @@
   }
   
   .dark {
-    --color-bg: #000000;
+    --color-bg: #282222;
     --color-text: #ffffff;
     --color-primary: #0A6CF5; 
     --color-secondary: #F5A711;

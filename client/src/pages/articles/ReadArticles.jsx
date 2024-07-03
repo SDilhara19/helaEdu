@@ -9,12 +9,35 @@ import { Footer} from "@/components/common";
 import Header from "@components/teacher_com/Header";
 import { Link } from "react-router-dom";
 export default function ReadArticle() {
+  const { articleId } = useParams();
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await getArticleById(articleId);
+        setArticle(response.data);
+      } catch (error) {
+        console.error("Failed to fetch article", error);
+      }
+    };
+
+    fetchArticle();
+  }, [articleId]);
+
+  if (!article) {
+    return <div>Loading...</div>; // Or a loading spinner
+  }
   return (
     <div>
       <Header />
       <div className="flex justify-between">
         <div className="w-5/6">
-          <ViewArticle />
+          <ViewArticle 
+              title={article.title}
+              content={article.content}
+              
+            />
         </div>
         <div className="m-12">
           <h1>Top Articles</h1>
