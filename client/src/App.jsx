@@ -10,7 +10,8 @@ import AddArticleForm from "@pages/articles/AddArticleForm";
 import ReviewList from "@pages/articles/reviewList";
 import ReviewArticle from "@pages/articles/ReviewArticle";
 import AssignmentList from "@pages/assignments/AssignmentList";
-import CreateAssignments from "@pages/assignments/CreateAssignments";
+import CreateAssignments from "@pages/assignments/createAssignments";
+// import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import T_profile from "@pages/profiles/T_profile";
 import LeaderBoard from "@pages/quizes/LeaderBoard";
@@ -28,7 +29,7 @@ function App() {
         <Route path='/quizend/1' element={<QuizEnd />}></Route>
         <Route path='/history/1' element={<History/>}></Route>
         <Route path='/friends/1' element={<Friends/>}></Route>
-        <Route path='leaderboard/1' element={<LeaderBoard />}></Route>
+        <Route path='/leaderboard/1' element={<LeaderBoard />}></Route>
         <Route path="/articles" element={<Articles />}></Route>
         <Route path="/readArticles/:articleId" element={<ReadArticles />}></Route>
         <Route path="/addArticles" element={<AddArticles />}></Route>

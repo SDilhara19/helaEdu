@@ -1,5 +1,6 @@
 import React from "react";
-import logo from "@assets/icons/logo.svg";
+import logo from "@assets/icons/hela-edu-white-text.svg"
+// import logo from "@assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
