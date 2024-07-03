@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "@assets/icons/logo.svg";
+import logo from "@assets/icons/hela-edu-white-text.svg";
 import { secondaryColor } from "@styles/_global.module.scss";
 import { Link } from "react-router-dom";
 function Header() {
@@ -17,14 +17,14 @@ function Header() {
               <h4>Home</h4>
             </a>
             <Link to="/articles">
-              {/* <a className="nav-text flex-c m-4 cursor-pointer"> */}
-              <h4>Categories</h4>
-              {/* </a> */}
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Categories</h4>
+              </a>
             </Link>
             <Link to="/quiz">
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Quiz</h4>
-            </a>
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Quiz</h4>
+              </a>
             </Link>
             <Link to="/readArticles">
               <a className="nav-text flex-c m-4 cursor-pointer">
