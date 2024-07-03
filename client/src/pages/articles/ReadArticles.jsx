@@ -8,6 +8,8 @@ import React from "react";
 import { Footer} from "@/components/common";
 import Header from "@components/teacher_com/Header";
 import { Link } from "react-router-dom";
+import { getArticleById } from "@/services/ArticleService";
+
 export default function ReadArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);

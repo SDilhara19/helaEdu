@@ -6,7 +6,7 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 
-export default function ViewArticle({title,userName,date,content}) {
+export default function ViewArticle({title,content}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
 
@@ -25,10 +25,10 @@ export default function ViewArticle({title,userName,date,content}) {
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
                         <img className="w-10 h-10 rounded-full" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Rounded avatar" />
-                        <span className='text-2xl'>{userName}</span>
+                        {/* <span className='text-2xl'>{userName}</span> */}
                     </div>
                     <div>
-                        <span className='text-2xl'>{date}</span>
+                        {/* <span className='text-2xl'>{date}</span> */}
                     </div>
                 </div>
                 {/* tags */}
