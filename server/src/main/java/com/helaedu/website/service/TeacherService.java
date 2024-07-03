@@ -24,9 +24,8 @@ public class TeacherService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public TeacherService(TeacherRepository teacherRepository, EmailVerificationService emailVerificationService) {
+    public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
-        this.emailVerificationService = emailVerificationService;
     }
 
     public String createTeacher(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {

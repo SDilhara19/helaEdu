@@ -1,7 +1,5 @@
 package com.helaedu.website.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.NoteDto;
 import com.helaedu.website.dto.StudentDto;

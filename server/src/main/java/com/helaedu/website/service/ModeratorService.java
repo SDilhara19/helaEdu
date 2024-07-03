@@ -23,9 +23,8 @@ public class ModeratorService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public ModeratorService(ModeratorRepository moderatorRepository, EmailVerificationService emailVerificationService) {
+    public ModeratorService(ModeratorRepository moderatorRepository) {
         this.moderatorRepository = moderatorRepository;
-        this.emailVerificationService = emailVerificationService;
     }
 
     public String createModerator(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
