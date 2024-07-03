@@ -52,7 +52,12 @@ header {
     .auth-control {
         display: flex;
     }
-
+    // .dark & {
+    //     background: $black-color; 
+    //     .nav-text {
+    //       color: $white-color; 
+    //     }
+    //   }
 
     @media screen and (max-width: 800px) {
         .logo-wrapper {

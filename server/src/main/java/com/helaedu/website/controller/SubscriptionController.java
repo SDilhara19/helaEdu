@@ -22,13 +22,11 @@ public class SubscriptionController {
     public SubscriptionController(SubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
-
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() throws ExecutionException, InterruptedException {
         List<SubscriptionDto> subscriptions = subscriptionService.getAllSubscriptions();
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
-
     @GetMapping("/active")
     public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptions() throws ExecutionException, InterruptedException {
         List<SubscriptionDto> activeSubscriptions = subscriptionService.getActiveSubscriptions();

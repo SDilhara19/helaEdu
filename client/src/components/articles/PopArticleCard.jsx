@@ -10,7 +10,7 @@ export default function PopArticleCard() {
           className="h-full object-cover rounded-l-3xl"
         />
       </figure>
-      <div className="card-body w-2/3 p-4">
+      <div className="card-body w-2/3 p-4 border border-blue">
         <h2 className="card-title text-2xl ">The standard Lorem Ipsum passage, used since the 1500s</h2>
         <div className="card-actions flex justify-between mt-4">
           <div className="flex items-center space-x-2">
