@@ -16,16 +16,11 @@ function Login() {
     e.preventDefault();
     authenticateUser(formData).then((res) => {
       if (res.status === 200) {
-        if (
-          signIn({
-            auth: {
-              token: res.data.jwt,
-              type: "Bearer",
-            },
-          })
-        ) {
-        } else {
-        }
+        let auth = {
+          token: res.data.jwt,
+          type: "Bearer",
+        };
+        let status = signIn({ auth });
       }
     });
   };
@@ -39,30 +34,35 @@ function Login() {
         <div className="login-details flex-col-c">
           <h2 className="m-3">Hello</h2>
           <h3 className="m-3">Sign into your account</h3>
-          <div className="m-3 w-full">
-            <label className="flex text-input m-3">
-              <FontAwesomeIcon icon={faEnvelope} size="1.5x" className="icon" />
-              <input
-                type={"email"}
-                name="username"
-                placeholder="Email"
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-              />
-            </label>
+          <div className="m-3 w-10/12">
+            <div className="flex-end input-wrapper">
+              <FontAwesomeIcon icon={faEnvelope} size="3x" className="icon" />
+              <div className="floating-input-label">
+                <input
+                  type="input"
+                  placeholder="Name"
+                  name="username"
+                  id="username"
+                  required
+                />
+                <label for="username">Email</label>
+              </div>
+            </div>
             <h5>&nbsp;</h5>
-            <label className="flex text-input m-3">
-              <FontAwesomeIcon icon={faLock} size="1.5x" className="icon" />
-              <input
-                type={"password"}
-                name="password"
-                placeholder="Password"
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-              />
-            </label>
+
+            <div className="flex-end input-wrapper">
+              <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
+              <div className="floating-input-label">
+                <input
+                  type="input"
+                  placeholder="Name"
+                  name="name"
+                  id="name"
+                  required
+                />
+                <label for="name">Password</label>
+              </div>
+            </div>
             <h5>&nbsp;</h5>
           </div>
           <div className="flex-sb w-11/12 m-3">
