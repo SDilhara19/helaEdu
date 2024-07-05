@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!student.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new User(student.getUserId(), student.getPassword(),
+                return new User(student.getEmail(), student.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(student.getRole())));
             }
 
@@ -46,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!teacher.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new User(teacher.getUserId(), teacher.getPassword(),
+                return new User(teacher.getEmail(), teacher.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(teacher.getRole())));
             }
 
@@ -55,7 +55,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!admin.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new User(admin.getUserId(), admin.getPassword(),
+                return new User(admin.getEmail(), admin.getPassword(),
                         Collections.singletonList(new SimpleGrantedAuthority(admin.getRole())));
             }
 

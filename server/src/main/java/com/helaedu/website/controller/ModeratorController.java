@@ -139,25 +139,25 @@ public class ModeratorController {
 
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentModerator() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getModerator(userId);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentModerator(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return updateModerator(userId, teacherDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentModerator() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return deleteModerator(userId);
     }
 
     @GetMapping("/me/articles")
     public ResponseEntity<List<ArticleDto>> getCurrentModeratorArticles() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getAllArticledByModerator(userId);
     }
 }
