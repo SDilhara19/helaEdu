@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
+import rightBanner from "@assets/img/hero-banner.svg";
 
 function Login() {
   const [formData, setFormData] = React.useState({
@@ -86,6 +87,7 @@ function Login() {
       </form>
 
       <div className="login-right-pannel flex-c">
+        <img src={rightBanner} alt="" className="login-banner-image" />
         <div className="login-banner flex-col-c">
           <h2>Welcome Back!</h2>
           <img src={logo} alt="" srcSet="" className="w-full" />
