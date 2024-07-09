@@ -1,6 +1,5 @@
 package com.helaedu.website.service;
 
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
@@ -13,7 +12,6 @@ import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.NoteRepository;
 import com.helaedu.website.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +25,12 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    @Value("${app.url}")
-    private String appUrl;
     private final StudentRepository studentRepository;
     private final NoteRepository noteRepository;
     private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    private EmailService emailService;
+    private EmailVerificationService emailVerificationService;
 
     public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
@@ -76,23 +72,10 @@ public class StudentService {
                 .setPassword(studentDto.getPassword())
                 .setUid(student.getUserId());
 
-        UserRecord userRecord = firebaseAuth.createUser(request);
+        firebaseAuth.createUser(request);
 
-        ActionCodeSettings actionCodeSettings = ActionCodeSettings.builder()
-                .setUrl(appUrl + "/verify-email?uid=" + student.getUserId())
-                .setHandleCodeInApp(true)
-                .build();
-
-        String verificationLink = firebaseAuth.generateEmailVerificationLink(studentDto.getEmail(), actionCodeSettings);
-
-        sendVerificationEmail(studentDto.getEmail(), verificationLink);
+        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
         return studentRepository.createStudent(student);
-    }
-
-    public void sendVerificationEmail(String email, String verificationLink) {
-        String subject = "Verify your email address";
-        String text = "Please click the link below to verify your email address:\n" + verificationLink;
-        emailService.sendSimpleMessage(email, subject, text);
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -145,10 +128,29 @@ public class StudentService {
         return null;
     }
 
-    public String updateStudent(String userId, StudentDto studentDto) throws ExecutionException, InterruptedException {
+    public StudentDto getStudentByEmail(String email) throws ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentByEmail(email);
+        if (student != null) {
+            return new StudentDto(
+                    student.getUserId(),
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getEmail(),
+                    student.getPassword(),
+                    student.getRegTimestamp(),
+                    student.getNoteId(),
+                    student.getSubscriptionId(),
+                    student.getRole(),
+                    student.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public String updateStudent(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        Student existingStudent = studentRepository.getStudentById(userId);
+        Student existingStudent = studentRepository.getStudentByEmail(email);
         if(existingStudent == null) {
             throw new IllegalArgumentException("Student not found");
         }
@@ -175,11 +177,15 @@ public class StudentService {
             existingStudent.setSubscriptionId(studentDto.getSubscriptionId());
         }
 
-        return studentRepository.updateStudent(userId, existingStudent);
+        return studentRepository.updateStudent(email, existingStudent);
     }
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
         return studentRepository.deleteStudent(userId);
+    }
+
+    public String deleteStudentByEmail(String email) throws ExecutionException, InterruptedException {
+        return studentRepository.deleteStudentByEmail(email);
     }
 
     public String createSubscription(String userId, long paidAmount) throws ExecutionException, InterruptedException {
@@ -199,6 +205,27 @@ public class StudentService {
         Student student = studentRepository.getStudentById(userId);
         student.setSubscriptionId(subscriptionId);
         studentRepository.updateStudent(userId, student);
+
+        return subscriptionId;
+    }
+
+    public String createSubscriptionByEmail(String email, long paidAmount) throws ExecutionException, InterruptedException {
+        String subscriptionId = UniqueIdGenerator.generateUniqueId("sub", subscriptionRepository::exists);
+        String startTimestamp = Instant.now().toString();
+        String endTimestamp = Instant.now().plus(30, ChronoUnit.DAYS).toString();
+
+        Subscription subscription = new Subscription(
+                subscriptionId,
+                paidAmount,
+                startTimestamp,
+                endTimestamp,
+                false
+        );
+        subscriptionRepository.createSubscription(subscription);
+
+        Student student = studentRepository.getStudentByEmail(email);
+        student.setSubscriptionId(subscriptionId);
+        studentRepository.updateStudent(student.getUserId(), student);
 
         return subscriptionId;
     }
