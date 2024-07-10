@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "@assets/icons/hela-edu-white-text.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
 import { Link } from "react-router-dom";
 function Header() {
   return (
@@ -8,7 +7,7 @@ function Header() {
       <div className="flex-c header-wrapper">
         <div className="logo-wrapper">
           <Link to="/">
-            <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+            <img id="logo" src={logo} alt="" srcSet="" />
           </Link>
         </div>
         <nav className="flex-grow flex-sa z-1">

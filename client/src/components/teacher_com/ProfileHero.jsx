@@ -1,10 +1,10 @@
 import React from 'react'
-import profile from "@assets/img/profile.jpg"
-import cover from "@assets/img/cover2.jpeg"
+import profile from "@assets/img/articles/profile.jpg"
+import cover from "@assets/img/articles/cover2.jpeg"
 export default function ProfileHero() {
   return (
     <div>
-       <div className="relative">
+       <div className="relative dark:bg-black ">
             <div>
                 <img src={cover} className="w-full h-96 object-cover" alt="Cover" />
             </div>

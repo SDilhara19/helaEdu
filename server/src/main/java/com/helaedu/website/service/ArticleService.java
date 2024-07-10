@@ -1,5 +1,5 @@
 package com.helaedu.website.service;
-
+import java.time.LocalDateTime;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.entity.Article;
 import com.helaedu.website.repository.ArticleRepository;
@@ -23,14 +23,18 @@ public class ArticleService {
 
         String articleId = UniqueIdGenerator.generateUniqueId("ar", articleRepository::exists);
 
-        Article article= new Article(
+        LocalDateTime publishedTimestamp = articleDto.getPublishedTimestamp() != null ?
+                articleDto.getPublishedTimestamp() :
+                LocalDateTime.now();
+
+        Article article = new Article(
                 articleId,
                 articleDto.getTitle(),
                 articleDto.getContent(),
                 articleDto.getImageRef(),
                 articleDto.getAdditionalFilesRefs(),
                 articleDto.getTags(),
-                articleDto.getPublishedTimestamp(),
+                publishedTimestamp,
                 articleDto.getLastUpdatedTimestamp(),
                 "PENDING",
                 articleDto.getReviewedModeratorId(),
@@ -38,6 +42,7 @@ public class ArticleService {
                 articleDto.getUserId(),
                 new ArrayList<>()
         );
+
         return articleRepository.createArticle(article);
     }
 
@@ -123,6 +128,27 @@ public class ArticleService {
 
     public List<ArticleDto> getPendingArticles() throws ExecutionException, InterruptedException {
         List<Article> articles = articleRepository.getArticlesByStatus("PENDING");
+        return articles.stream().map(article ->
+                new ArticleDto(
+                        article.getArticleId(),
+                        article.getTitle(),
+                        article.getContent(),
+                        article.getImageRef(),
+                        article.getAdditionalFilesRefs(),
+                        article.getTags(),
+                        article.getPublishedTimestamp(),
+                        article.getLastUpdatedTimestamp(),
+                        article.getStatus(),
+                        article.getReviewedModeratorId(),
+                        article.getRejectedReason(),
+                        article.getUserId(),
+                        article.getUpvote()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    public List<ArticleDto> getApprovedArticles() throws ExecutionException, InterruptedException {
+        List<Article> articles = articleRepository.getArticlesByStatus("APPROVED");
         return articles.stream().map(article ->
                 new ArticleDto(
                         article.getArticleId(),

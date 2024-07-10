@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import Header from '@/components/common/Header';
+import Header from '@components/teacher_com/Header';
 import TableRaw from '@/components/articles/TableRaw';
 import Pagination from '@/components/articles/Pagination';
 import { Link } from 'react-router-dom';
 import { Footer } from '@/components/common';
-import { listArticles } from '@/services/ArticleService';
+import { listArticlesByTeacher } from '@/services/ArticleService';
 
 export default function AddArticles() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [articles, setArticles] =useState([])
   useEffect(()=> {
-    listArticles().then((response) =>{
+    listArticlesByTeacher().then((response) =>{
       setArticles(response.data);
     }).catch(error=>{
       console.error(error);
     })
     },[])
   
-  // const articles = [
-  //   { articleId: 1, title: 'Article 1', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File1.pdf', tags: 'Tag1', status: 'New' },
-  //   { articleId: 2, title: 'Article 2', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File2.pdf', tags: 'Tag2', status: 'New' },
-  //   { articleId: 3, title: 'Article 3', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File3.pdf', tags: 'Tag3', status: 'New' },
-  //   { articleId: 4, title: 'Article 4', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File4.pdf', tags: 'Tag4', status: 'New' },
-  //   { articleId: 5, title: 'Article 5', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File5.pdf', tags: 'Tag5', status: 'New' },
-  //   { articleId: 6, title: 'Article 6', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File6.pdf', tags: 'Tag6', status: 'New' },
-  //   { articleId: 7, title: 'Article 7', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File7.pdf', tags: 'Tag7', status: 'New' },
-  //   { articleId: 8, title: 'Article 8', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File8.pdf', tags: 'Tag8', status: 'New' },
-  //   { articleId: 9, title: 'Article 9', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File9.pdf', tags: 'Tag9', status: 'New' },
-  //   { articleId: 10, title: 'Article 10', imgUrl: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg', pdfName: 'File10.pdf', tags: 'Tag10', status: 'New' }
-  // ];
 
   const rowsPerPage = 7;
   const totalPages = Math.ceil(articles.length / rowsPerPage);

@@ -7,7 +7,7 @@ export default function ArticleHead() {
 
   return (
     <div className='mt-10'>
-      <h1 className='text-center text-5xl font-bold text-black'>Articles</h1>
+      <h1 className='text-center text-5xl font-bold '>Articles</h1>
       <hr className='my-4 border-yellow leading-8' />
       <div className='flex justify-end items-center m-20'>
         <div className='flex space-x-4 text-sm'>
