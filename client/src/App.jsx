@@ -18,6 +18,10 @@ import LeaderBoard from "@pages/quizes/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
+import Dashboard from "@pages/admin/Dashboard";
+import ModeratorDetails from "@pages/admin/ModeratorDetails";
+import ModeratorManagement from "@pages/admin/ModeratorManagement";
+import Notifications from "@pages/admin/Notifications";
 
 function App() {
   return (
@@ -49,6 +53,11 @@ function App() {
         <Route path="/quizFormat" element={<QuizFormat/>}></Route>
         <Route path="/t_profile" element={<T_profile />}></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
+
+        <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/ModeratorDetails" element={<ModeratorDetails/>}></Route>
+        <Route path="/ModeratorManagement" element={<ModeratorManagement/>}></Route>
+        <Route path="/Notifications" element={<Notifications/>}></Route>
       </Routes>
     </div>
   );
