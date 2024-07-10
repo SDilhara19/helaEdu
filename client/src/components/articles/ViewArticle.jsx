@@ -5,11 +5,12 @@ import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-i
 import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import HTMLReactParser from 'html-react-parser';
 
-export default function ViewArticle({title,content}) {
+export default function ViewArticle({title,content,tags}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
-
+    const parsedContent =HTMLReactParser(content);
     const toggleLike = () => {
         setIsLiked(!isLiked);
     };
@@ -32,17 +33,20 @@ export default function ViewArticle({title,content}) {
                     </div>
                 </div>
                 {/* tags */}
-                <div className="flex justify-start m-7 ">
-                    <div className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5">NEW</div>
-                    <div className="badge badge-secondary mr-2  bg-yellow border-none text-blue px-7 py-5">NEW</div>
-                    <div className="badge badge-secondary mr-2  bg-yellow border-none text-blue px-7 py-5">NEW</div>
-                </div>
+                <div className="flex justify-start m-7">
+                    { tags && tags.map((tag, index) => (
+                        <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5">
+                        {tag}
+                        </div>
+                    ))}
+                    </div>
+
                 <div>
                     <img className="w-99/100 h-auto " src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Rounded avatar" />
                 </div>
                 <div className='text-xl'>
                     <p className='text-2xl'>
-                        {content}
+                        {parsedContent}
                     </p> <br />
                     {/* <p className='text-2xl'>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

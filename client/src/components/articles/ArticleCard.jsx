@@ -5,16 +5,9 @@ import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-i
 import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-export default function ArticleCard({
-  imageUrl,
-  authorImageUrl,
-  authorName,
-  date,
-  title,
-  description,
-  badges
+import HTMLReactParser from 'html-react-parser';
+export default function ArticleCard({imageUrl,authorImageUrl,authorName,date,title,description,badges
 }) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
@@ -27,8 +20,17 @@ export default function ArticleCard({
         setIsMarked(!isMarked);
     };
 
-  
+    function truncateText(text, wordLimit) {
+      const words = text.split(' ');
+      if (words.length > wordLimit) {
+          return words.slice(0, wordLimit).join(' ') + '...';
+      }
+      return text;
+  }
+  const truncatedDescription = truncateText(description, 20);
+  const parsedContent =HTMLReactParser(truncatedDescription);
   return (
+    
     <div>
       {/* <Link to="/readArticles/2"> */}
         <div className="card  w-96 shadow-xl  hover:scale-105 transition-transform ">
@@ -46,12 +48,12 @@ export default function ArticleCard({
               </div>
             </div>
             <h2 className="card-title text-3xl mt-2">{title}</h2>
-            <p className='text-lg mt-2'>{description}</p>
+            <p className='text-lg mt-2'>{parsedContent}</p>
             <div className="card-actions justify-end mt-2"></div>
             <div className="flex justify-start mt-2">
-              {/* {badges.map((badge, index) => (
+              {badges && badges.map((badge, index) => (
                 <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue p-2">{badge}</div>
-              ))} */}
+              ))}
             </div>
             <div >
             <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-10 m-2' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />

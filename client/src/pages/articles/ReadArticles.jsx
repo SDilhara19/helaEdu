@@ -36,7 +36,7 @@ export default function ReadArticle() {
           <ViewArticle 
               title={article.title}
               content={article.content}
-              
+              tags= {article.tags}
             />
         </div>
         <div className="m-12">

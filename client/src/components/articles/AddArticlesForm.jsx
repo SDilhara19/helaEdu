@@ -3,14 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faShare } from '@fortawesome/free-solid-svg-icons';
 import TextEditor from '@components/articles/TextEditor';
 import { createArticle } from '@services/ArticleService';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export default function AddArticlesForm() {
     const fileInputRef = useRef(null);
     const handleUploadClick = () => {
         fileInputRef.current.click();
     };
+
     const [selectedTags, setSelectedTags] = useState([]);
+    const [newTag, setNewTag] = useState('');
+    const predefinedTags = ['sinhala1', 'sinhala2', 'sinhala3'];
+
     const handleSelect = (value) => {
         setSelectedTags((prevSelectedTags) => {
             if (prevSelectedTags.includes(value)) {
@@ -20,48 +24,64 @@ export default function AddArticlesForm() {
             }
         });
     };
+
+    const handleAddNewTag = () => {
+        if (newTag.trim() && !selectedTags.includes(newTag.trim())) {
+            setSelectedTags((prevSelectedTags) => [...prevSelectedTags, newTag.trim()]);
+            setNewTag('');
+        }
+    };
+
     const isSelected = (value) => selectedTags.includes(value);
 
     // form handling
-    const [title,setTitle] =useState('')
-    const [content,setContent] = useState('')
-    function handleTitle(e){
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const navigator = useNavigate();
+
+    const handleTitle = (e) => {
         setTitle(e.target.value);
-    }
-   
-    const navigator =useNavigate();
-    function saveArticle(e){
+    };
+
+    const saveArticle = (e) => {
         e.preventDefault();
-        const article ={title,content}
-        console.log(article)
-        createArticle(article).then((response)=>{
+      
+        const article = { title, content, tags: selectedTags };
+        console.log(article);
+        createArticle(article).then((response) => {
             console.log(response.data);
-            navigator('/articles')
-        })
-    }
-    
+            navigator('/articles');
+        });
+    };
+
     return (
         <div className='mx-96 my-20 mw:mx-10'>
             <h1>Add Your Article</h1>
             <hr className='border-yellow border-t-4 w-1/5' />
-            <form>
+            <form onSubmit={saveArticle}>
                 <div className='p-10'>
                     <div className='flex justify-around align-baseline my-5'>
-                        <div className='w-2/6 mw:w-1/3'><span className='text-3xl'>Title</span></div>
-                        <div className='w-4/6 mw:w-2/3'><input className='border border-blue rounded-2xl w-full h-20 hover:border-yellow ' type="text" value={title} onChange={handleTitle} name={title}></input></div>
+                        <div className='w-2/6 mw:w-1/3'>
+                            <span className='text-3xl'>Title</span>
+                        </div>
+                        <div className='w-4/6 mw:w-2/3'>
+                            <input
+                                className='border border-blue rounded-2xl w-full h-20 hover:border-yellow'
+                                type="text"
+                                value={title}
+                                onChange={handleTitle}
+                                name="title"
+                            />
+                        </div>
                     </div>
-                    {/* <div className='flex justify-around align-baseline my-5'>
-                        <div className='w-2/6'><span className='text-3xl'>Introduction</span></div>
-                        <div className='w-4/6'><input className='hover:border-yellow border border-blue rounded-2xl w-full h-20' type="text" value={introduction} onChange={handleIntroduction} name={introduction}></input></div>
-                    </div> */}
                     <div className='my-7'>
                         <span className='text-3xl'>Content</span>
-                        <TextEditor content={content} setContent={setContent}/>
+                        <TextEditor content={content} setContent={setContent} />
                     </div>
                     <div>
                         <span className='text-3xl'>Select Your Tags</span>
                         <div className='flex justify-start my-5'>
-                            {['sinhala1', 'sinhala2', 'sinhala3'].map((tag) => (
+                            {[...predefinedTags, ...selectedTags.filter(tag => !predefinedTags.includes(tag))].map((tag) => (
                                 <div
                                     key={tag}
                                     className={`text-3xl border border-blue rounded-2xl px-5 py-2 mx-4 cursor-pointer ${isSelected(tag) ? 'bg-blue text-white' : ''}`}
@@ -79,8 +99,17 @@ export default function AddArticlesForm() {
                             ))}
                         </div>
                         <div className="relative w-full">
-                            <input className="hover:border-yellow border border-blue rounded-2xl w-full h-20 pr-16 pl-4" placeholder="Add your own tags" />
-                            <button className="absolute top-0 right-0 h-full px-4 bg-blue text-white rounded-r-2xl" onClick={() => console.log('Button clicked')}>
+                            <input
+                                className="hover:border-yellow border border-blue rounded-2xl w-full h-20 pr-16 pl-4"
+                                placeholder="Add your own tags"
+                                value={newTag}
+                                onChange={(e) => setNewTag(e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-0 right-0 h-full px-4 bg-blue text-white rounded-r-2xl"
+                                onClick={handleAddNewTag}
+                            >
                                 <FontAwesomeIcon icon={faShare} />
                             </button>
                         </div>
@@ -104,7 +133,7 @@ export default function AddArticlesForm() {
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <button className='bg-blue text-4xl text-white rounded-2xl p-6' onClick={saveArticle}>Submit</button>
+                    <button className='bg-blue text-4xl text-white rounded-2xl p-6' type="submit">Submit</button>
                 </div>
             </form>
         </div>
