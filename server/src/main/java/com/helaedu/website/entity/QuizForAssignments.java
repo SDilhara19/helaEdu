@@ -1,8 +1,9 @@
-package com.helaedu.website.dto;
+package com.helaedu.website.entity;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,16 +11,15 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class QuizDto {
+@NoArgsConstructor
+public class QuizForAssignments {
     private String quizId;
 
-    @NotEmpty(message = "Question is required")
     private String question;
 
     private List<String> options;
 
-    @NotEmpty(message = "Correct answer is required")
     private String correctAnswer;
 
-    private String assignmentId; // to link it with the assignment
+    private String assignmentId;
 }

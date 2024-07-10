@@ -27,6 +27,6 @@ public class AssignmentDto {
     private String totalTime;
     private LocalDateTime publishedTimestamp;
     private String userId;
-    private List<QuizDto> quizzes = new ArrayList<>();
+    private List<QuizForAssignmentsDto> quizzes = new ArrayList<>();
 
 }

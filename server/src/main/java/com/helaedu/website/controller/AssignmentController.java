@@ -1,6 +1,7 @@
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.AssignmentDto;
+import com.helaedu.website.dto.AssignmentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.AssignmentService;
 import com.helaedu.website.util.UserUtil;
@@ -47,6 +48,16 @@ public class AssignmentController {
     public ResponseEntity<Object> getAllAssignments() throws ExecutionException, InterruptedException{
         List<AssignmentDto> assignments = assignmentService.getAllAssignments();
         return ResponseEntity.ok(assignments);
+    }
+    @GetMapping("/{assignmentId}")
+    public ResponseEntity<Object> getAssignment(@PathVariable String assignmentId) throws ExecutionException, InterruptedException {
+        AssignmentDto assignmentDto = assignmentService.getAssignment(assignmentId);
+        if (assignmentDto != null) {
+            return ResponseEntity.ok(assignmentDto);
+        } else {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("assignmentId", "Assignment not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);        }
     }
 
 

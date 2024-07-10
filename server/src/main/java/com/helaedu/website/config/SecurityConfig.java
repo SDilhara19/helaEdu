@@ -60,7 +60,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/moderators/**").hasRole("MODERATOR")
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
-
+                                .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
