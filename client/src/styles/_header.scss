@@ -1,6 +1,6 @@
 header {
     background: $primary-color;
-    min-height: 10vh;
+    min-height: 5vh;
 
     nav {
         z-index: 1;
@@ -52,7 +52,12 @@ header {
     .auth-control {
         display: flex;
     }
-
+    // .dark & {
+    //     background: $black-color; 
+    //     .nav-text {
+    //       color: $white-color; 
+    //     }
+    //   }
 
     @media screen and (max-width: 800px) {
         .logo-wrapper {

@@ -13,4 +13,5 @@ public class User {
     private String password;
     private String regTimestamp;
     private String role;
+    private boolean emailVerified;
 }

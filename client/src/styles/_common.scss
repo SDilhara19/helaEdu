@@ -1,6 +1,6 @@
 .button {
     display: inline-block;
-    padding: 1rem 0.75rem;
+    padding: 0.75rem 1rem;
     border-radius: 0.375rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -16,6 +16,8 @@
     @extend .button;
 
     border: 2px solid $black-color;
+    border-radius: 1rem;
+    padding: 1rem;
     color: $white-color;
     background: $black-color;
     font-size: 1.5rem;
@@ -45,49 +47,31 @@
     @extend .button;
     border: 3px solid $secondary-color;
     font-size: 0.5rem;
+    border-radius: 20rem;
     margin: 0.5rem;
     text-wrap: nowrap;
     height: 100%;
-    color: $primary-color;
-    background: $white-color;
-
-    background-image: linear-gradient(to right,
-            $secondary-color,
-            $secondary-color 50%,
-            $white-color 50%);
-
-    background-size: 210% 100%;
-    background-position: 100%;
+    background: $secondary-color;
     transition: all 0.3s ease-in-out;
 
     h4 {
-        color: transparent;
-        background-clip: text;
-        background-size: 200% 100%;
-        background-position: 100%;
-        background-image: linear-gradient(to right,
-                $white-color,
-                $white-color 50%,
-                $primary-color 50%);
-
-        transition: all 0.3s ease-in-out;
-
+        color: $white-color;
+        font-weight: 400;
     }
 
-    &:hover {
 
-        background-position: 0;
 
-        h4 {
-            background-position: 0;
-        }
-    }
 }
 
 .text-input {
-    border: 1px solid black;
+    border: 2px solid $primary-color;
     border-radius: 1.5rem;
-    padding: 0 1rem;
+    padding: 0.5rem 1.5rem;
+
+    &:hover {
+        border: 2px solid $black-color;
+    }
+
 
     &::placeholder {
         text-align: center;
@@ -103,6 +87,21 @@
 .flex-start {
     display: flex;
     align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+
+.flex-col-end {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: flex-end;
 }
 
 .flex-sa {
@@ -115,6 +114,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.flex-sb-start {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.flex-col-c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .flex-col-sa {
@@ -134,7 +146,7 @@
 .flex-col-start {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 }
 
@@ -146,4 +158,23 @@
 
 .box-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.icon-circle {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 5px 10px 5px;
+
+}
+
+.robo-img {
+    position: absolute;
+    top: 70px;
+    right: 0;
 }

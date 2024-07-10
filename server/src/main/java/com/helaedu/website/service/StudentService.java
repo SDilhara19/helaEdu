@@ -1,5 +1,8 @@
 package com.helaedu.website.service;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.helaedu.website.entity.Subscription;
 import com.helaedu.website.repository.SubscriptionRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -8,6 +11,7 @@ import com.helaedu.website.entity.Note;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.NoteRepository;
 import com.helaedu.website.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +24,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
+
     private final StudentRepository studentRepository;
     private final NoteRepository noteRepository;
     private final SubscriptionRepository subscriptionRepository;
+
+    @Autowired
+    private EmailVerificationService emailVerificationService;
 
     public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
@@ -30,7 +38,7 @@ public class StudentService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException {
+    public String createStudent(StudentDto studentDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Student existingStudent = studentRepository.getStudentByEmail(studentDto.getEmail());
         if (existingStudent != null) {
             throw new IllegalArgumentException("Email already exists");
@@ -56,7 +64,30 @@ public class StudentService {
         );
         studentDto.setUserId(student.getUserId());
         studentDto.setNoteId(noteId);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(studentDto.getEmail())
+                .setEmailVerified(false)
+                .setPassword(studentDto.getPassword())
+                .setUid(student.getUserId());
+
+        firebaseAuth.createUser(request);
+
+        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
         return studentRepository.createStudent(student);
+    }
+
+    public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
+        FirebaseAuth.getInstance();
+
+        Student student = studentRepository.getStudentById(userId);
+        if (student != null) {
+            student.setEmailVerified(true);
+            studentRepository.updateStudent(userId, student);
+        } else {
+            throw new IllegalArgumentException("Student not found");
+        }
     }
 
     public List<StudentDto> getAllStudents() throws ExecutionException, InterruptedException {
@@ -71,7 +102,8 @@ public class StudentService {
                                 student.getRegTimestamp(),
                                 student.getNoteId(),
                                 student.getSubscriptionId(),
-                                student.getRole()
+                                student.getRole(),
+                                student.isEmailVerified()
                         )
                 )
                 .collect(Collectors.toList());
@@ -89,35 +121,71 @@ public class StudentService {
                     student.getRegTimestamp(),
                     student.getNoteId(),
                     student.getSubscriptionId(),
-                    student.getRole()
+                    student.getRole(),
+                    student.isEmailVerified()
             );
         }
         return null;
     }
 
-    public String updateStudent(String userId, StudentDto studentDto) throws ExecutionException, InterruptedException {
-        Student existingStudent = studentRepository.getStudentById(userId);
+    public StudentDto getStudentByEmail(String email) throws ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentByEmail(email);
+        if (student != null) {
+            return new StudentDto(
+                    student.getUserId(),
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getEmail(),
+                    student.getPassword(),
+                    student.getRegTimestamp(),
+                    student.getNoteId(),
+                    student.getSubscriptionId(),
+                    student.getRole(),
+                    student.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public String updateStudent(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        Student existingStudent = studentRepository.getStudentByEmail(email);
         if(existingStudent == null) {
             throw new IllegalArgumentException("Student not found");
         }
-        studentDto.setUserId(userId);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Student student = new Student(
-                studentDto.getUserId(),
-                studentDto.getFirstName(),
-                studentDto.getLastName(),
-                studentDto.getEmail(),
-                encoder.encode(studentDto.getPassword()),
-                studentDto.getRegTimestamp(),
-                studentDto.getNoteId(),
-                studentDto.getSubscriptionId(),
-                studentDto.getRole()
-        );
-        return studentRepository.updateStudent(userId, student);
+
+        if(studentDto.getFirstName() != null && !studentDto.getFirstName().equals(existingStudent.getFirstName())) {
+            existingStudent.setFirstName(studentDto.getFirstName());
+        }
+        if(studentDto.getLastName() != null && !studentDto.getLastName().equals(existingStudent.getLastName())) {
+            existingStudent.setLastName(studentDto.getLastName());
+        }
+        if(studentDto.getEmail() != null && !studentDto.getEmail().equals(existingStudent.getEmail())) {
+            existingStudent.setEmail(studentDto.getEmail());
+        }
+        if(studentDto.getPassword() != null && !(encoder.encode(studentDto.getPassword()).equals(encoder.encode(existingStudent.getPassword())))) {
+            existingStudent.setPassword(encoder.encode(studentDto.getPassword()));
+        }
+        if(studentDto.getRegTimestamp() != null) {
+            existingStudent.setRegTimestamp(studentDto.getRegTimestamp());
+        }
+        if(studentDto.getNoteId() != null) {
+            existingStudent.setNoteId(studentDto.getNoteId());
+        }
+        if(studentDto.getSubscriptionId() != null) {
+            existingStudent.setSubscriptionId(studentDto.getSubscriptionId());
+        }
+
+        return studentRepository.updateStudent(email, existingStudent);
     }
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
         return studentRepository.deleteStudent(userId);
+    }
+
+    public String deleteStudentByEmail(String email) throws ExecutionException, InterruptedException {
+        return studentRepository.deleteStudentByEmail(email);
     }
 
     public String createSubscription(String userId, long paidAmount) throws ExecutionException, InterruptedException {
@@ -139,5 +207,66 @@ public class StudentService {
         studentRepository.updateStudent(userId, student);
 
         return subscriptionId;
+    }
+
+    public String createSubscriptionByEmail(String email, long paidAmount) throws ExecutionException, InterruptedException {
+        String subscriptionId = UniqueIdGenerator.generateUniqueId("sub", subscriptionRepository::exists);
+        String startTimestamp = Instant.now().toString();
+        String endTimestamp = Instant.now().plus(30, ChronoUnit.DAYS).toString();
+
+        Subscription subscription = new Subscription(
+                subscriptionId,
+                paidAmount,
+                startTimestamp,
+                endTimestamp,
+                false
+        );
+        subscriptionRepository.createSubscription(subscription);
+
+        Student student = studentRepository.getStudentByEmail(email);
+        student.setSubscriptionId(subscriptionId);
+        studentRepository.updateStudent(student.getUserId(), student);
+
+        return subscriptionId;
+    }
+
+    public void cancelSubscription(String userId) throws ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentById(userId);
+        student.setSubscriptionId(null);
+        studentRepository.updateStudent(userId, student);
+    }
+
+    public List<StudentDto> getStudentsWithActiveSubscriptions() throws ExecutionException, InterruptedException {
+        List<Student> students = studentRepository.getAllStudents();
+        Instant now = Instant.now();
+        Instant thirtyDaysAgo = now.minus(30, ChronoUnit.DAYS);
+
+        return students.stream()
+                .filter(student -> {
+                    String subscriptionId = student.getSubscriptionId();
+                    if (subscriptionId == null || subscriptionId.isEmpty()) {
+                        return false;
+                    }
+                    Subscription subscription = null;
+                    try {
+                        subscription = subscriptionRepository.getSubscriptionById(subscriptionId);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return subscription != null && !subscription.isCanceled() && Instant.parse(subscription.getStartTimestamp()).isAfter(thirtyDaysAgo);
+                })
+                .map(student -> new StudentDto(
+                        student.getUserId(),
+                        student.getFirstName(),
+                        student.getLastName(),
+                        student.getEmail(),
+                        student.getPassword(),
+                        student.getRegTimestamp(),
+                        student.getNoteId(),
+                        student.getSubscriptionId(),
+                        student.getRole(),
+                        student.isEmailVerified()
+                ))
+                .collect(Collectors.toList());
     }
 }

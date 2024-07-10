@@ -1,8 +1,7 @@
 import React from "react";
 import bookLogo from "@assets/img/book.svg";
-import logo from "@assets/icons/logo.svg";
-import robotImg from "@assets/img/bot 2.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
+import logo from "@assets/icons/hela-edu-white-text.svg";
+import robotImg from "@assets/img/robot-from-the-side.svg";
 
 function Hero() {
   return (

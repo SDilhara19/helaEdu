@@ -12,7 +12,6 @@
 */dist-ssr
 */*.local
 
-# Editor directories and files
 */serviceAccountKey.json
 */.vscode/*
 */!.vscode/extensions.json
@@ -23,3 +22,7 @@
 */*.njsproj
 */*.sln
 */*.sw?
+*/Dockerfile
+*/docker-compose.yml
+.idea
+Dockerfile

@@ -1,14 +1,9 @@
-$primary-color: #0A6CF5;
-$secondary-color: #F5A711;
-$white-color: #ffffff;
-$black-color: #302A2A;
-
 $header1: 2.5rem;
 $header2: 3rem;
 $header3: 2.5rem;
 $header4: 1.75rem;
+$header5: 1.5rem;
 $text: 2.5rem;
-
 * {
     margin: 0;
     padding: 0;
@@ -42,9 +37,14 @@ h3 {
 }
 
 h4,
-h5,
-input {
+input,
+p {
     font-size: $header4;
+
+}
+
+h5 {
+    font-size: $header5;
 }
 
 ul {
@@ -55,8 +55,8 @@ a {
     text-decoration: none;
 }
 
-
-:export {
-    secondaryColor: $secondary-color;
-    primaryColor: $primary-color;
+input {
+    &:focus-visible {
+        outline: none;
+    }
 }

@@ -1,36 +1,54 @@
 import React from "react";
-import logo from "@assets/icons/logo.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
-
+import logo from "@assets/icons/hela-edu-white-text.svg";
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <header>
       <div className="flex-c header-wrapper">
         <div className="logo-wrapper">
-          <img id="logo" className="mb-6" src={logo} alt="" srcset="" />
+          <Link to="/">
+            <img id="logo" src={logo} alt="" srcSet="" />
+          </Link>
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Home</h4>
             </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Categories</h4>
-            </a>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Quiz</h4>
-            </a>
+            <Link to="/articles">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Categories</h4>
+              </a>
+            </Link>
+            <Link to="/quiz">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Quiz</h4>
+              </a>
+            </Link>
+            <Link to="/readArticles">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Articles</h4>
+              </a>
+            </Link>
             <a className="nav-text flex-c m-4 cursor-pointer">
               <h4>Leaderboard</h4>
             </a>
           </div>
           <div className="auth-control">
-            <button className="btn gold-button">
+            <Link
+              className="btn gold-button"
+              to="/auth"
+              state={{ authType: "login" }}
+            >
               <h4>Login</h4>
-            </button>
-            <button className="btn gold-button">
+            </Link>
+            <Link
+              className="btn gold-button"
+              to="/auth"
+              state={{ authType: "signup" }}
+            >
               <h4>Sign Up</h4>
-            </button>
+            </Link>
           </div>
         </nav>
       </div>

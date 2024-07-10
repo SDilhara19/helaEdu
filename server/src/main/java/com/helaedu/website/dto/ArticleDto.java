@@ -1,10 +1,12 @@
 
 package com.helaedu.website.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Getter
@@ -12,13 +14,26 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class ArticleDto {
     private String articleId;
+
+    @NotEmpty(message = "Title is required")
     private String title;
-    private ArrayList<String> tags;
+
+    @NotEmpty(message = "Content is required")
     private String content;
-    private String img;
-    private String additionalFile;
-    private String teacherId;
-    private String articleStatus;
 
+//    @NotEmpty(message = "An image is required")
+    private String imageRef;
 
+    private ArrayList<String> additionalFilesRefs;
+    private ArrayList<String> tags;
+    private LocalDateTime publishedTimestamp;
+    private String lastUpdatedTimestamp;
+    private String status;
+
+    private String reviewedModeratorId;
+    private String rejectedReason;
+
+    private String userId;
+    
+    private ArrayList<String> upvote;
 }
