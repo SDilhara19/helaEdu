@@ -30,7 +30,7 @@ export default function ArticleCard({
   
   return (
     <div>
-      <Link to="/readArticles">
+      {/* <Link to="/readArticles/2"> */}
         <div className="card  w-96 shadow-xl  hover:scale-105 transition-transform ">
           <figure>
             <img src={imageUrl} alt="Article" />
@@ -63,7 +63,7 @@ export default function ArticleCard({
             </div>
           </div>
         </div>
-        </Link>
+        {/* </Link> */}
       
     </div>
   );

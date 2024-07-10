@@ -1,19 +1,17 @@
 import AddArticleBtn from "@/components/articles/AddArticleBtn";
-import AddComment from "@/components/articles/AddComment";
 import CommentList from "@/components/articles/CommentList";
-import Comments from "@/components/articles/Comments";
 import PopArticleCard from "@/components/articles/PopArticleCard";
 import ViewArticle from "@/components/articles/ViewArticle";
-import React from "react";
+import React , {useState ,useEffect} from "react";
 import { Footer} from "@/components/common";
 import Header from "@components/teacher_com/Header";
 import { Link } from "react-router-dom";
 import { getArticleById } from "@/services/ArticleService";
+import { useParams } from "react-router-dom";
 
 export default function ReadArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
-
   useEffect(() => {
     const fetchArticle = async () => {
       try {
@@ -28,7 +26,7 @@ export default function ReadArticle() {
   }, [articleId]);
 
   if (!article) {
-    return <div>Loading...</div>; // Or a loading spinner
+    return <div>Loading...</div>; 
   }
   return (
     <div>
@@ -59,7 +57,6 @@ export default function ReadArticle() {
       </div>
       <div>
         <CommentList />
-        {/* <Comments /> */}
       </div>
       <div>
         <Footer />

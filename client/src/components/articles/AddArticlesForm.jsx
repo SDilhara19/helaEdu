@@ -2,16 +2,15 @@ import React, { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faShare } from '@fortawesome/free-solid-svg-icons';
 import TextEditor from '@components/articles/TextEditor';
+import { createArticle } from '@services/ArticleService';
+import { useNavigate } from 'react-router-dom'
 
 export default function AddArticlesForm() {
     const fileInputRef = useRef(null);
-
     const handleUploadClick = () => {
         fileInputRef.current.click();
     };
-
     const [selectedTags, setSelectedTags] = useState([]);
-
     const handleSelect = (value) => {
         setSelectedTags((prevSelectedTags) => {
             if (prevSelectedTags.includes(value)) {
@@ -21,9 +20,26 @@ export default function AddArticlesForm() {
             }
         });
     };
-
     const isSelected = (value) => selectedTags.includes(value);
 
+    // form handling
+    const [title,setTitle] =useState('')
+    const [content,setContent] = useState('')
+    function handleTitle(e){
+        setTitle(e.target.value);
+    }
+   
+    const navigator =useNavigate();
+    function saveArticle(e){
+        e.preventDefault();
+        const article ={title,content}
+        console.log(article)
+        createArticle(article).then((response)=>{
+            console.log(response.data);
+            navigator('/articles')
+        })
+    }
+    
     return (
         <div className='mx-96 my-20 mw:mx-10'>
             <h1>Add Your Article</h1>
@@ -32,15 +48,15 @@ export default function AddArticlesForm() {
                 <div className='p-10'>
                     <div className='flex justify-around align-baseline my-5'>
                         <div className='w-2/6 mw:w-1/3'><span className='text-3xl'>Title</span></div>
-                        <div className='w-4/6 mw:w-2/3'><input className='border border-blue rounded-2xl w-full h-20 hover:border-yellow '></input></div>
+                        <div className='w-4/6 mw:w-2/3'><input className='border border-blue rounded-2xl w-full h-20 hover:border-yellow ' type="text" value={title} onChange={handleTitle} name={title}></input></div>
                     </div>
-                    <div className='flex justify-around align-baseline my-5'>
+                    {/* <div className='flex justify-around align-baseline my-5'>
                         <div className='w-2/6'><span className='text-3xl'>Introduction</span></div>
-                        <div className='w-4/6'><input className='hover:border-yellow border border-blue rounded-2xl w-full h-20'></input></div>
-                    </div>
+                        <div className='w-4/6'><input className='hover:border-yellow border border-blue rounded-2xl w-full h-20' type="text" value={introduction} onChange={handleIntroduction} name={introduction}></input></div>
+                    </div> */}
                     <div className='my-7'>
                         <span className='text-3xl'>Content</span>
-                        <TextEditor />
+                        <TextEditor content={content} setContent={setContent}/>
                     </div>
                     <div>
                         <span className='text-3xl'>Select Your Tags</span>
@@ -88,7 +104,7 @@ export default function AddArticlesForm() {
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <button className='bg-blue text-4xl text-white rounded-2xl p-6'>Submit</button>
+                    <button className='bg-blue text-4xl text-white rounded-2xl p-6' onClick={saveArticle}>Submit</button>
                 </div>
             </form>
         </div>
