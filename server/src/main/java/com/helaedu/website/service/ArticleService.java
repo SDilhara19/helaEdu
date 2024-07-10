@@ -1,5 +1,5 @@
 package com.helaedu.website.service;
-
+import java.time.LocalDateTime;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.entity.Article;
 import com.helaedu.website.repository.ArticleRepository;
@@ -23,14 +23,18 @@ public class ArticleService {
 
         String articleId = UniqueIdGenerator.generateUniqueId("ar", articleRepository::exists);
 
-        Article article= new Article(
+        LocalDateTime publishedTimestamp = articleDto.getPublishedTimestamp() != null ?
+                articleDto.getPublishedTimestamp() :
+                LocalDateTime.now();
+
+        Article article = new Article(
                 articleId,
                 articleDto.getTitle(),
                 articleDto.getContent(),
                 articleDto.getImageRef(),
                 articleDto.getAdditionalFilesRefs(),
                 articleDto.getTags(),
-                articleDto.getPublishedTimestamp(),
+                publishedTimestamp,
                 articleDto.getLastUpdatedTimestamp(),
                 "PENDING",
                 articleDto.getReviewedModeratorId(),
@@ -38,6 +42,7 @@ public class ArticleService {
                 articleDto.getUserId(),
                 new ArrayList<>()
         );
+
         return articleRepository.createArticle(article);
     }
 
