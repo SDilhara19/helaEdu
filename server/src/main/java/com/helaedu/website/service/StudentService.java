@@ -195,6 +195,7 @@ public class StudentService {
 
         Subscription subscription = new Subscription(
                 subscriptionId,
+                userId,
                 paidAmount,
                 startTimestamp,
                 endTimestamp,
@@ -214,8 +215,12 @@ public class StudentService {
         String startTimestamp = Instant.now().toString();
         String endTimestamp = Instant.now().plus(30, ChronoUnit.DAYS).toString();
 
+        Student student = studentRepository.getStudentByEmail(email);
+
+
         Subscription subscription = new Subscription(
                 subscriptionId,
+                student.getUserId(),
                 paidAmount,
                 startTimestamp,
                 endTimestamp,
@@ -223,7 +228,6 @@ public class StudentService {
         );
         subscriptionRepository.createSubscription(subscription);
 
-        Student student = studentRepository.getStudentByEmail(email);
         student.setSubscriptionId(subscriptionId);
         studentRepository.updateStudent(student.getUserId(), student);
 

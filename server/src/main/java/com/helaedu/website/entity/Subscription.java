@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Subscription {
     private String subscriptionId;
+    private String userId;
     private long paidAmount;
     private String startTimestamp;
     private String endTimestamp;

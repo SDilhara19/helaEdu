@@ -9,6 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SubscriptionDto {
     private String subscriptionId;
+    private String userId;
     private long paidAmount;
     private String startTimestamp;
     private String endTimestamp;

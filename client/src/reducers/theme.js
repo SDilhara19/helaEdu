@@ -1,9 +1,5 @@
-const themeReducer = (state = "light", action) => {
-  switch (action.type) {
-    case "light":
-      break;
-
-    default:
-      break;
-  }
+const themeReducer = (theme = "light", action) => {
+  return theme;
 };
+
+export default themeReducer;
