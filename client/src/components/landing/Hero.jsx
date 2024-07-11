@@ -1,12 +1,12 @@
 import React from "react";
 import bookLogo from "@assets/img/book.svg";
-import logo from "@assets/icons/logo.svg";
-import robotImg from "@assets/img/bot 2.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
-
+import logo from "@assets/icons/hela-edu-white-text.svg";
+import robotImg from "@assets/img/robot-from-the-side.svg";
+import heroBanner from "@assets/img/hero-banner.svg";
 function Hero() {
   return (
     <main className="hero flex-sb">
+      <img src={heroBanner} alt="" className="banner-img" />
       <div className="left-pannel">
         <img src={logo} alt="logo" />
         <div className="hero-text-box">

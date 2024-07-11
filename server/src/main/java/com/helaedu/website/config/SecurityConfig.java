@@ -44,22 +44,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/approve").hasRole("MODERATOR")
                         .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/decline").hasRole("MODERATOR")
                         .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/articles/**").hasAnyRole("TEACHER", "MODERATOR")
+                                .requestMatchers(HttpMethod.POST, "/articles/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/articles/**").hasAnyRole("TEACHER", "MODERATOR")
                         .requestMatchers(HttpMethod.DELETE, "/articles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/teachers/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyRole("TEACHER", "MODERATOR")
-
+//                        .requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyRole("TEACHER", "MODERATOR")
+                                .requestMatchers(HttpMethod.GET, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/moderators/**").hasRole("MODERATOR")
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
-
+                                .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,4 +1,3 @@
-
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
@@ -135,7 +134,6 @@ public class ArticleController{
             return new ResponseEntity<>("Error approving article", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @PutMapping("/{articleId}/decline")
     public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
         try {
@@ -167,5 +165,3 @@ public class ArticleController{
         }
     }
 }
-
-

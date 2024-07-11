@@ -1,15 +1,14 @@
 import React from "react";
 import bookLogo from "@assets/img/book.svg";
-import logo from "@assets/icons/logo.svg";
-import robotImg from "@assets/img/bot 2.svg";
-import { secondaryColor } from "@styles/_global.module.scss";
+import logo from "@assets/icons/hela-edu-white-text.svg";
+import robotImg from "@assets/img/robot-from-the-side.svg";
 
 function Banner() {
   return (
-    <main className="hero_tec flex-sb">
+    <main className="hero_tec flex-sb dark:bg-black">
       <div className="left-pannel">
-        <img src={logo} alt="logo"  className="logo"  />
-        
+        <img src={logo} alt="logo" className="logo" />
+
         <img src={bookLogo} className="absolute book" alt="" />
       </div>
       <div className="right-pannel">

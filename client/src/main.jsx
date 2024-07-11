@@ -2,13 +2,26 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import "./styles/index.scss";
+import "@styles/light_theme.scss";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvider from "react-auth-kit";
+import authStore from "@/utils/auth.js";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import allReducers from "@reducers/index.js";
+
+const store = configureStore({
+  reducer: allReducers,
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <AuthProvider store={authStore}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );

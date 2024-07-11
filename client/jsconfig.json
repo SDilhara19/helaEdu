@@ -2,9 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@reducers/*": ["src/reducers/*"],
+      "@services/*": ["src/services/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
       "@components/*": ["src/components/*"],
       "@/*": ["src/*"]
     }
