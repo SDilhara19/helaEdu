@@ -1,14 +1,17 @@
-import {  Footer } from '@components/common'
-import Header from '@components/teacher_com/Header'
-import React , {useState, useEffect} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from "react-router-dom";
-import { getArticleById } from "@/services/ArticleService";
+import { Footer } from '@components/common';
+import Header from '@components/teacher_com/Header';
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getArticleById, approveArticle, rejectArticle } from '@/services/ArticleService';
 
 export default function ReviewArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
+  const [rejectReason, setRejectReason] = useState('');
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchArticle = async () => {
       try {
@@ -22,21 +25,39 @@ export default function ReviewArticle() {
     fetchArticle();
   }, [articleId]);
 
+  const approve = async () => {
+    try {
+      const response = await approveArticle(articleId);
+      console.log("Article approved:", response.data);
+      navigate('/articles');
+    } catch (error) {
+      console.error("Error approving article:", error.response ? error.response.data : error.message);
+    }
+  };
+
+  const reject = async () => {
+    try {
+      const response = await rejectArticle(articleId, rejectReason);
+      console.log("Article rejected:", response.data);
+      navigate('/articles');
+    } catch (error) {
+      console.error("Error rejecting article:", error.response ? error.response.data : error.message);
+    }
+  };
+
   if (!article) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
+
   return (
     <div>
       <Header />
-    
       <div>
         <h1 className="text-center text-5xl mt-10 m-6">Review Article</h1>
-        <hr className='border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out'/>
+        <hr className='border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out' />
       </div>
       <div className="border border-blue rounded-2xl p-10 m-32">
-        <h1 className="text-5xl">
-        {article.title}
-        </h1>
+        <h1 className="text-5xl">{article.title}</h1>
         <div className="card-actions flex justify-between mt-10">
           <div className="flex justify-start align-baseline">
             <img
@@ -50,49 +71,47 @@ export default function ReviewArticle() {
             <span className="text-2xl">23 March 2024</span>
           </div>
         </div>
-        {/* tags */}
         <div className="flex justify-start m-7 ">
-          { article.tags && article.tags.map((tag, index) => (
+          {article.tags && article.tags.map((tag, index) => (
             <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5">
               {tag}
             </div>
           ))}
-            
         </div>
         <div>
           <img
-            className="w-1/3 h-auto justify-center "
+            className="w-1/3 h-auto justify-center"
             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
             alt="Rounded avatar"
           />
         </div>
         <div className="text-xl">
-          <p className="text-2xl">
-            {article.title}
-          </p>
+          <p className="text-2xl">{article.title}</p>
         </div>
         <div className="flex justify-between mx-9">
           <div className="border border-blue rounded-xl p-6 m-2">
             <FontAwesomeIcon
               icon={faFile}
-              className="text-4xl m-2 hover:text-yellow  hover:translate-x-1"
+              className="text-4xl m-2 hover:text-yellow hover:translate-x-1"
             />
             <span className="text-3xl">myFile.pdf </span>
           </div>
         </div>
       </div>
       <div className="p-2 mx-32 mb-6 flex justify-between ">
-        <div className="w-1/4  flex justify-center">
-          <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 my-12 hover:translate-x-2">
+        <div className="w-1/4 flex justify-center">
+          <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 my-12 hover:translate-x-2" onClick={approve}>
             Approve
           </button>
         </div>
         <div className="flex-grow relative w-3/4">
           <textarea
-            className=" h-52 w-full p-2 border border-blue rounded-md resize-none"
+            className="h-52 w-full p-2 border border-blue rounded-md resize-none"
             placeholder="Add your comments"
+            value={rejectReason}
+            onChange={(e) => setRejectReason(e.target.value)}
           ></textarea>
-          <button className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded absolute bottom-4 right-4 hover:translate-x-2">
+          <button className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded absolute bottom-4 right-4 hover:translate-x-2" onClick={reject}>
             Reject
           </button>
         </div>

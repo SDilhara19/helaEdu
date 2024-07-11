@@ -10,3 +10,5 @@ export const approvedArticles=()=>axios.get(APPROVE_ARTICLE_URL);
 export const pendingArticles=()=>axios.get(PENDING_ARTICLE_URL);
 export const getArticleById = (articleId) => axios.get(`${REST_API_BASE_URL}/${articleId}`);
 export const createArticle =(article) => axios.post(CREATE_ARTICLE_URL,article);
+export const approveArticle = (articleId) => axios.put(`${REST_API_BASE_URL}/${articleId}/approve`);
+export const rejectArticle = (articleId, rejectedReason) => axios.put(`${REST_API_BASE_URL}/${articleId}/decline`, null, { params: { rejectedReason } });
