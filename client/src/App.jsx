@@ -46,7 +46,7 @@ function App() {
         <Route path="/addArticles/:userId" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
         <Route path="/reviewList" element={<ReviewList />}></Route>
-        <Route path="/reviewArticle" element={<ReviewArticle />}></Route>
+        <Route path="/reviewArticle/:articleId" element={<ReviewArticle />}></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
         <Route path="/t_profile" element={<T_profile/>} ></Route>
         <Route path="/createAssignments" element={<CreateAssignments />}></Route> 

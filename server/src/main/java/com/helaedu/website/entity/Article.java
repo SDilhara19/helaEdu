@@ -18,7 +18,7 @@ public class Article {
     private String title;
     private String content;
     private String imageRef;
-    private ArrayList<String> additionalFilesRefs;
+    private String additionalFilesRefs;
     private ArrayList<String> tags;
     private LocalDateTime publishedTimestamp;
     private String lastUpdatedTimestamp;
