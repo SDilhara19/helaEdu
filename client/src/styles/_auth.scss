@@ -17,33 +17,6 @@
 
     }
 
-    .text-input {
-        transition: all 0.15s ease;
-        box-shadow: $primary-color 0px 4px;
-
-        &:hover {
-            box-shadow: $black-color 0px 4px;
-
-            .icon,
-            input::placeholder {
-                color: $black-color;
-            }
-        }
-
-
-        input::placeholder {
-            color: $primary-color;
-        }
-
-    }
-
-
-    .icon {
-        color: $primary-color;
-        padding-bottom: .2rem;
-        color: $black-color;
-    }
-
     .login-right-pannel {
         width: 60%;
         position: relative;
@@ -68,6 +41,60 @@
         position: absolute;
         bottom: 0;
         z-index: -1;
+    }
+
+    .signup-left-pannel {
+        width: 50%;
+
+        .signup-details {
+            width: 70%;
+        }
+
+
+        h2 {
+            color: $secondary-color;
+        }
+    }
+
+    .signup-right-pannel {
+        width: 60%;
+        position: relative;
+        z-index: 0;
+        background: $primary-color;
+        color: $white-color;
+        border-top-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        overflow: hidden;
+
+        p {
+            text-align: center;
+        }
+
+        .signup-banner {
+            width: 70%;
+        }
+    }
+
+    .signup-banner-image {
+        transform: scale(1.2);
+        position: absolute;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .input-wrapper {
+        label {
+            left: 2px;
+        }
+
+
+    }
+
+
+    .icon {
+        color: $primary-color;
+        padding-bottom: .2rem;
+        color: $black-color;
     }
 
     .input-wrapper {

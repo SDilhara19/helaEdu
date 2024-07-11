@@ -1,4 +1,3 @@
-
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
@@ -35,7 +34,7 @@ public class ArticleController{
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String userId = UserUtil.getCurrentUserId();
+            String userId = UserUtil.getCurrentUserEmail();
             articleDto.setUserId(userId);
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
@@ -123,7 +122,7 @@ public class ArticleController{
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            String userId = UserUtil.getCurrentUserId();
+            String userId = UserUtil.getCurrentUserEmail();
 
             String result = articleService.approveArticle(articleId, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -135,11 +134,10 @@ public class ArticleController{
             return new ResponseEntity<>("Error approving article", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @PutMapping("/{articleId}/decline")
     public ResponseEntity<Object> declineArticle(@PathVariable String articleId, @RequestParam String rejectedReason) throws ExecutionException, InterruptedException {
         try {
-            String userId = UserUtil.getCurrentUserId();
+            String userId = UserUtil.getCurrentUserEmail();
 
             String result = articleService.declineArticle(articleId, rejectedReason, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -155,7 +153,7 @@ public class ArticleController{
     @PutMapping("/{articleId}/upvote")
     public ResponseEntity<Object> upvoteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            String userId = UserUtil.getCurrentUserId();
+            String userId = UserUtil.getCurrentUserEmail();
             articleService.upvoteArticle(articleId, userId);
             return new ResponseEntity<>("Article upvoted", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -167,5 +165,3 @@ public class ArticleController{
         }
     }
 }
-
-

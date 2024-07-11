@@ -5,7 +5,7 @@ import robotImg from "@assets/img/robot-from-the-side.svg";
 
 function Banner() {
   return (
-    <main className="hero_tec flex-sb">
+    <main className="hero_tec flex-sb dark:bg-black">
       <div className="left-pannel">
         <img src={logo} alt="logo" className="logo" />
 

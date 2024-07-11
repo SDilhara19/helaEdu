@@ -23,14 +23,13 @@ public class ModeratorService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public ModeratorService(ModeratorRepository moderatorRepository, EmailVerificationService emailVerificationService) {
+    public ModeratorService(ModeratorRepository moderatorRepository) {
         this.moderatorRepository = moderatorRepository;
-        this.emailVerificationService = emailVerificationService;
     }
 
     public String createModerator(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Teacher existingModeratorOrTeacher = moderatorRepository.getModeratorByEmail(teacherDto.getEmail());
-        if (existingModeratorOrTeacher != null || emailVerificationService.isEmailExistsInFirebase(teacherDto.getEmail())) {
+        if (existingModeratorOrTeacher != null) {
             throw new IllegalArgumentException("Email already exists");
         }
 

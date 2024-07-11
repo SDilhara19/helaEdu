@@ -115,19 +115,19 @@ public class AdminController {
 
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentAdmin() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getAdmin(userId);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return updateAdmin(userId, adminDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentAdmin() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return deleteAdmin(userId);
     }
 }

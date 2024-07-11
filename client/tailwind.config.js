@@ -7,11 +7,16 @@ export default {
         '128': '32rem',
       },
       colors: {
-        blue: "#0A6CF5",
-        yellow: "#F5A711",
-        white: "#FFFFFF",
-        black: "#000000",
-        blue2: '#B5D2FC'
+        // blue: "#0A6CF5",
+        // yellow: "#F5A711",
+        // white: "#FFFFFF",
+        // black: "#000000",
+        // blue2: '#B5D2FC'
+        blue: "var(--color-primary)",
+        yellow: "var(--color-secondary)",
+        white: "var(--color-text)",
+        black: "var(--color-bg)",
+        blue2: "var(--color-accent)"
       },
       screens: {
         mw: { max: "800px" }

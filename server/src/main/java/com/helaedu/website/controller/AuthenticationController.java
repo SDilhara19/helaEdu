@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authenticate")
-@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     @Autowired
@@ -33,11 +32,11 @@ public class AuthenticationController {
 
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
             );
 
             final UserDetails userDetails = customUserDetailsService
-                    .loadUserByUsername(authenticationRequest.getUsername());
+                    .loadUserByUsername(authenticationRequest.getEmail());
 
             if (userDetails == null) {
                 return new ResponseEntity<>("Email not verified", HttpStatus.UNAUTHORIZED);
@@ -57,7 +56,7 @@ public class AuthenticationController {
 @Getter
 @Setter
 class AuthenticationRequest {
-    private String username;
+    private String email;
     private String password;
 }
 
