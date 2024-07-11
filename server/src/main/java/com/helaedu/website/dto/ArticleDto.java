@@ -24,7 +24,7 @@ public class ArticleDto {
 //    @NotEmpty(message = "An image is required")
     private String imageRef;
 
-    private ArrayList<String> additionalFilesRefs;
+    private String additionalFilesRefs;
     private ArrayList<String> tags;
     private LocalDateTime publishedTimestamp;
     private String lastUpdatedTimestamp;
