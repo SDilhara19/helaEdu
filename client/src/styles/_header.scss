@@ -52,6 +52,52 @@ header {
     .auth-control {
         display: flex;
     }
+
+    .profile-icon {
+        border-radius: 100%;
+        background: $white-color;
+    }
+
+    .logged-in-header {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        svg {
+            cursor: pointer;
+        }
+
+        div {
+            width: 46px;
+            height: 46px;
+            margin: 1rem;
+        }
+
+        .notification-bell {
+            color: $white-color;
+        }
+    }
+
+    .dropdown-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 10%;
+        width: 100%;
+        border-radius: 1.5rem;
+        background: $white-color;
+        padding: 0.5rem 0;
+        z-index: 2;
+
+        li {
+            padding: 0.5rem;
+            text-align: center;
+
+            h4 {
+                cursor: pointer;
+            }
+        }
+    }
+
     // .dark & {
     //     background: $black-color; 
     //     .nav-text {

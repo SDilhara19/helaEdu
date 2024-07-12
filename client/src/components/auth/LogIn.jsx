@@ -7,7 +7,7 @@ import { authenticateUser } from "@services/AuthService";
 import { useNavigate } from "react-router-dom";
 import rightBanner from "@assets/img/hero-banner.svg";
 
-function Login() {
+function Login({ setLoadingState }) {
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -17,6 +17,7 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoadingState(true);
     authenticateUser(formData).then((res) => {
       if (res.status === 200) {
         let auth = {
@@ -50,6 +51,9 @@ function Login() {
                   name="email"
                   id="email"
                   required
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
                 <label htmlFor="email">Email</label>
               </div>
@@ -64,6 +68,9 @@ function Login() {
                   placeholder="Name"
                   name="name"
                   id="name"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   required
                 />
                 <label htmlFor="name">Password</label>

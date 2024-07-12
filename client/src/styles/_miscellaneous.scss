@@ -170,3 +170,18 @@
     top: 70px;
     right: 0;
 }
+
+
+.loading-body {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.loading-span {
+    position: fixed;
+    left: 50%;
+    z-index: 999;
+    width: 5%;
+    top: 50%;
+    transform: translateX(-50%);
+}
