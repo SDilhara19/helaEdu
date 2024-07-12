@@ -116,7 +116,7 @@ function SignUp() {
           <div className="flex-sb w-8/12">
             <h4>Verification Proof</h4>
             <div className="upload-verification">
-              <button className="btn gold-button px-2">
+              <button className="btn white-button px-2">
                 <h4>Upload</h4>
               </button>
               <span className="mx-1">
@@ -125,7 +125,7 @@ function SignUp() {
             </div>
           </div>
           <div className="m-3">
-            <button className="btn gold-button px-2">
+            <button className="btn white-button px-2">
               <h4>Sign Up</h4>
             </button>
           </div>
