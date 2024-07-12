@@ -1,7 +1,7 @@
 package com.helaedu.website.service;
 
 import com.helaedu.website.dto.AssignmentDto;
-import com.helaedu.website.dto.QuizForAssignmentsDto;
+import com.helaedu.website.dto.AssignmentQuizDto;
 import com.helaedu.website.entity.Assignment;
 import com.helaedu.website.repository.AssignmentRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -59,7 +59,7 @@ public class AssignmentService {
                                 assignment.getPublishedTimestamp(),
                                 assignment.getUserId(),
                                 assignment.getQuizzes().stream()
-                                        .map(quiz -> new QuizForAssignmentsDto(
+                                        .map(quiz -> new AssignmentQuizDto(
                                                 quiz.getQuizId(),
                                                 quiz.getQuestion(),
                                                 quiz.getOptions(),
@@ -86,7 +86,7 @@ public class AssignmentService {
                     assignment.getPublishedTimestamp(),
                     assignment.getUserId(),
                     assignment.getQuizzes().stream()
-                            .map(quiz -> new QuizForAssignmentsDto(
+                            .map(quiz -> new AssignmentQuizDto(
                                     quiz.getQuizId(),
                                     quiz.getQuestion(),
                                     quiz.getOptions(),

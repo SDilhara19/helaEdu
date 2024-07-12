@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class QuizForAssignmentsDto {
+public class AssignmentQuizDto {
     private String quizId;
 
     @NotEmpty(message = "Question is required")

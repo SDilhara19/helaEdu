@@ -1,6 +1,6 @@
 package com.helaedu.website.entity;
 
-import com.helaedu.website.dto.QuizForAssignmentsDto;
+import com.helaedu.website.dto.AssignmentQuizDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Assignment {
     private String assignmentId;
-
     private String title;
-
     private LocalDateTime dueDate;
-
     private String instructions;
     private Integer noOfQuestions;
-
     private String totalTime;
     private LocalDateTime publishedTimestamp;
     private String userId;
-    private List<QuizForAssignmentsDto> quizzes = new ArrayList<>();
+    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 }
