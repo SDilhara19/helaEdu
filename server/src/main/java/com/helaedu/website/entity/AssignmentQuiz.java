@@ -1,6 +1,5 @@
 package com.helaedu.website.entity;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +11,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuizForAssignments {
+public class AssignmentQuiz {
     private String quizId;
-
     private String question;
-
     private List<String> options;
-
     private String correctAnswer;
-
     private String assignmentId;
 }
