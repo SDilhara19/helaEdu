@@ -123,7 +123,6 @@ public class ArticleController{
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
             String userId = UserUtil.getCurrentUserEmail();
-
             String result = articleService.approveArticle(articleId, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
