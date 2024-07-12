@@ -36,14 +36,14 @@ function Header() {
           </div>
           <div className="auth-control">
             <Link
-              className="btn gold-button"
+              className="btn white-button"
               to="/auth"
               state={{ authType: "login" }}
             >
               <h4>Login</h4>
             </Link>
             <Link
-              className="btn gold-button"
+              className="btn white-button"
               to="/auth"
               state={{ authType: "signup" }}
             >

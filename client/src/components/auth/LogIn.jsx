@@ -40,7 +40,7 @@ function Login() {
               <FontAwesomeIcon icon={faEnvelope} size="3x" className="icon" />
               <div className="floating-input-label">
                 <input
-                  type="input"
+                  type="text"
                   placeholder="Name"
                   name="username"
                   id="username"
@@ -55,7 +55,7 @@ function Login() {
               <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
               <div className="floating-input-label">
                 <input
-                  type="input"
+                  type="password"
                   placeholder="Name"
                   name="name"
                   id="name"
