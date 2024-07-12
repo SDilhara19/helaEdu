@@ -1,10 +1,9 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.AuthenticationRequest;
+import com.helaedu.website.dto.AuthenticationResponse;
 import com.helaedu.website.service.CustomUserDetailsService;
 import com.helaedu.website.util.JwtUtil;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authenticate")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     @Autowired
@@ -53,15 +53,4 @@ public class AuthenticationController {
     }
 }
 
-@Getter
-@Setter
-class AuthenticationRequest {
-    private String email;
-    private String password;
-}
 
-@Getter
-@AllArgsConstructor
-class AuthenticationResponse {
-    private final String jwt;
-}
