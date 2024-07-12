@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
+import { useNavigate } from "react-router-dom";
 import rightBanner from "@assets/img/hero-banner.svg";
 
 function Login() {
   const [formData, setFormData] = React.useState({
-    username: "",
+    email: "",
     password: "",
   });
   const signIn = useSignIn();
+  const navigator = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +24,9 @@ function Login() {
           type: "Bearer",
         };
         let status = signIn({ auth });
+        if (status) {
+          navigator("/");
+        }
       }
     });
   };
@@ -42,11 +47,11 @@ function Login() {
                 <input
                   type="text"
                   placeholder="Name"
-                  name="username"
-                  id="username"
+                  name="email"
+                  id="email"
                   required
                 />
-                <label for="username">Email</label>
+                <label htmlFor="email">Email</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
@@ -61,7 +66,7 @@ function Login() {
                   id="name"
                   required
                 />
-                <label for="name">Password</label>
+                <label htmlFor="name">Password</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
