@@ -22,7 +22,7 @@ import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
-
+import ApproveTeachers from "@pages/admin/approveTeachers";
 function App() {
   return (
     <div>
@@ -58,6 +58,7 @@ function App() {
         <Route path="/ModeratorDetails" element={<ModeratorDetails/>}></Route>
         <Route path="/ModeratorManagement" element={<ModeratorManagement/>}></Route>
         <Route path="/Notifications" element={<Notifications/>}></Route>
+        <Route path="/ApproveTeachers" element={<ApproveTeachers/>}></Route>
       </Routes>
     </div>
   );
