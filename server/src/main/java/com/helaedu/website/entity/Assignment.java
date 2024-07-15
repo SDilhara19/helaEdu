@@ -1,5 +1,6 @@
 package com.helaedu.website.entity;
 
+import com.helaedu.website.dto.AssignmentQuizDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,6 @@ public class Assignment {
     private String title;
     private LocalDateTime dueDate;
     private String instructions;
-
     private Integer noOfQuestions;
     private String totalTime;
 
@@ -38,4 +38,5 @@ public class Assignment {
         private List<String> options;
         private String correctAnswer;
     }
+    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 }

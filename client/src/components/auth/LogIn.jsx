@@ -4,17 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
+import { useNavigate } from "react-router-dom";
 import rightBanner from "@assets/img/hero-banner.svg";
 
-function Login() {
+function Login({ setLoadingState }) {
   const [formData, setFormData] = React.useState({
-    username: "",
+    email: "",
     password: "",
   });
   const signIn = useSignIn();
+  const navigator = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoadingState(true);
     authenticateUser(formData).then((res) => {
       if (res.status === 200) {
         let auth = {
@@ -22,6 +25,9 @@ function Login() {
           type: "Bearer",
         };
         let status = signIn({ auth });
+        if (status) {
+          navigator("/");
+        }
       }
     });
   };
@@ -40,13 +46,16 @@ function Login() {
               <FontAwesomeIcon icon={faEnvelope} size="3x" className="icon" />
               <div className="floating-input-label">
                 <input
-                  type="input"
+                  type="text"
                   placeholder="Name"
-                  name="username"
-                  id="username"
+                  name="email"
+                  id="email"
                   required
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
-                <label for="username">Email</label>
+                <label htmlFor="email">Email</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
@@ -55,13 +64,16 @@ function Login() {
               <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
               <div className="floating-input-label">
                 <input
-                  type="input"
+                  type="password"
                   placeholder="Name"
                   name="name"
                   id="name"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   required
                 />
-                <label for="name">Password</label>
+                <label htmlFor="name">Password</label>
               </div>
             </div>
             <h5>&nbsp;</h5>

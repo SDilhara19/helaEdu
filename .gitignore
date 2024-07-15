@@ -26,4 +26,7 @@
 */Dockerfile
 */docker-compose.yml
 .idea
-Dockerfile
+*.Dockerfile
+docker-compose.yml
+compose.yml
+*/__pycache__
