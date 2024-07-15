@@ -17,9 +17,15 @@ const Question = ({ counter }) => {
                 </div>
             </div>
             <div className='-mt-12 mx-auto min-h-32 w-32'>
-                <div className='p-2 h-40 w-40 rounded-full border-8 border-solid bg-blue border-yellow absolute -bottom-16 right-12'>
+                {/* <div className='p-2 h-40 w-40 rounded-full border-8 border-solid bg-blue border-yellow absolute -bottom-16 right-12'>
 
-                </div>
+                </div> */}
+<div
+  className="radial-progress bg-blue text-yellow border-blue border-4  absolute -bottom-16 right-12"
+  style={{ "--value": "70", "--size": "10rem", "--thickness": "1.2rem" }}
+  role="progressbar">
+  1m: 23s
+</div>
             </div>
 
             <div className='absolute bottom-6 left-12'>
