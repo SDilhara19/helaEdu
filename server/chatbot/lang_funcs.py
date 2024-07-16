@@ -22,7 +22,7 @@ def load_pdf_data(file_path):
 
 
 # Responsible for splitting the documents into several chunks
-def split_docs(documents, chunk_size=1000, chunk_overlap=20):
+def split_docs(documents, chunk_size=1000, chunk_overlap=200):
     
     # Initializing the RecursiveCharacterTextSplitter with
     # chunk_size and chunk_overlap
