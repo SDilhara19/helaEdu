@@ -12,8 +12,6 @@
 
 #### `npm run dev`
 
-# Backend Server
-
 # Service Server
 
 ## Navigate to service folder
@@ -27,3 +25,5 @@
 ## To start the service server in debug mode, run
 
 #### `flask run --debug`
+
+# Backend Server

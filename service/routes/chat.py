@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from utils import authenticate
 from firebase_admin import firestore
+from Models.Student import Student
 
 chat = Blueprint("chat", __name__)
 
@@ -9,17 +10,13 @@ chat = Blueprint("chat", __name__)
 @chat.route("", methods=["POST"])
 @authenticate
 def index(user_data):
-    db = firestore.client()
-    doc_ref = db.collection("students").document(
-        "st810e88c5-a48a-4ba4-a813-a31db2571bea"  # this is a real stu key
-    )
-    doc = doc_ref.get()
+    result = Student.collection.get("st3f9505f5-e47b-4181-8201-2cebe7a127c2")
 
     request_payload = request.get_json(silent=True)
     response_payload = {
         "email": user_data["sub"],
-        "received params": request_payload,
-        "fetched_from_db": doc.to_dict(),
+        "received_params": request_payload,
+        "fetched_from_db": result.to_dict(),
     }
 
     return jsonify(response_payload)
