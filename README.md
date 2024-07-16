@@ -13,3 +13,17 @@
 #### `npm run dev`
 
 # Backend Server
+
+# Service Server
+
+## Navigate to service folder
+
+#### `cd service`
+
+## To install client dependencies, run
+
+#### `pip install -r requirements.txt`
+
+## To start the service server in debug mode, run
+
+#### `flask run --debug`
