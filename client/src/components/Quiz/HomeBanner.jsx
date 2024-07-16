@@ -1,9 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClockRotateLeft, faTrophy, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import React from 'react'
-import StartQuiz from './StartQuiz';
-import Top3 from './Top3';
-import bot from "@assets/img/bot 2.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClockRotateLeft,
+  faTrophy,
+  faUserGroup,
+} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import StartQuiz from "./StartQuiz";
+import Top3 from "./Top3";
+import bot from "@assets/img/robot-from-the-side.svg";
 import banner from "@assets/img/banner.png";
 
 const HomeBanner = () => {
@@ -42,9 +46,16 @@ const HomeBanner = () => {
                 </div>
 
             </div>
+            <StartQuiz />
+          </div>
+          <div className="w-7/12 h-full">
+            <Top3 />
+            {/* <img src={bot} alt="img" className='robo-img' /> */}
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default HomeBanner
-
+export default HomeBanner;

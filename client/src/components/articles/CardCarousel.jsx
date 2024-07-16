@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import ArticleCard from '@components/articles/ArticleCard';
-
-
-const sampleData = {
-    imageUrl: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
-    authorImageUrl: "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
-    authorName: "M. Perera",
-    date: "23 March 2024",
-    title: "Sinhabahu Natakaya",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
-    badges: ["NEW", "HOT", "TRENDING"]
-  };
-
+import { approvedArticles } from '@/services/ArticleService';
 
 const CardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(5); // Default to 5 visible cards
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8]; // Example array, replace with actual data
+  const [articles, setArticles] = useState([]); // Initialize articles state
 
-  const totalCards = cards.length;
+  useEffect(() => {
+    const fetchApprovedArticles = async () => {
+      try {
+        const response = await approvedArticles();
+        setArticles(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchApprovedArticles();
+  }, []);
+
+  const totalCards = articles.length;
 
   const updateVisibleCards = () => {
     if (window.innerWidth < 800) {
-      setVisibleCards(2); // Display 3 cards for small screens
+      setVisibleCards(2); // Display 2 cards for small screens
     } else {
       setVisibleCards(5); // Display 5 cards for larger screens
     }
@@ -64,20 +67,23 @@ const CardCarousel = () => {
           className="flex transition-transform duration-300"
           style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
         >
-          {cards.map((card, index) => (
+          {articles.map((article) => (
             <div
-              key={index}
-              className={`flex-shrink-0 p-2 ${visibleCards === 2 ? 'w-1/3' : 'w-1/5'}`}
+              key={article.articleId}
+              className={`flex-shrink-0 p-2 ${visibleCards === 2 ? 'w-1/2' : 'w-1/5'}`} 
             >
-              <ArticleCard
-                imageUrl={sampleData.imageUrl}
-                authorImageUrl={sampleData.authorImageUrl}
-                authorName={sampleData.authorName}
-                date={sampleData.date}
-                title={sampleData.title}
-                description={sampleData.description}
-                badges={sampleData.badges}
-            />
+              <Link to={`/readArticles/${article.articleId}`}>
+                <ArticleCard
+                  key={article.articleId}
+                  imageUrl={article.imageRef}
+                  authorImageUrl={article.authorImageUrl}
+                  authorName={article.authorName}
+                  date={article.publishedTimestamp}
+                  title={article.title}
+                  description={article.content}
+                  badges={article.tags}
+                />
+              </Link>
             </div>
           ))}
         </div>

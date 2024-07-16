@@ -7,7 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 export default function TableRaw({articleId,title,imgUrl,pdfName,tags,status}) {
   return (
     <div>
-      <div className='border border-blue rounded-3xl bg-white w-10/12 h-16 mx-48 my-4 px-7 py-4 flex justify-between '>
+      <div className='border border-blue rounded-3xl  w-10/12 h-16 mx-48 my-4 px-7 py-4 flex justify-between '>
             <div><p className='text-2xl'>{articleId}</p></div>
             <div><p className='text-2xl'>{title}</p></div>
             <div><img src="{imgUrl} "></img></div>

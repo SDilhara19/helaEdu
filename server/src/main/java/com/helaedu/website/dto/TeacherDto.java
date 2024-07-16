@@ -32,4 +32,5 @@ public class TeacherDto {
     private String proofRef;
 
     private String role;
+    private boolean emailVerified;
 }
