@@ -38,5 +38,4 @@ public class Assignment {
         private List<String> options;
         private String correctAnswer;
     }
-    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 }

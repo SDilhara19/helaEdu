@@ -10,6 +10,21 @@ export default function TableRowTopTeachers({ teacherId, firstName, email,contac
 
   return (
     <div className='flex justify-center my-4'>
+        {isModalOpen && (
+        <dialog open className="modal">
+          <div className="modal-box">
+            
+            <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
+            <div className="modal-action">
+              <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
+              <button className="btn bg-yellow text-black" onClick={() => {
+                // Add approve logic here
+                closeModal();
+              }}>Approve</button>
+            </div>
+          </div>
+        </dialog>
+      )}
       <div className='border border-blue rounded-3xl w-10/12 h-16 px-7 py-4 flex justify-between items-center'>
         <div><p className='text-2xl'>{teacherId}</p></div>
         <div><p className='text-2xl'>{firstName}</p></div>
@@ -33,21 +48,7 @@ export default function TableRowTopTeachers({ teacherId, firstName, email,contac
         </div>
       </div>
 
-      {isModalOpen && (
-        <dialog open className="modal">
-          <div className="modal-box">
-            
-            <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
-            <div className="modal-action">
-              <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
-              <button className="btn bg-yellow text-black" onClick={() => {
-                // Add approve logic here
-                closeModal();
-              }}>Approve</button>
-            </div>
-          </div>
-        </dialog>
-      )}
+      
 
        
     </div>

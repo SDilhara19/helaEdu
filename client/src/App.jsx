@@ -49,10 +49,9 @@ function App() {
         <Route path="/reviewList" element={<ReviewList />}></Route>
         <Route path="/reviewArticle/:articleId" element={<ReviewArticle />}></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
-        <Route path="/t_profile" element={<T_profile/>} ></Route>
         <Route path="/createAssignments" element={<CreateAssignments />}></Route> 
         <Route path="/quizFormat" element={<QuizFormat/>}></Route>
-        <Route path="/t_profile" element={<T_profile />}></Route>
+        <Route path="/tProfile" element={<T_profile />}></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
 
         <Route path="/dashboard" element={<Dashboard/>}></Route>

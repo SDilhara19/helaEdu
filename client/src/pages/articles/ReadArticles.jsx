@@ -10,6 +10,7 @@ import { getArticleById } from "@/services/ArticleService";
 import { useParams } from "react-router-dom";
 
 export default function ReadArticle() {
+  
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
   useEffect(() => {

@@ -7,6 +7,9 @@ import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-i
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HTMLReactParser from 'html-react-parser';
+import geography from "@assets/img/subjects/3.png";
+
+
 export default function ArticleCard({imageUrl,authorImageUrl,authorName,date,title,description,badges
 }) {
     const [isLiked, setIsLiked] = useState(false);
@@ -27,15 +30,15 @@ export default function ArticleCard({imageUrl,authorImageUrl,authorName,date,tit
       }
       return text;
   }
-  const truncatedDescription = truncateText(description, 20);
+  const truncatedDescription = truncateText(description, 10);
   const parsedContent =HTMLReactParser(truncatedDescription);
   return (
     
     <div>
       {/* <Link to="/readArticles/2"> */}
-        <div className="card  w-96 shadow-xl  hover:scale-105 transition-transform ">
+        <div className="card  w-96 max-h-128 shadow-xl  hover:scale-105 transition-transform ">
           <figure>
-            <img src={imageUrl} alt="Article" />
+            <img src={geography} className='w-96 max-h-60'alt="Article" />
           </figure>
           <div className="card-body">
             <div className='flex justify-between'>
@@ -50,13 +53,13 @@ export default function ArticleCard({imageUrl,authorImageUrl,authorName,date,tit
             <h2 className="card-title text-3xl mt-2">{title}</h2>
             <p className='text-lg mt-2'>{parsedContent}</p>
             <div className="card-actions justify-end mt-2"></div>
-            <div className="flex justify-start mt-2">
+            <div className="flex justify-start mt-1">
               {badges && badges.map((badge, index) => (
-                <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue p-2">{badge}</div>
+                <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue p-3 ">{badge}</div>
               ))}
             </div>
             <div >
-            <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-10 m-2' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />
+            <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-10 my-1 mx-2' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />
 
             <FontAwesomeIcon icon={faCommentRegular} className='text-xl size-10 my-2' style={{ color: "#74C0FC", cursor: 'pointer' }}  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}/><span className='text-blue text-lg'>45</span>
 
