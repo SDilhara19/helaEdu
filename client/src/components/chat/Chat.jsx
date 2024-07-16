@@ -23,7 +23,18 @@ function Chat() {
 
       <h3>Decoded or Recieved from server:</h3>
       <h4>
-        <pre>{JSON.stringify(responsePayload)}</pre>
+        <pre style={{ textWrap: "wrap" }}>
+          {JSON.stringify(responsePayload.email)}
+        </pre>
+        <br />
+        <pre style={{ textWrap: "wrap" }}>
+          {JSON.stringify(responsePayload.received_params)}
+        </pre>
+        <br />
+
+        <pre style={{ textWrap: "wrap" }}>
+          {JSON.stringify(responsePayload.fetched_from_db)}
+        </pre>
       </h4>
     </>
   );
