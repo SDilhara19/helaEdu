@@ -1,9 +1,13 @@
 package com.helaedu.website.service;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.helaedu.website.repository.ModeratorRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.entity.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +20,14 @@ import java.util.stream.Collectors;
 public class ModeratorService {
     private final ModeratorRepository moderatorRepository;
 
+    @Autowired
+    private EmailVerificationService emailVerificationService;
+
     public ModeratorService(ModeratorRepository moderatorRepository) {
         this.moderatorRepository = moderatorRepository;
     }
 
-    public String createModerator(TeacherDto teacherDto) throws ExecutionException, InterruptedException {
+    public String createModerator(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Teacher existingModeratorOrTeacher = moderatorRepository.getModeratorByEmail(teacherDto.getEmail());
         if (existingModeratorOrTeacher != null) {
             throw new IllegalArgumentException("Email already exists");
@@ -41,7 +48,30 @@ public class ModeratorService {
                 "ROLE_MODERATOR"
         );
         teacherDto.setUserId(moderator.getUserId());
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                .setEmail(teacherDto.getEmail())
+                .setEmailVerified(false)
+                .setPassword(teacherDto.getPassword())
+                .setUid(teacherDto.getUserId());
+
+        firebaseAuth.createUser(request);
+
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
         return moderatorRepository.createModerator(moderator);
+    }
+
+    public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
+        FirebaseAuth.getInstance();
+
+        Teacher moderator = moderatorRepository.getModeratorById(userId);
+        if (moderator != null) {
+            moderator.setEmailVerified(true);
+            moderatorRepository.updateModerator(userId, moderator);
+        } else {
+            throw new IllegalArgumentException("Moderator not found");
+        }
     }
 
     public List<TeacherDto> getAllModerators() throws ExecutionException, InterruptedException {
@@ -56,7 +86,8 @@ public class ModeratorService {
                                 moderator.getRegTimestamp(),
                                 moderator.getIsModerator(),
                                 moderator.getProofRef(),
-                                moderator.getRole()
+                                moderator.getRole(),
+                                moderator.isEmailVerified()
                         )
                 )
                 .collect(Collectors.toList());
@@ -74,7 +105,8 @@ public class ModeratorService {
                     moderator.getRegTimestamp(),
                     moderator.getIsModerator(),
                     moderator.getProofRef(),
-                    moderator.getRole()
+                    moderator.getRole(),
+                    moderator.isEmailVerified()
             );
         }
         return null;

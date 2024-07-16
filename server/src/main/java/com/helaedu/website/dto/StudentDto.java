@@ -29,4 +29,5 @@ public class StudentDto {
     private String noteId;
     private String subscriptionId;
     private String role;
+    private boolean emailVerified;
 }

@@ -1,5 +1,6 @@
 package com.helaedu.website.controller;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
@@ -46,6 +47,8 @@ public class ModeratorController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating moderator", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -122,27 +125,39 @@ public class ModeratorController {
         return ResponseEntity.ok(articles);
     }
 
+    @GetMapping("/verify-email")
+    public ResponseEntity<String> verifyEmail(@RequestParam String uid) {
+        try {
+            moderatorService.verifyEmail(uid);
+            return new ResponseEntity<>("Email verified successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException | ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentModerator() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getModerator(userId);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentModerator(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return updateModerator(userId, teacherDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentModerator() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return deleteModerator(userId);
     }
 
     @GetMapping("/me/articles")
     public ResponseEntity<List<ArticleDto>> getCurrentModeratorArticles() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getAllArticledByModerator(userId);
     }
 }

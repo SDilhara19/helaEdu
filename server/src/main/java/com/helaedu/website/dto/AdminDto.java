@@ -27,4 +27,5 @@ public class AdminDto {
 
     private String regTimestamp;
     private String role;
+    private boolean emailVerified;
 }

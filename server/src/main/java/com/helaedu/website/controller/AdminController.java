@@ -1,5 +1,6 @@
 package com.helaedu.website.controller;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.AdminDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.AdminService;
@@ -42,6 +43,8 @@ public class AdminController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating admin", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -98,21 +101,33 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/verify-email")
+    public ResponseEntity<String> verifyEmail(@RequestParam String uid) {
+        try {
+            adminService.verifyEmail(uid);
+            return new ResponseEntity<>("Email verified successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException | ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentAdmin() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return getAdmin(userId);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentAdmin(@Valid @RequestBody AdminDto adminDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return updateAdmin(userId, adminDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentAdmin() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserId();
+        String userId = UserUtil.getCurrentUserEmail();
         return deleteAdmin(userId);
     }
 }
