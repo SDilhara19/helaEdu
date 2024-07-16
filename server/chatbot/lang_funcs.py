@@ -60,6 +60,8 @@ def create_embeddings(chunks, embedding_model, storing_path="vectorstore"):
     # returning the vectorstore
     return vectorstore
 
+
+
 # Creating the chain for Question Answering
 def load_qa_chain(retriever, llm, prompt):
     return RetrievalQA.from_chain_type(

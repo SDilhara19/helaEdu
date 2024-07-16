@@ -12,14 +12,14 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-store = {}
+
 
 llm = Ollama(model="orca-mini", temperature=0)
 
 # Loading the Embedding Model
 embed = load_embedding_model(model_path="all-MiniLM-L6-v2")
 
-docs = load_pdf_data(file_path="/Users/helaEdu/server/textbooks/grade10/science.pdf")
+docs = load_pdf_data(file_path="/Users/helaEdu/server/textbooks/grade10/Geography.pdf")
 # docs = load_pdf_data(file_path="/Users/helaEdu/server/textbooks/grade10/science2.pdf")
 documents = split_docs(documents=docs)
 
@@ -29,53 +29,6 @@ vectorstore = create_embeddings(documents, embed)
 # converting vectorstore to a retriever
 retriever = vectorstore.as_retriever()
 
-
-# template = """
-# ### System:
-# You are an respectful and honest assistant. You have to answer the user's questions using only the context \
-# provided to you. If you don't know the answer, just say you don't know. Don't try to make up an answer.
-
-# ### Context:
-# {context}
-
-# ### User:
-# {question}
-
-# ### Response:
-# """
-
-# Creating the prompt from the template which we created before
-# system_prompt = PromptTemplate.from_template(template)
-
-# # prompt = ChatPromptTemplate.from_messages([
-# #    ("system", "You are an respectful and honest assistant. You have to answer the user's questions using only the context provided to you. If you don't know the answer, just say you don't know. Don't try to make up an answer."),
-# #     MessagesPlaceholder(variable_name="chat_history")
-# #    ("human", "{input}")
-# # ])
-
-# # prompt = ChatPromptTemplate.from_messages(
-# #     [
-# #         ("system", "You are an respectful and honest assistant. You have to answer the user's questions based on the context: {context}")
-# #         ("human", "{question}")
-# #     ]
-# # )
-
-# # Creating the chain
-# chain = load_qa_chain(retriever, llm, prompt)
-
-# # chain = load_qa_chain(retriever, llm, prompt)
-# # chat_history = [
-# #     HumanMessage('Hello'),
-# #     AIMessage('Hello, how can I assist you?'),
-# #     HumanMessage('My name is Sam')
-# # ]
-# while True:
-
-#     user_input = input("You: ")
-#     if user_input.lower() == 'exit':
-#         break
-
-#     get_response(user_input, chain)
 
 contextualize_q_system_prompt = (
     "Given a chat history and the latest user question "
@@ -113,50 +66,54 @@ qa_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", system_prompt),
-        ("human", "{input}"),
-    ]
-)
-# question_answer_chain = create_stuff_documents_chain(llm, prompt)
-# rag_chain = create_retrieval_chain(retriever, question_answer_chain)
-
 question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
 rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 
-chat_history = []
+store = {}
 
-question = "What is the mass number of sodium?"
-ai_msg_1 = rag_chain.invoke({"input": question, "chat_history": chat_history})
-chat_history.extend(
-    [
-        HumanMessage(content=question),
-        AIMessage(content=ai_msg_1["answer"]),
-    ]
+def get_session_history(session_id: str) -> BaseChatMessageHistory:
+    if session_id not in store:
+        store[session_id] = ChatMessageHistory()
+    return store[session_id]
+
+conversational_rag_chain = RunnableWithMessageHistory(
+    rag_chain,
+    get_session_history,
+    input_messages_key="input",
+    history_messages_key="chat_history",
+    output_messages_key="answer",
 )
 
-second_question = "What is its atomic number?"
-ai_msg_2 = rag_chain.invoke({"input": second_question, "chat_history": chat_history})
-
-print(ai_msg_2["answer"])
+chat_history = []
 
 
 
+while True:
 
-# while True:
+    user_input = input("You: ")
+    if user_input.lower() == 'exit':
+        break
 
-#     user_input = input("You: ")
-#     if user_input.lower() == 'exit':
-#         break
+    response = conversational_rag_chain.invoke(
+    {"input": user_input},
+    config={
+        "configurable": {"session_id": "abc123"}
+    },  # constructs a key "abc123" in `store`.
+)
+    print(response["answer"])
 
-#     response = rag_chain.invoke({"input": user_input})
-#     print(response["answer"])
+    for document in response["context"]:
+        print(document)   
 
-#     for document in response["context"]:
-#         print(document)
-#         print()
+    print("\n\nChat History:")
+    for message in store["abc123"].messages:
+        if isinstance(message, AIMessage):
+            prefix = "AI"
+        else:
+            prefix = "User"
+
+        print(f"{prefix}: {message.content}\n")
 
 
     # get_response(user_input, rag_chain)
