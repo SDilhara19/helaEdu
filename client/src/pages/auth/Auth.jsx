@@ -3,15 +3,9 @@ import { LogIn, SignUp } from "@components/auth";
 import { useLocation } from "react-router-dom";
 
 function Auth() {
-  let Component;
   let location = useLocation();
   let [loadingState, setLoadingState] = useState(false);
-  let { authType } = location.state;
-  if (authType == "login") {
-    Component = <LogIn setLoadingState={setLoadingState} />;
-  } else if (authType == "signup") {
-    Component = <SignUp setLoadingState={setLoadingState} />;
-  }
+  let isLoginAction = location.state ? location.state.isLoginAction : true;
 
   return (
     <div className={`auth ${loadingState ? "loading-body" : ""}`}>
@@ -20,7 +14,11 @@ function Auth() {
           loadingState ? "loading-span" : "no-display"
         }`}
       ></span>
-      {Component}
+      {isLoginAction ? (
+        <LogIn setLoadingState={setLoadingState} />
+      ) : (
+        <SignUp setLoadingState={setLoadingState} />
+      )}
     </div>
   );
 }

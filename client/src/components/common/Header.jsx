@@ -80,14 +80,14 @@ function Header() {
               <Link
                 className="btn white-button"
                 to="/auth"
-                state={{ authType: "login" }}
+                state={{ isLoginAction: true }}
               >
                 <h4>Login</h4>
               </Link>
               <Link
                 className="btn white-button"
                 to="/auth"
-                state={{ authType: "signup" }}
+                state={{ isLoginAction: false }}
               >
                 <h4>Sign Up</h4>
               </Link>
