@@ -98,7 +98,7 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String result = studentService.updateStudent(studentDto.getEmail(), studentDto);
+            String result = studentService.updateStudentByEmail(studentDto.getEmail(), studentDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();

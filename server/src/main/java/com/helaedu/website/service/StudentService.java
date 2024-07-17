@@ -147,7 +147,7 @@ public class StudentService {
         return null;
     }
 
-    public String updateStudent(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
+    public String updateStudentByEmail(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         Student existingStudent = studentRepository.getStudentByEmail(email);
@@ -177,7 +177,7 @@ public class StudentService {
             existingStudent.setSubscriptionId(studentDto.getSubscriptionId());
         }
 
-        return studentRepository.updateStudent(email, existingStudent);
+        return studentRepository.updateStudentByEmail(email, existingStudent);
     }
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
@@ -229,7 +229,7 @@ public class StudentService {
         subscriptionRepository.createSubscription(subscription);
 
         student.setSubscriptionId(subscriptionId);
-        studentRepository.updateStudent(student.getUserId(), student);
+        studentRepository.updateStudentByEmail(student.getEmail(), student);
 
         return subscriptionId;
     }
