@@ -23,7 +23,6 @@ public class ArticleController{
     public ArticleController(ArticleService articleService){
         this.articleService = articleService;
     }
-
     @PostMapping("/create")
     public ResponseEntity<Object> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if (bindingResult.hasErrors()) {
