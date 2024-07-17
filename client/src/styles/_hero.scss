@@ -22,15 +22,20 @@
     }
 
     .left-pannel {
+        margin-left: 10%;
         color: $white-color;
         text-align: center;
 
         .hero-text-box {
-            width: 80%;
+            width: 100%;
+        }
+
+        &>img {
+            width: 115%;
         }
 
         .book {
-            left: 5%;
+            left: -10%;
             width: 30%;
             margin: 2rem;
 
@@ -41,11 +46,15 @@
         img {
             position: absolute;
             right: 0;
-            width: 40%;
-            z-index: 0;
+            width: 35%;
+            top: -5%;
+            z-index: 1;
         }
 
         .chat-box {
+            transform: translate(15%, 50%);
+            height: 40vh;
+
             h2 {
                 margin: 1rem;
                 color: $black-color ;
@@ -60,7 +69,6 @@
             border-radius: 2rem;
             padding: 2rem;
             background: $white-color;
-            transform: translateY(60%);
             z-index: 1;
 
 
