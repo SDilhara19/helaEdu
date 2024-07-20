@@ -20,12 +20,14 @@ function Header() {
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Home</h4>
-            </a>
-            <Link to="/articles">
+            <Link to="/">
               <a className="nav-text flex-c m-4 cursor-pointer">
-                <h4>Categories</h4>
+                <h4>Home</h4>
+              </a>
+            </Link>
+            <Link to="/SubjectCatalog">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Subject</h4>
               </a>
             </Link>
             <Link to="/quiz">
@@ -44,34 +46,63 @@ function Header() {
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
-              <div className="flex-c">
-                <FontAwesomeIcon
-                  className="notification-bell"
-                  icon={faBell}
-                  size="3x"
-                />
+              <div class="dropdown-wrapper">
+                <div class="dropdown dropdown-end">
+                  <div className="flex-c">
+                    <FontAwesomeIcon
+                      tabindex="0"
+                      role="button"
+                      icon={faBell}
+                      size="3x"
+                      className="notification-bell"
+                    />
+                  </div>
+                  <ul tabindex="0" class="menu dropdown-content">
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div className="profile-icon flex-c">
-                <FontAwesomeIcon icon={faUser} size="3x" />
-              </div>
-              <ul className="dropdown-wrapper">
-                <li>
-                  <h4>Profile</h4>
-                </li>
-                <li>
-                  <h4>Grades</h4>
-                </li>
-                <li>
-                  <h4
-                    onClick={() => {
-                      signOut();
-                      window.location.reload();
-                    }}
+              <div class="dropdown-wrapper">
+                <div class="dropdown dropdown-end">
+                  <div className="profile-icon flex-c">
+                    <FontAwesomeIcon
+                      tabindex="0"
+                      role="button"
+                      icon={faUser}
+                      size="3x"
+                    />
+                  </div>
+                  <ul
+                    tabindex="0"
+                    class="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow"
                   >
-                    Log out
-                  </h4>
-                </li>
-              </ul>
+                    <li>
+                      <h4>Profile</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4
+                        onClick={() => {
+                          signOut();
+                          window.location.reload();
+                        }}
+                      >
+                        Log out
+                      </h4>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="auth-control">

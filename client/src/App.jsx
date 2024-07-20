@@ -22,7 +22,9 @@ import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
+import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
+import Subject from "@pages/subjects/Subject";
 
 function App() {
   return (
@@ -72,6 +74,8 @@ function App() {
           element={<ModeratorManagement />}
         ></Route>
         <Route path="/Notifications" element={<Notifications />}></Route>
+        <Route path="/SubjectCatalog" element={<SubjectCatalog />}></Route>
+        <Route path="/subject" element={<Subject />}></Route>
       </Routes>
     </div>
   );

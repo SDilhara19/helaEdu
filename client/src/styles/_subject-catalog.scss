@@ -1,0 +1,29 @@
+.subject-catalog {
+    min-height: 85vh;
+    margin: 2rem auto;
+    margin-bottom: 0;
+    position: relative;
+
+    .catalog-ul {
+        padding: 2rem 0 0 0;
+        position: relative;
+        max-height: 80vh;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        width: 80%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 1rem;
+        z-index: 2;
+    }
+
+    .catalog-img {
+        position: absolute;
+        z-index: 0;
+        top: -20%;
+        pointer-events: none;
+    }
+
+    overflow: hidden;
+}
