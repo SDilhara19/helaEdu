@@ -20,8 +20,11 @@ public class AssignmentDto {
     @NotEmpty(message = "Title is required")
     private String title;
 
-    @NotEmpty(message="Due Date is not empty")
-    private LocalDateTime dueDate;
+
+
+    @NotEmpty(message="Due date is required")
+    private String dueDate;
+
 
     @NotEmpty(message = "Instructions are required")
     private String instructions;
@@ -31,11 +34,12 @@ public class AssignmentDto {
     @NotEmpty(message = "time period is required")
     private String totalTime;
 
-    private LocalDateTime publishedTimestamp;
 
+    private String publishedTimestamp;
     private String userId;
+    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 
-    private List<QuizDto> quizzes = new ArrayList<>();
+
 
     @Getter
     @Setter

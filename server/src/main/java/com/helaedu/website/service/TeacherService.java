@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.TeacherDto;
@@ -113,10 +114,29 @@ public class TeacherService {
         return null;
     }
 
-    public String updateTeacher(String userId, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
+    public TeacherDto getTeacherByEmail(String email) throws ExecutionException, InterruptedException {
+        Teacher teacher = teacherRepository.getTeacherByEmail(email);
+        if (teacher != null) {
+            return new TeacherDto(
+                    teacher.getUserId(),
+                    teacher.getFirstName(),
+                    teacher.getLastName(),
+                    teacher.getEmail(),
+                    teacher.getPassword(),
+                    teacher.getRegTimestamp(),
+                    teacher.getIsModerator(),
+                    teacher.getProofRef(),
+                    teacher.getRole(),
+                    teacher.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public String updateTeacher(String email, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        Teacher existingTeacher = teacherRepository.getTeacherById(userId);
+        Teacher existingTeacher = teacherRepository.getTeacherByEmail(email);
         if(existingTeacher == null || existingTeacher.getIsModerator()) {
             throw new IllegalArgumentException("Teacher not found");
         }
@@ -143,7 +163,7 @@ public class TeacherService {
             existingTeacher.setProofRef(teacherDto.getProofRef());
         }
 
-        return teacherRepository.updateTeacher(userId, existingTeacher);
+        return teacherRepository.updateTeacher(email, existingTeacher);
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {

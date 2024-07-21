@@ -15,27 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Assignment {
-
     private String assignmentId;
     private String title;
-    private LocalDateTime dueDate;
+    private String dueDate;
     private String instructions;
     private Integer noOfQuestions;
     private String totalTime;
-
-    private LocalDateTime publishedTimestamp;
-
+    private String publishedTimestamp;
     private String userId;
-
-    private List<Quiz> quizzes = new ArrayList<>();
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Quiz {
-        private String questionText;
-        private List<String> options;
-        private String correctAnswer;
-    }
+    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 }

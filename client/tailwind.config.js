@@ -17,6 +17,7 @@ export default {
         white: "var(--color-text)",
         black: "var(--color-bg)",
         blue2: "var(--color-accent)",
+        gray1:"var(--color-gray1)"
       },
       screens: {
         mw: { max: "800px" },

@@ -11,6 +11,8 @@ export default function ReviewArticle() {
   const [article, setArticle] = useState(null);
   const [rejectReason, setRejectReason] = useState('');
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -49,14 +51,20 @@ export default function ReviewArticle() {
     return <div>Loading...</div>;
   }
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const openDeclineModal = () => setIsDeclineModalOpen(true);
+  const closeDeclineModal = () => setIsDeclineModalOpen(false);
+
   return (
-    <div>
+    <div className={`${isModalOpen || isDeclineModalOpen ? 'modalOpen' : ''}`}>
       <Header />
       <div>
         <h1 className="text-center text-5xl mt-10 m-6">Review Article</h1>
         <hr className='border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out' />
       </div>
-      <div className="border border-blue rounded-2xl p-10 m-32">
+      <div className="border border-blue rounded-2xl p-10 mx-32 mt-32">
         <h1 className="text-5xl">{article.title}</h1>
         <div className="card-actions flex justify-between mt-10">
           <div className="flex justify-start align-baseline">
@@ -86,7 +94,7 @@ export default function ReviewArticle() {
           />
         </div>
         <div className="text-xl">
-          <p className="text-2xl">{article.title}</p>
+          <p className="text-2xl">{article.content}</p>
         </div>
         <div className="flex justify-between mx-9">
           <div className="border border-blue rounded-xl p-6 m-2">
@@ -98,23 +106,60 @@ export default function ReviewArticle() {
           </div>
         </div>
       </div>
-      <div className="p-2 mx-32 mb-6 flex justify-between ">
-        <div className="w-1/4 flex justify-center">
-          <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 my-12 hover:translate-x-2" onClick={approve}>
-            Approve
+      <div className="p-2 mx-32 mb-6 mt-8 flex justify-between ">
+        <div>
+          <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 hover:translate-x-2" onClick={openModal}>
+              Approve
           </button>
         </div>
-        <div className="flex-grow relative w-3/4">
-          <textarea
-            className="h-52 w-full p-2 border border-blue rounded-md resize-none"
-            placeholder="Add your comments"
-            value={rejectReason}
-            onChange={(e) => setRejectReason(e.target.value)}
-          ></textarea>
-          <button className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded absolute bottom-4 right-4 hover:translate-x-2" onClick={reject}>
+        <div>
+          <button className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded  bottom-4 right-4 hover:translate-x-2" onClick={openDeclineModal}>
             Reject
           </button>
         </div>
+        
+        {isModalOpen && (
+          <>
+            {/* <div className="modalOverlay" /> */}
+            <dialog open className="modal">
+              <div className="modal-box max-w-3xl p-10">
+                <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
+                <div className="modal-action">
+                  <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
+                  <button className="btn bg-yellow text-black" onClick={() => {
+                    approve();
+                    closeModal();
+                  }}>Approve</button>
+                </div>
+              </div>
+            </dialog>
+          </>
+        )}
+       {isDeclineModalOpen && (
+          <>
+            <div className="modalOverlay" />
+            <dialog open className="modal">
+              <div className="modal-box max-w-3xl p-10">
+                <p className="py-4 text-3xl">Are you sure you want to decline this teacher?</p>
+                <br />
+                <input
+                  type="text"
+                  placeholder="Add your feedback"
+                  className="border border-blue w-full rounded-2xl p-5"
+                  value={rejectReason}
+                  onChange={(e) => setRejectReason(e.target.value)}
+                />
+                <div className="modal-action">
+                  <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
+                  <button className="btn bg-yellow text-black" onClick={() => {
+                    reject();
+                    closeDeclineModal();
+                  }}>Decline</button>
+                </div>
+              </div>
+            </dialog>
+          </>
+        )}
       </div>
       <Footer />
     </div>

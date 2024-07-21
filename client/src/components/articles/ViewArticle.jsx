@@ -21,7 +21,7 @@ export default function ViewArticle({title,content,tags}) {
 
     return (
         <div>
-            <div className='border border-blue rounded-2xl p-10 m-12'>
+            <div className=' rounded-2xl p-10 m-12'>
                 <h1 className='text-5xl'>{title}</h1>
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
