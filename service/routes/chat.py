@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from utils import authenticate
 from firebase_admin import firestore
 from Models.Student import Student
-from Chatbot.main import get_response2
+from Chatbot.main import student_chat_response
 
 chat = Blueprint("chat", __name__)
 
@@ -16,7 +16,11 @@ def index():
 
     request_payload = request.get_json(silent=True)
     prompt = request_payload["prompt"]
-    chatbot_response=get_response2(prompt)
+    grade = request_payload["grade"]
+    subject = request_payload["subject"]
+    student_id = request_payload["student_id"]
+    chat_session_id = request_payload["chat_session_id"]
+    chatbot_response=student_chat_response(prompt, grade, subject, student_id, chat_session_id)
     response_payload = {
         # "email": user_data["sub"],
         "response": chatbot_response,
