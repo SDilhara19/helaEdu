@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faClockRotateLeft,
-  faTrophy,
-  faUserGroup,
+    faClockRotateLeft,
+    faTrophy,
+    faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import StartQuiz from "./StartQuiz";
@@ -34,17 +34,26 @@ const HomeBanner = () => {
                         <div className='mx-6 text-1 font-semibold'> CURRENT STREAK: 2</div>
                     </div>
                 </div>
-                <div className='flex h-128'>
-                    <div className='w-5/12 h-full flex flex-col justify-center items-center'>
-                        {/* <div className='text-shadows text-header2 mx-auto w-full text-center'>Weekly Brain Teaser</div> */}
-                        <div className='text-3d text-header2 mx-auto w-full text-center'>Weekly Brain Teaser</div>
-                        <StartQuiz />
+                <div className='flex-col grow'>
+                    <div>
+                        <div className='flex justify-end'>
+                            <div className='mx-6 text-1 font-semibold'> TOTAL SCORE: 322</div>
+                            <div className='mx-6 text-1 font-semibold'> CURRENT STREAK: 2</div>
+                        </div>
                     </div>
-                    <div className='w-7/12 h-full -ml-96'>
-                        <Top3 />
+                    <div className='flex h-128'>
+                        <div className='w-5/12 h-full flex flex-col justify-center items-center'>
+                            {/* <div className='text-shadows text-header2 mx-auto w-full text-center'>Weekly Brain Teaser</div> */}
+                            <div className='text-3d text-header2 mx-auto w-full text-center'>Weekly Brain Teaser</div>
+                            <StartQuiz />
+                        </div>
+                        <div className='w-7/12 h-full -ml-96'>
+                            <Top3 />
+                        </div>
                     </div>
-                </div>
 
+                </div>
+                <StartQuiz />
             </div>
         </div>
     )
