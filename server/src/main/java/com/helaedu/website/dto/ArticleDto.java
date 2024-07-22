@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Getter
@@ -25,7 +26,7 @@ public class ArticleDto {
 
     private ArrayList<String> additionalFilesRefs;
     private ArrayList<String> tags;
-    private String publishedTimestamp;
+    private LocalDateTime publishedTimestamp;
     private String lastUpdatedTimestamp;
     private String status;
 

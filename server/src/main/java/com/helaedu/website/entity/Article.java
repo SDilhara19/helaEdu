@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Getter
@@ -19,7 +20,7 @@ public class Article {
     private String imageRef;
     private ArrayList<String> additionalFilesRefs;
     private ArrayList<String> tags;
-    private String publishedTimestamp;
+    private LocalDateTime publishedTimestamp;
     private String lastUpdatedTimestamp;
     private String status;
     private String reviewedModeratorId;

@@ -1,0 +1,12 @@
+$primary-color: #0A6CF5;
+$secondary-color: #F5A711;
+$white-color: #ffffff;
+$black-color: #302A2A;
+$gray-color: #9b9b9b;
+
+@import "./index";
+
+:export {
+    secondaryColor: $secondary-color;
+    primaryColor: $primary-color;
+}

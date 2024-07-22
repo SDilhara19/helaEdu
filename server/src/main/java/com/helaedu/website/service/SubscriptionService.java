@@ -29,6 +29,7 @@ public class SubscriptionService {
         if (subscription != null) {
             return new SubscriptionDto(
                     subscription.getSubscriptionId(),
+                    subscription.getUserId(),
                     subscription.getPaidAmount(),
                     subscription.getStartTimestamp(),
                     subscription.getEndTimestamp(),
@@ -42,6 +43,7 @@ public class SubscriptionService {
         List<Subscription> subscriptions = subscriptionRepository.getAllSubscriptions();
         return subscriptions.stream().map(subscription -> new SubscriptionDto(
                 subscription.getSubscriptionId(),
+                subscription.getUserId(),
                 subscription.getPaidAmount(),
                 subscription.getStartTimestamp(),
                 subscription.getEndTimestamp(),
@@ -58,6 +60,7 @@ public class SubscriptionService {
                 .filter(subscription -> !subscription.isCanceled() && Instant.parse(subscription.getStartTimestamp()).isAfter(thirtyDaysAgo))
                 .map(subscription -> new SubscriptionDto(
                         subscription.getSubscriptionId(),
+                        subscription.getUserId(),
                         subscription.getPaidAmount(),
                         subscription.getStartTimestamp(),
                         subscription.getEndTimestamp(),

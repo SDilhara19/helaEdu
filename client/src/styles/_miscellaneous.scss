@@ -1,0 +1,187 @@
+.button {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    height: 100%;
+}
+
+.black-button {
+    @extend .button;
+
+    border: 2px solid $black-color;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: $white-color;
+    background: $black-color;
+    font-size: 1.5rem;
+
+    &:hover {
+        color: $black-color;
+        background: $white-color;
+    }
+}
+
+.blue-button {
+    @extend .button;
+    color: $black-color;
+    border-radius: 20rem;
+    background: $white-color;
+    border: 2px solid $primary-color;
+    padding: 1.5rem;
+    width: 50%;
+
+    &:hover {
+        color: $white-color;
+        background: $primary-color;
+    }
+}
+
+.white-button {
+    @extend .button;
+    border: 3px solid $white-color;
+    font-size: 0.5rem;
+    border-radius: 20rem;
+    margin: 0.5rem;
+    text-wrap: nowrap;
+    height: 100%;
+    background: $white-color;
+    transition: all 0.3s ease-in-out;
+
+    h4 {
+        color: $primary-color;
+        font-weight: 600;
+    }
+
+    &:hover {
+        border: 3px solid $secondary-color;
+        background: $secondary-color;
+
+        h4 {
+            color: $white-color;
+        }
+    }
+
+}
+
+.gold-button {
+    @extend .button;
+    border: 3px solid $secondary-color;
+    font-size: 0.5rem;
+    border-radius: 20rem;
+    margin: 0.5rem;
+    text-wrap: nowrap;
+    height: 100%;
+    background: $secondary-color;
+    transition: all 0.3s ease-in-out;
+
+    h4 {
+        color: $white-color;
+        font-weight: 400;
+    }
+
+}
+
+.floating-input-label {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 95%;
+    margin-left: 0.5rem;
+    margin-right: auto;
+
+    input {
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid $gray-color;
+        outline: 0;
+        font-size: 1.3rem;
+        color: $black-color;
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+        margin: 0 0.125rem;
+
+        &::placeholder {
+            color: transparent;
+        }
+
+        &:placeholder-shown~label {
+            font-size: 1.3rem;
+            cursor: text;
+            top: 20px;
+        }
+
+        &:focus {
+            border-width: 3px;
+
+            ~input {
+                position: absolute;
+                top: 0;
+                display: block;
+                transition: 0.2s;
+                font-size: 1rem;
+            }
+
+
+        }
+
+    }
+
+    label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $gray-color;
+    }
+
+
+    &:required,
+    &:invalid {
+        box-shadow: none;
+    }
+}
+
+
+.text-input {
+    border: 2px solid $primary-color;
+    border-radius: 1.5rem;
+    padding: 0.5rem 1.5rem;
+
+    &:hover {
+        border: 2px solid $black-color;
+    }
+
+
+    &::placeholder {
+        text-align: center;
+    }
+}
+
+.robo-img {
+    position: absolute;
+    top: 70px;
+    right: 0;
+}
+
+
+.loading-body {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.loading-span {
+    position: fixed;
+    left: 50%;
+    z-index: 999;
+    width: 5%;
+    top: 50%;
+    transform: translateX(-50%);
+}

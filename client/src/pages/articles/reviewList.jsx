@@ -1,8 +1,9 @@
-import CardCarousel from '@/components/articles/CardCarousel'
-import { Banner, Header } from '@/components/common'
+import CardCarouselReview from '@components/articles/CardCarouselReview'
+import Banner from '@components/articles/Banner'
+import Header from '@components/teacher_com/Header'
 import ArticleHead from '@components/articles/ArticleHead'
 import React from 'react'
-// import Footer from '@/components/common'
+// import Footer from '@components/common'
 
 
 export default function reviewList() {
@@ -11,8 +12,8 @@ export default function reviewList() {
       <Header />
       <Banner />
       <ArticleHead/>
-      <CardCarousel />
-     {/* <Footer /> */}
+      <CardCarouselReview />
+      {/* <Footer /> */}
 
 
     </div>
