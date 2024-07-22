@@ -1,11 +1,8 @@
 import Header from '@components/teacher_com/Header'
 import React from 'react'
 import ViewArticle from '@components/articles/ViewArticle'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons';
-import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
-// import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import Engagment from '@components/articles/Engagment';
+import { Footer } from '@components/common';
 
 export default function ViewArticleMyself() {
     // const { articleId } = 'ar41ae2a1b-b621-4982-8b52-2482de440bd2';
@@ -38,37 +35,29 @@ export default function ViewArticleMyself() {
               tags= {article.tags}
             />
         </div>
-        <div className="m-12 w-3/12">
-            <h2 className='text-4xl  mt-10 mb-4'>User engagment</h2>
-            <hr className='border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
+        
+        <div className="mt-64 w-3/12">
+            <h2 className='text-4xl  mt-10 mb-4'>Actions</h2>
+            <hr className='border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
+            <div className=' my-7'>
+              
+              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer my-2'>Edit Your Article</h2>
+              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer'>Delete Your Article</h2>
+            </div>
+            <h2 className='text-4xl  mt-10 mb-4'>Overview</h2>
+            <hr className='border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
 
-            {/* <p className='text-3xl my-7'>Views</p>
-            <progress className="progress progress-warning w-full h-5 " value={40} max="100"></progress>
-            <p className='text-3xl my-7'>Likes</p>
-            <progress className="progress progress-warning w-full h-5" value={50} max="100"></progress>
-            <p className='text-3xl my-7'>Comments</p>
-            <progress className="progress progress-warning w-full h-5" value={80} max="100"></progress>
-            <p className='text-3xl my-7'>Bookmarks</p>
-            <progress className="progress progress-warning w-full h-5" value={30} max="100"></progress> */}
-            <div className='flex justify-between my-10 '>
-                <div className='rounded-xl w-60 h-40 shadow-2xl '>
-                    <p>Likes</p>
-                    <FontAwesomeIcon icon={faThumbsUpSolid} className='size-8'/>
-                </div>
-                <div className=' rounded-xl w-60 h-40 shadow-2xl'>
-                    <p>User Views</p>
-                </div>
+         
+            <Engagment/>
+            <div>
+              <h2 className='text-4xl  mt-10 mb-4'>Moderator's Review</h2>
+              <hr className='border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
+              <p className='text-gray1 text-2xl'>content has some errors</p>
             </div>
-            <div className='flex justify-between'>
-                <div className=' rounded-xl w-60 h-40 shadow-2xl'>
-                    <p className='p-6'>Comments</p>
-                </div>
-                <div className='rounded-xl w-60 h-40 shadow-2xl'>
-                    <p>Bookmarks</p>
-                </div>
-            </div>
+            
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }
