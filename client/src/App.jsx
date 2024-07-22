@@ -24,7 +24,7 @@ import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
 import ApproveTeachers from "@pages/admin/approveTeachers";
 import TopTeachers from "@pages/admin/TopTeachers";import Chat from "@components/chat/Chat";
-
+import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
 function App() {
   return (
     <div>
@@ -78,6 +78,7 @@ function App() {
         <Route path="/Notifications" element={<Notifications />}></Route>
         <Route path="/ApproveTeachers" element={<ApproveTeachers/>}></Route>
         <Route path="/TopTeachers" element={<TopTeachers/>}></Route>
+        <Route path="/ViewMyArticles/1" element={<ViewArticleMyself/>}></Route>
       </Routes>
     </div>
   );
