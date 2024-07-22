@@ -6,7 +6,8 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import HTMLReactParser from 'html-react-parser';
-
+ import Image from '@assets/img/articles/original.jpg';
+ import Profile from '@assets/img/articles/profile.jpg';
 export default function ViewArticle({title,content,tags}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
@@ -25,11 +26,11 @@ export default function ViewArticle({title,content,tags}) {
                 <h1 className='text-5xl'>{title}</h1>
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
-                        <img className="w-10 h-10 rounded-full" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Rounded avatar" />
-                        {/* <span className='text-2xl'>{userName}</span> */}
+                        <img className="w-10 h-10 rounded-full" src={Profile} alt="Rounded avatar" />
+                        <span className='text-2xl'>M.perera</span>
                     </div>
                     <div>
-                        {/* <span className='text-2xl'>{date}</span> */}
+                        <span className='text-2xl'>23/09/2024</span>
                     </div>
                 </div>
                 {/* tags */}
@@ -42,9 +43,10 @@ export default function ViewArticle({title,content,tags}) {
                     </div>
 
                 <div>
-                    <img className="w-99/100 h-auto " src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Rounded avatar" />
+                    <img className="w-99/100 h-auto " src={Image} alt="Rounded avatar" />
                 </div>
-                <div className='text-xl'>
+                
+                <div className='text-xl mt-10'>
                     <p className='text-2xl'>
                         {parsedContent}
                     </p> <br />
@@ -58,9 +60,9 @@ export default function ViewArticle({title,content,tags}) {
                     </p> */}
                 </div>
                 <div className='flex justify-between mx-9'>
-                    <div className='border border-blue rounded-xl p-6 m-2'>
-                        <FontAwesomeIcon icon={faFile} className='text-4xl m-2 hover:text-yellow  hover:translate-x-1' />
-                        <span className='text-3xl'>myFile.pdf  </span>
+                    <div className=' rounded-xl p-6 m-2'>
+                        <FontAwesomeIcon icon={faFile} className='text-4xl m-2 hover:text-yellow  cursor-pointer hover:translate-x-1' />
+                        <span className='text-3xl hover:text-yellow cursor-pointer'>myFile.pdf  </span>
                     </div>
                     <div>
                         <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-14' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
