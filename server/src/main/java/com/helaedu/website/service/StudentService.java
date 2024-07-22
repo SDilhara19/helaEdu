@@ -14,7 +14,9 @@ import com.helaedu.website.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -31,6 +33,9 @@ public class StudentService {
 
     @Autowired
     private EmailVerificationService emailVerificationService;
+
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
 
     public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
@@ -60,7 +65,8 @@ public class StudentService {
                 Instant.now().toString(),
                 noteId,
                 studentDto.getSubscriptionId(),
-                "ROLE_STUDENT"
+                "ROLE_STUDENT",
+                null
         );
         studentDto.setUserId(student.getUserId());
         studentDto.setNoteId(noteId);
@@ -76,6 +82,20 @@ public class StudentService {
 
         emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
         return studentRepository.createStudent(student);
+    }
+
+    public String uploadProfilePicture(String userId, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentById(userId);
+
+        String profilePictureUrl = firebaseStorageService.uploadFile(profilePicture, userId);
+
+        if(student != null) {
+            student.setProfilePictureUrl(profilePictureUrl);
+            studentRepository.updateStudent(userId, student);
+        } else {
+            throw new IllegalArgumentException("Student not found");
+        }
+        return profilePictureUrl;
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -103,7 +123,8 @@ public class StudentService {
                                 student.getNoteId(),
                                 student.getSubscriptionId(),
                                 student.getRole(),
-                                student.isEmailVerified()
+                                student.isEmailVerified(),
+                                null
                         )
                 )
                 .collect(Collectors.toList());
@@ -122,7 +143,8 @@ public class StudentService {
                     student.getNoteId(),
                     student.getSubscriptionId(),
                     student.getRole(),
-                    student.isEmailVerified()
+                    student.isEmailVerified(),
+                    null
             );
         }
         return null;
@@ -141,7 +163,8 @@ public class StudentService {
                     student.getNoteId(),
                     student.getSubscriptionId(),
                     student.getRole(),
-                    student.isEmailVerified()
+                    student.isEmailVerified(),
+                    null
             );
         }
         return null;
@@ -269,7 +292,8 @@ public class StudentService {
                         student.getNoteId(),
                         student.getSubscriptionId(),
                         student.getRole(),
-                        student.isEmailVerified()
+                        student.isEmailVerified(),
+                        null
                 ))
                 .collect(Collectors.toList());
     }

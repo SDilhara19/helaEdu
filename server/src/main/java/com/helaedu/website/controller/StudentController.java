@@ -14,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,18 @@ public class StudentController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating student", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/uploadProfilePicture/{userId}")
+    public ResponseEntity<Object> uploadProfilePicture(@PathVariable String userId, @RequestParam("profilePicture") MultipartFile profilePicture) {
+        try {
+            String profilePictureUrl = studentService.uploadProfilePicture(userId, profilePicture);
+            return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
