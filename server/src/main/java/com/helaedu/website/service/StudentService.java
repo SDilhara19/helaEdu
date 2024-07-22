@@ -84,14 +84,14 @@ public class StudentService {
         return studentRepository.createStudent(student);
     }
 
-    public String uploadProfilePicture(String userId, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
-        Student student = studentRepository.getStudentById(userId);
+    public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentByEmail(email);
 
-        String profilePictureUrl = firebaseStorageService.uploadFile(profilePicture, userId);
+        String profilePictureUrl = firebaseStorageService.uploadFile(profilePicture, email);
 
         if(student != null) {
             student.setProfilePictureUrl(profilePictureUrl);
-            studentRepository.updateStudent(userId, student);
+            studentRepository.updateStudentByEmail(email, student);
         } else {
             throw new IllegalArgumentException("Student not found");
         }

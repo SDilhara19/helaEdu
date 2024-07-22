@@ -59,10 +59,10 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/uploadProfilePicture/{userId}")
-    public ResponseEntity<Object> uploadProfilePicture(@PathVariable String userId, @RequestParam("profilePicture") MultipartFile profilePicture) {
+    @PostMapping("/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
         try {
-            String profilePictureUrl = studentService.uploadProfilePicture(userId, profilePicture);
+            String profilePictureUrl = studentService.uploadProfilePicture(email, profilePicture);
             return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -448,5 +448,11 @@ public class StudentController {
         String email = UserUtil.getCurrentUserEmail();
         Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
         return unsubscribeStudentByEmail(requestBody);
+    }
+
+    @PostMapping("/me/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePictureCurrentStudent(@RequestParam("profilePicture") MultipartFile profilePicture) throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        return uploadProfilePicture(email, profilePicture);
     }
 }

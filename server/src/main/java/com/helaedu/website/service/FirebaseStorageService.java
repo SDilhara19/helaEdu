@@ -18,8 +18,8 @@ public class FirebaseStorageService {
     public FirebaseStorageService(Storage storage) {
         this.storage = storage;
     }
-    public String uploadFile(MultipartFile file, String studentId) throws IOException {
-        String blobName = "profile_pictures/" + studentId + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
+    public String uploadFile(MultipartFile file, String email) throws IOException {
+        String blobName = "profile_pictures/" + email + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
         BlobInfo blobInfo = BlobInfo.newBuilder("helaedu-website.appspot.com", blobName).build();
         try {
             storage.create(blobInfo, file.getBytes());
