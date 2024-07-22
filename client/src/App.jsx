@@ -14,7 +14,7 @@ import CreateAssignments from "@pages/assignments/createAssignments";
 // import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import T_profile from "@pages/profiles/T_profile";
-import LeaderBoard from "@pages/quizes/LeaderBoard";
+import LeaderBoard from "@pages/leaderboard/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
@@ -23,6 +23,7 @@ import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
 import Chat from "@components/chat/Chat";
+import './index.css';
 
 function App() {
   return (

@@ -44,12 +44,8 @@ const HomeBanner = () => {
                     </div>
 
                 </div>
-                <StartQuiz />
             </div>
-            <div className="w-7/12 h-full">
-                <Top3 />
-                {/* <img src={bot} alt="img" className='robo-img' /> */}
-            </div>
+
         </>
     );
 };

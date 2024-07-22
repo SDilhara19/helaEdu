@@ -105,7 +105,7 @@
   align-items: center;
   padding: 8px;
   overflow: hidden;
-  border: 1px solid $primary-color;
+  // border: 1px solid $primary-color;
   border-radius: 20px;
 }
 
@@ -186,16 +186,3 @@
   font-weight:700;
 }
 
-.sidebar{
-  border: 1px solid gray;
-  width: 250px;
-  height: 100vh;
-  padding: 5px 20px 5px 20px;
-  overflow: hidden;
-}
-
-.sidebar-content{
-  padding: 5px;
-  font-size: 1.25rem;
-
-}
