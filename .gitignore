@@ -30,3 +30,7 @@
 docker-compose.yml
 compose.yml
 */__pycache__
+
+
+*/.env
+/textbooks

@@ -4,7 +4,7 @@ import second from "@assets/temp/img2.png";
 import third from "@assets/temp/img3.png";
 const Top3 = () => {
   return (
-    <div className='flex h-full w-full my-auto justify-start items-center'>
+    <div className='flex h-auto w-full my-auto justify-center items-center'>
       <div className='top-place-box  -mr-10'>
         <div className='top-place'>
           <img src={second} alt="image" />
