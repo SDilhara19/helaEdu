@@ -18,7 +18,7 @@ export default function ArticleHead() {
           </Link>
         </div>
       </div>
-      <div className='flex justify-end items-center mt-20'>
+      <div className='flex justify-end items-center mt-12'>
         <div className='flex space-x-4 text-sm'>
           <span className='text-gray1 text-xl'>Sort By</span>
           <button className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors'>

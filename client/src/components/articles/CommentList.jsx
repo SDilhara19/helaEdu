@@ -70,7 +70,7 @@ function CommentList() {
 
   return (
     <div className="m-12 mt-10">
-      <h1>Comments</h1>
+      <h1>Discussion</h1>
       <hr className="border-yellow border-t-4 w-56"></hr><br></br>
       {comments.map((comment, index) => (
         <Comments

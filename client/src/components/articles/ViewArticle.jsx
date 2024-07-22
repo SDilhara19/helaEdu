@@ -36,7 +36,7 @@ export default function ViewArticle({title,content,tags}) {
                 {/* tags */}
                 <div className="flex justify-start m-7">
                     { tags && tags.map((tag, index) => (
-                        <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5">
+                        <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-white text-lg px-7 py-5">
                         {tag}
                         </div>
                     ))}
@@ -60,15 +60,24 @@ export default function ViewArticle({title,content,tags}) {
                     </p> */}
                 </div>
                 <div className='flex justify-between mx-9'>
-                    <div className=' rounded-xl p-6 m-2'>
-                        <FontAwesomeIcon icon={faFile} className='text-4xl m-2 hover:text-yellow  cursor-pointer hover:translate-x-1' />
-                        <span className='text-3xl hover:text-yellow cursor-pointer'>myFile.pdf  </span>
+                    <div className='rounded-xl m-2'>
+                        <FontAwesomeIcon icon={faFile} className='text-4xl  hover:text-yellow  cursor-pointer hover:translate-x-1' style={{ color: '#6C6C6C'}} />
+                        <span className='text-2xl  text-gray1 hover:text-yellow cursor-pointer'>myFile.pdf  </span>
                     </div>
-                    <div>
-                        <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-14' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                    <div className='flex justify-start'>
+                        
+                        <div className='relative'>
+                            <span className="absolute bottom-10 right-9 translate-x-1/2 translate-y-1/2 text-xs bg-blue2 text-white rounded-full w-6 h-6 flex items-center justify-center">12</span>
+
+                            <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-14 mx-10 relative' style={{ color: "blue", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />
-                        <FontAwesomeIcon icon={isMarked ? faBookmarkSolid : faBookmarkRegular} className='text-xl size-14' style={{ color: "#74C0FC", cursor: 'pointer' }} onClick={toggleMark} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                        </div>
+                        <div className='relative'>
+                           
+                            <FontAwesomeIcon icon={isMarked ? faBookmarkSolid : faBookmarkRegular} className='text-xl size-14' style={{ color: "blue", cursor: 'pointer' }} onClick={toggleMark} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}/>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

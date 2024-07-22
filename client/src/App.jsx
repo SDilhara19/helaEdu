@@ -13,7 +13,7 @@ import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/createAssignments";
 // import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
-import T_profile from "@pages/profiles/T_profile";
+import Tprofile from "@pages/profiles/tProfile";
 import LeaderBoard from "@pages/quizes/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
@@ -56,16 +56,16 @@ function App() {
           element={<ReviewArticle />}
         ></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
-        <Route path="/t_profile" element={<T_profile />}></Route>
+        <Route path="/tProfile" element={<Tprofile />}></Route>
         <Route
           path="/createAssignments"
           element={<CreateAssignments />}
         ></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
-        <Route path="/t_profile" element={<T_profile />}></Route>
+       
         <Route path="/createAssignments" element={<CreateAssignments />}></Route> 
         <Route path="/quizFormat" element={<QuizFormat/>}></Route>
-        <Route path="/tProfile" element={<T_profile />}></Route>
+      
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
         <Route path="/chat" element={<Chat />}></Route>
 

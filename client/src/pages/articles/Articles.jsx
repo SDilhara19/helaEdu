@@ -31,7 +31,7 @@ const Articles = () => {
       <div className="">
         <ArticleHead />
 
-        <div className=" mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className=" mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {articles.map((article) => (
             <div key={article.articleId} className="p-2">
               <Link to={`/readArticles/${article.articleId}`}>

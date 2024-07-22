@@ -8,7 +8,8 @@ import Header from '@components/teacher_com/Header';
 import ProfileHero from '@components/teacher_com/ProfileHero';
 import { Footer } from '@components/common';
 
-const T_profile = () => {
+
+const tProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (event) => {
@@ -68,11 +69,12 @@ const T_profile = () => {
           </div>
         </div>
       </div>
-      <div className="mx-36 my-5">
+      <br></br>
+      {/* <div className="mx-36 my-5">
         <button className="bg-yellow w-96 h-20 rounded-xl text-3xl">
           Create your group
         </button>
-      </div>
+      </div> */}
       
       {isModalOpen && (
         <dialog open className="modal">
@@ -114,4 +116,4 @@ const T_profile = () => {
   );
 };
 
-export default T_profile;
+export default tProfile;
