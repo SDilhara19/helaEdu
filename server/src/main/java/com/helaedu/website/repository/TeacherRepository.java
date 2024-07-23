@@ -47,19 +47,6 @@ public class TeacherRepository {
         return teacher;
     }
 
-    //todo
-    public Teacher getTMById(String userId) throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
-        ApiFuture<DocumentSnapshot> future = documentReference.get();
-        DocumentSnapshot document = future.get();
-        Teacher teacher = null;
-        if (document.exists()) {
-            teacher = document.toObject(Teacher.class);
-        }
-        return teacher;
-    }
-
     public String updateTeacher(String userId, Teacher teacher) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
