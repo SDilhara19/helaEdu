@@ -1,8 +1,10 @@
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
+import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
+import com.helaedu.website.service.TeacherService;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,10 @@ import java.util.concurrent.ExecutionException;
 public class ArticleController{
 
     private final ArticleService articleService;
-    public ArticleController(ArticleService articleService){
+    private final TeacherService teacherService;
+    public ArticleController(ArticleService articleService, TeacherService teacherService){
         this.articleService = articleService;
+        this.teacherService = teacherService;
     }
     @PostMapping("/create")
     public ResponseEntity<Object> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
@@ -33,8 +37,9 @@ public class ArticleController{
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String userId = UserUtil.getCurrentUserEmail();
-            articleDto.setUserId(userId);
+            String email = UserUtil.getCurrentUserEmail();
+            TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
+            articleDto.setUserId(teacherDto.getUserId());
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
