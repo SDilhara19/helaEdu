@@ -114,6 +114,26 @@ public class TeacherService {
         return null;
     }
 
+    //todo
+    public TeacherDto getTM(String userId) throws ExecutionException, InterruptedException {
+        Teacher teacher = teacherRepository.getTMById(userId);
+        if (teacher != null) {
+            return new TeacherDto(
+                    userId,
+                    teacher.getFirstName(),
+                    teacher.getLastName(),
+                    teacher.getEmail(),
+                    teacher.getPassword(),
+                    teacher.getRegTimestamp(),
+                    teacher.getIsModerator(),
+                    teacher.getProofRef(),
+                    teacher.getRole(),
+                    teacher.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
     public TeacherDto getTeacherByEmail(String email) throws ExecutionException, InterruptedException {
         Teacher teacher = teacherRepository.getTeacherByEmail(email);
         if (teacher != null) {
