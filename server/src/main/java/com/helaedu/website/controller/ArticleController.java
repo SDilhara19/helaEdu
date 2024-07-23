@@ -4,7 +4,11 @@ import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
+//<<<<<<< HEAD
 import com.helaedu.website.service.TeacherService;
+//=======
+//import com.helaedu.website.service.TMService;
+//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,10 +26,18 @@ import java.util.concurrent.ExecutionException;
 public class ArticleController{
 
     private final ArticleService articleService;
+//<<<<<<< HEAD
     private final TeacherService teacherService;
     public ArticleController(ArticleService articleService, TeacherService teacherService){
         this.articleService = articleService;
         this.teacherService = teacherService;
+//=======
+//    private final TMService tmService;
+//
+//    public ArticleController(ArticleService articleService, TMService tmService){
+//        this.articleService = articleService;
+//        this.tmService = tmService;
+//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
     }
     @PostMapping("/create")
     public ResponseEntity<Object> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
@@ -38,7 +50,11 @@ public class ArticleController{
         }
         try {
             String email = UserUtil.getCurrentUserEmail();
+//<<<<<<< HEAD
             TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
+//=======
+//            TeacherDto teacherDto = tmService.getTMByEmail(email);
+//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
             articleDto.setUserId(teacherDto.getUserId());
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
@@ -65,16 +81,6 @@ public class ArticleController{
             errorResponse.addViolation("articleId", "Article not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);        }
     }
-
-//    @GetMapping("/teacher/{teacherId}")
-//    public ResponseEntity<ArticleDto> getArticleTeacherId(@PathVariable String teacherId) throws ExecutionException, InterruptedException {
-//        ArticleDto articleDto = articleService.getArticle(teacherId);
-//        if (articleDto != null) {
-//            return ResponseEntity.ok(articleDto);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Object> deleteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
