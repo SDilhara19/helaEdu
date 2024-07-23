@@ -136,9 +136,11 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/{userId}/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
-        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
+        List<ArticleDto> articles = articleService.getArticlesByUser(teacherDto.getUserId());
         return ResponseEntity.ok(articles);
     }
 
@@ -163,19 +165,19 @@ public class TeacherController {
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentTeacher(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
         return updateTeacher(teacherDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentTeacher() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return deleteTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        return deleteTeacher(email);
     }
 
     @GetMapping("/me/articles")
     public ResponseEntity<List<ArticleDto>> getCurrentTeacherArticles() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return getAllArticledByTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getAllArticledByTeacher(requestBody);
     }
 }
