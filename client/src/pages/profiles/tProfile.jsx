@@ -4,12 +4,13 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import Assignment from '@assets/img/articles/assignments.png';
 import Articles from '@assets/img/articles/articles.png';
 import Users from '@assets/img/articles/social-media.png';
+import Notes from '@assets/img/articles/notes.png'
 import Header from '@components/teacher_com/Header';
 import ProfileHero from '@components/teacher_com/ProfileHero';
 import { Footer } from '@components/common';
 import { listTeacherDetails } from '@services/TeacherService';
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
-
+import { Link } from 'react-router-dom';
 const TProfile = () => {
   const [teacher, setTeacher] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,15 +30,6 @@ const TProfile = () => {
       });
   }, [headers]);
 
-  // useEffect(() => {
-  //   listTeacherDetails()
-  //     .then(response => {
-  //       setTeacher(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,11 +53,11 @@ const TProfile = () => {
       <div className='flex justify-between mr-32 ml-32 mt-32'>
         <div className='w-1/2 mr-12 mt-12 shadow-xl p-12'>
           <h2 className='text-3xl text-blue mb-3'>About me:</h2>
-          <p className='text-2xl mb-6'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has.</p>
+          <p className='text-2xl mb-6'> {teacher.about}</p>
           <div>
-            <p className='text-2xl m-4'><span className='text-blue'>Email</span>: {teacher.userId}</p>
-            <p className='text-2xl m-4'><span className='text-blue'>Contact No</span>: +94712323234</p>
-            <p className='text-2xl m-4'><span className='text-blue'>Working Institute / School</span>: H/Tangalle B.V</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Email</span>: {teacher.email}</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Contact No</span>:  {teacher.contactNo}</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Working Institute / School</span>:  {teacher.school}</p>
             <p className='text-2xl m-4'><span className='text-blue'>Teaching Subject</span>: Science</p>
           </div>
           <div className='flex justify-end'>
@@ -78,23 +70,29 @@ const TProfile = () => {
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
             <img src={Assignment} className='w-20 h-20' alt='Assignments' />
             <br />
-            <p className='text-3xl'>20</p>
-            <p className='text-2xl'>Assignments</p>
+            <p className='text-2xl'>My Assignments</p>
           </div>
+        <Link>
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
-            <img src={Articles} className='w-20 h-20' alt='Articles' />
-            <p className='text-3xl'>20</p>
-            <p className='text-2xl'>Articles</p>
-          </div>
+              <img src={Articles} className='w-20 h-20' alt='Articles' />
+              <p className='text-2xl'> My Articles</p>
+            </div>
+        </Link>
+          
+        <Link to="/">
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
             <img src={Users} className='w-20 h-20' alt='Users' />
-            <p className='text-3xl'>20</p>
-            <p className='text-2xl'>Reputation Points</p>
+            {/* <p className='text-3xl'>20</p> */}
+            <p className='text-2xl'>My Reputation Points</p>
           </div>
+          </Link>
+        <Link to="/">
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
-            <p className='text-3xl'>20</p>
-            <p className='text-2xl'>Articles</p>
-          </div>
+              <img src={Notes} className='w-20 h-20' alt='Users' />
+              <p className='text-2xl'>My Notes</p>
+            </div>
+        </Link>
+          
         </div>
       </div>
       {isModalOpen && (

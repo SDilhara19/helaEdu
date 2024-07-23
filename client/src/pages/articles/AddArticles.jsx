@@ -36,9 +36,9 @@ export default function AddArticles() {
               <Link to={`/readArticles/${article.articleId}`}>
                 <ArticleCard
                   key={article.articleId}
-                  imageUrl={article.imageRef}
-                  authorImageUrl={article.authorImageUrl}
-                  authorName={article.authorName}
+                  // imageUrl={article.imageRef}
+                  // authorImageUrl={article.authorImageUrl}
+                  // authorName={article.authorName}
                   date={article.publishedTimestamp}
                   title={article.title}
                   description={article.content}

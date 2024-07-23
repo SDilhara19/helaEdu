@@ -13,7 +13,7 @@ import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/createAssignments";
 // import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
-import Tprofile from "@pages/profiles/tProfile";
+import TProfile from "@pages/profiles/TProfile";
 import LeaderBoard from "@pages/quizes/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
@@ -48,7 +48,7 @@ function App() {
           path="/readArticles/:articleId"
           element={<ReadArticles />}
         ></Route>
-        <Route path="/addArticles/:userId" element={<AddArticles />}></Route>
+        <Route path="/addArticles" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
         <Route path="/reviewList" element={<ReviewList />}></Route>
         <Route
@@ -56,11 +56,8 @@ function App() {
           element={<ReviewArticle />}
         ></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
-        <Route path="/tProfile" element={<Tprofile />}></Route>
-        <Route
-          path="/createAssignments"
-          element={<CreateAssignments />}
-        ></Route>
+        <Route path="/tProfile" element={<TProfile />}></Route>
+        <Route path="/createAssignments" element={<CreateAssignments />}></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
        
         <Route path="/createAssignments" element={<CreateAssignments />}></Route> 
@@ -71,10 +68,7 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
-        <Route
-          path="/ModeratorManagement"
-          element={<ModeratorManagement />}
-        ></Route>
+        <Route path="/ModeratorManagement" element={<ModeratorManagement />}></Route>
         <Route path="/Notifications" element={<Notifications />}></Route>
         <Route path="/ApproveTeachers" element={<ApproveTeachers/>}></Route>
         <Route path="/TopTeachers" element={<TopTeachers/>}></Route>

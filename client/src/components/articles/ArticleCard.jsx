@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HTMLReactParser from 'html-react-parser';
 import Article from "@assets/img/articles/article.jpg";
 import Profile from '@assets/img/articles/profile.jpg'
-export default function ArticleCard({ imageUrl, authorImageUrl, authorName, date, title, description, badges }) {
+export default function ArticleCard({ imageUrl, authorName, date, title, description, badges }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
 
@@ -32,7 +32,7 @@ export default function ArticleCard({ imageUrl, authorImageUrl, authorName, date
           <div className="flex justify-between ">
             <div className="flex justify-start">
               <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
-              <span className="text-sm ml-2">M.Perera</span>
+              <span className="text-sm ml-2">{authorName}</span>
             </div>
             <div className=''>
               <span className="text-sm">23/09/2024</span>
