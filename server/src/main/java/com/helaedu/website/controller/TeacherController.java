@@ -74,6 +74,19 @@ public class TeacherController {
         }
     }
 
+    //todo
+    @GetMapping("/tm/{userId}")
+    public ResponseEntity<Object> getTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        TeacherDto teacherDto = teacherService.getTM(userId);
+        if (teacherDto != null) {
+            return ResponseEntity.ok(teacherDto);
+        } else {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", "Teacher or moderator not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/by-email")
     public ResponseEntity<Object> getTeacherByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");
