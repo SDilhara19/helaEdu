@@ -23,9 +23,11 @@ public class ArticleService {
 
         String articleId = UniqueIdGenerator.generateUniqueId("ar", articleRepository::exists);
 
-        LocalDateTime publishedTimestamp = articleDto.getPublishedTimestamp() != null ?
-                articleDto.getPublishedTimestamp() :
-                LocalDateTime.now();
+        //todo
+        LocalDateTime publishedTimestamp = articleDto.getPublishedTimestamp();
+//                != null ?
+//                articleDto.getPublishedTimestamp() :
+//                LocalDateTime.now();
 
         Article article = new Article(
                 articleId,

@@ -16,19 +16,38 @@ public class TMService {
     }
 
     public TeacherDto getTM(String userId) throws ExecutionException, InterruptedException {
-        Teacher teacher = tmRepository.getTMById(userId);
-        if (teacher != null) {
+        Teacher tm = tmRepository.getTMById(userId);
+        if (tm != null) {
             return new TeacherDto(
                     userId,
-                    teacher.getFirstName(),
-                    teacher.getLastName(),
-                    teacher.getEmail(),
-                    teacher.getPassword(),
-                    teacher.getRegTimestamp(),
-                    teacher.getIsModerator(),
-                    teacher.getProofRef(),
-                    teacher.getRole(),
-                    teacher.isEmailVerified()
+                    tm.getFirstName(),
+                    tm.getLastName(),
+                    tm.getEmail(),
+                    tm.getPassword(),
+                    tm.getRegTimestamp(),
+                    tm.getIsModerator(),
+                    tm.getProofRef(),
+                    tm.getRole(),
+                    tm.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public TeacherDto getTMByEmail(String email) throws ExecutionException, InterruptedException {
+        Teacher tm = tmRepository.getTMByEmail(email);
+        if (tm != null) {
+            return new TeacherDto(
+                    tm.getUserId(),
+                    tm.getFirstName(),
+                    tm.getLastName(),
+                    tm.getEmail(),
+                    tm.getPassword(),
+                    tm.getRegTimestamp(),
+                    tm.getIsModerator(),
+                    tm.getProofRef(),
+                    tm.getRole(),
+                    tm.isEmailVerified()
             );
         }
         return null;
