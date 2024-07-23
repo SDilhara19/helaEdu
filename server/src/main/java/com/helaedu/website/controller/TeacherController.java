@@ -7,6 +7,7 @@ import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TeacherService;
+import com.helaedu.website.util.RequestUtil;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -155,8 +156,9 @@ public class TeacherController {
 
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentTeacher() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return getTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getTeacherByEmail(requestBody);
     }
 
     @PutMapping("/me")
