@@ -23,8 +23,10 @@ import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
 import ApproveTeachers from "@pages/admin/approveTeachers";
-import TopTeachers from "@pages/admin/TopTeachers";import Chat from "@components/chat/Chat";
-import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
+import TopTeachers from "@pages/admin/TopTeachers";import SubjectCatalog from "@pages/subjects/SubjectCatalog";
+import Chat from "@components/chat/Chat";
+import ViewArticleMyself from "@pages/articles/ViewArticleMyself";import Subject from "@pages/subjects/Subject";
+
 function App() {
   return (
     <div>
@@ -73,6 +75,8 @@ function App() {
         <Route path="/ApproveTeachers" element={<ApproveTeachers/>}></Route>
         <Route path="/TopTeachers" element={<TopTeachers/>}></Route>
         <Route path="/ViewMyArticles/1" element={<ViewArticleMyself/>}></Route>
+        <Route path="/SubjectCatalog" element={<SubjectCatalog />}></Route>
+        <Route path="/subject" element={<Subject />}></Route>
       </Routes>
     </div>
   );
