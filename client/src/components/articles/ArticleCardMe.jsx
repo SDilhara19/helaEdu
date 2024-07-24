@@ -31,13 +31,13 @@ export default function ArticleCardMe({ imageUrl, authorName, date, title, descr
         </div>
         {status && (
           <div className="absolute top-0 right-0">
-            <div className="relative w-16 h-16 bg-red-800">
+            {/* <div className="relative w-16 h-16 bg-red-800"> */}
               <div className="absolute top-0 right-0 w-0 h-0 border-l-16 border-l-transparent border-b-16 border-b-white">
                 <div className="absolute top-[-20px] right-[-20px] transform rotate-45 w-48 text-center">
                   <span className="text-white text-xs font-bold">{status}</span>
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </div>
         )}
         <div className="card-body p-4 flex flex-col justify-between">

@@ -39,7 +39,7 @@ function Header() {
               <FontAwesomeIcon icon={faBell} style={{ color: "#ffffff", cursor: 'pointer' }}  size="lg" />
             </Link>
             <Link to="/tProfile" className="icon-wrapper mx-4">
-              <img  src={Profile} className="w-32 h-24 rounded-full "></img>
+              <img  src={Profile} className="w-32 h-20 rounded-full "></img>
               {/* <FontAwesomeIcon icon={faUser} size="lg" /> */}
             </Link>
 

@@ -34,7 +34,7 @@ export default function QuizFormat() {
   return (
     <div>
       <Header />
-      <div className="border border-blue rounded-xl m-20 p-10">
+      <div className="border border-blue rounded-xl mx-64 my-20 p-10">
         {questions.map((q, qIndex) => (
           <div key={qIndex} className="mb-10">
             <div className="mb-10 flex justify-between">
@@ -62,18 +62,18 @@ export default function QuizFormat() {
             <div className="my-10">
               <label className="text-3xl">
                 Enter your options
-                <br />
+                <br/>
                 Check mark the right answer for your question
               </label>
-              <br />
-              <br />
+              <br/>
+              <br/>
               <div className="flex justify-between mb-4">
                 {[0, 1].map((oIndex) => (
                   <div key={oIndex} className="flex items-center space-x-4 w-1/2 mx-10">
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:orange] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">
@@ -95,7 +95,7 @@ export default function QuizFormat() {
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:orange] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">
@@ -121,9 +121,9 @@ export default function QuizFormat() {
           >
             Add Question
           </button>
-          <button className="bg-yellow text-white px-10 py-3 rounded-xl text-2xl">
+          {/* <button className="bg-yellow text-white px-10 py-3 rounded-xl text-2xl">
             Next
-          </button>
+          </button> */}
         </div>
       </div>
       <Footer />

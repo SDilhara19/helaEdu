@@ -133,6 +133,7 @@ const TProfile = () => {
           </div>
         </dialog>
       )}
+      <br></br><br></br>
       <Footer />
     </div>
   );
