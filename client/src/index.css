@@ -24,29 +24,25 @@
   }
 
   .s-text {
-    font-size: 0.875rem; /* 14px */
+    font-size: 1rem; /* 16px */
     font-weight: 500; /* medium */
   }
 
   .n-text {
-    font-size: 1rem; /* 16px */
+    font-size: 1.25rem; /* 20px */
     font-weight: 400; /* regular */
   }
 
   .n-text-bold {
-    font-size: 1rem; /* 16px */
+    font-size: 1.25rem; /* 20px */
     font-weight: 500; /* medium */
   }
 
   .special-text {
-    font-size: 1.25rem; /* 20px */
-    font-weight: 500; /* semibold */
-  }
-
-  .xs-topic{
     font-size: 1.5rem; /* 24px */
     font-weight: 500; /* semibold */
   }
+
 
   .s-topic {
     font-size: 2.5rem; /* 40px */
@@ -58,4 +54,3 @@
     font-weight: 700; /* bold */
   }
 
-    

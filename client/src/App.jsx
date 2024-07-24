@@ -38,7 +38,7 @@ function App() {
         <Route path="/friends/1" element={<Friends />}></Route>
         <Route path="/leaderboard/1" element={<LeaderBoard />}></Route>
         <Route path="/quiz" element={<QuizHome />}></Route>
-        <Route path="/quiz/1" element={<Quiz />}></Route>
+        <Route path="/quiz/:subject" element={<Quiz />}></Route>
         <Route path="/quizend/1" element={<QuizEnd />}></Route>
         <Route path="/history/1" element={<History />}></Route>
         <Route path="/friends/1" element={<Friends />}></Route>
