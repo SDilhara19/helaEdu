@@ -2,7 +2,6 @@ import React from "react";
 import bookLogo from "@assets/img/book.svg";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import robotImg from "@assets/img/robot-from-the-side.svg";
-
 function Hero() {
   return (
     <main className="hero flex-sb">

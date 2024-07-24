@@ -1,8 +1,10 @@
 package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.ArticleDto;
+import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
+import com.helaedu.website.service.TMService;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,8 +24,11 @@ import java.util.concurrent.ExecutionException;
 public class ArticleController{
 
     private final ArticleService articleService;
-    public ArticleController(ArticleService articleService){
+    private final TMService tmService;
+
+    public ArticleController(ArticleService articleService, TMService tmService){
         this.articleService = articleService;
+        this.tmService = tmService;
     }
 
     @PostMapping("/create")
@@ -34,14 +41,39 @@ public class ArticleController{
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String userId = UserUtil.getCurrentUserEmail();
-            articleDto.setUserId(userId);
+            String email = UserUtil.getCurrentUserEmail();
+            TeacherDto teacherDto = tmService.getTMByEmail(email);
+            articleDto.setUserId(teacherDto.getUserId());
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating article", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("{articleId}/uploadArticleCover")
+    public ResponseEntity<Object> uploadArticleCover(@PathVariable String articleId, @RequestParam("articleCoverImage") MultipartFile articleCoverImage) {
+        try {
+            String articleCoverUrl = articleService.uploadArticleCover(articleId, articleCoverImage);
+            return new ResponseEntity<>(articleCoverUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading article cover image", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("{articleId}/uploadAdditionalFiles")
+    public ResponseEntity<Object> uploadArticleCovers(@PathVariable String articleId, @RequestParam("additionalFiles") List<MultipartFile> additionalFiles) {
+        try {
+            List<String> additionalFilesUrls = articleService.uploadAdditionalFiles(articleId, additionalFiles);
+            return new ResponseEntity<>(additionalFilesUrls, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading additional files", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -61,16 +93,6 @@ public class ArticleController{
             errorResponse.addViolation("articleId", "Article not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);        }
     }
-
-//    @GetMapping("/teacher/{teacherId}")
-//    public ResponseEntity<ArticleDto> getArticleTeacherId(@PathVariable String teacherId) throws ExecutionException, InterruptedException {
-//        ArticleDto articleDto = articleService.getArticle(teacherId);
-//        if (articleDto != null) {
-//            return ResponseEntity.ok(articleDto);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Object> deleteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {

@@ -1,7 +1,7 @@
 package com.helaedu.website.service;
 
 import com.helaedu.website.dto.AssignmentDto;
-import com.helaedu.website.dto.QuizForAssignmentsDto;
+import com.helaedu.website.dto.AssignmentQuizDto;
 import com.helaedu.website.entity.Assignment;
 import com.helaedu.website.repository.AssignmentRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -25,9 +25,9 @@ public class AssignmentService {
 
         String assignmentId = UniqueIdGenerator.generateUniqueId("as", assignmentRepository::exists);
 
-        LocalDateTime publishedTimestamp = assignmentDto.getPublishedTimestamp() != null ?
-                assignmentDto.getPublishedTimestamp() :
-                LocalDateTime.now();
+//        LocalDateTime publishedTimestamp = assignmentDto.getPublishedTimestamp() != null ?
+//                assignmentDto.getPublishedTimestamp() :
+//                LocalDateTime.now();
 
         Assignment assignment = new Assignment(
                 assignmentId,
@@ -36,7 +36,7 @@ public class AssignmentService {
                 assignmentDto.getInstructions(),
                 assignmentDto.getNoOfQuestions(),
                 assignmentDto.getTotalTime(),
-                publishedTimestamp,
+                assignmentDto.getPublishedTimestamp(),
                 assignmentDto.getUserId(),
 
                 new ArrayList<>()
@@ -56,10 +56,10 @@ public class AssignmentService {
                                 assignment.getInstructions(),
                                 assignment.getNoOfQuestions(),
                                 assignment.getTotalTime(),
-                                assignment.getPublishedTimestamp(),
+                                assignment.getPublishedTimestamp().toString(),
                                 assignment.getUserId(),
                                 assignment.getQuizzes().stream()
-                                        .map(quiz -> new QuizForAssignmentsDto(
+                                        .map(quiz -> new AssignmentQuizDto(
                                                 quiz.getQuizId(),
                                                 quiz.getQuestion(),
                                                 quiz.getOptions(),
@@ -86,7 +86,7 @@ public class AssignmentService {
                     assignment.getPublishedTimestamp(),
                     assignment.getUserId(),
                     assignment.getQuizzes().stream()
-                            .map(quiz -> new QuizForAssignmentsDto(
+                            .map(quiz -> new AssignmentQuizDto(
                                     quiz.getQuizId(),
                                     quiz.getQuestion(),
                                     quiz.getOptions(),

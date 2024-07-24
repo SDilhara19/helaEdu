@@ -1,14 +1,12 @@
 package com.helaedu.website.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.helaedu.website.dto.NoteDto;
-import com.helaedu.website.dto.StudentDto;
-import com.helaedu.website.dto.SubscriptionDto;
-import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.dto.*;
 import com.helaedu.website.service.NoteService;
 import com.helaedu.website.service.StudentService;
 import com.helaedu.website.service.SubscriptionService;
 import com.helaedu.website.util.UserUtil;
+import com.helaedu.website.util.RequestUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -57,6 +59,18 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
+        try {
+            String profilePictureUrl = studentService.uploadProfilePicture(email, profilePicture);
+            return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<StudentDto>> getAllStudents() throws ExecutionException, InterruptedException {
         List<StudentDto> students = studentService.getAllStudents();
@@ -75,8 +89,9 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/by-email")
-    public ResponseEntity<Object> getStudentByEmail(@RequestParam String email) throws ExecutionException, InterruptedException {
+    @PostMapping("/by-email")
+    public ResponseEntity<Object> getStudentByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
         StudentDto student = studentService.getStudentByEmail(email);
         if (student != null) {
             return ResponseEntity.ok(student);
@@ -87,8 +102,8 @@ public class StudentController {
     }
 
     @PutMapping("/update-by-email")
-    @PreAuthorize("#email == authentication.principal.username")
-    public ResponseEntity<Object> updateStudent(@RequestParam String email, @Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    @PreAuthorize("#studentDto.email == authentication.principal.username")
+    public ResponseEntity<Object> updateStudent(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if(bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -97,7 +112,7 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String result = studentService.updateStudent(email, studentDto);
+            String result = studentService.updateStudentByEmail(studentDto.getEmail(), studentDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
@@ -123,9 +138,10 @@ public class StudentController {
     }
 
     @DeleteMapping
-    @PreAuthorize("#email == authentication.principal.username")
-    public ResponseEntity<Object> deleteStudentByEmail(@RequestParam String email) throws ExecutionException, InterruptedException {
+    @PreAuthorize("#requestBody.email == authentication.principal.username")
+    public ResponseEntity<Object> deleteStudentByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         try {
+            String email = requestBody.get("email");
             String result = studentService.deleteStudentByEmail(email);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -151,8 +167,9 @@ public class StudentController {
     }
 
     @GetMapping("/note-by-email")
-    @PreAuthorize("#email == authentication.principal.username")
-    public ResponseEntity<Object> getNoteByEmail(@RequestParam String email) throws ExecutionException, InterruptedException {
+    @PreAuthorize("#requestBody.email == authentication.principal.username")
+    public ResponseEntity<Object> getNoteByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
         StudentDto studentDto = studentService.getStudentByEmail(email);
         NoteDto noteDto = noteService.getNote(studentDto.getNoteId());
         if (noteDto != null) {
@@ -186,8 +203,8 @@ public class StudentController {
     }
 
     @PutMapping("/note-by-email")
-    @PreAuthorize("#email == authentication.principal.username")
-    public ResponseEntity<Object> updateNoteByEmail(@RequestParam String email, @Valid @RequestBody NoteDto noteDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
+    @PreAuthorize("#noteUpdateRequest.email == authentication.principal.username")
+    public ResponseEntity<Object> updateNoteByEmail(@Valid @RequestBody NoteUpdateRequest noteUpdateRequest, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if(bindingResult.hasErrors()) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -195,6 +212,10 @@ public class StudentController {
             }
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
+
+        String email = noteUpdateRequest.getEmail();
+        NoteDto noteDto = noteUpdateRequest.getNoteDto();
+
         try {
             String result = noteService.updateNote(studentService.getStudentByEmail(email).getNoteId(), noteDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -223,8 +244,10 @@ public class StudentController {
     }
 
     @PostMapping("/subscribe-by-email")
-    public ResponseEntity<Object> subscribeStudentByEmail(@RequestParam String email, @RequestParam long paidAmount) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> subscribeStudentByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         try {
+            String email = requestBody.get("email");
+            long paidAmount = Long.parseLong(requestBody.get("paidAmount"));
             String subscriptionId = studentService.createSubscriptionByEmail(email, paidAmount);
             return new ResponseEntity<>(subscriptionId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -269,7 +292,8 @@ public class StudentController {
     }
 
     @PutMapping("/unsubscribe")
-    public ResponseEntity<Object> unsubscribeStudentByEmail(@RequestParam String email) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> unsubscribeStudentByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
         StudentDto studentDto = studentService.getStudentByEmail(email);
         if(studentDto == null) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
@@ -327,7 +351,8 @@ public class StudentController {
     }
 
     @GetMapping("/subscription")
-    public ResponseEntity<Object> getSubscriptionByEmail(@RequestParam String email) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> getSubscriptionByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
         StudentDto studentDto = studentService.getStudentByEmail(email);
         if(studentDto == null) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
@@ -373,13 +398,13 @@ public class StudentController {
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentStudent() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return getStudentByEmail(email);
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getStudentByEmail(requestBody);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentStudent(@Valid @RequestBody StudentDto studentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String email = UserUtil.getCurrentUserEmail();
-        return updateStudent(email, studentDto, bindingResult);
+        return updateStudent(studentDto, bindingResult);
     }
 
     @DeleteMapping("/me")
@@ -391,30 +416,43 @@ public class StudentController {
     @GetMapping("/me/note")
     public ResponseEntity<Object> getCurrentStudentNote() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return getNoteByEmail(email);
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getNoteByEmail(requestBody);
     }
 
     @PutMapping("/me/note")
     public ResponseEntity<Object> updateCurrentUserNote(@Valid @RequestBody NoteDto noteDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return updateNoteByEmail(email, noteDto, bindingResult);
+        NoteUpdateRequest noteUpdateRequest = new NoteUpdateRequest(email, noteDto);
+        return updateNoteByEmail(noteUpdateRequest, bindingResult);
     }
 
     @GetMapping("/me/subscription")
     public ResponseEntity<Object> getCurrentStudentSubscription() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return getSubscriptionByEmail(email);
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getSubscriptionByEmail(requestBody);
     }
 
     @PostMapping("/me/subscribe")
-    public ResponseEntity<Object> subscribeCurrentStudent(@RequestParam Long paidAmount) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> subscribeCurrentStudent(@RequestBody SubscriptionRequest requestBody) throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return subscribeStudentByEmail(email, paidAmount);
+        Map<String, String> subscriptionRequestBody = new HashMap<>();
+        subscriptionRequestBody.put("email", email);
+        subscriptionRequestBody.put("paidAmount", requestBody.getPaidAmount());
+        return subscribeStudentByEmail(subscriptionRequestBody);
     }
 
     @PutMapping("/me/unsubscribe")
     public ResponseEntity<Object> unsubscribeCurrentStudent() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
-        return unsubscribeStudentByEmail(email);
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return unsubscribeStudentByEmail(requestBody);
+    }
+
+    @PostMapping("/me/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePictureCurrentStudent(@RequestParam("profilePicture") MultipartFile profilePicture) throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        return uploadProfilePicture(email, profilePicture);
     }
 }
