@@ -14,7 +14,7 @@ const Articles = () => {
     const fetchApprovedArticles = async () => {
       try {
         const response = await approvedArticles();
-        const articles = response.data.slice(0,2);
+        const articles = response.data.slice(0,3);
         console.log(articles)
 
         const articlesWithUserDetails = await Promise.all(

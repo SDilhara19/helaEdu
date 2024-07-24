@@ -31,7 +31,7 @@ export default function ArticleHead() {
             <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
               Grade <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <ul tabIndex={0} className='dropdown-content menu p-1 shadow bg-white rounded-box w-52 text-sm'>
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 text-sm'>
               {grades.map((grade, index) => (
                 <li  key={index} className='z-10'>
                   <button className='text-xl w-full text-left px-4 py-2 hover:bg-gray-100 z-10'>{grade}</button>
@@ -43,9 +43,9 @@ export default function ArticleHead() {
             <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
               Subject <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <ul tabIndex={0} className='dropdown-content menu p-1 shadow bg-white rounded-box w-52 text-sm z-10'>
-              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray text-xl'>Math</button></li>
-              <li ><button className='w-full text-left px-4 py-2 hover:bg-graytext-xl'>Science</button></li>
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 text-sm z-10'>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Math</button></li>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Science</button></li>
               <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>History</button></li>
             </ul>
           </div>
@@ -53,7 +53,7 @@ export default function ArticleHead() {
             <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
               Tags <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <ul tabIndex={0} className='dropdown-content menu p-1 shadow bg-white rounded-box w-52 z-10'>
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 z-10'>
               <li ><button className='w-full text-center px-4 py-2 hover:bg-gray-100 text-xl'>Tag 1</button></li>
               <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Tag 2</button></li>
               <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Tag 3</button></li>

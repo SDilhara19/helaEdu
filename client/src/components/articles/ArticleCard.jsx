@@ -7,7 +7,8 @@ import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HTMLReactParser from 'html-react-parser';
 import Article from "@assets/img/articles/article.jpg";
-import Profile from '@assets/img/articles/profile.jpg'
+import Profile from '@assets/img/articles/profile.jpg';
+
 export default function ArticleCard({ imageUrl, authorName, date, title, description, badges }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
@@ -22,20 +23,20 @@ export default function ArticleCard({ imageUrl, authorName, date, title, descrip
 
   return (
     <div className="card w-96 h-auto shadow-xl hover:scale-105 transition-transform overflow-hidden">
-      <div className="h-80 ">
+      <div className="h-80">
         <figure className="h-full">
           <img src={Article} className="w-full h-full object-cover" alt="Article" />
         </figure>
       </div>
       <div className="card-body p-4 flex flex-col justify-between">
         <div>
-          <div className="flex justify-between ">
-            <div className="flex justify-start">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center">
               <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
               <span className="text-sm ml-2">{authorName}</span>
             </div>
-            <div className=''>
-              <span className="text-sm">23/09/2024</span>
+            <div className='flex items-center'>
+              <span className="text-sm">3/2/2024</span>
             </div>
           </div>
           <h2 className="card-title text-2xl truncate" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

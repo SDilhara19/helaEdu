@@ -52,12 +52,13 @@ const TProfile = () => {
       {/* <h2>{authHeader}</h2> */}
       <div className='flex justify-between mr-32 ml-32 mt-32'>
         <div className='w-1/2 mr-12 mt-12 shadow-xl p-12'>
-          <h2 className='text-3xl text-blue mb-3'>About me:</h2>
-          <p className='text-2xl mb-6'> {teacher.about}</p>
+          {/* <h2 className='text-3xl text-blue mb-3'>About me:</h2>
+          <p className='text-2xl mb-6'> I'm a teacher sice 2013.</p> */}
+          <p className='text-2xl m-4'><span className='text-blue'>About me</span>:I'm a teacher sice 2013.</p>
           <div>
-            <p className='text-2xl m-4'><span className='text-blue'>Email</span>: {teacher.email}</p>
-            <p className='text-2xl m-4'><span className='text-blue'>Contact No</span>:  {teacher.contactNo}</p>
-            <p className='text-2xl m-4'><span className='text-blue'>Working Institute / School</span>:  {teacher.school}</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Email</span>: userett45@gmail.com</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Contact No</span>: 0776767678</p>
+            <p className='text-2xl m-4'><span className='text-blue'>Working Institute / School</span>: G/Rahula College</p>
             <p className='text-2xl m-4'><span className='text-blue'>Teaching Subject</span>: Science</p>
           </div>
           <div className='flex justify-end'>
@@ -67,12 +68,15 @@ const TProfile = () => {
           </div>
         </div>
         <div className='w-1/2 grid grid-cols-2 gap-8 mt-12'>
+        <Link to="/assignmentList">
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
-            <img src={Assignment} className='w-20 h-20' alt='Assignments' />
-            <br />
-            <p className='text-2xl'>My Assignments</p>
-          </div>
-        <Link>
+              <img src={Assignment} className='w-20 h-20' alt='Assignments' />
+              <br />
+              <p className='text-2xl'>My Assignments</p>
+            </div>
+        </Link>
+         
+        <Link to="/addArticles">
           <div className='shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold'>
               <img src={Articles} className='w-20 h-20' alt='Articles' />
               <p className='text-2xl'> My Articles</p>

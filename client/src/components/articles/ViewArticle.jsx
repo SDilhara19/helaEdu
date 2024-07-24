@@ -36,7 +36,7 @@ export default function ViewArticle({title,content,tags}) {
                 {/* tags */}
                 <div className="flex justify-start m-7">
                     { tags && tags.map((tag, index) => (
-                        <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-white text-lg px-7 py-5">
+                        <div key={index} className="  border-none text-gray1 text-xl px-2 py-5">
                         {tag}
                         </div>
                     ))}

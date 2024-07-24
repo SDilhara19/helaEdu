@@ -6,7 +6,7 @@ export default function CreateAssignments() {
   return (
     <div>
       <Header />
-      <div className="m-24 border border-blue rounded-lg p-8 shadow-lg">
+      <div className="my-24 mx-32 border border-blue rounded-lg p-8 shadow-lg">
         <div className="flex justify-between mb-6">
           <div className="w-3/5">
             <label className="text-3xl block mb-2 ">Select a Group</label>
