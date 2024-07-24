@@ -1,17 +1,8 @@
 import { Landing } from "@/components/landing";
-import {  Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 // import Quiz from "./pages/quizes/Quiz";
 // import Articles from "./pages/articles/Articles";
 // import ReadArticles from "./pages/articles/ReadArticles";
-import Dashboard from "@pages/admin/Dashboard";
-import UserManagement from "@pages/admin/UserManagement";
-import Notifications from "@pages/admin/Notifications";
-import Reports from "@pages/admin/Reports";
-import Settings from "@pages/admin/Settings";
-import ModeratorDetails from "@pages/admin/ModeratorDetails";
-import ViewTeacherAccount from "@/pages/admin/ViewTeacherAccount";
-
-
 
 // import { Route, Routes } from "react-router-dom";
 import Quiz from "@pages/quizes/Quiz";
@@ -34,11 +25,12 @@ import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
 import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
-import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
 import Subject from "@pages/subjects/Subject";
+import UserManagement from "@pages/admin/UserManagement";
+import Reports from "@pages/admin/Reports";
 
 function App() {
   return (
@@ -83,10 +75,9 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
-        <Route
-          path="/ModeratorManagement"
-          element={<ModeratorManagement />}
-        ></Route>
+        <Route path="/UserManagement" element={<UserManagement />}></Route>
+        <Route path="/Reports" element={<Reports />}></Route>
+
         <Route path="/Notifications" element={<Notifications />}></Route>
         <Route path="/SubjectCatalog" element={<SubjectCatalog />}></Route>
         <Route path="/subject" element={<Subject />}></Route>
