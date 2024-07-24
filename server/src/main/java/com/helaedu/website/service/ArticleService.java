@@ -1,9 +1,8 @@
 package com.helaedu.website.service;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.entity.Article;
-import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.ArticleRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +30,9 @@ public class ArticleService {
 
         String articleId = UniqueIdGenerator.generateUniqueId("ar", articleRepository::exists);
 
-        //todo
-        LocalDateTime publishedTimestamp = articleDto.getPublishedTimestamp();
-//                != null ?
-//                articleDto.getPublishedTimestamp() :
-//                LocalDateTime.now();
+        Instant publishedTimestamp = articleDto.getPublishedTimestamp() != null ?
+                articleDto.getPublishedTimestamp() :
+                Instant.now();
 
         Article article = new Article(
                 articleId,
