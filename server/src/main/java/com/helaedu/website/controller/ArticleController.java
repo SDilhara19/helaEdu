@@ -65,6 +65,18 @@ public class ArticleController{
         }
     }
 
+    @PostMapping("{articleId}/uploadAdditionalFiles")
+    public ResponseEntity<Object> uploadArticleCovers(@PathVariable String articleId, @RequestParam("additionalFiles") List<MultipartFile> additionalFiles) {
+        try {
+            List<String> additionalFilesUrls = articleService.uploadAdditionalFiles(articleId, additionalFiles);
+            return new ResponseEntity<>(additionalFilesUrls, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading additional files", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<Object> getAllArticles() throws ExecutionException, InterruptedException{
         List<ArticleDto> articles = articleService.getAllArticles();

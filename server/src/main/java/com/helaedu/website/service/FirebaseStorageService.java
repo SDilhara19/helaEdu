@@ -43,4 +43,17 @@ public class FirebaseStorageService {
             throw e;
         }
     }
+
+    public String uploadAdditionalFile(MultipartFile file, String articleId) throws IOException {
+        String blobName = "article_additional_files/" + articleId + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        BlobInfo blobInfo = BlobInfo.newBuilder("helaedu-website.appspot.com", blobName).build();
+        try {
+            storage.create(blobInfo, file.getBytes());
+            storage.createAcl(blobInfo.getBlobId(), Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
+            return String.format("https://storage.googleapis.com/%s/%s", "helaedu-website.appspot.com", blobName);
+        } catch (StorageException e) {
+            System.out.println("Error uploading file to Google Cloud Storage: " + e.getMessage());
+            throw e;
+        }
+    }
 }

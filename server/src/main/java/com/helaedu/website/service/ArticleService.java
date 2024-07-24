@@ -70,6 +70,24 @@ public class ArticleService {
         return articleCoverUrl;
     }
 
+    public List<String> uploadAdditionalFiles(String articleId, List<MultipartFile> additionalFiles) throws IOException, ExecutionException, InterruptedException {
+        Article article = articleRepository.getArticleById(articleId);
+        List<String> additionalFilesUrls = new ArrayList<>();
+
+        for (MultipartFile additionalFile : additionalFiles) {
+            String additionalFileUrl = firebaseStorageService.uploadAdditionalFile(additionalFile, articleId);
+            additionalFilesUrls.add(additionalFileUrl);
+        }
+
+        if(article != null) {
+            article.setAdditionalFilesRefs(additionalFilesUrls);
+            articleRepository.updateArticle(articleId, article);
+        } else {
+            throw new IllegalArgumentException("Article not found");
+        }
+        return additionalFilesUrls;
+    }
+
     public List<ArticleDto> getAllArticles() throws ExecutionException, InterruptedException {
         List<Article> articles = articleRepository.getAllArticles();
         return articles.stream().map(article ->
