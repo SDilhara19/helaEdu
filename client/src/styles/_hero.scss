@@ -54,6 +54,10 @@
         .chat-box {
             transform: translate(15%, 50%);
             height: 40vh;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            background: $white-color;
+            z-index: 1;
 
             h2 {
                 margin: 1rem;
@@ -65,11 +69,6 @@
                 padding: 0.5rem 1rem;
                 margin: 1rem;
             }
-
-            border-radius: 2rem;
-            padding: 2rem;
-            background: $white-color;
-            z-index: 1;
 
 
 

@@ -9,12 +9,14 @@
     background: $white-color;
 
     &:hover {
+        color: $white-color;
+        background: $primary-color;
+
         svg {
             color: $white-color;
         }
 
-        color: $white-color;
-        background: $primary-color;
+
     }
 
 }

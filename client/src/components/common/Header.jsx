@@ -21,43 +21,43 @@ function Header() {
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
             <Link to="/">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Home</h4>
-              </a>
+              </div>
             </Link>
             <Link to="/SubjectCatalog">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Subject</h4>
-              </a>
+              </div>
             </Link>
             <Link to="/quiz">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Quiz</h4>
-              </a>
+              </div>
             </Link>
             <Link to="/articles">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
-              </a>
+              </div>
             </Link>
-            <a className="nav-text flex-c m-4 cursor-pointer">
+            <div className="nav-text flex-c m-4 cursor-pointer">
               <h4>Leaderboard</h4>
-            </a>
+            </div>
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
-              <div class="dropdown-wrapper">
-                <div class="dropdown dropdown-end">
+              <div className="dropdown-wrapper">
+                <div className="dropdown dropdown-end">
                   <div className="flex-c">
                     <FontAwesomeIcon
-                      tabindex="0"
+                      tabIndex="0"
                       role="button"
                       icon={faBell}
                       size="3x"
                       className="notification-bell"
                     />
                   </div>
-                  <ul tabindex="0" class="menu dropdown-content">
+                  <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
                       <h4>Grades</h4>
                     </li>
@@ -70,20 +70,17 @@ function Header() {
                   </ul>
                 </div>
               </div>
-              <div class="dropdown-wrapper">
-                <div class="dropdown dropdown-end">
+              <div className="dropdown-wrapper">
+                <div className="dropdown dropdown-end">
                   <div className="profile-icon flex-c">
                     <FontAwesomeIcon
-                      tabindex="0"
+                      tabIndex="0"
                       role="button"
                       icon={faUser}
                       size="3x"
                     />
                   </div>
-                  <ul
-                    tabindex="0"
-                    class="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow"
-                  >
+                  <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
                       <h4>Profile</h4>
                     </li>
