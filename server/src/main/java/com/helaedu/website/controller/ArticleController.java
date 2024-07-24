@@ -4,11 +4,7 @@ import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
-//<<<<<<< HEAD
-import com.helaedu.website.service.TeacherService;
-//=======
-//import com.helaedu.website.service.TMService;
-//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
+import com.helaedu.website.service.TMService;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,19 +22,13 @@ import java.util.concurrent.ExecutionException;
 public class ArticleController{
 
     private final ArticleService articleService;
-//<<<<<<< HEAD
-    private final TeacherService teacherService;
-    public ArticleController(ArticleService articleService, TeacherService teacherService){
+    private final TMService tmService;
+
+    public ArticleController(ArticleService articleService, TMService tmService){
         this.articleService = articleService;
-        this.teacherService = teacherService;
-//=======
-//    private final TMService tmService;
-//
-//    public ArticleController(ArticleService articleService, TMService tmService){
-//        this.articleService = articleService;
-//        this.tmService = tmService;
-//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
+        this.tmService = tmService;
     }
+
     @PostMapping("/create")
     public ResponseEntity<Object> createArticle(@Valid @RequestBody ArticleDto articleDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
         if (bindingResult.hasErrors()) {
@@ -50,11 +40,7 @@ public class ArticleController{
         }
         try {
             String email = UserUtil.getCurrentUserEmail();
-//<<<<<<< HEAD
-            TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
-//=======
-//            TeacherDto teacherDto = tmService.getTMByEmail(email);
-//>>>>>>> ad78c407cc3badcfb3ca066c45eb44722b48e24d
+            TeacherDto teacherDto = tmService.getTMByEmail(email);
             articleDto.setUserId(teacherDto.getUserId());
             String articleId = articleService.createArticle(articleDto);
             return new ResponseEntity<>(articleId, HttpStatus.CREATED);
@@ -133,6 +119,7 @@ public class ArticleController{
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
             String userId = UserUtil.getCurrentUserEmail();
+
             String result = articleService.approveArticle(articleId, userId);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
