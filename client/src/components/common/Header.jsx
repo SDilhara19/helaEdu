@@ -40,9 +40,11 @@ function Header() {
                 <h4>Articles</h4>
               </div>
             </Link>
-            <div className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Leaderboard</h4>
-            </div>
+            <Link to="/leaderboard/1">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Leaderboard</h4>
+              </a>
+            </Link>
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
