@@ -95,6 +95,25 @@ public class ModeratorService {
                 .collect(Collectors.toList());
     }
 
+    public List<TeacherDto> getAllModerators(int page, int size) throws ExecutionException, InterruptedException {
+        List<Teacher> moderators = moderatorRepository.getAllModerators(page, size);
+        return moderators.stream().map(moderator ->
+                new TeacherDto(
+                        moderator.getUserId(),
+                        moderator.getFirstName(),
+                        moderator.getLastName(),
+                        moderator.getEmail(),
+                        moderator.getPassword(),
+                        moderator.getRegTimestamp(),
+                        moderator.getIsModerator(),
+                        moderator.getProofRef(),
+                        moderator.getRole(),
+                        moderator.isEmailVerified(),
+                        moderator.getProfilePictureUrl()
+                )
+        ).collect(Collectors.toList());
+    }
+
     public TeacherDto getModerator(String userId) throws ExecutionException, InterruptedException {
         Teacher moderator = moderatorRepository.getModeratorById(userId);
         if (moderator != null) {

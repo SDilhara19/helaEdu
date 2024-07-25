@@ -131,6 +131,25 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
+    public List<StudentDto> getAllStudents(int page, int size) throws ExecutionException, InterruptedException {
+        List<Student> students = studentRepository.getAllStudents(page, size);
+        return students.stream().map(student ->
+                new StudentDto(
+                        student.getUserId(),
+                        student.getFirstName(),
+                        student.getLastName(),
+                        student.getEmail(),
+                        student.getPassword(),
+                        student.getRegTimestamp(),
+                        student.getNoteId(),
+                        student.getSubscriptionId(),
+                        student.getRole(),
+                        student.isEmailVerified(),
+                        null
+                )
+        ).collect(Collectors.toList());
+    }
+
     public StudentDto getStudent(String userId) throws ExecutionException, InterruptedException {
         Student student = studentRepository.getStudentById(userId);
         if (student != null) {
@@ -241,30 +260,33 @@ public class StudentService {
 
         Student student = studentRepository.getStudentByEmail(email);
 
-        Subscription subscription = new Subscription(
-                subscriptionId,
-                student.getUserId(),
-                paidAmount,
-                startTimestamp,
-                endTimestamp,
-                false
-        );
-        subscriptionRepository.createSubscription(subscription);
+        if(student.getSubscriptionId() == null) {
+            Subscription subscription = new Subscription(
+                    subscriptionId,
+                    student.getUserId(),
+                    paidAmount,
+                    startTimestamp,
+                    endTimestamp,
+                    false
+            );
+            subscriptionRepository.createSubscription(subscription);
 
-        student.setSubscriptionId(subscriptionId);
-        studentRepository.updateStudentByEmail(student.getEmail(), student);
+            student.setSubscriptionId(subscriptionId);
+            studentRepository.updateStudentByEmail(student.getEmail(), student);
 
-        SubscriptionDto subscriptionDto = new SubscriptionDto(
-                subscriptionId,
-                student.getUserId(),
-                paidAmount,
-                startTimestamp,
-                endTimestamp,
-                false
-        );
-        emailVerificationService.sendSubscriptionEmail(email, subscriptionDto);
+            SubscriptionDto subscriptionDto = new SubscriptionDto(
+                    subscriptionId,
+                    student.getUserId(),
+                    paidAmount,
+                    startTimestamp,
+                    endTimestamp,
+                    false
+            );
+            emailVerificationService.sendSubscriptionEmail(email, subscriptionDto);
 
-        return subscriptionId;
+            return subscriptionId;
+        }
+        return null;
     }
 
     public void cancelSubscription(String userId) throws ExecutionException, InterruptedException {

@@ -71,9 +71,17 @@ public class StudentController {
         }
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<StudentDto>> getAllStudents() throws ExecutionException, InterruptedException {
+//        List<StudentDto> students = studentService.getAllStudents();
+//        return ResponseEntity.ok(students);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getAllStudents() throws ExecutionException, InterruptedException {
-        List<StudentDto> students = studentService.getAllStudents();
+    public ResponseEntity<List<StudentDto>> getAllStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) throws ExecutionException, InterruptedException {
+        List<StudentDto> students = studentService.getAllStudents(page, size);
         return ResponseEntity.ok(students);
     }
 

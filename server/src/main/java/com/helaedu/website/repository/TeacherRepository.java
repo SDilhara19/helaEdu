@@ -33,6 +33,25 @@ public class TeacherRepository {
         return teachers;
     }
 
+    public List<Teacher> getAllTeachers(int page, int size) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference teachersCollection = dbFirestore.collection("teachers");
+
+        Query query = teachersCollection.whereEqualTo("isModerator", false)
+                .orderBy("regTimestamp")
+                .offset(page * size)
+                .limit(size);
+
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<Teacher> teachers = new ArrayList<>();
+        QuerySnapshot querySnapshot = future.get();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Teacher teacher = document.toObject(Teacher.class);
+            teachers.add(teacher);
+        }
+        return teachers;
+    }
+
     public Teacher getTeacherById(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);

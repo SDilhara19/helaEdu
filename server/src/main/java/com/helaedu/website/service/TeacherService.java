@@ -117,6 +117,25 @@ public class TeacherService {
                 .collect(Collectors.toList());
     }
 
+    public List<TeacherDto> getAllTeachers(int page, int size) throws ExecutionException, InterruptedException {
+        List<Teacher> teachers = teacherRepository.getAllTeachers(page, size);
+        return teachers.stream().map(teacher ->
+                new TeacherDto(
+                        teacher.getUserId(),
+                        teacher.getFirstName(),
+                        teacher.getLastName(),
+                        teacher.getEmail(),
+                        teacher.getPassword(),
+                        teacher.getRegTimestamp(),
+                        teacher.getIsModerator(),
+                        teacher.getProofRef(),
+                        teacher.getRole(),
+                        teacher.isEmailVerified(),
+                        teacher.getProfilePictureUrl()
+                )
+        ).collect(Collectors.toList());
+    }
+
     public TeacherDto getTeacher(String userId) throws ExecutionException, InterruptedException {
         Teacher teacher = teacherRepository.getTeacherById(userId);
         if (teacher != null) {
