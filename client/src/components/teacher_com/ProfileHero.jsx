@@ -6,7 +6,7 @@ export default function ProfileHero() {
     <div>
        <div className="relative dark:bg-black ">
             <div>
-                <img src={cover} className="w-full h-96 object-cover" alt="Cover" />
+                <img src={profile} className="w-full h-96 object-cover" alt="profile" />
             </div>
             <div className="absolute top-3/4 left-32 rounded-full w-60 h-60">
                 <img src={profile} className="rounded-full w-full h-full object-cover" alt="Profile" />

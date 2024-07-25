@@ -1,5 +1,19 @@
 import { Landing } from "@/components/landing";
-import { Route, Routes } from "react-router-dom";
+import {  Route, Routes } from 'react-router-dom';
+// import Quiz from "./pages/quizes/Quiz";
+// import Articles from "./pages/articles/Articles";
+// import ReadArticles from "./pages/articles/ReadArticles";
+import Dashboard from "@pages/admin/Dashboard";
+import UserManagement from "@pages/admin/UserManagement";
+import Notifications from "@pages/admin/Notifications";
+import Reports from "@pages/admin/Reports";
+import Settings from "@pages/admin/Settings";
+import ModeratorDetails from "@pages/admin/ModeratorDetails";
+import ViewTeacherAccount from "@/pages/admin/ViewTeacherAccount";
+
+
+
+// import { Route, Routes } from "react-router-dom";
 import Quiz from "@pages/quizes/Quiz";
 import QuizHome from "@pages/quizes/QuizHome";
 import Articles from "@pages/articles/Articles";
