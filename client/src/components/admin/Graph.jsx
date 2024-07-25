@@ -29,8 +29,9 @@ const Graph = () => {
         boxShadow: "0px 4px 4px 0px #00000040",
         margin: "auto",
         padding: "2rem",
-        height: "25%",
-        width: "50%",
+        height: "60%",
+        width: "60%",
+        paddingRight: "3rem",
       }}
     >
       <ResponsiveContainer width="100%" height="100%">

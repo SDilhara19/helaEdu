@@ -24,7 +24,6 @@ import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
 import Dashboard from "@pages/admin/Dashboard";
-import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import Notifications from "@pages/admin/Notifications";
 
 import ApproveTeachers from "@pages/admin/approveTeachers";
@@ -36,7 +35,6 @@ import Subject from "@pages/subjects/Subject";
 import UserManagement from "@pages/admin/UserManagement";
 import Reports from "@pages/admin/Reports";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
-import Subject from "@pages/subjects/Subject";
 
 function App() {
   return (
@@ -89,11 +87,11 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/UserManagement" element={<UserManagement />}></Route>
         <Route path="/Reports" element={<Reports />}></Route>
-        <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
+        {/* <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
         <Route
           path="/ModeratorManagement"
           element={<ModeratorManagement />}
-        ></Route>
+        ></Route> */}
         <Route path="/Notifications" element={<Notifications />}></Route>
 
         <Route path="/ApproveTeachers" element={<ApproveTeachers />}></Route>

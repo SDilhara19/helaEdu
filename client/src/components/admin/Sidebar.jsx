@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="text-black shadow-2xl fixed left-0 h-full p-6 flex flex-col justify-between "
+      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between "
       style={{
         backgroundColor: "#F5F5F5",
         borderTopRightRadius: "1rem",

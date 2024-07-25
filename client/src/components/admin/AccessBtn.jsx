@@ -4,7 +4,13 @@ import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function AccessBtn() {
   return (
-    <div className="m-5">
+    <div
+      className="m-5"
+      style={{
+        width: "80%",
+        margin: "auto",
+      }}
+    >
       <div className="flex justify-start ">
         {" "}
         {/* Adjusted ml-80 for more right */}

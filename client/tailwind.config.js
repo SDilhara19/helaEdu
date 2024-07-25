@@ -17,7 +17,7 @@ export default {
         white: "var(--color-text)",
         black: "var(--color-bg)",
         blue2: "var(--color-accent)",
-        gray1:"var(--color-gray1)"
+        gray1: "var(--color-gray1)",
       },
       screens: {
         mw: { max: "800px" },
@@ -36,12 +36,9 @@ export default {
   darkMode: "class", // Enable dark mode support
 };
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},
   },
   plugins: [require("daisyui")],
 };
-
