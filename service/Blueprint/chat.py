@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from utils import authenticate
 from firebase_admin import firestore
 from Models.Student import Student
-from Chatbot.main import student_chat_response
+from Chatbot.main import *
 
 chat = Blueprint("chat", __name__)
 # Look in version history for comments
@@ -33,4 +33,11 @@ def index():
 @chat.route("/history/", methods=["POST"])
 # @authenticate
 def get_history():
-    return jsonify({"foo": "bar"})
+    request_payload = request.get_json(silent=True)
+    chat_session_id = request_payload["chat_session_id"]
+    chatbot_history = retrieve_history(chat_session_id)
+    response_payload = {
+        "response": chatbot_history,
+    }
+
+    return jsonify(response_payload)

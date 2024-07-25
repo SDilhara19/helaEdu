@@ -8,13 +8,8 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_history_aware_retriever
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import (
-    HumanMessage as ImportedHumanMessage,
-    AIMessage as ImportedAIMessage,
-)
 import os
 from dotenv import load_dotenv
-import json
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -51,17 +46,9 @@ def chat_response(prompt, grade, subject, student_id, chat_session_id):
     conversational_rag_chain = create_conversational_chain(rag_chain, chat_session_id)
     response = get_response(prompt, conversational_rag_chain, chat_session_id)
 
-    serialized_chat_history = []
-    for message in response["chat_history"]:
-        if isinstance(message, ImportedHumanMessage):
-            serialized_chat_history.append(HumanMessage(message.content).to_dict())
-        elif isinstance(message, ImportedAIMessage):
-            serialized_chat_history.append(AIMessage(message.content).to_dict())
-
     output = {
         "prompt": prompt,
         "answer": response["answer"],
-        "history": serialized_chat_history,
         "references": get_references(response["context"]),
     }
     return output

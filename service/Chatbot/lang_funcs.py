@@ -13,6 +13,10 @@ from langchain_google_datastore import DatastoreChatMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 from google.cloud import datastore
 from google.oauth2 import service_account
+from langchain_core.messages import (
+    HumanMessage as ImportedHumanMessage,
+    AIMessage as ImportedAIMessage,
+)
 import json
 
 
@@ -123,6 +127,9 @@ def create_conversational_chain(rag_chain, session_id):
         output_messages_key="answer",
     )
 
+def retrieve_history(session_id):
+    chat_history = DatastoreChatMessageHistory(session_id, client=db_client)
+    return serialize_chat_history(chat_history.messages)
 
 class HumanMessage:
     def __init__(self, content):
@@ -139,6 +146,14 @@ class AIMessage:
     def to_dict(self):
         return {"type": "ai", "content": self.content}
 
+def serialize_chat_history(chat_history):
+    serialized_chat_history = []
+    for message in chat_history:
+        if isinstance(message, ImportedHumanMessage):
+            serialized_chat_history.append(HumanMessage(message.content).to_dict())
+        elif isinstance(message, ImportedAIMessage):
+            serialized_chat_history.append(AIMessage(message.content).to_dict())
+    return serialized_chat_history
 
 def get_references(context):
     references = []
