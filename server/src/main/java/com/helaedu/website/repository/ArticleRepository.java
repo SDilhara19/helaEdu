@@ -16,7 +16,7 @@ public class ArticleRepository {
     public String createArticle(Article article) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference  = dbFirestore.collection("articles").document(article.getArticleId());
-        documentReference .set(article);
+        documentReference.set(article);
         return article.getArticleId();
     }
 

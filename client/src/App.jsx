@@ -18,7 +18,7 @@ import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/createAssignments";
 // import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
-import T_profile from "@pages/profiles/T_profile";
+import TProfile from "@pages/profiles/TProfile";
 import LeaderBoard from "@pages/quizes/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
@@ -26,11 +26,17 @@ import Friends from "@pages/quizes/Friends";
 import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import Notifications from "@pages/admin/Notifications";
+
+import ApproveTeachers from "@pages/admin/approveTeachers";
+import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
+
 import Subject from "@pages/subjects/Subject";
 import UserManagement from "@pages/admin/UserManagement";
 import Reports from "@pages/admin/Reports";
+import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
+import Subject from "@pages/subjects/Subject";
 
 function App() {
   return (
@@ -55,7 +61,7 @@ function App() {
           path="/readArticles/:articleId"
           element={<ReadArticles />}
         ></Route>
-        <Route path="/addArticles/:userId" element={<AddArticles />}></Route>
+        <Route path="/addArticles" element={<AddArticles />}></Route>
         <Route path="/addArticleForm" element={<AddArticleForm />}></Route>
         <Route path="/reviewList" element={<ReviewList />}></Route>
         <Route
@@ -63,22 +69,36 @@ function App() {
           element={<ReviewArticle />}
         ></Route>
         <Route path="/assignmentList" element={<AssignmentList />}></Route>
-        <Route path="/t_profile" element={<T_profile />}></Route>
+
+        <Route path="/tProfile" element={<TProfile />}></Route>
         <Route
           path="/createAssignments"
           element={<CreateAssignments />}
         ></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
-        <Route path="/t_profile" element={<T_profile />}></Route>
+
+        <Route
+          path="/createAssignments"
+          element={<CreateAssignments />}
+        ></Route>
+        <Route path="/quizFormat" element={<QuizFormat />}></Route>
+
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
         <Route path="/chat" element={<Chat />}></Route>
 
         <Route path="/dashboard" element={<Dashboard />}></Route>
-        <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
         <Route path="/UserManagement" element={<UserManagement />}></Route>
         <Route path="/Reports" element={<Reports />}></Route>
-
+        <Route path="/ModeratorDetails" element={<ModeratorDetails />}></Route>
+        <Route
+          path="/ModeratorManagement"
+          element={<ModeratorManagement />}
+        ></Route>
         <Route path="/Notifications" element={<Notifications />}></Route>
+
+        <Route path="/ApproveTeachers" element={<ApproveTeachers />}></Route>
+        <Route path="/TopTeachers" element={<TopTeachers />}></Route>
+        <Route path="/ViewMyArticles/1" element={<ViewArticleMyself />}></Route>
         <Route path="/SubjectCatalog" element={<SubjectCatalog />}></Route>
         <Route path="/subject" element={<Subject />}></Route>
       </Routes>
