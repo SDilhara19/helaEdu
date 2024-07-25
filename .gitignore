@@ -36,3 +36,9 @@ compose.yml
 */.env
 /textbooks
 __pycache__/
+
+*/activate.bat
+*/Activate.ps1
+*.pyc 
+__pycache__/
+*/*/__pycache__/*

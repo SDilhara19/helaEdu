@@ -2,14 +2,14 @@ import React from 'react'
 import Question_progress from './Question_progress'
 
 
-const Question = ({ counter }) => {
+const Question = ({ question_no, question, timer }) => {
     return (
         <div className='my-20 h-80 bg-blue border relative'>
            
             <div className='h-auto mx-12 my-8 flex items-center'>
-                <div className='text-white text-header3'>Q3</div>
+                <div className='text-white text-header3'>{question_no}</div>
                 <div>
-                    <p className='text-header4 text-white ml-4'>What is the main reason for the seasons on Earth?</p>
+                    <p className='text-header4 text-white ml-4'>{question}</p>
                 </div>
                 <div>
 
@@ -24,7 +24,7 @@ const Question = ({ counter }) => {
   className="radial-progress bg-blue text-yellow border-blue border-4  absolute -bottom-16 right-12"
   style={{ "--value": "70", "--size": "10rem", "--thickness": "1.2rem" }}
   role="progressbar">
-  1m: 23s
+  {timer}
 </div>
             </div>
 
