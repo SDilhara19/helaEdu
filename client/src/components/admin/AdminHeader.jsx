@@ -12,27 +12,27 @@ function Header() {
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
-            <a className="nav-text flex-c m-4 cursor-pointer">
+            <li className="nav-text flex-c m-4 cursor-pointer">
               <h4>Home</h4>
-            </a>
+            </li>
             <Link to="/articles">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <li className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Categories</h4>
-              </a>
+              </li>
             </Link>
             <Link to="/quiz">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <li className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Quiz</h4>
-              </a>
+              </li>
             </Link>
             <Link to="/readArticles">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <li className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
-              </a>
+              </li>
             </Link>
-            <a className="nav-text flex-c m-4 cursor-pointer">
+            <li className="nav-text flex-c m-4 cursor-pointer">
               <h4>Leaderboard</h4>
-            </a>
+            </li>
           </div>
           <div className="auth-control">
             <Link

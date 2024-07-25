@@ -1,26 +1,59 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPen,
-  faRocket,
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
-import robotFace from "@assets/icons/robot-face.svg";
-import profileFace from "@assets/icons/profile-face.png";
-import { sendToChatBot } from "@services/ChatBotService";
-import ChatBubble from "@components/subject/ChatBubble";
+import { faPen, faRocket } from "@fortawesome/free-solid-svg-icons";
+
+import { sendToChatBot, getChatBotHistory } from "@services/ChatBotService";
+import ChatContent from "@components/subject/ChatContent";
 
 function ChatBot() {
-  const [payload, setPayload] = useState({
+  const [history, setHistory] = useState([]);
+  const textInputRef = useRef(null);
+  const rocketButtonRef = useRef(null);
+  const sendToChat = () => {
+    let content = textInputRef.current.value;
+    chatPayload.prompt = content;
+    let message = {
+      content: content,
+      type: "human",
+    };
+
+    setHistory((prevHistory) => [...prevHistory, message]);
+    textInputRef.current.value = "";
+
+    sendToChatBot(chatPayload).then((res) => {
+      let answer = res.data.response.answer;
+      let response = {
+        content: answer,
+        type: "ai",
+      };
+      setHistory((prevHistory) => [...prevHistory, response]);
+    });
+  };
+  const changeRocket = (elem) => {
+    if (elem.value) {
+      rocketButtonRef.current.classList.add("active");
+    } else {
+      rocketButtonRef.current.classList.remove("active");
+    }
+  };
+
+  let chatPayload = {
     prompt: "",
     grade: "11",
     subject: "Geography",
     student_id: "232",
-    chat_session_id: "chat4",
-  });
-  const [history, setHistory] = useState([]);
-  const textInputRef = useRef(null);
+    chat_session_id: "chat6",
+  };
+
+  useEffect(() => {
+    getChatBotHistory({
+      chat_session_id: chatPayload.chat_session_id,
+    }).then((res) => {
+      history.push(res.data.response);
+      setHistory(...history);
+    });
+  }, []);
 
   return (
     <div className="chatbot">
@@ -33,24 +66,27 @@ function ChatBot() {
           </h4>
         </div>
       </div>
-      <div className="content">
-        {history.forEach((msg) => {
-          <ChatBubble content={msg.content} type={msg.type} />;
-        })}
-      </div>
+      <ChatContent messageList={history} />
       <div className="chat-control">
         <div className="chat-input-wrapper">
-          <textarea name="chat-input" id="chat-input" ref={textInputRef} />
+          <textarea
+            name="chat-input"
+            id="chat-input"
+            ref={textInputRef}
+            onInput={(e) => changeRocket(e.target)}
+            onKeyDown={(e) => {
+              if (e.key == "Enter") {
+                e.preventDefault();
+                sendToChat();
+                changeRocket(rocketButtonRef.current);
+              }
+            }}
+          />
           <FontAwesomeIcon
             icon={faRocket}
             size="3x"
-            onClick={() => {
-              payload.prompt = textInputRef.current.value;
-              sendToChatBot(payload).then((res) => {
-                let response = res.data.response;
-                setHistory(response.history);
-              });
-            }}
+            ref={rocketButtonRef}
+            onClick={sendToChat}
           />
         </div>
       </div>

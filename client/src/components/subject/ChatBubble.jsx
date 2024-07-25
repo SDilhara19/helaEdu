@@ -1,4 +1,6 @@
 import React from "react";
+import robotFace from "@assets/icons/robot-face.svg";
+import profileFace from "@assets/icons/profile-face.png";
 
 function ChatBubble({ content, type }) {
   switch (type) {
@@ -9,7 +11,6 @@ function ChatBubble({ content, type }) {
           <img src={robotFace} alt="bot" />
         </div>
       );
-      break;
     case "reference":
       return (
         <div className="reference-bubble">
@@ -17,7 +18,6 @@ function ChatBubble({ content, type }) {
           <img src={robotFace} alt="user" />
         </div>
       );
-      break;
     case "human":
       return (
         <div className="user-bubble shadow">
@@ -25,11 +25,9 @@ function ChatBubble({ content, type }) {
           <img src={profileFace} alt="user" />
         </div>
       );
-      break;
 
     default:
       return <></>;
-      break;
   }
 }
 export default ChatBubble;
