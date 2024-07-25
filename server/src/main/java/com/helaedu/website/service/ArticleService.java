@@ -1,10 +1,14 @@
 package com.helaedu.website.service;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.entity.Article;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.repository.ArticleRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +19,12 @@ import java.util.stream.Collectors;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
+
+    public ArticleService(ArticleRepository articleRepository, FirebaseStorageService firebaseStorageService) {
         this.articleRepository = articleRepository;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     public String createArticle(ArticleDto articleDto) throws ExecutionException, InterruptedException {
@@ -46,6 +54,38 @@ public class ArticleService {
         );
 
         return articleRepository.createArticle(article);
+    }
+
+    public String uploadArticleCover(String articleId, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+        Article article = articleRepository.getArticleById(articleId);
+
+        String articleCoverUrl = firebaseStorageService.uploadArticleCover(profilePicture, articleId);
+
+        if(article != null) {
+            article.setImageRef(articleCoverUrl);
+            articleRepository.updateArticle(articleId, article);
+        } else {
+            throw new IllegalArgumentException("Article not found");
+        }
+        return articleCoverUrl;
+    }
+
+    public List<String> uploadAdditionalFiles(String articleId, List<MultipartFile> additionalFiles) throws IOException, ExecutionException, InterruptedException {
+        Article article = articleRepository.getArticleById(articleId);
+        List<String> additionalFilesUrls = new ArrayList<>();
+
+        for (MultipartFile additionalFile : additionalFiles) {
+            String additionalFileUrl = firebaseStorageService.uploadAdditionalFile(additionalFile, articleId);
+            additionalFilesUrls.add(additionalFileUrl);
+        }
+
+        if(article != null) {
+            article.setAdditionalFilesRefs(additionalFilesUrls);
+            articleRepository.updateArticle(articleId, article);
+        } else {
+            throw new IllegalArgumentException("Article not found");
+        }
+        return additionalFilesUrls;
     }
 
     public List<ArticleDto> getAllArticles() throws ExecutionException, InterruptedException {
