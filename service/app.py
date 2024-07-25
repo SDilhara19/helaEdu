@@ -1,6 +1,6 @@
 from flask import Flask
-from routes.chat import chat
-from routes.status_codes import status_codes
+from Blueprint.chat import chat
+from Blueprint.status_codes import status_codes
 from flask_cors import CORS
 
 import fireo

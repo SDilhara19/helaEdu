@@ -4,7 +4,6 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Assignment;
-import com.helaedu.website.entity.Assignment;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,10 +12,11 @@ import java.util.concurrent.ExecutionException;
 
 @Repository
 public class AssignmentRepository {
+
     public String createAssignment(Assignment assignment) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference  = dbFirestore.collection("assignments").document(assignment.getAssignmentId());
-        documentReference .set(assignment);
+        DocumentReference documentReference = dbFirestore.collection("assignments").document(assignment.getAssignmentId());
+        documentReference.set(assignment);
         return assignment.getAssignmentId();
     }
 
@@ -32,16 +32,16 @@ public class AssignmentRepository {
         }
         return assignments;
     }
+
     public Assignment getAssignmentById(String assignmentId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("assignments").document(assignmentId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
-        Assignment assignment = null;
         if (document.exists()) {
-            assignment = document.toObject(Assignment.class);
+            return document.toObject(Assignment.class);
         }
-        return assignment;
+        return null;
     }
 
     public List<Assignment> getAssignmentsByUserId(String teacherId) throws ExecutionException, InterruptedException {
@@ -49,7 +49,6 @@ public class AssignmentRepository {
         CollectionReference assignmentsCollection = dbFirestore.collection("assignments");
         Query query = assignmentsCollection.whereEqualTo("userId", teacherId);
         ApiFuture<QuerySnapshot> future = query.get();
-
         List<Assignment> assignments = new ArrayList<>();
         QuerySnapshot querySnapshot = future.get();
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
@@ -58,8 +57,15 @@ public class AssignmentRepository {
         }
         return assignments;
     }
+
+    public void deleteAssignment(String assignmentId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("assignments").document(assignmentId);
+        ApiFuture<WriteResult> future = documentReference.delete();
+        future.get(); // Optional: You can handle the result if needed
+    }
+
     public boolean exists(String assignmentId) throws ExecutionException, InterruptedException {
         return getAssignmentById(assignmentId) != null;
     }
-
 }
