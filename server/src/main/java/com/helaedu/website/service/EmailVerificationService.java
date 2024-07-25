@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.helaedu.website.dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,26 @@ public class EmailVerificationService {
         String verificationLink = firebaseAuth.generateEmailVerificationLink(email, actionCodeSettings);
         String subject = "Verify your email address";
         String text = "Please click the link below to verify your email address:\n" + verificationLink;
+        emailService.sendSimpleMessage(email, subject, text);
+    }
+
+    public void sendSubscriptionEmail(String email, SubscriptionDto subscriptionDto) {
+        String subject = "Your Premium Subscription Details";
+        String text = String.format("Dear Student,\n\nYour subscription has been created successfully.\n\nSubscription ID: %s\nStart Date: %s\nEnd Date: %s\nPaid Amount: LKR%s.00\n\nThank you for subscribing!",
+                subscriptionDto.getSubscriptionId(),
+                subscriptionDto.getStartTimestamp(),
+                subscriptionDto.getEndTimestamp(),
+                subscriptionDto.getPaidAmount()
+        );
+        emailService.sendSimpleMessage(email, subject, text);
+    }
+
+    public void sendCancellationEmail(String email, SubscriptionDto subscriptionDto) {
+        String subject = "Your Premium Subscription has been Cancelled";
+        String text = String.format("Dear Student,\n\nYour subscription has been cancelled.\n\nSubscription ID: %s\nStart Date: %s\nEnd Date: %s\n\nThank you for using our service!",
+                subscriptionDto.getSubscriptionId(),
+                subscriptionDto.getStartTimestamp(),
+                subscriptionDto.getEndTimestamp());
         emailService.sendSimpleMessage(email, subject, text);
     }
 }

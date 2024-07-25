@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.helaedu.website.dto.SubscriptionDto;
 import com.helaedu.website.entity.Subscription;
 import com.helaedu.website.repository.SubscriptionRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -240,7 +241,6 @@ public class StudentService {
 
         Student student = studentRepository.getStudentByEmail(email);
 
-
         Subscription subscription = new Subscription(
                 subscriptionId,
                 student.getUserId(),
@@ -253,6 +253,16 @@ public class StudentService {
 
         student.setSubscriptionId(subscriptionId);
         studentRepository.updateStudentByEmail(student.getEmail(), student);
+
+        SubscriptionDto subscriptionDto = new SubscriptionDto(
+                subscriptionId,
+                student.getUserId(),
+                paidAmount,
+                startTimestamp,
+                endTimestamp,
+                false
+        );
+        emailVerificationService.sendSubscriptionEmail(email, subscriptionDto);
 
         return subscriptionId;
     }
