@@ -1,5 +1,5 @@
-import LeaderBoardTable from '@components/Quiz/LeaderBoardTable'
-import LeaderboardMain from '@components/Quiz/LeaderboardMain'
+import LeaderBoardTable from '@components/leaderboard/LeaderBoardTable'
+import LeaderboardMain from '@components/leaderboard/LeaderboardMain'
 import Top3 from '@components/Quiz/Top3'
 import { Header } from '@components/common'
 import React from 'react'

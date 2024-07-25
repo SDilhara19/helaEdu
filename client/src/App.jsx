@@ -13,7 +13,8 @@ import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import TProfile from "@pages/profiles/TProfile";
-import LeaderBoard from "@pages/quizes/LeaderBoard";
+
+import LeaderBoard from "@pages/leaderboard/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";

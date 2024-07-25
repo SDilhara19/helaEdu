@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
@@ -8,7 +8,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import robotFace from "@assets/icons/robot-face.svg";
 import profileFace from "@assets/icons/profile-face.png";
+import { sendToChatBot } from "@services/ChatBotService";
+import ChatBubble from "@components/subject/ChatBubble";
+
 function ChatBot() {
+  const [payload, setPayload] = useState({
+    prompt: "",
+    grade: "11",
+    subject: "Geography",
+    student_id: "232",
+    chat_session_id: "chat4",
+  });
+  const [history, setHistory] = useState([]);
+  const textInputRef = useRef(null);
+
   return (
     <div className="chatbot">
       <div className="title-wrapper">
@@ -21,64 +34,24 @@ function ChatBot() {
         </div>
       </div>
       <div className="content">
-        <div className="bot-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="user-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={profileFace} alt="user" />
-        </div>
-
-        <div className="bot-bubble">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="user-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={profileFace} alt="user" />
-        </div>
-        <div className="bot-bubble">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="reference-bubble">
-          <div className="reference-control flex-c">
-            <h4>
-              <FontAwesomeIcon icon={faArrowLeft} size="1x" />
-              References
-              <FontAwesomeIcon icon={faArrowRight} size="1x" />
-            </h4>
-          </div>
-          <div className="flex-sb reference-location">
-            <h4>Source : Geogrophy Grade -10</h4>
-            <h4>Page : 17</h4>
-          </div>
-          <p className="references">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-        </div>
+        {history.forEach((msg) => {
+          <ChatBubble content={msg.content} type={msg.type} />;
+        })}
       </div>
       <div className="chat-control">
         <div className="chat-input-wrapper">
-          <textarea name="chat-input" id="chat-input" />
-          <FontAwesomeIcon icon={faRocket} size="3x" />
+          <textarea name="chat-input" id="chat-input" ref={textInputRef} />
+          <FontAwesomeIcon
+            icon={faRocket}
+            size="3x"
+            onClick={() => {
+              payload.prompt = textInputRef.current.value;
+              sendToChatBot(payload).then((res) => {
+                let response = res.data.response;
+                setHistory(response.history);
+              });
+            }}
+          />
         </div>
       </div>
     </div>
