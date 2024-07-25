@@ -87,7 +87,7 @@ public class StudentService {
     public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
         Student student = studentRepository.getStudentByEmail(email);
 
-        String profilePictureUrl = firebaseStorageService.uploadFile(profilePicture, email);
+        String profilePictureUrl = firebaseStorageService.uploadProfilePicture(profilePicture, email);
 
         if(student != null) {
             student.setProfilePictureUrl(profilePictureUrl);

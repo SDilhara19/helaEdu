@@ -4,14 +4,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.helaedu.website.dto.AdminDto;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Admin;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.entity.Teacher;
 import com.helaedu.website.repository.AdminRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -24,8 +28,12 @@ public class AdminService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public AdminService(AdminRepository adminRepository) {
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
+
+    public AdminService(AdminRepository adminRepository, FirebaseStorageService firebaseStorageService) {
         this.adminRepository = adminRepository;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -44,7 +52,8 @@ public class AdminService {
                 adminDto.getEmail(),
                 encoder.encode(adminDto.getPassword()),
                 Instant.now().toString(),
-                "ROLE_ADMIN"
+                "ROLE_ADMIN",
+                null
         );
         adminDto.setUserId(admin.getUserId());
 
@@ -59,6 +68,20 @@ public class AdminService {
 
         emailVerificationService.sendVerificationEmail(adminDto.getUserId(), adminDto.getEmail());
         return adminRepository.createAdmin(admin);
+    }
+
+    public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+        Admin admin = adminRepository.getAdminByEmail(email);
+
+        String profilePictureUrl = firebaseStorageService.uploadProfilePicture(profilePicture, email);
+
+        if(admin != null) {
+            admin.setProfilePictureUrl(profilePictureUrl);
+            adminRepository.updateAdminByEmail(email, admin);
+        } else {
+            throw new IllegalArgumentException("Admin not found");
+        }
+        return profilePictureUrl;
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -95,6 +118,23 @@ public class AdminService {
         if (admin != null) {
             return new AdminDto(
                     userId,
+                    admin.getFirstName(),
+                    admin.getLastName(),
+                    admin.getEmail(),
+                    admin.getPassword(),
+                    admin.getRegTimestamp(),
+                    admin.getRole(),
+                    admin.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public AdminDto getAdminByEmail(String email) throws ExecutionException, InterruptedException {
+        Admin admin = adminRepository.getAdminByEmail(email);
+        if (admin != null) {
+            return new AdminDto(
+                    admin.getUserId(),
                     admin.getFirstName(),
                     admin.getLastName(),
                     admin.getEmail(),
