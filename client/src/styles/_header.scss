@@ -70,33 +70,54 @@ header {
         div {
             width: 46px;
             height: 46px;
-            margin: 1rem;
         }
 
         .notification-bell {
             color: $white-color;
         }
+
     }
 
     .dropdown-wrapper {
-        position: absolute;
-        top: 100%;
-        left: 10%;
-        width: 100%;
-        border-radius: 1.5rem;
-        background: $white-color;
-        padding: 0.5rem 0;
-        z-index: 2;
+        display: flex;
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin: 1rem;
+        padding: 0 2px;
 
         li {
             padding: 0.5rem;
             text-align: center;
 
+            &:hover {
+                background: #e3e6e8;
+            }
+
             h4 {
                 cursor: pointer;
+
+                &:hover {
+                    background: none;
+                }
             }
         }
+
+        .dropdown-content {
+            width: 100%;
+            border-radius: 1.5rem;
+            background: $white-color;
+            padding: 0.75rem 0;
+            z-index: 5;
+            margin-top: 1rem;
+            width: 13rem;
+            overflow: hidden;
+        }
+
+        .dropdown {
+            margin: 0;
+        }
     }
+
 
     // .dark & {
     //     background: $black-color; 

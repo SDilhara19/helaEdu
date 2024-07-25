@@ -1,26 +1,47 @@
-import React from 'react';
+import React from "react";
 
 const Dashboard = () => {
-  const registeredStudents = 1500; 
-  const registeredTeachers = 200;  
-  const registeredModerators = 50;    
+  const registeredStudents = 1500;
+  const registeredTeachers = 200;
+  const registeredModerators = 50;
+  const totalRevenue = 100;
 
   return (
-    <div className="flex justify-around p-8 space-x-4 ml-64"> {/* Add margin to left to accommodate sidebar */}
-      <div className="bg-white shadow-lg p-6 rounded-lg text-center" style={{ width: 'calc(2.5in + 0.4in)', height: 'calc(2.5in + 0.4in)' }}>
-        <h2 className="text-4xl font-black mb-4 text-black">Registered Students</h2>
-        <div className="text-6xl font-extrabold mb-2 text-black">{registeredStudents}</div>
-        <img src="https://png.pngtree.com/png-clipart/20190120/ourlarge/pngtree-school-student-illustration-student-reading-boy-student-hand-drawn-illustration-cartoon-png-image_493202.jpg" alt="Students" className="mx-auto w-64 h-64" />
+    <div className="flex justify-around p-8 space-x-4 m-4">
+      {/* Box 1 */}
+      <div
+        className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
+        style={{ width: "278px", height: "150px" }}
+      >
+        <h2 className="text-3xl mb-2 text-blue-600">Students</h2>
+        <div className="text-5xl text-black">{registeredStudents}</div>
       </div>
-      <div className="bg-white shadow-lg p-6 rounded-lg text-center" style={{ width: 'calc(2.5in + 0.4in)', height: 'calc(2.5in + 0.4in)' }}>
-        <h2 className="text-4xl font-black mb-4 text-black">Registered Teachers</h2>
-        <div className="text-6xl font-extrabold mb-2 text-black">{registeredTeachers}</div>
-        <img src="https://tse4.mm.bing.net/th?id=OIP.syfpsEg_wmYvNMNiSwPyXQHaH5&pid=Api&P=0&h=180" alt="Teachers" className="mx-auto w-64 h-64" />
+
+      {/* Box 2 */}
+      <div
+        className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
+        style={{ width: "278px", height: "150px" }}
+      >
+        <h2 className="text-3xl mb-2 text-blue-600">Teachers</h2>
+        <div className="text-5xl text-black">{registeredTeachers}</div>
       </div>
-      <div className="bg-white shadow-lg p-6 rounded-lg text-center" style={{ width: 'calc(2.5in + 0.4in)', height: 'calc(2.5in + 0.4in)' }}>
-        <h2 className="text-4xl font-black mb-4 text-black">Registered Moderators</h2>
-        <div className="text-6xl font-extrabold mb-2 text-black">{registeredModerators}</div>
-        <img src="https://static.vecteezy.com/system/resources/previews/009/952/525/non_2x/politician-cartoon-hand-drawn-illustration-with-election-and-democratic-governance-ideas-participate-in-political-debates-in-front-of-audience-vector.jpg" alt="Courses" className="mx-auto w-64 h-64" />
+
+      {/* Box 3 */}
+      <div
+        className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
+        style={{ width: "278px", height: "150px" }}
+      >
+        <h2 className="text-3xl mb-2 text-blue-600">Moderators</h2>
+        <div className="text-5xl text-black">{registeredModerators}</div>
+      </div>
+
+      {/* Box 4 (New Box) */}
+      <div
+        className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
+        style={{ width: "278px", height: "150px" }}
+      >
+        <h2 className="text-3xl mb-2 text-blue-600">Total Revenue</h2>
+        <div className="text-5xl text-black">${totalRevenue}</div>
       </div>
     </div>
   );

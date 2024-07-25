@@ -20,7 +20,7 @@ public class AssignmentDto {
     private String title;
 
     @NotEmpty(message="Due date is required")
-    private LocalDateTime dueDate;
+    private String dueDate;
 
     @NotEmpty(message = "Instructions are required")
     private String instructions;
@@ -30,7 +30,7 @@ public class AssignmentDto {
     @NotEmpty(message = "Time period is required")
     private String totalTime;
 
-    private LocalDateTime publishedTimestamp;
+    private String publishedTimestamp;
     private String userId;
     private List<AssignmentQuizDto> quizzes = new ArrayList<>();
 

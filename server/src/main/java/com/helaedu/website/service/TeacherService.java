@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.entity.Student;
 import com.helaedu.website.util.UniqueIdGenerator;
 import com.helaedu.website.dto.TeacherDto;
@@ -11,7 +12,9 @@ import com.helaedu.website.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -24,8 +27,12 @@ public class TeacherService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
+
+    public TeacherService(TeacherRepository teacherRepository, FirebaseStorageService firebaseStorageService) {
         this.teacherRepository = teacherRepository;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     public String createTeacher(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -61,6 +68,20 @@ public class TeacherService {
 
         emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
         return teacherRepository.createTeacher(teacher);
+    }
+
+    public String uploadProof(String email, MultipartFile proofFile) throws IOException, ExecutionException, InterruptedException {
+        Teacher teacher = teacherRepository.getTeacherByEmail(email);
+
+        String proofFileUrl = firebaseStorageService.uploadTeacherProof(proofFile, email);
+
+        if(teacher != null) {
+            teacher.setProofRef(proofFileUrl);
+            teacherRepository.updateTeacherByEmail(email, teacher);
+        } else {
+            throw new IllegalArgumentException("Teacher not found");
+        }
+        return proofFileUrl;
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -113,10 +134,29 @@ public class TeacherService {
         return null;
     }
 
-    public String updateTeacher(String userId, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
+    public TeacherDto getTeacherByEmail(String email) throws ExecutionException, InterruptedException {
+        Teacher teacher = teacherRepository.getTeacherByEmail(email);
+        if (teacher != null) {
+            return new TeacherDto(
+                    teacher.getUserId(),
+                    teacher.getFirstName(),
+                    teacher.getLastName(),
+                    teacher.getEmail(),
+                    teacher.getPassword(),
+                    teacher.getRegTimestamp(),
+                    teacher.getIsModerator(),
+                    teacher.getProofRef(),
+                    teacher.getRole(),
+                    teacher.isEmailVerified()
+            );
+        }
+        return null;
+    }
+
+    public String updateTeacher(String email, TeacherDto teacherDto) throws ExecutionException, InterruptedException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        Teacher existingTeacher = teacherRepository.getTeacherById(userId);
+        Teacher existingTeacher = teacherRepository.getTeacherByEmail(email);
         if(existingTeacher == null || existingTeacher.getIsModerator()) {
             throw new IllegalArgumentException("Teacher not found");
         }
@@ -143,7 +183,7 @@ public class TeacherService {
             existingTeacher.setProofRef(teacherDto.getProofRef());
         }
 
-        return teacherRepository.updateTeacher(userId, existingTeacher);
+        return teacherRepository.updateTeacher(email, existingTeacher);
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {

@@ -61,7 +61,9 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
-                        .anyRequest().permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/files/teacher-proof").hasRole("ADMIN")
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);

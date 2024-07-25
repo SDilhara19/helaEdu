@@ -3,6 +3,7 @@ package com.helaedu.website.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.entity.Teacher;
 import org.springframework.stereotype.Repository;
 
@@ -62,6 +63,16 @@ public class TeacherRepository {
         } else {
             throw new IllegalArgumentException("Teacher not found");
         }
+    }
+
+    public String updateTeacherByEmail(String email, Teacher teacher) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference teachersCollection = dbFirestore.collection("teachers");
+        ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("email", email).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        DocumentReference documentReference = documents.get(0).getReference();
+        ApiFuture<WriteResult> updateFuture = documentReference.set(teacher);
+        return updateFuture.get().getUpdateTime().toString();
     }
 
     public String deleteTeacher(String userId) throws ExecutionException, InterruptedException {

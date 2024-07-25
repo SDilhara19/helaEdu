@@ -14,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,18 @@ public class StudentController {
         } catch (ExecutionException | InterruptedException e) {
             return new ResponseEntity<>("Error creating student", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
+        try {
+            String profilePictureUrl = studentService.uploadProfilePicture(email, profilePicture);
+            return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -98,7 +112,7 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String result = studentService.updateStudent(studentDto.getEmail(), studentDto);
+            String result = studentService.updateStudentByEmail(studentDto.getEmail(), studentDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
@@ -434,5 +448,11 @@ public class StudentController {
         String email = UserUtil.getCurrentUserEmail();
         Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
         return unsubscribeStudentByEmail(requestBody);
+    }
+
+    @PostMapping("/me/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePictureCurrentStudent(@RequestParam("profilePicture") MultipartFile profilePicture) throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        return uploadProfilePicture(email, profilePicture);
     }
 }
