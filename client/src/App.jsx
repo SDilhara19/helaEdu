@@ -28,7 +28,9 @@ import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
 import Subject from "@pages/subjects/Subject";
-
+import UserManagement from "@components/admin/Card";
+import Settings from "@pages/admin/Settings";
+import Reports from "@pages/admin/Reports";
 function App() {
   return (
     <div>
@@ -60,6 +62,9 @@ function App() {
         <Route path="/topTeachers" element={<TopTeachers />} />
         <Route path="/viewMyArticles/1" element={<ViewArticleMyself />} />
         <Route path="/subjectCatalog" element={<SubjectCatalog />} />
+        <Route path="/UserManagement" element={<UserManagement/>}></Route>
+        <Route path="/Settings" element={<Settings/>}></Route>
+        <Route path="/Reports" element={<Reports/>}></Route>
         <Route path="/subject" element={<Subject />} />
       </Routes>
     </div>

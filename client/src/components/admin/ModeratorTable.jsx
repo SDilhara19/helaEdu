@@ -15,17 +15,17 @@ const Table = () => {
   return (
     <div className="mt-8 ml-50">
       <div className="flex items-center">
-        <div className="bg-gray-200 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Moderator ID</div>
-        <div className="bg-gray-200 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Name</div>
-        <div className="bg-gray-200 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Email</div>
-        <div className="bg-gray-200 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Status</div>
+        <div className="bg-gray-200 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Moderator ID</div>
+        <div className="bg-gray-200 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Name</div>
+        <div className="bg-gray-200 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Email</div>
+        <div className="bg-gray-200 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 font-bold flex justify-center items-center border-2 border-blue-500" style={{ minWidth: '300px' }}>Status</div>
       </div>
       {data.map((row, index) => (
         <div key={index} className="flex items-center mt-8">
-          <div className="bg-gray-100 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.id}</div>
-          <div className="bg-gray-100 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.name}</div>
-          <div className="bg-gray-100 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.email}</div>
-          <div className="bg-gray-100 text-gray-800 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.status}</div>
+          <div className="bg-gray-100 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.id}</div>
+          <div className="bg-gray-100 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.name}</div>
+          <div className="bg-gray-100 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.email}</div>
+          <div className="bg-gray-100 text-gray1 text-2xl px-4 py-6 rounded-full mx-4 flex justify-center items-center" style={{ minWidth: '300px' }}>{row.status}</div>
         </div>
       ))}
     </div>

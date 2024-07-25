@@ -23,18 +23,8 @@ const data = [
 
 const Graph = () => {
   return (
-    <div
-      className=" w-[500px] h-[250px]  rounded-tl-[7px] bg-white"
-      style={{
-        boxShadow: "0px 4px 4px 0px #00000040",
-        margin: "auto",
-        padding: "2rem",
-        height: "60%",
-        width: "60%",
-        paddingRight: "3rem",
-      }}
-    >
-      <ResponsiveContainer width="100%" height="100%">
+    <div >
+      <ResponsiveContainer width="80%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
