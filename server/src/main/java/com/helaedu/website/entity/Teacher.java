@@ -13,8 +13,9 @@ public class Teacher extends User{
     private Boolean isModerator;
     private String proofRef;
     private String role;
+    private boolean approved;
 
-    public Teacher(String userId, String firstName, String lastName, String email, String password, String regTimestamp, Boolean isModerator, String proofRef, String role, String profilePictureUrl) {
+    public Teacher(String userId, String firstName, String lastName, String email, String password, String regTimestamp, Boolean isModerator, String proofRef, String role, String profilePictureUrl, boolean approved) {
         super.setUserId(userId);
         super.setFirstName(firstName);
         super.setLastName(lastName);
@@ -25,5 +26,6 @@ public class Teacher extends User{
         this.proofRef = proofRef;
         this.role = role;
         super.setProfilePictureUrl(profilePictureUrl);
+        this.approved = approved;
     }
 }

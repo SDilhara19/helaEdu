@@ -96,6 +96,25 @@ public class TeacherController {
         }
     }
 
+    @PutMapping("/by-email/approve")
+    public ResponseEntity<Object> approveTeacherRegistration(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacher = teacherService.getTeacherByEmail(email);
+        if(teacher != null) {
+            teacher.setApproved(true);
+        }
+        try {
+            String result = teacherService.approveTeacher(teacher.getUserId());
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error approving teacher", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/by-email")
     public ResponseEntity<Object> getTeacherByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");

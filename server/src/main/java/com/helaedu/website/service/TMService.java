@@ -37,7 +37,8 @@ public class TMService {
                     tm.getProofRef(),
                     tm.getRole(),
                     tm.isEmailVerified(),
-                    tm.getProfilePictureUrl()
+                    tm.getProfilePictureUrl(),
+                    tm.isApproved()
             );
         }
         return null;
@@ -57,7 +58,8 @@ public class TMService {
                     tm.getProofRef(),
                     tm.getRole(),
                     tm.isEmailVerified(),
-                    tm.getProfilePictureUrl()
+                    tm.getProfilePictureUrl(),
+                    tm.isApproved()
             );
         }
         return null;

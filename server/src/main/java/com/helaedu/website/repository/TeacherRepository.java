@@ -136,4 +136,17 @@ public class TeacherRepository {
             throw new IllegalArgumentException("Teacher not found");
         }
     }
+
+    public String approveTeacher(String userId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("teachers").document(userId);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot document = future.get();
+        if(document.exists()) {
+            documentReference.update("approved", true);
+            return "Teacher registration approved";
+        } else {
+            throw new IllegalArgumentException("Teacher not found");
+        }
+    }
 }

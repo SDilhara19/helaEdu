@@ -54,7 +54,8 @@ public class TeacherService {
                 false,
                 teacherDto.getProofRef(),
                 "ROLE_TEACHER",
-                null
+                null,
+                false
         );
         teacherDto.setUserId(teacher.getUserId());
 
@@ -111,7 +112,8 @@ public class TeacherService {
                                 teacher.getProofRef(),
                                 teacher.getRole(),
                                 teacher.isEmailVerified(),
-                                teacher.getProfilePictureUrl()
+                                teacher.getProfilePictureUrl(),
+                                teacher.isApproved()
                         )
                 )
                 .collect(Collectors.toList());
@@ -131,7 +133,8 @@ public class TeacherService {
                         teacher.getProofRef(),
                         teacher.getRole(),
                         teacher.isEmailVerified(),
-                        teacher.getProfilePictureUrl()
+                        teacher.getProfilePictureUrl(),
+                        teacher.isApproved()
                 )
         ).collect(Collectors.toList());
     }
@@ -150,7 +153,8 @@ public class TeacherService {
                     teacher.getProofRef(),
                     teacher.getRole(),
                     teacher.isEmailVerified(),
-                    teacher.getProfilePictureUrl()
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved()
             );
         }
         return null;
@@ -170,7 +174,8 @@ public class TeacherService {
                     teacher.getProofRef(),
                     teacher.getRole(),
                     teacher.isEmailVerified(),
-                    teacher.getProfilePictureUrl()
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved()
             );
         }
         return null;
@@ -219,5 +224,9 @@ public class TeacherService {
 
     public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
         return teacherRepository.promoteToModerator(userId);
+    }
+
+    public String approveTeacher(String userId) throws ExecutionException, InterruptedException {
+        return teacherRepository.approveTeacher(userId);
     }
 }
