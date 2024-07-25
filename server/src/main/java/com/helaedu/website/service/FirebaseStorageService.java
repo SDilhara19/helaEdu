@@ -43,4 +43,8 @@ public class FirebaseStorageService {
     public String uploadAdditionalFile(MultipartFile file, String articleId) throws IOException {
         return uploadFile(file, "article_additional_files/" + articleId);
     }
+
+    public String uploadTeacherProof(MultipartFile file, String email) throws IOException {
+        return uploadFile(file, "teacher_proofs/" + email);
+    }
 }
