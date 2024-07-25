@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.helaedu.website.entity.Admin;
+import com.helaedu.website.entity.Student;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -47,6 +48,16 @@ public class AdminRepository {
         DocumentReference documentReference = dbFirestore.collection("admins").document(userId);
         ApiFuture<WriteResult> future = documentReference.set(admin);
         return future.get().getUpdateTime().toString();
+    }
+
+    public String updateAdminByEmail(String email, Admin admin) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference adminsCollection = dbFirestore.collection("admins");
+        ApiFuture<QuerySnapshot> future = adminsCollection.whereEqualTo("email", email).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        DocumentReference documentReference = documents.get(0).getReference();
+        ApiFuture<WriteResult> updateFuture = documentReference.set(admin);
+        return updateFuture.get().getUpdateTime().toString();
     }
 
     public String deleteAdmin(String userId) throws ExecutionException, InterruptedException {
