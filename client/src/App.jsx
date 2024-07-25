@@ -7,10 +7,10 @@ import ReadArticles from "@pages/articles/ReadArticles";
 import Auth from "@pages/auth/Auth";
 import AddArticles from "@pages/articles/AddArticles";
 import AddArticleForm from "@pages/articles/AddArticleForm";
-// import ReviewList from "@pages/articles/ReviewList";
+import ReviewList from "@pages/articles/ReviewList";
 import ReviewArticle from "@pages/articles/ReviewArticle";
 import AssignmentList from "@pages/assignments/AssignmentList";
-// import CreateAssignments from "@pages/assignments/CreateAssignments";
+import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import TProfile from "@pages/profiles/TProfile";
 import LeaderBoard from "@pages/quizes/LeaderBoard";
@@ -44,11 +44,11 @@ function App() {
         <Route path="/readArticles/:articleId" element={<ReadArticles />} />
         <Route path="/addArticles" element={<AddArticles />} />
         <Route path="/addArticleForm" element={<AddArticleForm />} />
-        {/* <Route path="/reviewList" element={<ReviewList />} /> */}
+        <Route path="/reviewList" element={<ReviewList />} />
         <Route path="/reviewArticle/:articleId" element={<ReviewArticle />} />
         <Route path="/assignmentList" element={<AssignmentList />} />
         <Route path="/tProfile" element={<TProfile />} />
-        {/* <Route path="/createAssignments" element={<CreateAssignments />} /> */}
+        <Route path="/createAssignments" element={<CreateAssignments />} />
         <Route path="/quizFormat" element={<QuizFormat />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/dashboard" element={<Dashboard />} />

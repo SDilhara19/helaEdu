@@ -16,13 +16,14 @@ export default function TableRowForPending({ teacherId, firstName, email, proofP
   return (
     <div className='flex justify-center my-4'>
       <div className='border border-blue rounded-3xl w-10/12 h-16 px-7 py-4 flex justify-between items-center'>
-        <div><p className='text-2xl'>{teacherId}</p></div>
-        <div><p className='text-2xl'>{firstName}</p></div>
-        <div><p className='text-2xl'>{email}</p></div>
-        <div className='flex items-center'>
+        <div className='text-left'><p className='text-2xl text-left'>{teacherId}</p></div>
+        <div className='text-left'><p className='text-2xl text-left'>{firstName}</p></div>
+        <div className='text-left'><p className='text-2xl text-left'>{email}</p></div>
+        <div className='text-left'><p className='text-2xl text-left'>{proofPdf}</p></div>
+        {/* <div className='  text-left'>
           <FontAwesomeIcon icon={faFile} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
-          <p className='text-2xl'>{proofPdf}</p>
-        </div>
+          <p className='text-2xl text-left'>{proofPdf}</p>
+        </div> */}
         <div className='flex items-center'>
           <div className='mx-1'>
             <FontAwesomeIcon icon={faSearch} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
