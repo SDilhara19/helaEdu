@@ -5,7 +5,7 @@ import {
     faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import StartQuiz from "./StartQuiz";
+import StartQuiz from "./SelectSubject";
 import Top3 from "./Top3";
 import bot from "@assets/img/robot-from-the-side.svg";
 import banner from "@assets/img/banner.png";
@@ -53,10 +53,10 @@ const HomeBanner = () => {
                     </div>
 
                 </div>
-                {/* <StartQuiz /> */}
             </div>
-        </div>
-    )
-}
+
+        </>
+    );
+};
 
 export default HomeBanner;

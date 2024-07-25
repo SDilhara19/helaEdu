@@ -19,7 +19,8 @@ import CreateAssignments from "@pages/assignments/createAssignments";
 // import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import TProfile from "@pages/profiles/TProfile";
-import LeaderBoard from "@pages/quizes/LeaderBoard";
+
+import LeaderBoard from "@pages/leaderboard/LeaderBoard";
 import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
@@ -30,6 +31,7 @@ import ApproveTeachers from "@pages/admin/approveTeachers";
 import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
+import "./index.css";
 
 import Subject from "@pages/subjects/Subject";
 import UserManagement from "@pages/admin/UserManagement";
@@ -49,7 +51,7 @@ function App() {
         <Route path="/friends/1" element={<Friends />}></Route>
         <Route path="/leaderboard/1" element={<LeaderBoard />}></Route>
         <Route path="/quiz" element={<QuizHome />}></Route>
-        <Route path="/quiz/1" element={<Quiz />}></Route>
+        <Route path="/quiz/:subject" element={<Quiz />}></Route>
         <Route path="/quizend/1" element={<QuizEnd />}></Route>
         <Route path="/history/1" element={<History />}></Route>
         <Route path="/friends/1" element={<Friends />}></Route>
