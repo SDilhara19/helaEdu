@@ -20,16 +20,13 @@ public class ArticleDto {
 
     @NotEmpty(message = "Content is required")
     private String content;
-
 //    @NotEmpty(message = "An image is required")
     private String imageRef;
-
     private ArrayList<String> additionalFilesRefs;
     private ArrayList<String> tags;
     private LocalDateTime publishedTimestamp;
     private String lastUpdatedTimestamp;
     private String status;
-
     private String reviewedModeratorId;
     private String rejectedReason;
 
