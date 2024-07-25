@@ -10,7 +10,7 @@ import fireo
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={"/*": {"origins": "*"}})
-    conn = fireo.connection(from_file="config/credentials.json")
+    fireo.connection(from_file="config/credentials.json")
 
     app.register_blueprint(chat, url_prefix="/chat")
     app.register_blueprint(status_codes, url_prefix="/status_code")

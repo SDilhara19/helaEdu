@@ -11,20 +11,17 @@ from langchain.chains import create_history_aware_retriever
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_google_datastore import DatastoreChatMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
-from google.cloud.datastore.client import Client
 from google.cloud import datastore
 from google.oauth2 import service_account
-import os
 import json
 
 
 project_id = "helaedu-website"
 
-with open("./config/credentials.json") as source:
-    info = json.load(source)
-
+source = open("./config/credentials.json")
+info = json.load(source)
+source.close()
 db_credentials = service_account.Credentials.from_service_account_info(info)
-
 db_client = datastore.Client(project=project_id, credentials=db_credentials)
 
 
@@ -117,8 +114,7 @@ def create_chain(history_aware_retriever, llm, qa_prompt):
 
 
 def create_conversational_chain(rag_chain, session_id):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./config/credentials.json"
-    client = Client()
+
     return RunnableWithMessageHistory(
         rag_chain,
         lambda session_id: DatastoreChatMessageHistory(session_id, client=db_client),

@@ -16,14 +16,10 @@ import os
 from dotenv import load_dotenv
 import json
 
-# Disable parallelism in tokenizers
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 llm = Ollama(model="orca-mini", temperature=0)
 
-# load_dotenv()
-# openai_api_key = os.getenv("OPENAI_API_KEY")
-# llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
 
 retriever = load_vectorstore(embedding_model="all-MiniLM-L6-v2")
 
