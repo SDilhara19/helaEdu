@@ -4,7 +4,7 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 function Card() {
   return (
-    <div className="card shadow-xl">
+    <div className="subject-card shadow-xl">
       <div className="card-icon">
         <FontAwesomeIcon icon={faBook} size="5x" />{" "}
       </div>

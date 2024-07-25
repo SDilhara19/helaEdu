@@ -8,14 +8,14 @@ import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons
 import HTMLReactParser from 'html-react-parser';
  import Image from '@assets/img/articles/original.jpg';
  import Profile from '@assets/img/articles/profile.jpg';
-export default function ViewArticle({title,content,tags}) {
+
+export default function ViewArticle({title,content,tags,userName,date}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
     const parsedContent =HTMLReactParser(content);
     const toggleLike = () => {
         setIsLiked(!isLiked);
     };
-
     const toggleMark = () => {
         setIsMarked(!isMarked);
     };
@@ -27,20 +27,22 @@ export default function ViewArticle({title,content,tags}) {
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
                         <img className="w-10 h-10 rounded-full" src={Profile} alt="Rounded avatar" />
-                        <span className='text-2xl'>M.perera</span>
+                        <span className='text-2xl'>{userName}</span>
                     </div>
+                   
                     <div>
-                        <span className='text-2xl'>23/09/2024</span>
+                        <span className='text-2xl'>{date}</span>
                     </div>
                 </div>
+                <br></br>
                 {/* tags */}
-                <div className="flex justify-start m-7">
+                {/* <div className="flex justify-start m-7">
                     { tags && tags.map((tag, index) => (
                         <div key={index} className="  border-none text-gray1 text-xl px-2 py-5">
                         {tag}
                         </div>
                     ))}
-                    </div>
+                    </div> */}
 
                 <div>
                     <img className="w-99/100 h-auto " src={Image} alt="Rounded avatar" />
@@ -59,6 +61,13 @@ export default function ViewArticle({title,content,tags}) {
                         odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
                     </p> */}
                 </div>
+                <div className="flex justify-start m-7">
+                    { tags && tags.map((tag, index) => (
+                        <div key={index} className="  border-none text-gray1 text-xl px-2 py-5">
+                        {tag}
+                        </div>
+                    ))}
+                    </div>
                 <div className='flex justify-between mx-9'>
                     <div className='rounded-xl m-2'>
                         <FontAwesomeIcon icon={faFile} className='text-4xl  hover:text-yellow  cursor-pointer hover:translate-x-1' style={{ color: '#6C6C6C'}} />
@@ -67,7 +76,7 @@ export default function ViewArticle({title,content,tags}) {
                     <div className='flex justify-start'>
                         
                         <div className='relative'>
-                            <span className="absolute bottom-10 right-9 translate-x-1/2 translate-y-1/2 text-xs bg-blue2 text-white rounded-full w-6 h-6 flex items-center justify-center">12</span>
+                            <span className="absolute bottom-10 right-9 translate-x-1/2 translate-y-1/2 text-xs bg-black text-white rounded-full w-6 h-6 flex items-center justify-center">12</span>
 
                             <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-14 mx-10 relative' style={{ color: "blue", cursor: 'pointer' }} onClick={toggleLike}onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'} />

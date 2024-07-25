@@ -33,6 +33,7 @@ export default function ViewArticleMyself() {
               title={article.title}
               content={article.content}
               tags= {article.tags}
+              
             />
         </div>
         
@@ -42,12 +43,12 @@ export default function ViewArticleMyself() {
             <div className=' my-7'>
               
               <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer my-2'>Edit Your Article</h2>
-              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer'>Delete Your Article</h2>
+              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer'  >Delete Your Article</h2>
             </div>
             <h2 className='text-4xl  mt-10 mb-4'>Overview</h2>
             <hr className='border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
 
-         
+        
             <Engagment/>
             <div>
               <h2 className='text-4xl  mt-10 mb-4'>Moderator's Review</h2>

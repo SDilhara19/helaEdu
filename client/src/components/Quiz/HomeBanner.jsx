@@ -28,12 +28,12 @@ const HomeBanner = () => {
                 </div>
             </div>
             <div className='flex-col grow'>
-                <div>
+                {/* <div>
                     <div className='flex justify-end'>
                         <div className='mx-6 text-1 font-semibold'> TOTAL SCORE: 322</div>
                         <div className='mx-6 text-1 font-semibold'> CURRENT STREAK: 2</div>
                     </div>
-                </div>
+                </div> */}
                 <div className='flex-col grow'>
                     <div>
                         <div className='flex justify-end'>
@@ -53,7 +53,7 @@ const HomeBanner = () => {
                     </div>
 
                 </div>
-                <StartQuiz />
+                {/* <StartQuiz /> */}
             </div>
         </div>
     )

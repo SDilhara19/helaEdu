@@ -6,8 +6,8 @@ import { createArticle } from '@services/ArticleService';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddArticlesForm() {
-    const coverImageInputRef = useRef(null);
-    const additionalFilesInputRef = useRef(null);
+    // const coverImageInputRef = useRef(null);
+    // const additionalFilesInputRef = useRef(null);
 
     const handleUploadClick = (ref) => {
         ref.current.click();
@@ -15,43 +15,34 @@ export default function AddArticlesForm() {
 
     const [selectedTags, setSelectedTags] = useState([]);
     const [newTag, setNewTag] = useState('');
-    const predefinedTags = ['Sinhala', 'English', 'Poems','Mathematics','Science','History','Biology'];
-    // form handling
+    const predefinedTags = ['Sinhala', 'English', 'Poems', 'Mathematics', 'Science', 'History', 'Biology'];
+    
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    // const [coverImage, setCoverImage] = useState(null);
-    // const [additionalFiles, setAdditionalFiles] = useState(null);
     const navigator = useNavigate();
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
     };
 
-    const handleCoverImageChange = (e) => {
-        setCoverImage(e.target.files[0]);
-    };
-
-    const handleAdditionalFilesChange = (e) => {
-        setAdditionalFiles(e.target.files[0]);
-    };
-
-    const saveArticle = (e) => {
+    const saveArticle = async (e) => {
         e.preventDefault();
 
         const article = {
             title,
             content,
             tags: selectedTags,
-            // imageRef: coverImage ? coverImage.name : '',
-            // additionalFilesRefs: additionalFiles ? additionalFiles.name : '',
         };
-        
-        console.log(article);
-        createArticle(article).then((response) => {
+
+        try {
+            const response = await createArticle(article);
             console.log(response.data);
             navigator('/articles');
-        });
+        } catch (error) {
+            console.error('Failed to create article', error);
+        }
     };
+
     const handleSelect = (value) => {
         setSelectedTags((prevSelectedTags) => {
             if (prevSelectedTags.includes(value)) {
@@ -68,7 +59,6 @@ export default function AddArticlesForm() {
             setNewTag('');
         }
     };
-
     const isSelected = (value) => selectedTags.includes(value);
 
     return (
@@ -129,31 +119,6 @@ export default function AddArticlesForm() {
                             >
                                 <FontAwesomeIcon icon={faShare} />
                             </button>
-                        </div>
-                    </div>
-                    <div className='flex justify-between mt-10'>
-                        <div>
-                            <span className='text-3xl align-middle'>Attach Additional files</span><br />
-                            <div className='border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6'>
-                                <FontAwesomeIcon icon={faUpload} className='text-4xl justify-center' /><br />
-                                <p className='text-3xl'>Drag & drop or <span onClick={() => handleUploadClick(additionalFilesInputRef)} className='text-blue cursor-pointer'>Choose files</span> to upload</p>
-                                {/* {additionalFiles && (
-                                    <div className='text-xl'>{additionalFiles.name}</div>
-                                )} */}
-                               
-                            </div>
-                            {/* <input type="file" ref={additionalFilesInputRef} style={{ display: 'none' }}  onChange={handleAdditionalFilesChange} multiple/> */}
-                        </div>
-                        <div>
-                            <span className='text-3xl'>Upload Cover Image</span><br />
-                            <div className='border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6'>
-                                <FontAwesomeIcon icon={faUpload} className='text-4xl justify-center' /><br />
-                                <p className='text-3xl'>Drag & drop or <span onClick={() => handleUploadClick(coverImageInputRef)} className='text-blue cursor-pointer'>Choose files</span> to upload</p>
-                                {/* {coverImage && (
-                                    <div className='text-xl'>{coverImage.name}</div>
-                                )} */}
-                            </div>
-                            {/* <input type="file" ref={coverImageInputRef} style={{ display: 'none' }} onChange={handleCoverImageChange} /> */}
                         </div>
                     </div>
                 </div>
