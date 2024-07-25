@@ -33,4 +33,5 @@ public class TeacherDto {
 
     private String role;
     private boolean emailVerified;
+    private String profilePictureUrl;
 }

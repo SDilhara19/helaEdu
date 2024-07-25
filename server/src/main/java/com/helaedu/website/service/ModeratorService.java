@@ -45,7 +45,8 @@ public class ModeratorService {
                 Instant.now().toString(),
                 true,
                 teacherDto.getProofRef(),
-                "ROLE_MODERATOR"
+                "ROLE_MODERATOR",
+                null
         );
         teacherDto.setUserId(moderator.getUserId());
 
@@ -87,7 +88,8 @@ public class ModeratorService {
                                 moderator.getIsModerator(),
                                 moderator.getProofRef(),
                                 moderator.getRole(),
-                                moderator.isEmailVerified()
+                                moderator.isEmailVerified(),
+                                moderator.getProfilePictureUrl()
                         )
                 )
                 .collect(Collectors.toList());
@@ -106,7 +108,8 @@ public class ModeratorService {
                     moderator.getIsModerator(),
                     moderator.getProofRef(),
                     moderator.getRole(),
-                    moderator.isEmailVerified()
+                    moderator.isEmailVerified(),
+                    moderator.getProfilePictureUrl()
             );
         }
         return null;

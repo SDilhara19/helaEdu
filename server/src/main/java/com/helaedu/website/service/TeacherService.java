@@ -53,7 +53,8 @@ public class TeacherService {
                 Instant.now().toString(),
                 false,
                 teacherDto.getProofRef(),
-                "ROLE_TEACHER"
+                "ROLE_TEACHER",
+                null
         );
         teacherDto.setUserId(teacher.getUserId());
 
@@ -109,7 +110,8 @@ public class TeacherService {
                                 teacher.getIsModerator(),
                                 teacher.getProofRef(),
                                 teacher.getRole(),
-                                teacher.isEmailVerified()
+                                teacher.isEmailVerified(),
+                                teacher.getProfilePictureUrl()
                         )
                 )
                 .collect(Collectors.toList());
@@ -128,7 +130,8 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl()
             );
         }
         return null;
@@ -147,7 +150,8 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl()
             );
         }
         return null;
