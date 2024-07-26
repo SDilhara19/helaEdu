@@ -50,7 +50,7 @@ const Articles = () => {
               <Link to={`/readArticles/${article.articleId}`}>
                 <ArticleCard
                   key={article.articleId}
-                  // imageUrl={article.imageRef}
+                  imageUrl={article.imageRef}
                   // authorImageUrl={article.authorImageUrl}
                   authorName={article.authorName}
                   date={article.publishedTimestamp}

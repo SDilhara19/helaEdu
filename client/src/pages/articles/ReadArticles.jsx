@@ -52,6 +52,7 @@ export default function ReadArticle() {
                         tags={article.tags}
                         userName={article.authorName}
                         date={article.publishedTimestamp}
+                        imageRef={article.imageRef}
                     />
                 </div>
                 <div className="m-12 w-3/12">

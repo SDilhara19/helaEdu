@@ -8,8 +8,8 @@ import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons
 import HTMLReactParser from 'html-react-parser';
  import Image from '@assets/img/articles/original.jpg';
  import Profile from '@assets/img/articles/profile.jpg';
-
-export default function ViewArticle({title,content,tags,userName,date}) {
+import Default from'@assets/img/articles/defaultArticle.jpg';
+export default function ViewArticle({title,content,tags,userName,date,imageRef}) {
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
     const parsedContent =HTMLReactParser(content);
@@ -26,6 +26,7 @@ export default function ViewArticle({title,content,tags,userName,date}) {
                 <h1 className='text-5xl'>{title}</h1>
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
+                        
                         <img className="w-10 h-10 rounded-full" src={Profile} alt="Rounded avatar" />
                         <span className='text-2xl'>{userName}</span>
                     </div>
@@ -45,7 +46,12 @@ export default function ViewArticle({title,content,tags,userName,date}) {
                     </div> */}
 
                 <div>
-                    <img className="w-99/100 h-auto " src={Image} alt="Rounded avatar" />
+                {imageRef ?(
+                           <img className="w-99/100 h-auto " src={imageRef} alt="Rounded avatar" />  
+                        ):(
+                            <img className="w-99/100 h-auto " src={Default} alt="Rounded avatar" />
+                        )}
+                   
                 </div>
                 
                 <div className='text-xl mt-10'>

@@ -24,7 +24,6 @@ import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import Notifications from "@pages/admin/Notifications";
 import ReviewQuiz from "@pages/quizes/ReviewQuiz";
 import ReviewQuizList from "@pages/quizes/ReviewQuizList";
-
 import ApproveTeachers from "@pages/admin/ApproveTeachers";
 import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
