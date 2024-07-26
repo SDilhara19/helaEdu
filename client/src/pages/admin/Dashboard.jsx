@@ -47,22 +47,29 @@ const Dashboard = () => {
             </div>
            <div>
            <div className="flex justify-end mx-24 mt-10 mb-14">
+           <div
+                className={`relative mx-14 cursor-pointer ${active === 'all' ? 'active' : ''}`}
+                onClick={() => handleClick('all')}
+              >
+                <p className="text-2xl">All</p>
+                <div className={`underline ${active === 'all' ? 'visible' : ''}`}></div>
+              </div>
               <div
-                className={`relative mx-20 cursor-pointer ${active === 'teachers' ? 'active' : ''}`}
+                className={`relative mx-14 cursor-pointer ${active === 'teachers' ? 'active' : ''}`}
                 onClick={() => handleClick('teachers')}
               >
                 <p className="text-2xl">Teachers</p>
                 <div className={`underline ${active === 'teachers' ? 'visible' : ''}`}></div>
               </div>
               <div
-                className={`relative mx-20 cursor-pointer ${active === 'students' ? 'active' : ''}`}
+                className={`relative mx-14 cursor-pointer ${active === 'students' ? 'active' : ''}`}
                 onClick={() => handleClick('students')}
               >
                 <p className="text-2xl">Students</p>
                 <div className={`underline ${active === 'students' ? 'visible' : ''}`}></div>
               </div>
               <div
-                className={`relative mx-20 cursor-pointer ${active === 'moderators' ? 'active' : ''}`}
+                className={`relative mx-14 cursor-pointer ${active === 'moderators' ? 'active' : ''}`}
                 onClick={() => handleClick('moderators')}
               >
                 <p className="text-2xl">Moderators</p>

@@ -31,6 +31,7 @@ import Subject from "@pages/subjects/Subject";
 import UserManagement from "@components/admin/Card";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
+
 function App() {
   return (
     <div>
@@ -66,6 +67,7 @@ function App() {
         <Route path="/Settings" element={<Settings/>}></Route>
         <Route path="/Reports" element={<Reports/>}></Route>
         <Route path="/subject" element={<Subject />} />
+      
       </Routes>
     </div>
   );
