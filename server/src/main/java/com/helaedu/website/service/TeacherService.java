@@ -53,7 +53,12 @@ public class TeacherService {
                 Instant.now().toString(),
                 false,
                 teacherDto.getProofRef(),
-                "ROLE_TEACHER"
+                "ROLE_TEACHER",
+                null,
+                false,
+                null,
+                teacherDto.getPreferredSubjects(),
+                null
         );
         teacherDto.setUserId(teacher.getUserId());
 
@@ -66,7 +71,7 @@ public class TeacherService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail(), "teachers");
         return teacherRepository.createTeacher(teacher);
     }
 
@@ -109,10 +114,38 @@ public class TeacherService {
                                 teacher.getIsModerator(),
                                 teacher.getProofRef(),
                                 teacher.getRole(),
-                                teacher.isEmailVerified()
+                                teacher.isEmailVerified(),
+                                teacher.getProfilePictureUrl(),
+                                teacher.isApproved(),
+                                teacher.getAbout(),
+                                teacher.getPreferredSubjects(),
+                                teacher.getSchool()
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    public List<TeacherDto> getAllTeachers(int page) throws ExecutionException, InterruptedException {
+        List<Teacher> teachers = teacherRepository.getAllTeachers(page);
+        return teachers.stream().map(teacher ->
+                new TeacherDto(
+                        teacher.getUserId(),
+                        teacher.getFirstName(),
+                        teacher.getLastName(),
+                        teacher.getEmail(),
+                        teacher.getPassword(),
+                        teacher.getRegTimestamp(),
+                        teacher.getIsModerator(),
+                        teacher.getProofRef(),
+                        teacher.getRole(),
+                        teacher.isEmailVerified(),
+                        teacher.getProfilePictureUrl(),
+                        teacher.isApproved(),
+                        teacher.getAbout(),
+                        teacher.getPreferredSubjects(),
+                        teacher.getSchool()
+                )
+        ).collect(Collectors.toList());
     }
 
     public TeacherDto getTeacher(String userId) throws ExecutionException, InterruptedException {
@@ -128,7 +161,12 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;
@@ -147,7 +185,12 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;
@@ -196,5 +239,9 @@ public class TeacherService {
 
     public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
         return teacherRepository.promoteToModerator(userId);
+    }
+
+    public String approveTeacher(String userId) throws ExecutionException, InterruptedException {
+        return teacherRepository.approveTeacher(userId);
     }
 }

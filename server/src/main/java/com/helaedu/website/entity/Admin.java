@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Admin extends User{
-    private String profilePictureUrl;
     public Admin(String userId, String firstName, String lastName, String email, String password, String regTimestamp, String role, String profilePictureUrl) {
         super.setUserId(userId);
         super.setFirstName(firstName);
@@ -17,6 +16,6 @@ public class Admin extends User{
         super.setPassword(password);
         super.setRegTimestamp(regTimestamp);
         super.setRole(role);
-        setProfilePictureUrl(profilePictureUrl);
+        super.setProfilePictureUrl(profilePictureUrl);
     }
 }
