@@ -31,7 +31,7 @@ import Subject from "@pages/subjects/Subject";
 import UserManagement from "@components/admin/Card";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
-
+import EditArticle from "@pages/articles/EditArticle";
 function App() {
   return (
     <div>
@@ -67,7 +67,7 @@ function App() {
         <Route path="/Settings" element={<Settings/>}></Route>
         <Route path="/Reports" element={<Reports/>}></Route>
         <Route path="/subject" element={<Subject />} />
-      
+        <Route path="/editArticle" element={<EditArticle />} />
       </Routes>
     </div>
   );

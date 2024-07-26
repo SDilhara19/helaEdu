@@ -3,7 +3,7 @@ import React from 'react'
 import ViewArticle from '@components/articles/ViewArticle'
 import Engagment from '@components/articles/Engagment';
 import { Footer } from '@components/common';
-
+import { Link } from 'react-router-dom';
 export default function ViewArticleMyself() {
     // const { articleId } = 'ar41ae2a1b-b621-4982-8b52-2482de440bd2';
     // const [article, setArticle] = useState(null);
@@ -41,9 +41,11 @@ export default function ViewArticleMyself() {
             <h2 className='text-4xl  mt-10 mb-4'>Actions</h2>
             <hr className='border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
             <div className=' my-7'>
-              
-              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer my-2'>Edit Your Article</h2>
-              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer'   onClick>Delete Your Article</h2>
+              <Link to="/editArticle">
+                <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer my-2'>Edit Your Article</h2>
+              </Link>
+              {/* <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer my-2'>Edit Your Article</h2> */}
+              <h2 className='text-3xl text-gray1 hover:text-blue cursor-pointer'  >Delete Your Article</h2>
             </div>
             <h2 className='text-4xl  mt-10 mb-4'>Overview</h2>
             <hr className='border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>

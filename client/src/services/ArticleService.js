@@ -5,7 +5,6 @@ const APPROVE_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/ap
 const PENDING_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/pending`
 const CREATE_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/create`
 
-
 export const listArticles=()=>axios.get(REST_API_BASE_URL);
 export const listArticlesByTeacher =() => axios.get(`${TEACHER_ARTICLE_URL}/${userId}/articles`);
 export const approvedArticles=()=>axios.get(APPROVE_ARTICLE_URL);
