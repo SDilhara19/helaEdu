@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,8 +16,27 @@ public class Teacher extends User{
     private String proofRef;
 //    private String school;
     private String role;
+    private boolean approved;
+    private String about;
+    private ArrayList<String> preferredSubjects;
+    private String school;
 
-    public Teacher(String userId, String firstName, String lastName, String email, String password, String regTimestamp, Boolean isModerator, String proofRef, String role) {
+    public Teacher(
+            String userId,
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            String regTimestamp,
+            Boolean isModerator,
+            String proofRef,
+            String role,
+            String profilePictureUrl,
+            boolean approved,
+            String about,
+            ArrayList<String> preferredSubjects,
+            String school
+    ) {
         super.setUserId(userId);
         super.setFirstName(firstName);
         super.setLastName(lastName);
@@ -25,6 +46,10 @@ public class Teacher extends User{
         this.isModerator = isModerator;
         this.proofRef = proofRef;
         this.role = role;
-//        this.school=school;
+        super.setProfilePictureUrl(profilePictureUrl);
+        this.approved = approved;
+        this.about = about;
+        this.preferredSubjects = preferredSubjects;
+        this.school = school;
     }
 }
