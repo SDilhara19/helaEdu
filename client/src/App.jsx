@@ -26,6 +26,9 @@ import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
 import Dashboard from "@pages/admin/Dashboard";
 import Notifications from "@pages/admin/Notifications";
+import ReviewQuiz from "@pages/quizes/ReviewQuiz";
+import ReviewQuizList from "@pages/quizes/ReviewQuizList";
+
 
 import ApproveTeachers from "@pages/admin/approveTeachers";
 import TopTeachers from "@pages/admin/TopTeachers";
@@ -83,6 +86,13 @@ function App() {
         ></Route>
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
 
+        <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/ModeratorDetails" element={<ModeratorDetails/>}></Route>
+        <Route path="/ModeratorManagement" element={<ModeratorManagement/>}></Route>
+        <Route path="/Notifications" element={<Notifications/>}></Route>
+        <Route path="/reviewQuiz" element={<ReviewQuiz/>}></Route>
+        <Route path="/reviewQuizList" element={<ReviewQuizList/>}></Route>
+
         <Route path="/quizFormat" element={<QuizFormat />}></Route>
         <Route path="/chat" element={<Chat />}></Route>
 
@@ -101,6 +111,7 @@ function App() {
         <Route path="/ViewMyArticles/1" element={<ViewArticleMyself />}></Route>
         <Route path="/SubjectCatalog" element={<SubjectCatalog />}></Route>
         <Route path="/subject" element={<Subject />}></Route>
+
       </Routes>
     </div>
   );
