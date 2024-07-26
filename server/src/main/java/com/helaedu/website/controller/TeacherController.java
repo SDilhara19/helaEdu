@@ -76,11 +76,9 @@ public class TeacherController {
 //        return ResponseEntity.ok(teachers);
 //    }
 
-    @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllTeachers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) throws ExecutionException, InterruptedException {
-        List<TeacherDto> teachers = teacherService.getAllTeachers(page, size);
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<TeacherDto>> getAllTeachers(@PathVariable int page) throws ExecutionException, InterruptedException {
+        List<TeacherDto> teachers = teacherService.getAllTeachers(page);
         return ResponseEntity.ok(teachers);
     }
 

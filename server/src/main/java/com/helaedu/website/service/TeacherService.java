@@ -55,7 +55,10 @@ public class TeacherService {
                 teacherDto.getProofRef(),
                 "ROLE_TEACHER",
                 null,
-                false
+                false,
+                null,
+                teacherDto.getPreferredSubjects(),
+                null
         );
         teacherDto.setUserId(teacher.getUserId());
 
@@ -68,7 +71,7 @@ public class TeacherService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail(), "teachers");
         return teacherRepository.createTeacher(teacher);
     }
 
@@ -113,14 +116,17 @@ public class TeacherService {
                                 teacher.getRole(),
                                 teacher.isEmailVerified(),
                                 teacher.getProfilePictureUrl(),
-                                teacher.isApproved()
+                                teacher.isApproved(),
+                                teacher.getAbout(),
+                                teacher.getPreferredSubjects(),
+                                teacher.getSchool()
                         )
                 )
                 .collect(Collectors.toList());
     }
 
-    public List<TeacherDto> getAllTeachers(int page, int size) throws ExecutionException, InterruptedException {
-        List<Teacher> teachers = teacherRepository.getAllTeachers(page, size);
+    public List<TeacherDto> getAllTeachers(int page) throws ExecutionException, InterruptedException {
+        List<Teacher> teachers = teacherRepository.getAllTeachers(page);
         return teachers.stream().map(teacher ->
                 new TeacherDto(
                         teacher.getUserId(),
@@ -134,7 +140,10 @@ public class TeacherService {
                         teacher.getRole(),
                         teacher.isEmailVerified(),
                         teacher.getProfilePictureUrl(),
-                        teacher.isApproved()
+                        teacher.isApproved(),
+                        teacher.getAbout(),
+                        teacher.getPreferredSubjects(),
+                        teacher.getSchool()
                 )
         ).collect(Collectors.toList());
     }
@@ -154,7 +163,10 @@ public class TeacherService {
                     teacher.getRole(),
                     teacher.isEmailVerified(),
                     teacher.getProfilePictureUrl(),
-                    teacher.isApproved()
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;
@@ -175,7 +187,10 @@ public class TeacherService {
                     teacher.getRole(),
                     teacher.isEmailVerified(),
                     teacher.getProfilePictureUrl(),
-                    teacher.isApproved()
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;

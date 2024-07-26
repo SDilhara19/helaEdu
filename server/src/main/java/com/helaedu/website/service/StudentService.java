@@ -81,7 +81,7 @@ public class StudentService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
+        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail(), "students");
         return studentRepository.createStudent(student);
     }
 
@@ -131,8 +131,8 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    public List<StudentDto> getAllStudents(int page, int size) throws ExecutionException, InterruptedException {
-        List<Student> students = studentRepository.getAllStudents(page, size);
+    public List<StudentDto> getAllStudents(int page) throws ExecutionException, InterruptedException {
+        List<Student> students = studentRepository.getAllStudents(page);
         return students.stream().map(student ->
                 new StudentDto(
                         student.getUserId(),

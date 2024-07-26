@@ -58,11 +58,9 @@ public class ModeratorController {
 //        return ResponseEntity.ok(moderators);
 //    }
 
-    @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllModerators(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) throws ExecutionException, InterruptedException {
-        List<TeacherDto> moderators = moderatorService.getAllModerators(page, size);
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<TeacherDto>> getAllModerators(@PathVariable int page) throws ExecutionException, InterruptedException {
+        List<TeacherDto> moderators = moderatorService.getAllModerators(page);
         return ResponseEntity.ok(moderators);
     }
 

@@ -29,11 +29,11 @@ public class EmailVerificationService {
         this.studentRepository = studentRepository;
     }
 
-    public void sendVerificationEmail(String userId, String email) throws FirebaseAuthException {
+    public void sendVerificationEmail(String userId, String email, String userRole) throws FirebaseAuthException {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         ActionCodeSettings actionCodeSettings = ActionCodeSettings.builder()
-                .setUrl(appUrl + "/verify-email?uid=" + userId)
+                .setUrl(appUrl + userRole + "/verify-email?uid=" + userId)
                 .setHandleCodeInApp(true)
                 .build();
 

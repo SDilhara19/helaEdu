@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,12 +29,12 @@ public class TeacherDto {
 
     private String regTimestamp;
     private Boolean isModerator;
-
-    @NotEmpty(message = "Proof is required")
     private String proofRef;
-
     private String role;
     private boolean emailVerified;
     private String profilePictureUrl;
     private boolean approved;
+    private String about;
+    private ArrayList<String> preferredSubjects;
+    private String school;
 }

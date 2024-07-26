@@ -38,7 +38,10 @@ public class TMService {
                     tm.getRole(),
                     tm.isEmailVerified(),
                     tm.getProfilePictureUrl(),
-                    tm.isApproved()
+                    tm.isApproved(),
+                    tm.getAbout(),
+                    tm.getPreferredSubjects(),
+                    tm.getSchool()
             );
         }
         return null;
@@ -59,7 +62,10 @@ public class TMService {
                     tm.getRole(),
                     tm.isEmailVerified(),
                     tm.getProfilePictureUrl(),
-                    tm.isApproved()
+                    tm.isApproved(),
+                    tm.getAbout(),
+                    tm.getPreferredSubjects(),
+                    tm.getSchool()
             );
         }
         return null;

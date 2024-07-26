@@ -47,7 +47,10 @@ public class ModeratorService {
                 teacherDto.getProofRef(),
                 "ROLE_MODERATOR",
                 null,
-                false
+                false,
+                null,
+                teacherDto.getPreferredSubjects(),
+                null
         );
         teacherDto.setUserId(moderator.getUserId());
 
@@ -60,7 +63,7 @@ public class ModeratorService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail(), "moderators");
         return moderatorRepository.createModerator(moderator);
     }
 
@@ -91,14 +94,17 @@ public class ModeratorService {
                                 moderator.getRole(),
                                 moderator.isEmailVerified(),
                                 moderator.getProfilePictureUrl(),
-                                moderator.isApproved()
+                                moderator.isApproved(),
+                                moderator.getAbout(),
+                                moderator.getPreferredSubjects(),
+                                moderator.getSchool()
                         )
                 )
                 .collect(Collectors.toList());
     }
 
-    public List<TeacherDto> getAllModerators(int page, int size) throws ExecutionException, InterruptedException {
-        List<Teacher> moderators = moderatorRepository.getAllModerators(page, size);
+    public List<TeacherDto> getAllModerators(int page) throws ExecutionException, InterruptedException {
+        List<Teacher> moderators = moderatorRepository.getAllModerators(page);
         return moderators.stream().map(moderator ->
                 new TeacherDto(
                         moderator.getUserId(),
@@ -112,7 +118,10 @@ public class ModeratorService {
                         moderator.getRole(),
                         moderator.isEmailVerified(),
                         moderator.getProfilePictureUrl(),
-                        moderator.isApproved()
+                        moderator.isApproved(),
+                        moderator.getAbout(),
+                        moderator.getPreferredSubjects(),
+                        moderator.getSchool()
                 )
         ).collect(Collectors.toList());
     }
@@ -132,7 +141,10 @@ public class ModeratorService {
                     moderator.getRole(),
                     moderator.isEmailVerified(),
                     moderator.getProfilePictureUrl(),
-                    moderator.isApproved()
+                    moderator.isApproved(),
+                    moderator.getAbout(),
+                    moderator.getPreferredSubjects(),
+                    moderator.getSchool()
             );
         }
         return null;

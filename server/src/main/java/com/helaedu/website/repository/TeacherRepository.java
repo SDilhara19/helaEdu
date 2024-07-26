@@ -33,7 +33,9 @@ public class TeacherRepository {
         return teachers;
     }
 
-    public List<Teacher> getAllTeachers(int page, int size) throws ExecutionException, InterruptedException {
+    public List<Teacher> getAllTeachers(int page) throws ExecutionException, InterruptedException {
+        int size = 10;
+
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference teachersCollection = dbFirestore.collection("teachers");
 

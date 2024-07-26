@@ -32,7 +32,9 @@ public class ModeratorRepository {
         return moderators;
     }
 
-    public List<Teacher> getAllModerators(int page, int size) throws ExecutionException, InterruptedException {
+    public List<Teacher> getAllModerators(int page) throws ExecutionException, InterruptedException {
+        int size = 10;
+
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference moderatorsCollection = dbFirestore.collection("teachers");
 
