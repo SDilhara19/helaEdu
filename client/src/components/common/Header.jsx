@@ -104,9 +104,9 @@ function Header() {
                   </ul>
                 </div>
               </div>
-              <DarkModeProvider>
+              {/* <DarkModeProvider>
                 <DarkModeToggle />
-              </DarkModeProvider>
+              </DarkModeProvider> */}
             </div>
           ) : (
             <div className="auth-control">
