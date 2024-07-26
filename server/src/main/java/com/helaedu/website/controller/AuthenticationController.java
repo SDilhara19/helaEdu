@@ -2,12 +2,14 @@ package com.helaedu.website.controller;
 
 import com.helaedu.website.dto.AuthenticationRequest;
 import com.helaedu.website.dto.AuthenticationResponse;
+import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.CustomUserDetailsService;
 import com.helaedu.website.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,16 +41,26 @@ public class AuthenticationController {
                     .loadUserByUsername(authenticationRequest.getEmail());
 
             if (userDetails == null) {
-                return new ResponseEntity<>("Email not verified", HttpStatus.UNAUTHORIZED);
+                ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+                errorResponse.addViolation("email", "Email not verified");
+                return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
             }
 
             final String jwt = jwtTokenUtil.generateToken(userDetails);
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
         } catch (UsernameNotFoundException e) {
-            return new ResponseEntity<>("Email not verified", HttpStatus.UNAUTHORIZED);
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("email", "Email not verified");
+            return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        } catch (BadCredentialsException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("password", "Incorrect username or password");
+            return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("error", "Authentication failed");
+            return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         }
     }
 }

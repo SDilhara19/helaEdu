@@ -47,7 +47,26 @@
   }
   
   .edit-profile-modal .submit-button:hover {
-    background: #0056b3;
+    background: $primary-color;
   }
+
+  .underline {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background-color: $secondary-color;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .active .underline {
+    width: 100%;
+  }
+  
+  .visible {
+    width: 100%;
+  }
+  
  
   

@@ -35,3 +35,4 @@ export default {
   plugins: [require("daisyui")],
   darkMode: "class", // Enable dark mode support
 };
+

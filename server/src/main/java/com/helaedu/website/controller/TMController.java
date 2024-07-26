@@ -8,7 +8,9 @@ import com.helaedu.website.service.TMService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -23,6 +25,21 @@ public class TMController {
         this.articleService = articleService;
         this.tmService = tmService;
     }
+
+
+    @PostMapping("/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
+        try {
+            String profilePictureUrl = tmService.uploadProfilePicture(email, profilePicture);
+            return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @GetMapping("/{userId}/articles")
     public ResponseEntity<List<ArticleDto>> getAllArticlesByUser(@PathVariable String userId) throws ExecutionException, InterruptedException {
         List<ArticleDto> articles = articleService.getArticlesByUser(userId);
