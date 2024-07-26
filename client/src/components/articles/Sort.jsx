@@ -6,7 +6,7 @@ export default function Sort() {
   return (
     <div>
       <div className='flex space-x-4 text-sm'>
-            <span className='text-gray text-3xl'>Sort By</span>
+            <span className='text-gray text-xl'>Sort By</span>
             <button className='text-3xl px-6 py-2 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
               All
             </button>

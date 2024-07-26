@@ -1,5 +1,5 @@
 from fireo.models import Model
-from fireo.fields import TextField, NumberField, BooleanField, IDField
+from fireo.fields import TextField
 
 
 class Student(Model):

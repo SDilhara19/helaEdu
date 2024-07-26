@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Teacher extends User{
     private Boolean isModerator;
     private String proofRef;
+//    private String school;
     private String role;
     private boolean approved;
     private String about;

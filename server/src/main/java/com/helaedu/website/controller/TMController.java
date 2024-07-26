@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 public class TMController {
     private final ArticleService articleService;
     private final TMService tmService;
-
     public TMController(ArticleService articleService, TMService tmService) {
         this.articleService = articleService;
         this.tmService = tmService;
@@ -44,7 +43,6 @@ public class TMController {
         List<ArticleDto> articles = articleService.getArticlesByUser(userId);
         return ResponseEntity.ok(articles);
     }
-
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
         TeacherDto teacherDto = tmService.getTM(userId);
@@ -56,7 +54,6 @@ public class TMController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping("/by-email")
     public ResponseEntity<Object> getTeacherByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");

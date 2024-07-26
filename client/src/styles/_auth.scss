@@ -3,21 +3,52 @@
     width: 100%;
     display: flex;
 
-    .login-left-pannel {
+
+    .form-header {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        margin-bottom: 0;
+
+
+        h3.active {
+            color: $secondary-color;
+            border-bottom: 2px solid $secondary-color;
+        }
+
+        h3 {
+            cursor: pointer;
+            flex-grow: 1;
+            color: $gray-color;
+            border-bottom: 2px solid $gray-color;
+            padding: 0.25rem 1rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+    }
+
+    .form-wrapper {
+        margin: 0.75rem;
+        width: 100%;
+
+    }
+
+    .left-pannel {
         width: 50%;
 
-        .login-details {
+        .details {
             width: 60%;
         }
 
-
-        h2 {
-            color: $secondary-color;
+        .placeholder {
+            padding: 2.1rem;
         }
 
     }
 
-    .login-right-pannel {
+    .right-pannel {
         width: 60%;
         position: relative;
         z-index: 0;
@@ -31,51 +62,12 @@
             text-align: center;
         }
 
-        .login-banner {
+        .banner {
             width: 70%;
         }
     }
 
-    .login-banner-image {
-        transform: scale(1.2);
-        position: absolute;
-        bottom: 0;
-        z-index: -1;
-    }
-
-    .signup-left-pannel {
-        width: 50%;
-
-        .signup-details {
-            width: 70%;
-        }
-
-
-        h2 {
-            color: $secondary-color;
-        }
-    }
-
-    .signup-right-pannel {
-        width: 60%;
-        position: relative;
-        z-index: 0;
-        background: $primary-color;
-        color: $white-color;
-        border-top-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-        overflow: hidden;
-
-        p {
-            text-align: center;
-        }
-
-        .signup-banner {
-            width: 70%;
-        }
-    }
-
-    .signup-banner-image {
+    .banner-image {
         transform: scale(1.2);
         position: absolute;
         bottom: 0;
@@ -100,12 +92,13 @@
     .input-wrapper {
         margin: 0.2rem;
         padding: 0 0.5rem;
+        border-bottom: 2px solid $gray-color;
+
 
         input {
             border: none;
         }
 
-        border-bottom: 2px solid $gray-color;
 
         svg {
             margin: 0.125rem;
@@ -113,6 +106,13 @@
 
         &:focus {
             color: $primary-color;
+        }
+
+    }
+
+    .floating-input-label {
+        input {
+            padding: 4px 0;
         }
     }
 }

@@ -5,9 +5,9 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 export default function AddArticleBtn() {
   return (
     <div>
-      <div className='items-center flex justify-center mt-5'>
-        <button className="px-6 py-2   border border-blue hover:bg-yellow hover:text-white rounded-3xl">
-            Add your articles <FontAwesomeIcon icon={faCaretRight} className="text-yellow hover:text-white text-lg size-10" />
+      <div className='items-center flex justify-center mt-5 '>
+        <button className="px-10 py-4 p-2  border border-blue bg-blue rounded-2xl text-3xl text-black">
+            Add your article   +
         </button>
     </div>
     </div>

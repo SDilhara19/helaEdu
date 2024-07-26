@@ -1,9 +1,15 @@
+$small-text: 0.875rem;
+$normal-text: 1.25rem;
+$big-text: 2.5rem;
+$large-text: 3.75rem;
 $header1: 2.5rem;
-$header2: 3rem;
+$header2: $large-text;
 $header3: 2.5rem;
 $header4: 1.75rem;
 $header5: 1.5rem;
 $text: 2.5rem;
+
+
 * {
     margin: 0;
     padding: 0;
