@@ -22,6 +22,9 @@ import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
 // import ModeratorManagement from "@pages/admin/ModeratorManagement";
 import Notifications from "@pages/admin/Notifications";
+import ReviewQuiz from "@pages/quizes/ReviewQuiz";
+import ReviewQuizList from "@pages/quizes/ReviewQuizList";
+
 import ApproveTeachers from "@pages/admin/ApproveTeachers";
 import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
@@ -63,9 +66,9 @@ function App() {
         <Route path="/topTeachers" element={<TopTeachers />} />
         <Route path="/viewMyArticles/1" element={<ViewArticleMyself />} />
         <Route path="/subjectCatalog" element={<SubjectCatalog />} />
-        <Route path="/UserManagement" element={<UserManagement/>}></Route>
-        <Route path="/Settings" element={<Settings/>}></Route>
-        <Route path="/Reports" element={<Reports/>}></Route>
+        <Route path="/UserManagement" element={<UserManagement />}></Route>
+        <Route path="/Settings" element={<Settings />}></Route>
+        <Route path="/Reports" element={<Reports />}></Route>
         <Route path="/subject" element={<Subject />} />
         <Route path="/editArticle" element={<EditArticle />} />
       </Routes>
