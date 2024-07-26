@@ -1,0 +1,22 @@
+.subject-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 2.5rem;
+    min-height: 25rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    background: $white-color;
+
+    &:hover {
+        color: $white-color;
+        background: $primary-color;
+
+        svg {
+            color: $white-color;
+        }
+
+
+    }
+
+}

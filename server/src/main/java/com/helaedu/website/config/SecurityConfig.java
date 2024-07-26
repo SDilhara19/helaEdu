@@ -40,9 +40,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/students/**").hasAnyRole("STUDENT", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/students/verify-email").permitAll()
                         .requestMatchers(HttpMethod.GET, "/students/**").authenticated()
-
-                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/approve").hasRole("MODERATOR")
-                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/decline").hasRole("MODERATOR")
+                                .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/approve").permitAll()
+//                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/approve").hasRole("MODERATOR")
+                                .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/decline").permitAll()
+//                        .requestMatchers(HttpMethod.PUT, "/articles/{articleId}/decline").hasRole("MODERATOR")
                         .requestMatchers(HttpMethod.PUT, "/articles/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/articles/**").permitAll()
 //                        .requestMatchers(HttpMethod.POST, "/articles/**").hasAnyRole("TEACHER", "MODERATOR")
@@ -61,7 +62,9 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
-                        .anyRequest().permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/files/teacher-proof").hasRole("ADMIN")
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);

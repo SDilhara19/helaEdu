@@ -30,3 +30,15 @@
 docker-compose.yml
 compose.yml
 */__pycache__
+*/__pycache__/*
+
+
+*/.env
+/textbooks
+__pycache__/
+
+*/activate.bat
+*/Activate.ps1
+*.pyc 
+__pycache__/
+*/*/__pycache__/*

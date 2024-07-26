@@ -25,9 +25,9 @@ public class AssignmentService {
 
         String assignmentId = UniqueIdGenerator.generateUniqueId("as", assignmentRepository::exists);
 
-        LocalDateTime publishedTimestamp = assignmentDto.getPublishedTimestamp() != null ?
-                assignmentDto.getPublishedTimestamp() :
-                LocalDateTime.now();
+//        LocalDateTime publishedTimestamp = assignmentDto.getPublishedTimestamp() != null ?
+//                assignmentDto.getPublishedTimestamp() :
+//                LocalDateTime.now();
 
         Assignment assignment = new Assignment(
                 assignmentId,
@@ -36,7 +36,7 @@ public class AssignmentService {
                 assignmentDto.getInstructions(),
                 assignmentDto.getNoOfQuestions(),
                 assignmentDto.getTotalTime(),
-                publishedTimestamp,
+                assignmentDto.getPublishedTimestamp(),
                 assignmentDto.getUserId(),
 
                 new ArrayList<>()
@@ -56,7 +56,7 @@ public class AssignmentService {
                                 assignment.getInstructions(),
                                 assignment.getNoOfQuestions(),
                                 assignment.getTotalTime(),
-                                assignment.getPublishedTimestamp(),
+                                assignment.getPublishedTimestamp().toString(),
                                 assignment.getUserId(),
                                 assignment.getQuizzes().stream()
                                         .map(quiz -> new AssignmentQuizDto(

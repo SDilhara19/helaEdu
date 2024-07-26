@@ -20,72 +20,102 @@ function Header() {
         </div>
         <nav className="flex-grow flex-sa z-1">
           <div className="nav-link-wrapper flex-sa">
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Home</h4>
-            </a>
-            <Link to="/articles">
-              <a className="nav-text flex-c m-4 cursor-pointer">
-                <h4>Categories</h4>
-              </a>
+            <Link to="/">
+              <div className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Home</h4>
+              </div>
+            </Link>
+            <Link to="/SubjectCatalog">
+              <div className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Subject</h4>
+              </div>
             </Link>
             <Link to="/quiz">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Quiz</h4>
-              </a>
+              </div>
             </Link>
             <Link to="/articles">
-              <a className="nav-text flex-c m-4 cursor-pointer">
+              <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
+              </div>
+            </Link>
+            <Link to="/leaderboard/1">
+              <a className="nav-text flex-c m-4 cursor-pointer">
+                <h4>Leaderboard</h4>
               </a>
             </Link>
-            <a className="nav-text flex-c m-4 cursor-pointer">
-              <h4>Leaderboard</h4>
-            </a>
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
-              <div className="flex-c">
-                <FontAwesomeIcon
-                  className="notification-bell"
-                  icon={faBell}
-                  size="3x"
-                />
+              <div className="dropdown-wrapper">
+                <div className="dropdown dropdown-end">
+                  <div className="flex-c">
+                    <FontAwesomeIcon
+                      tabIndex="0"
+                      role="button"
+                      icon={faBell}
+                      size="3x"
+                      className="notification-bell"
+                    />
+                  </div>
+                  <ul tabIndex="0" className="menu dropdown-content shadow">
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div className="profile-icon flex-c">
-                <FontAwesomeIcon icon={faUser} size="3x" />
+              <div className="dropdown-wrapper">
+                <div className="dropdown dropdown-end">
+                  <div className="profile-icon flex-c">
+                    <FontAwesomeIcon
+                      tabIndex="0"
+                      role="button"
+                      icon={faUser}
+                      size="3x"
+                    />
+                  </div>
+                  <ul tabIndex="0" className="menu dropdown-content shadow">
+                    <li>
+                      <h4>Profile</h4>
+                    </li>
+                    <li>
+                      <h4>Grades</h4>
+                    </li>
+                    <li>
+                      <h4
+                        onClick={() => {
+                          signOut();
+                          window.location.reload();
+                        }}
+                      >
+                        Log out
+                      </h4>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <ul className="dropdown-wrapper">
-                <li>
-                  <h4>Profile</h4>
-                </li>
-                <li>
-                  <h4>Grades</h4>
-                </li>
-                <li>
-                  <h4
-                    onClick={() => {
-                      signOut();
-                      window.location.reload();
-                    }}
-                  >
-                    Log out
-                  </h4>
-                </li>
-              </ul>
             </div>
           ) : (
             <div className="auth-control">
               <Link
                 className="btn white-button"
                 to="/auth"
-                state={{ authType: "login" }}
+                state={{ isLoginAction: true }}
               >
                 <h4>Login</h4>
               </Link>
               <Link
                 className="btn white-button"
                 to="/auth"
-                state={{ authType: "signup" }}
+                state={{ isLoginAction: false }}
               >
                 <h4>Sign Up</h4>
               </Link>

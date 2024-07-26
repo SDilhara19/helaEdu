@@ -8,7 +8,7 @@ import Header from '@components/teacher_com/Header';
 import ProfileHero from '@components/teacher_com/ProfileHero';
 import { Footer } from '@components/common';
 
-const T_profile = () => {
+const ViewTeacherAccount = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (event) => {
@@ -114,4 +114,4 @@ const T_profile = () => {
   );
 };
 
-export default T_profile;
+export default ViewTeacherAccount;

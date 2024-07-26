@@ -1,0 +1,85 @@
+.subject {
+    display: flex;
+    width: 100%;
+    overflow-x: hidden;
+
+    .pdf {
+        padding: 2rem;
+        transition: width 1s ease;
+        scrollbar-width: thin;
+        overflow: hidden;
+        height: 90vh;
+
+        params {
+            width: 100%;
+        }
+    }
+
+
+    .left-panel {
+        position: relative;
+        flex-grow: 1;
+        width: 100vw;
+        transition: width 1s ease;
+
+    }
+
+    .sidebar-visible {
+        width: 60vw !important;
+    }
+
+
+    .right-panel {
+        background: $gray-background;
+        flex-grow: 1;
+        width: 0;
+        opacity: 0;
+        transition: width 0.5s ease;
+    }
+
+    .active {
+        width: 40vw;
+        opacity: 1;
+        transition: width 0.5s ease, opacity 0.6s 0.6s ease;
+    }
+
+
+    .action-menu {
+        position: absolute;
+        top: 10%;
+        opacity: 0.2;
+        transition: opacity 0.5s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: $black-color;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            padding: 1rem;
+            padding-right: 1.5rem;
+        }
+
+        svg {
+            color: $white-color;
+            width: 24px;
+            cursor: pointer;
+        }
+
+        img {
+            width: 32px;
+            padding: 1.2rem 0;
+            cursor: pointer;
+        }
+    }
+
+    .jodit-status-bar-link {
+        display: none;
+    }
+
+}

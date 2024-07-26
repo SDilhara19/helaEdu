@@ -14,7 +14,9 @@ import com.helaedu.website.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -31,6 +33,9 @@ public class StudentService {
 
     @Autowired
     private EmailVerificationService emailVerificationService;
+
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
 
     public StudentService(StudentRepository studentRepository, NoteRepository noteRepository, SubscriptionRepository subscriptionRepository) {
         this.studentRepository = studentRepository;
@@ -60,7 +65,8 @@ public class StudentService {
                 Instant.now().toString(),
                 noteId,
                 studentDto.getSubscriptionId(),
-                "ROLE_STUDENT"
+                "ROLE_STUDENT",
+                null
         );
         studentDto.setUserId(student.getUserId());
         studentDto.setNoteId(noteId);
@@ -76,6 +82,20 @@ public class StudentService {
 
         emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
         return studentRepository.createStudent(student);
+    }
+
+    public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentByEmail(email);
+
+        String profilePictureUrl = firebaseStorageService.uploadProfilePicture(profilePicture, email);
+
+        if(student != null) {
+            student.setProfilePictureUrl(profilePictureUrl);
+            studentRepository.updateStudentByEmail(email, student);
+        } else {
+            throw new IllegalArgumentException("Student not found");
+        }
+        return profilePictureUrl;
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -103,7 +123,8 @@ public class StudentService {
                                 student.getNoteId(),
                                 student.getSubscriptionId(),
                                 student.getRole(),
-                                student.isEmailVerified()
+                                student.isEmailVerified(),
+                                null
                         )
                 )
                 .collect(Collectors.toList());
@@ -122,7 +143,8 @@ public class StudentService {
                     student.getNoteId(),
                     student.getSubscriptionId(),
                     student.getRole(),
-                    student.isEmailVerified()
+                    student.isEmailVerified(),
+                    null
             );
         }
         return null;
@@ -141,13 +163,14 @@ public class StudentService {
                     student.getNoteId(),
                     student.getSubscriptionId(),
                     student.getRole(),
-                    student.isEmailVerified()
+                    student.isEmailVerified(),
+                    null
             );
         }
         return null;
     }
 
-    public String updateStudent(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
+    public String updateStudentByEmail(String email, StudentDto studentDto) throws ExecutionException, InterruptedException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         Student existingStudent = studentRepository.getStudentByEmail(email);
@@ -177,7 +200,7 @@ public class StudentService {
             existingStudent.setSubscriptionId(studentDto.getSubscriptionId());
         }
 
-        return studentRepository.updateStudent(email, existingStudent);
+        return studentRepository.updateStudentByEmail(email, existingStudent);
     }
 
     public String deleteStudent(String userId) throws ExecutionException, InterruptedException {
@@ -229,7 +252,7 @@ public class StudentService {
         subscriptionRepository.createSubscription(subscription);
 
         student.setSubscriptionId(subscriptionId);
-        studentRepository.updateStudent(student.getUserId(), student);
+        studentRepository.updateStudentByEmail(student.getEmail(), student);
 
         return subscriptionId;
     }
@@ -269,7 +292,8 @@ public class StudentService {
                         student.getNoteId(),
                         student.getSubscriptionId(),
                         student.getRole(),
-                        student.isEmailVerified()
+                        student.isEmailVerified(),
+                        null
                 ))
                 .collect(Collectors.toList());
     }

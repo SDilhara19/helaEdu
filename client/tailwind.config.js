@@ -14,9 +14,10 @@ export default {
         // blue2: '#B5D2FC'
         blue: "var(--color-primary)",
         yellow: "var(--color-secondary)",
-        white: "var(--color-text)",
-        black: "var(--color-bg)",
+        white: "var(--color-bg)",
+        black: "var(--color-text)",
         blue2: "var(--color-accent)",
+        gray1: "var(--color-gray1)",
       },
       screens: {
         mw: { max: "800px" },

@@ -2,8 +2,10 @@ package com.helaedu.website.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.AdminDto;
+import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.AdminService;
+import com.helaedu.website.util.RequestUtil;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -11,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -48,6 +53,18 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
+        try {
+            String profilePictureUrl = adminService.uploadProfilePicture(email, profilePicture);
+            return new ResponseEntity<>(profilePictureUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<AdminDto>> getAllAdmins() throws ExecutionException, InterruptedException {
         List<AdminDto> admins = adminService.getAllAdmins();
@@ -64,6 +81,18 @@ public class AdminController {
             errorResponse.addViolation("userId", "Admin not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/by-email")
+    public ResponseEntity<Object> getAdminByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        AdminDto admin = adminService.getAdminByEmail(email);
+        if (admin != null) {
+            return ResponseEntity.ok(admin);
+        }
+        ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.addViolation("email", "Email not found");
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{userId}")
@@ -115,8 +144,9 @@ public class AdminController {
 
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentAdmin() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return getAdmin(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getAdminByEmail(requestBody);
     }
 
     @PutMapping("/me")

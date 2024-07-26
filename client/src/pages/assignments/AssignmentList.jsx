@@ -6,6 +6,7 @@ import Pagination from '@components/articles/Pagination'
 import { Link } from 'react-router-dom'
 
 export default function AssignmentList() {
+
     const dummyData = [
         {
           assignmentId: 'A001',
@@ -47,6 +48,8 @@ export default function AssignmentList() {
           noOfQuiz: 10,
           totalTime: '1.5hr',
         }]
+
+
         const [currentPage, setCurrentPage] = useState(1);
         const rowsPerPage = 7;
         const totalPages = Math.ceil(dummyData.length / rowsPerPage);
