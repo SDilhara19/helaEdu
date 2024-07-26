@@ -11,6 +11,9 @@ export const listArticlesByTeacher =() => axios.get(`${TEACHER_ARTICLE_URL}/${us
 export const approvedArticles=()=>axios.get(APPROVE_ARTICLE_URL);
 export const pendingArticles=()=>axios.get(PENDING_ARTICLE_URL);
 export const getArticleById = (articleId) => axios.get(`${REST_API_BASE_URL}/${articleId}`);
-export const createArticle =(article) => axios.post(CREATE_ARTICLE_URL,article);
+export const createArticle =(article,headers) => axios.post(CREATE_ARTICLE_URL,article,{headers});
 export const approveArticle = (articleId) => axios.put(`${REST_API_BASE_URL}/${articleId}/approve`);
 export const rejectArticle = (articleId, rejectedReason) => axios.put(`${REST_API_BASE_URL}/${articleId}/decline`, null, { params: { rejectedReason } });
+export const uploadArticleCover = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadArticleCover`, formData, { headers:{...headers,"Content-Type":"multipart/form-data"} });
+
+export const uploadAdditionalFiles = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadAdditionalFiles`, formData, { headers });
