@@ -9,12 +9,15 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_history_aware_retriever
 from langchain_openai import ChatOpenAI
 import os
-from dotenv import load_dotenv
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["OPENAI_API_KEY"] = "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"
 
-llm = Ollama(model="orca-mini", temperature=0)
 
+# llm = Ollama(model="orca-mini", temperature=0)
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
+llm = ChatOpenAI(model="gpt-4")
 
 retriever = load_vectorstore(embedding_model="all-MiniLM-L6-v2")
 

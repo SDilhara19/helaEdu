@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
+import { DarkModeProvider } from "@components/common/DarkModeContext";
+import DarkModeToggle from "@components/common/DarkModeToggle";
 
 function Header() {
   const isAuthenticated = useIsAuthenticated();
@@ -102,6 +104,9 @@ function Header() {
                   </ul>
                 </div>
               </div>
+              {/* <DarkModeProvider>
+                <DarkModeToggle />
+              </DarkModeProvider> */}
             </div>
           ) : (
             <div className="auth-control">

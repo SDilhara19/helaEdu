@@ -19,7 +19,7 @@ const UserManagement = () => {
         <div
           key={card.id}
           className={`cursor-pointer w-64 p-6 border-4 rounded-full flex items-center justify-center text-center font-bold text-2xl transition-colors duration-300 ${
-            selectedCard === card.id ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-blue-500 border-blue-500'
+            selectedCard === card.id ? 'bg-blue text-white border-blue' : 'bg-white text-blue border-blue'
           }`}
           onClick={() => handleCardClick(card.id)}
         >
