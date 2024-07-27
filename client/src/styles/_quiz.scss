@@ -37,7 +37,15 @@
 
 }
 
-.top-place img {
+.top-place-dark{
+    border-radius: 100%;
+    top: 0;
+    border: 2px solid $white-color;
+    height: 16rem;
+    width: 16rem;  
+  }
+
+.top-place img, .top-place-dark img {
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -187,8 +195,8 @@
 }
 
 .subject-circles {
-  height: 90px;
-  width: 90px;
+  height: 80px;
+  width: 80px;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   flex-direction: column;
@@ -196,8 +204,10 @@
   align-items: center;
   padding: 8px;
   overflow: hidden;
-  // border: 1px solid $primary-color;
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 100px;
+  background-color: $white-color;
 }
 
 .subject-circles img {

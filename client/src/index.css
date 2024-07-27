@@ -8,7 +8,9 @@
     --color-primary: #0A6CF5; 
     --color-secondary: #F5A711; 
     --color-accent: #B5D2FC; 
-    --color-gray1:#6C6C6C;
+    --color-dark-gray: #6C6C6C;
+    --color-light-gray: #BBBBBB;
+
   }
    
   .dark {

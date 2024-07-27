@@ -10,45 +10,56 @@ import hinduism from "@assets/img/subjects/8.png";
 
 
 const Subjects = () => {
+
+  const subjects = [
+    {
+      "value": maths,
+      "name": "Mathematics"
+    },
+    {
+      "value": science,
+      "name": "Science"
+    },
+    {
+      "value": geography,
+      "name": "Geography"
+    },
+    {
+      "value": bussiness,
+      "name": "B. Studies & Acc."
+    },
+    {
+      "value": buddhism,
+      "name": "Buddhism"
+    },
+    {
+      "value": hinduism,
+      "name": "Hinduism"
+    },
+    {
+      "value": christian,
+      "name": "Christian"
+    },
+    {
+      "value": islam,
+      "name": "Islam"
+    }
+  ]
+
+
   return (
     <div className='w-9/12 m-auto my-20'>
       <h1 className='font-medium p-8'>Choose your subject</h1>
       <div className='grid grid-cols-6 gap-12'>
-      <div className='subject-cards '>
-        <img src={maths} alt="image"/>
-        <div className='text-1'>Mathematics</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={science} alt="image"/>
-        <div className='text-1'>Science</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={geography} alt="image"/>
-        <div className='text-1'>Geograpgy</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={bussiness} alt="image"/>
-        <div className='text-1'>B. Studies & Acc.</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={buddhism} alt="image"/>
-        <div className='text-1'>Buddhism</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={hinduism} alt="image"/>
-        <div className='text-1'>Hinduism</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={christian} alt="image"/>
-        <div className='text-1'>Christian</div>
-      </div>
-      <div className='subject-cards '>
-        <img src={islam} alt="image"/>
-        <div className='text-1'>Islam</div>
-      </div>
+        {subjects.map(subject => (
+          <div className='subject-cards '>
+            <img src={subject.value} alt="image" />
+            <div className='text-1'>{subject.name}</div>
+          </div>
+        ))}
       </div>
       <div className='flex justify-center my-12'>
-      <button className='bg-black text-white rounded-full font-normal text-1 px-60 py-4 mx-auto'>Enroll in more subjects</button>   
+        <button className='bg-black text-white rounded-full font-normal text-1 px-60 py-4 mx-auto'>Enroll in more subjects</button>
       </div>
     </div>
   )
