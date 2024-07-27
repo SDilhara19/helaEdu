@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Footer } from "@/components/common";
-import Header from "@components/teacher_com/Header";
-import ArticleCard from '@components/articles/ArticleCard';
-import { approvedArticles } from '@/services/ArticleService';
-import { getUserDetails } from '@/services/TeacherService';
+import { Header, Footer } from "@/components/common";
+import ArticleCard from "@components/articles/ArticleCard";
+import { approvedArticles } from "@/services/ArticleService";
+import { getUserDetails } from "@/services/TeacherService";
 import ArticleHead from "@/components/articles/ArticleHead";
 import { Link } from "react-router-dom";
 
@@ -14,8 +13,8 @@ const Articles = () => {
     const fetchApprovedArticles = async () => {
       try {
         const response = await approvedArticles();
-        const articles = response.data.slice(0,3);
-        console.log(articles)
+        const articles = response.data.slice(0, 3);
+        console.log(articles);
 
         const articlesWithUserDetails = await Promise.all(
           articles.map(async (article) => {
@@ -28,7 +27,6 @@ const Articles = () => {
             };
           })
         );
-        
 
         setArticles(articlesWithUserDetails);
       } catch (error) {
