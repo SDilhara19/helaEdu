@@ -53,10 +53,10 @@ public class ArticleService {
         return articleRepository.createArticle(article);
     }
 
-    public String uploadArticleCover(String articleId, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+    public String uploadArticleCover(String articleId, MultipartFile articleCoverImage) throws IOException, ExecutionException, InterruptedException {
         Article article = articleRepository.getArticleById(articleId);
 
-        String articleCoverUrl = firebaseStorageService.uploadArticleCover(profilePicture, articleId);
+        String articleCoverUrl = firebaseStorageService.uploadArticleCover(articleCoverImage, articleId);
 
         if(article != null) {
             article.setImageRef(articleCoverUrl);
