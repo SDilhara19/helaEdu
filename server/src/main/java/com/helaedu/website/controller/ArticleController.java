@@ -175,8 +175,8 @@ public class ArticleController{
     @PutMapping("/{articleId}/upvote")
     public ResponseEntity<Object> upvoteArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            String userId = UserUtil.getCurrentUserEmail();
-            articleService.upvoteArticle(articleId, userId);
+            String email = UserUtil.getCurrentUserEmail();
+            articleService.upvoteArticle(articleId, email);
             return new ResponseEntity<>("Article upvoted", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
