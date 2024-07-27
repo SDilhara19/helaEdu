@@ -6,6 +6,7 @@ import com.helaedu.website.entity.Teacher;
 import com.helaedu.website.repository.AdminRepository;
 import com.helaedu.website.repository.StudentRepository;
 import com.helaedu.website.repository.TeacherRepository;
+import com.helaedu.website.security.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!student.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new User(student.getEmail(), student.getPassword(),
+                return new CustomUserDetails(student.getEmail(), student.getPassword(), student.getRole(),
                         Collections.singletonList(new SimpleGrantedAuthority(student.getRole())));
             }
 
@@ -46,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!teacher.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new User(teacher.getEmail(), teacher.getPassword(),
+                return new CustomUserDetails(teacher.getEmail(), teacher.getPassword(), teacher.getRole(),
                         Collections.singletonList(new SimpleGrantedAuthority(teacher.getRole())));
             }
 

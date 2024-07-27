@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import com.helaedu.website.security.CustomUserDetails;
+
 
 @RestController
 @RequestMapping("/authenticate")
@@ -47,8 +49,9 @@ public class AuthenticationController {
             }
 
             final String jwt = jwtTokenUtil.generateToken(userDetails);
+            final String role = ((CustomUserDetails) userDetails).getRole();
 
-            return ResponseEntity.ok(new AuthenticationResponse(jwt));
+            return ResponseEntity.ok(new AuthenticationResponse(jwt, role));
         } catch (UsernameNotFoundException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("email", "Email not verified");
