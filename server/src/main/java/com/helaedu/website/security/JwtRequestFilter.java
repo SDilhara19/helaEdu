@@ -1,4 +1,4 @@
-package com.helaedu.website.config;
+package com.helaedu.website.security;
 
 import com.helaedu.website.service.CustomUserDetailsService;
 import com.helaedu.website.util.JwtUtil;
