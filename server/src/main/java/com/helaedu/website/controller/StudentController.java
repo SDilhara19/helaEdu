@@ -46,8 +46,9 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String studentId = studentService.createStudent(studentDto);
-            return new ResponseEntity<>(studentId, HttpStatus.CREATED);
+            String userId = studentService.createStudent(studentDto);
+            SuccessResponse successResponse = new SuccessResponse("userId", userId);
+            return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("email", e.getMessage());
