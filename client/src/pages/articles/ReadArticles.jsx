@@ -35,45 +35,6 @@ export default function ReadArticle() {
 
     fetchArticle();
   }, [articleId]);
-
-
-    // return (
-    //     <div>
-    //         <Header />
-    //         <div className="flex justify-between mx-24">
-    //             <div className="w-9/12">
-    //                 <ViewArticle 
-    //                     title={article.title}
-    //                     content={article.content}
-    //                     tags={article.tags}
-    //                     userName={article.authorName}
-    //                     date={article.publishedTimestamp}
-    //                     imageRef={article.imageRef}
-    //                 />
-    //             </div>
-    //             <div className="m-12 w-3/12">
-    //                 <h1>Top Articles</h1>
-    //                 <hr className="border-yellow border-t-4 w-2/4"></hr>
-    //                 <br></br>
-    //                 <PopArticleCard />
-    //                 <PopArticleCard />
-    //                 <PopArticleCard />
-    //                 <PopArticleCard />
-    //                 <PopArticleCard />
-    //                 <br></br>
-    //                 <Link to="/addArticleForm">
-    //                     <AddArticleBtn />
-    //                 </Link>
-    //                 <iframe></iframe>
-    //             </div>
-    //         </div>
-    //         <div className="mx-24">
-    //             <CommentList />
-    //         </div>
-    //         <div>
-    //             <Footer />
-    //         </div>
-
   if (!article) {
     return <div>Loading...</div>;
   }
@@ -88,7 +49,10 @@ export default function ReadArticle() {
             content={article.content}
             tags={article.tags}
             userName={article.authorName}
+            userProfile={article.profilePictureUrl}
             date={article.publishedTimestamp}
+            imageRef={article.imageRef}
+
           />
 
         </div>

@@ -63,7 +63,7 @@ function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/approveTeachers" element={<ApproveTeachers />} />
         <Route path="/topTeachers" element={<TopTeachers />} />
-        <Route path="/viewMyArticles/1" element={<ViewArticleMyself />} />
+        <Route path="/viewArticleMyself/:articleId" element={<ViewArticleMyself />} />
         <Route path="/subjectCatalog" element={<SubjectCatalog />} />
         <Route path="/UserManagement" element={<UserManagement />}></Route>
         <Route path="/Settings" element={<Settings />}></Route>

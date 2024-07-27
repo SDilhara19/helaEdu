@@ -6,9 +6,11 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import HTMLReactParser from 'html-react-parser';
- import Profile from '@assets/img/articles/profile.jpg';
+import Profile from '@assets/img/articles/profile.jpg';
 import Default from'@assets/img/articles/defaultArticle.jpg';
-export default function ViewArticle({title,content,tags,userName,date,imageRef}) {
+
+export default function ViewArticle({title,content,tags,userName,date,imageRef,userProfile}) {
+
     const formattedDate = new Date(date).toLocaleDateString();
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
@@ -26,8 +28,14 @@ export default function ViewArticle({title,content,tags,userName,date,imageRef})
                 <h1 className='text-5xl'>{title}</h1>
                 <div className='card-actions flex justify-between mt-10'>
                     <div className='flex justify-start align-baseline'>
-                        
-                        <img className="w-10 h-10 rounded-full" src={Profile} alt="Rounded avatar" />
+                        {userProfile ?(
+                            <img className="w-10 h-10 rounded-full" src={userProfile} alt="Rounded avatar" />
+                        ):(
+                            <img className="w-10 h-10 rounded-full" src={Profile} alt="Rounded avatar" />
+                        )
+
+                        }
+                       
                         <span className='text-2xl'>{userName}</span>
                     </div>
                    
@@ -70,7 +78,7 @@ export default function ViewArticle({title,content,tags,userName,date,imageRef})
                 <div className="flex justify-start m-7">
                     { tags && tags.map((tag, index) => (
                         <div key={index} className="  border-none text-gray1 text-xl px-2 py-5">
-                        {tag}
+                        #{tag}
                         </div>
                     ))}
                     </div>

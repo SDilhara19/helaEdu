@@ -6,6 +6,8 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { addProfileImageToTeacher } from '@services/TeacherService';
 import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 import { useNavigate } from 'react-router-dom';
+import Profile from "@assets/img/articles/profile.jpg"
+
 export default function ProfileHero({ email, name ,profileImg}) {
 
   const [profileImage, setProfileImage] = useState(null);
@@ -35,9 +37,7 @@ export default function ProfileHero({ email, name ,profileImg}) {
     try {
       const response = await addProfileImageToTeacher(email, formData, headers);
       console.log('Image uploaded successfully:', response.data);
-      setIsPopupOpen(false);
-      navigator("/tProfile");
-
+      window.location.reload();
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -59,12 +59,22 @@ export default function ProfileHero({ email, name ,profileImg}) {
             <form onSubmit={saveImage}>
               <div className="flex items-center space-x-6">
                 <div className="shrink-0">
-                  <img
+                  {previewSrc ?(
+                    <img
                     id="preview_img"
                     className="h-40 w-40 object-cover rounded-full"
                     src={previewSrc}
                     alt="Current profile photo"
-                  />
+                    />
+                  ):(
+                    <img
+                    id="preview_img"
+                    className="h-40 w-40 object-cover rounded-full"
+                    src={Profile}
+                    alt="Current profile photo"
+                    />
+                  )}
+                 
                 </div>
                 <label className="block">
                   <span className="sr-only text-2xl">Choose profile photo</span>
@@ -112,7 +122,12 @@ export default function ProfileHero({ email, name ,profileImg}) {
             <div className='absolute flex items-center justify-center rounded-full w-10 h-10 p-2 bottom-0 top-6 left-50 right-0 bg-yellow'>
               <FontAwesomeIcon icon={faPencil} className='size-6' onClick={handleEditClick} />
             </div>
-            <img src={previewSrc} className="rounded-full w-64 h-64 object-cover" alt="Profile" />
+            {profileImg ?(
+                    <img src={profileImg} className="rounded-full w-64 h-64 object-cover" alt="Profile" />
+                  ):(
+                    <img src={Profile} className="rounded-full w-64 h-64 object-cover" alt="Profile" />
+                  )}
+           
           </div>
         </div>
         <div className='absolute left-96 my-6 mx-10'>
