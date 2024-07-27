@@ -19,6 +19,7 @@ export default {
         blue2: "var(--color-accent)",
         gray1: "var(--color-dark-gray)",
         gray2: "var(--color-light-gray)",
+
       },
       screens: {
         mw: { max: "800px" },
@@ -39,3 +40,4 @@ export default {
   plugins: [require("daisyui")],
   darkMode: "class", // Enable dark mode support
 };
+

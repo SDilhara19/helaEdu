@@ -45,7 +45,12 @@ public class ModeratorService {
                 Instant.now().toString(),
                 true,
                 teacherDto.getProofRef(),
-                "ROLE_MODERATOR"
+                "ROLE_MODERATOR",
+                null,
+                false,
+                null,
+                teacherDto.getPreferredSubjects(),
+                null
         );
         teacherDto.setUserId(moderator.getUserId());
 
@@ -58,7 +63,7 @@ public class ModeratorService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail(), "moderators");
         return moderatorRepository.createModerator(moderator);
     }
 
@@ -87,10 +92,38 @@ public class ModeratorService {
                                 moderator.getIsModerator(),
                                 moderator.getProofRef(),
                                 moderator.getRole(),
-                                moderator.isEmailVerified()
+                                moderator.isEmailVerified(),
+                                moderator.getProfilePictureUrl(),
+                                moderator.isApproved(),
+                                moderator.getAbout(),
+                                moderator.getPreferredSubjects(),
+                                moderator.getSchool()
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    public List<TeacherDto> getAllModerators(int page) throws ExecutionException, InterruptedException {
+        List<Teacher> moderators = moderatorRepository.getAllModerators(page);
+        return moderators.stream().map(moderator ->
+                new TeacherDto(
+                        moderator.getUserId(),
+                        moderator.getFirstName(),
+                        moderator.getLastName(),
+                        moderator.getEmail(),
+                        moderator.getPassword(),
+                        moderator.getRegTimestamp(),
+                        moderator.getIsModerator(),
+                        moderator.getProofRef(),
+                        moderator.getRole(),
+                        moderator.isEmailVerified(),
+                        moderator.getProfilePictureUrl(),
+                        moderator.isApproved(),
+                        moderator.getAbout(),
+                        moderator.getPreferredSubjects(),
+                        moderator.getSchool()
+                )
+        ).collect(Collectors.toList());
     }
 
     public TeacherDto getModerator(String userId) throws ExecutionException, InterruptedException {
@@ -106,7 +139,12 @@ public class ModeratorService {
                     moderator.getIsModerator(),
                     moderator.getProofRef(),
                     moderator.getRole(),
-                    moderator.isEmailVerified()
+                    moderator.isEmailVerified(),
+                    moderator.getProfilePictureUrl(),
+                    moderator.isApproved(),
+                    moderator.getAbout(),
+                    moderator.getPreferredSubjects(),
+                    moderator.getSchool()
             );
         }
         return null;

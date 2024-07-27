@@ -33,17 +33,13 @@ function Login({ setLoadingState }) {
   };
   return (
     <>
-      <form
-        method="POST"
-        className="login-left-pannel flex-c"
-        onSubmit={onSubmit}
-      >
-        <div className="login-details flex-col-c">
+      <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
+        <div className="details flex-col-c">
           <h2 className="m-3">Hello</h2>
           <h3 className="m-3">Sign into your account</h3>
           <div className="m-3 w-10/12">
             <div className="flex-end input-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} size="3x" className="icon" />
+              <FontAwesomeIcon icon={faEnvelope} size="2x" className="icon" />
               <div className="floating-input-label">
                 <input
                   type="text"
@@ -61,7 +57,7 @@ function Login({ setLoadingState }) {
             <h5>&nbsp;</h5>
 
             <div className="flex-end input-wrapper">
-              <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
+              <FontAwesomeIcon icon={faLock} size="2x" className="icon" />
               <div className="floating-input-label">
                 <input
                   type="password"
@@ -97,23 +93,6 @@ function Login({ setLoadingState }) {
           </div>
         </div>
       </form>
-
-      <div className="login-right-pannel flex-c">
-        <img src={rightBanner} alt="" className="login-banner-image" />
-        <div className="login-banner flex-col-c">
-          <h2>Welcome Back!</h2>
-          <img src={logo} alt="" srcSet="" className="w-full" />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure rem id
-            pariatur aspernatur quia aperiam ad vero, dolore maxime, iusto fuga
-            velit deleniti consequatur qui, veritatis libero facilis
-            voluptatibus facere magni itaque ut cum beatae dolores voluptatum!
-            Animi atque earum neque, explicabo, accusamus exercitationem libero
-            nulla quasi consequatur assumenda veniam similique pariatur odio
-            repudiandae. Voluptas, illo nihil ?
-          </p>
-        </div>
-      </div>
     </>
   );
 }

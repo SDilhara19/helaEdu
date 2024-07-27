@@ -1,7 +1,7 @@
-import React from 'react';
-import { Footer } from '@/components/common';
-import Header from "@/components/teacher_com/Header";
-import ViewModeratorManagement from '@/components/admin/ViewModeratorDetails';
+import React from "react";
+import { Header, Footer } from "@/components/common";
+import ViewModeratorManagement from "@/components/admin/ViewModeratorDetails";
+import Sidebar from "@components/admin/Sidebar";
 
 // import Sidebar from '@/components/admin/Sidebar';
 // import CountBox from '@/components/admin/CountBox';
@@ -9,12 +9,12 @@ import ViewModeratorManagement from '@/components/admin/ViewModeratorDetails';
 // import Table from '@/components/admin/Table';
 // import SeeMoreBtn from '@/components/admin/SeeMoreBtn';
 
-const Articles = () => {
+const ModeratorDetails = () => {
   return (
     <>
       <Header />
-      {/* <Sidebar /> */}
-      <div style={{ marginTop: '100px' }}> 
+      <Sidebar />
+      <div style={{ marginTop: "100px" }}>
         {/* <CountBox />
         <Accessbtn></Accessbtn>
         <Table></Table>
@@ -22,10 +22,10 @@ const Articles = () => {
         <ViewModeratorManagement></ViewModeratorManagement>
       </div>
       <iframe></iframe>
-      
+
       <Footer />
     </>
   );
 };
 
-export default Articles;
+export default ModeratorDetails;

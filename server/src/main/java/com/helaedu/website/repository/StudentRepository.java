@@ -30,6 +30,27 @@ public class StudentRepository {
         }
         return students;
     }
+
+    public List<Student> getAllStudents(int page) throws ExecutionException, InterruptedException {
+        int size = 10;
+
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference studentsCollection = dbFirestore.collection("students");
+
+        Query query = studentsCollection.orderBy("regTimestamp")
+                .offset(page * size)
+                .limit(size);
+
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<Student> students = new ArrayList<>();
+        QuerySnapshot querySnapshot = future.get();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Student student = document.toObject(Student.class);
+            students.add(student);
+        }
+        return students;
+    }
+
     public Student getStudentById(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("students").document(userId);

@@ -52,9 +52,15 @@ public class ModeratorController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllModerators() throws ExecutionException, InterruptedException {
-        List<TeacherDto> moderators = moderatorService.getAllModerators();
+//    @GetMapping
+//    public ResponseEntity<List<TeacherDto>> getAllModerators() throws ExecutionException, InterruptedException {
+//        List<TeacherDto> moderators = moderatorService.getAllModerators();
+//        return ResponseEntity.ok(moderators);
+//    }
+
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<TeacherDto>> getAllModerators(@PathVariable int page) throws ExecutionException, InterruptedException {
+        List<TeacherDto> moderators = moderatorService.getAllModerators(page);
         return ResponseEntity.ok(moderators);
     }
 
@@ -120,7 +126,7 @@ public class ModeratorController {
     }
 
     @GetMapping("/{userId}/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticledByModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<List<ArticleDto>> getAllArticlesByModerator(@PathVariable String userId) throws ExecutionException, InterruptedException {
         List<ArticleDto> articles = articleService.getArticlesByUser(userId);
         return ResponseEntity.ok(articles);
     }
@@ -158,6 +164,6 @@ public class ModeratorController {
     @GetMapping("/me/articles")
     public ResponseEntity<List<ArticleDto>> getCurrentModeratorArticles() throws ExecutionException, InterruptedException {
         String userId = UserUtil.getCurrentUserEmail();
-        return getAllArticledByModerator(userId);
+        return getAllArticlesByModerator(userId);
     }
 }

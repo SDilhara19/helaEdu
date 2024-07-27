@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.helaedu.website.dto.SubscriptionDto;
 import com.helaedu.website.entity.Subscription;
 import com.helaedu.website.repository.SubscriptionRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
@@ -80,14 +81,14 @@ public class StudentService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail());
+        emailVerificationService.sendVerificationEmail(studentDto.getUserId(), studentDto.getEmail(), "students");
         return studentRepository.createStudent(student);
     }
 
     public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
         Student student = studentRepository.getStudentByEmail(email);
 
-        String profilePictureUrl = firebaseStorageService.uploadFile(profilePicture, email);
+        String profilePictureUrl = firebaseStorageService.uploadProfilePicture(profilePicture, email);
 
         if(student != null) {
             student.setProfilePictureUrl(profilePictureUrl);
@@ -128,6 +129,25 @@ public class StudentService {
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    public List<StudentDto> getAllStudents(int page) throws ExecutionException, InterruptedException {
+        List<Student> students = studentRepository.getAllStudents(page);
+        return students.stream().map(student ->
+                new StudentDto(
+                        student.getUserId(),
+                        student.getFirstName(),
+                        student.getLastName(),
+                        student.getEmail(),
+                        student.getPassword(),
+                        student.getRegTimestamp(),
+                        student.getNoteId(),
+                        student.getSubscriptionId(),
+                        student.getRole(),
+                        student.isEmailVerified(),
+                        null
+                )
+        ).collect(Collectors.toList());
     }
 
     public StudentDto getStudent(String userId) throws ExecutionException, InterruptedException {
@@ -240,21 +260,33 @@ public class StudentService {
 
         Student student = studentRepository.getStudentByEmail(email);
 
+        if(student.getSubscriptionId() == null) {
+            Subscription subscription = new Subscription(
+                    subscriptionId,
+                    student.getUserId(),
+                    paidAmount,
+                    startTimestamp,
+                    endTimestamp,
+                    false
+            );
+            subscriptionRepository.createSubscription(subscription);
 
-        Subscription subscription = new Subscription(
-                subscriptionId,
-                student.getUserId(),
-                paidAmount,
-                startTimestamp,
-                endTimestamp,
-                false
-        );
-        subscriptionRepository.createSubscription(subscription);
+            student.setSubscriptionId(subscriptionId);
+            studentRepository.updateStudentByEmail(student.getEmail(), student);
 
-        student.setSubscriptionId(subscriptionId);
-        studentRepository.updateStudentByEmail(student.getEmail(), student);
+            SubscriptionDto subscriptionDto = new SubscriptionDto(
+                    subscriptionId,
+                    student.getUserId(),
+                    paidAmount,
+                    startTimestamp,
+                    endTimestamp,
+                    false
+            );
+            emailVerificationService.sendSubscriptionEmail(email, subscriptionDto);
 
-        return subscriptionId;
+            return subscriptionId;
+        }
+        return null;
     }
 
     public void cancelSubscription(String userId) throws ExecutionException, InterruptedException {

@@ -14,4 +14,7 @@ public class User {
     private String regTimestamp;
     private String role;
     private boolean emailVerified;
+
+    private String profilePictureUrl;
+
 }

@@ -12,7 +12,9 @@ import com.helaedu.website.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -25,8 +27,12 @@ public class TeacherService {
     @Autowired
     private EmailVerificationService emailVerificationService;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
+
+    public TeacherService(TeacherRepository teacherRepository, FirebaseStorageService firebaseStorageService) {
         this.teacherRepository = teacherRepository;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     public String createTeacher(TeacherDto teacherDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -47,7 +53,12 @@ public class TeacherService {
                 Instant.now().toString(),
                 false,
                 teacherDto.getProofRef(),
-                "ROLE_TEACHER"
+                "ROLE_TEACHER",
+                null,
+                false,
+                null,
+                teacherDto.getPreferredSubjects(),
+                null
         );
         teacherDto.setUserId(teacher.getUserId());
 
@@ -60,8 +71,22 @@ public class TeacherService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail());
+        emailVerificationService.sendVerificationEmail(teacherDto.getUserId(), teacherDto.getEmail(), "teachers");
         return teacherRepository.createTeacher(teacher);
+    }
+
+    public String uploadProof(String email, MultipartFile proofFile) throws IOException, ExecutionException, InterruptedException {
+        Teacher teacher = teacherRepository.getTeacherByEmail(email);
+
+        String proofFileUrl = firebaseStorageService.uploadTeacherProof(proofFile, email);
+
+        if(teacher != null) {
+            teacher.setProofRef(proofFileUrl);
+            teacherRepository.updateTeacherByEmail(email, teacher);
+        } else {
+            throw new IllegalArgumentException("Teacher not found");
+        }
+        return proofFileUrl;
     }
 
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
@@ -89,10 +114,38 @@ public class TeacherService {
                                 teacher.getIsModerator(),
                                 teacher.getProofRef(),
                                 teacher.getRole(),
-                                teacher.isEmailVerified()
+                                teacher.isEmailVerified(),
+                                teacher.getProfilePictureUrl(),
+                                teacher.isApproved(),
+                                teacher.getAbout(),
+                                teacher.getPreferredSubjects(),
+                                teacher.getSchool()
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    public List<TeacherDto> getAllTeachers(int page) throws ExecutionException, InterruptedException {
+        List<Teacher> teachers = teacherRepository.getAllTeachers(page);
+        return teachers.stream().map(teacher ->
+                new TeacherDto(
+                        teacher.getUserId(),
+                        teacher.getFirstName(),
+                        teacher.getLastName(),
+                        teacher.getEmail(),
+                        teacher.getPassword(),
+                        teacher.getRegTimestamp(),
+                        teacher.getIsModerator(),
+                        teacher.getProofRef(),
+                        teacher.getRole(),
+                        teacher.isEmailVerified(),
+                        teacher.getProfilePictureUrl(),
+                        teacher.isApproved(),
+                        teacher.getAbout(),
+                        teacher.getPreferredSubjects(),
+                        teacher.getSchool()
+                )
+        ).collect(Collectors.toList());
     }
 
     public TeacherDto getTeacher(String userId) throws ExecutionException, InterruptedException {
@@ -108,7 +161,12 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;
@@ -127,7 +185,12 @@ public class TeacherService {
                     teacher.getIsModerator(),
                     teacher.getProofRef(),
                     teacher.getRole(),
-                    teacher.isEmailVerified()
+                    teacher.isEmailVerified(),
+                    teacher.getProfilePictureUrl(),
+                    teacher.isApproved(),
+                    teacher.getAbout(),
+                    teacher.getPreferredSubjects(),
+                    teacher.getSchool()
             );
         }
         return null;
@@ -176,5 +239,9 @@ public class TeacherService {
 
     public String promoteToModerator(String userId) throws ExecutionException, InterruptedException {
         return teacherRepository.promoteToModerator(userId);
+    }
+
+    public String approveTeacher(String userId) throws ExecutionException, InterruptedException {
+        return teacherRepository.approveTeacher(userId);
     }
 }

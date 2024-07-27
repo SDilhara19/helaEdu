@@ -7,6 +7,7 @@ import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TeacherService;
+import com.helaedu.website.util.RequestUtil;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -55,9 +58,27 @@ public class TeacherController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllTeachers() throws ExecutionException, InterruptedException {
-        List<TeacherDto> teachers = teacherService.getAllTeachers();
+    @PostMapping("/uploadProofFile")
+    public ResponseEntity<Object> uploadProofFile(@RequestParam String email, @RequestParam("proofFile") MultipartFile proofFile) {
+        try {
+            String proofFileUrl = teacherService.uploadProof(email, proofFile);
+            return new ResponseEntity<>(proofFileUrl, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading proof file", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//    @GetMapping
+//    public ResponseEntity<List<TeacherDto>> getAllTeachers() throws ExecutionException, InterruptedException {
+//        List<TeacherDto> teachers = teacherService.getAllTeachers();
+//        return ResponseEntity.ok(teachers);
+//    }
+
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<TeacherDto>> getAllTeachers(@PathVariable int page) throws ExecutionException, InterruptedException {
+        List<TeacherDto> teachers = teacherService.getAllTeachers(page);
         return ResponseEntity.ok(teachers);
     }
 
@@ -70,6 +91,25 @@ public class TeacherController {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", "Teacher not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/by-email/approve")
+    public ResponseEntity<Object> approveTeacherRegistration(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacher = teacherService.getTeacherByEmail(email);
+        if(teacher != null) {
+            teacher.setApproved(true);
+        }
+        try {
+            String result = teacherService.approveTeacher(teacher.getUserId());
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error approving teacher", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -135,9 +175,11 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/{userId}/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@PathVariable String userId) throws ExecutionException, InterruptedException {
-        List<ArticleDto> articles = articleService.getArticlesByUser(userId);
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
+        List<ArticleDto> articles = articleService.getArticlesByUser(teacherDto.getUserId());
         return ResponseEntity.ok(articles);
     }
 
@@ -155,25 +197,26 @@ public class TeacherController {
 
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentTeacher() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return getTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getTeacherByEmail(requestBody);
     }
 
     @PutMapping("/me")
     public ResponseEntity<Object> updateCurrentTeacher(@Valid @RequestBody TeacherDto teacherDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
         return updateTeacher(teacherDto, bindingResult);
     }
 
     @DeleteMapping("/me")
     public ResponseEntity<Object> deleteCurrentTeacher() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return deleteTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        return deleteTeacher(email);
     }
 
     @GetMapping("/me/articles")
     public ResponseEntity<List<ArticleDto>> getCurrentTeacherArticles() throws ExecutionException, InterruptedException {
-        String userId = UserUtil.getCurrentUserEmail();
-        return getAllArticledByTeacher(userId);
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getAllArticledByTeacher(requestBody);
     }
 }
