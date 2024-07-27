@@ -9,4 +9,4 @@ export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
 export const getUserDetails = (userId) =>
   axios.get(`${GET_USER_DETAILS_URL}/${userId}`);
-export const addProfileImageToTeacher =(formData,headers) =>axios.post(ADD_PROFILE_IMAGE,formData,{headers:{...headers,"Content-Type":"multipart/form-data"} })
+export const addProfileImageToTeacher =(email,formData,headers) =>axios.post(ADD_PROFILE_IMAGE,formData,{headers:{...headers,"Content-Type":"multipart/form-data"} })

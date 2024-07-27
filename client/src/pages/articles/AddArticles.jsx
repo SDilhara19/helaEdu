@@ -5,6 +5,7 @@ import { Footer } from '@/components/common';
 import { listArticlesByTeacher } from '@/services/ArticleService';
 import ArticleCardMe from '@components/articles/ArticleCardMe';
 import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
+import AddArticleBtn from '@components/articles/AddArticleBtn';
 
 export default function AddArticles() {
   // const authHeader = useAuthHeader();
@@ -55,14 +56,14 @@ export default function AddArticles() {
       <Header />
       <div className='flex justify-between mx-48 my-12'>
         <div>
-          <h1>ARTICLES</h1>
+          <h1>My Articles</h1>
           <hr className='border-yellow border-t-4 w-full hover:border-white transition duration-300 ease-in-out'></hr>
 
         </div>
         
         <div>
           <Link to="/addArticleForm">
-            <button className='bg-yellow text-white rounded-xl p-4 text-3xl'>Add Article</button>
+            <AddArticleBtn/>
           </Link>
         </div>
       </div>

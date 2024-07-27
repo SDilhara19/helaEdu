@@ -24,67 +24,35 @@ const Dashboard = () => {
           <div className="sidebar-wrapper">
             <Sidebar />
           </div>
-          <div className="content-wrapper mx-32 my-20">
-            <h1 className="ml-32  mt-20">Dashboard</h1>
-            {/* <hr className="text-yellow w-1/2"></hr> */}
-            <div className=" mx-32 flex  justify-between w-full">
-              <div className="w-3/5 h-auto rounded-xl shadow-xl p-9 mr-14">
+          <div className="content-wrapper mx-32 ">
+            <h1 className="  mt-20">Dashboard</h1>
+            <hr className='border-yellow border-t-4 ml-32  w-64   ' />
+            <div className=" mx-32 flex  justify-between ">
+              <div className="w-3/5 mx-10 h-auto rounded-xl shadow-xl p-9 ">
                 <h2 className="text-3xl "> Subscription Revenue</h2>
 
                 <Graph/>
               </div>
-              <div className="rounded-xl shadow-xl p-9 w-2/5">
+              <div className="w-3/5 h-auto rounded-xl shadow-xl p-9 mx-10 ">
+                <h2 className="text-3xl "> Advertisement Revenue</h2>
+
+                <Graph/>
+              </div>
+              {/* <div className="rounded-xl shadow-xl p-9 w-2/5">
                 
                 <TopTeachers/>
-              </div>
+              </div> */}
             </div>
               
-        <div className="mx-16">
-        <CountBox />
-        </div>
             <div className="mx-32">
-               <AccessBtn />
-            </div>
-           <div>
-           <div className="flex justify-end mx-24 mt-10 mb-14">
-           <div
-                className={`relative mx-14 cursor-pointer ${active === 'all' ? 'active' : ''}`}
-                onClick={() => handleClick('all')}
-              >
-                <p className="text-2xl">All</p>
-                <div className={`underline ${active === 'all' ? 'visible' : ''}`}></div>
-              </div>
-              <div
-                className={`relative mx-14 cursor-pointer ${active === 'teachers' ? 'active' : ''}`}
-                onClick={() => handleClick('teachers')}
-              >
-                <p className="text-2xl">Teachers</p>
-                <div className={`underline ${active === 'teachers' ? 'visible' : ''}`}></div>
-              </div>
-              <div
-                className={`relative mx-14 cursor-pointer ${active === 'students' ? 'active' : ''}`}
-                onClick={() => handleClick('students')}
-              >
-                <p className="text-2xl">Students</p>
-                <div className={`underline ${active === 'students' ? 'visible' : ''}`}></div>
-              </div>
-              <div
-                className={`relative mx-14 cursor-pointer ${active === 'moderators' ? 'active' : ''}`}
-                onClick={() => handleClick('moderators')}
-              >
-                <p className="text-2xl">Moderators</p>
-                <div className={`underline ${active === 'moderators' ? 'visible' : ''}`}></div>
-              </div>
-            </div>
-
-           </div>
-            {/* <RecentlyAccessedRoles /> */}
-            <div className="w-full">
-              <DashboardTable />
+              <CountBox />
             </div>
            
+           
+            
+          
           </div>
-        </div>
+        </div> 
       </div>
     </>
   );

@@ -5,6 +5,8 @@ import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TMService;
+import com.helaedu.website.util.RequestUtil;
+import com.helaedu.website.util.UserUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +47,12 @@ public class TMController {
         List<ArticleDto> articles = articleService.getArticlesByUser(userId);
         return ResponseEntity.ok(articles);
     }
+//    @GetMapping("/me/articles")
+//    public ResponseEntity<List<ArticleDto>> getAllArticlesByMe() throws ExecutionException, InterruptedException {
+//        String email = UserUtil.getCurrentUserEmail();
+//        List<ArticleDto> articles = articleService.getArticlesByEmail(email);
+//        return ResponseEntity.ok(articles);
+//    }
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
         TeacherDto teacherDto = tmService.getTM(userId);
