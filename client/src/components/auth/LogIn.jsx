@@ -24,7 +24,9 @@ function Login({ setLoadingState }) {
             token: res.data.jwt,
             type: "Bearer",
           };
-          let status = signIn({ auth });
+          let userState = { role: res.data.role };
+
+          let status = signIn({ auth, userState });
           if (status) {
             navigator("/");
           }

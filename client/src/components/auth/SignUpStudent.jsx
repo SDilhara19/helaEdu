@@ -10,6 +10,7 @@ import {
 function SignUpStudent({ signUpType, setSignUpType }) {
   const onSubmit = (e) => {
     e.preventDefault();
+    let formData = new FormData(e.target);
   };
   return (
     <>

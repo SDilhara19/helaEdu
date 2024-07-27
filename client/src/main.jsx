@@ -5,7 +5,7 @@ import "./index.css";
 import "@styles/light_theme.scss";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "react-auth-kit";
-import authStore from "@/utils/auth.js";
+import authStore from "@utils/authStore.js";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import allReducers from "@reducers/index.js";
