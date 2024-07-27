@@ -9,23 +9,22 @@ import Score from './Score';
 const QuizBegin = ({ subject }) => {
     const questionbank = [
         {
-            question: 'What is the capital of India?',
-            options: ['Mumbai', 'Pune', 'Nagpur', 'Delhi'],
-            answer: 'Delhi',
+            question: 'What is not a major export crop in Sri Lanka?',
+            options: ['Tea', 'Rubber', 'Vegetables', 'Paddy'],
+            answer: 'Vegetables',
             id: 1
         },
         {
-            question: 'Who is the Prime Minister of India?',
-            options: ['Rahul Gandhi', 'Nitin Gadkari',
-                'Narendra Modi', 'Sharad Pawar'],
-            answer: 'Narendra Modi',
+            question: 'When was a rubber planted first planted in Sri Lanka?',
+            options: ['1890', '1790', '1892', '1895'],
+            answer: '1890',
             id: 2
         },
 
         {
-            question: 'when India got independence?',
-            options: ['1950', '1947', '1930', '1945'],
-            answer: '1947',
+            question: 'What is not a main area where graphite is found in Sri Lanka?',
+            options: ['Southern', 'Sabaragamuwa', 'North Western', 'Western'],
+            answer: 'Western',
             id: 3
         },
 

@@ -28,6 +28,7 @@ public class TMController {
         this.tmService = tmService;
     }
 
+
     @PostMapping("/uploadProfilePicture")
     public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
         try {
@@ -39,6 +40,7 @@ public class TMController {
             throw new RuntimeException(e);
         }
     }
+
 
     @GetMapping("/{userId}/articles")
     public ResponseEntity<List<ArticleDto>> getAllArticlesByUser(@PathVariable String userId) throws ExecutionException, InterruptedException {

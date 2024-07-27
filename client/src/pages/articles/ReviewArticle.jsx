@@ -1,15 +1,18 @@
-import { Footer } from '@components/common';
-import Header from '@components/teacher_com/Header';
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getArticleById, approveArticle, rejectArticle } from '@/services/ArticleService';
+import { Header, Footer } from "@components/common";
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile } from "@fortawesome/free-solid-svg-icons";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  getArticleById,
+  approveArticle,
+  rejectArticle,
+} from "@/services/ArticleService";
 
 export default function ReviewArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
-  const [rejectReason, setRejectReason] = useState('');
+  const [rejectReason, setRejectReason] = useState("");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
@@ -31,9 +34,12 @@ export default function ReviewArticle() {
     try {
       const response = await approveArticle(articleId);
       console.log("Article approved:", response.data);
-      navigate('/articles');
+      navigate("/articles");
     } catch (error) {
-      console.error("Error approving article:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error approving article:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -41,9 +47,12 @@ export default function ReviewArticle() {
     try {
       const response = await rejectArticle(articleId, rejectReason);
       console.log("Article rejected:", response.data);
-      navigate('/articles');
+      navigate("/articles");
     } catch (error) {
-      console.error("Error rejecting article:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error rejecting article:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -58,11 +67,11 @@ export default function ReviewArticle() {
   const closeDeclineModal = () => setIsDeclineModalOpen(false);
 
   return (
-    <div className={`${isModalOpen || isDeclineModalOpen ? 'modalOpen' : ''}`}>
+    <div className={`${isModalOpen || isDeclineModalOpen ? "modalOpen" : ""}`}>
       <Header />
       <div>
         <h1 className="text-center text-5xl mt-10 m-6">Review Article</h1>
-        <hr className='border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out' />
+        <hr className="border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out" />
       </div>
       <div className="border border-blue rounded-2xl p-10 mx-32 mt-32">
         <h1 className="text-5xl">{article.title}</h1>
@@ -80,11 +89,15 @@ export default function ReviewArticle() {
           </div>
         </div>
         <div className="flex justify-start m-7 ">
-          {article.tags && article.tags.map((tag, index) => (
-            <div key={index} className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5">
-              {tag}
-            </div>
-          ))}
+          {article.tags &&
+            article.tags.map((tag, index) => (
+              <div
+                key={index}
+                className="badge badge-secondary mr-2 bg-yellow border-none text-blue px-7 py-5"
+              >
+                {tag}
+              </div>
+            ))}
         </div>
         <div>
           <img
@@ -108,39 +121,59 @@ export default function ReviewArticle() {
       </div>
       <div className="p-2 mx-32 mb-6 mt-8 flex justify-between ">
         <div>
-          <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 hover:translate-x-2" onClick={openModal}>
-              Approve
+          <button
+            className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 hover:translate-x-2"
+            onClick={openModal}
+          >
+            Approve
           </button>
         </div>
         <div>
-          <button className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded  bottom-4 right-4 hover:translate-x-2" onClick={openDeclineModal}>
+          <button
+            className="bg-red-500 text-white font-bold w-40 h-16 text-3xl rounded  bottom-4 right-4 hover:translate-x-2"
+            onClick={openDeclineModal}
+          >
             Reject
           </button>
         </div>
-        
+
         {isModalOpen && (
           <>
             {/* <div className="modalOverlay" /> */}
             <dialog open className="modal">
               <div className="modal-box max-w-3xl p-10">
-                <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
+                <p className="py-4 text-3xl">
+                  Are you sure you want to approve this teacher?
+                </p>
                 <div className="modal-action">
-                  <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
-                  <button className="btn bg-yellow text-black" onClick={() => {
-                    approve();
-                    closeModal();
-                  }}>Approve</button>
+                  <button
+                    className="btn bg-red-400 text-black"
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn bg-yellow text-black"
+                    onClick={() => {
+                      approve();
+                      closeModal();
+                    }}
+                  >
+                    Approve
+                  </button>
                 </div>
               </div>
             </dialog>
           </>
         )}
-       {isDeclineModalOpen && (
+        {isDeclineModalOpen && (
           <>
             <div className="modalOverlay" />
             <dialog open className="modal">
               <div className="modal-box max-w-3xl p-10">
-                <p className="py-4 text-3xl">Are you sure you want to decline this teacher?</p>
+                <p className="py-4 text-3xl">
+                  Are you sure you want to decline this teacher?
+                </p>
                 <br />
                 <input
                   type="text"
@@ -150,11 +183,21 @@ export default function ReviewArticle() {
                   onChange={(e) => setRejectReason(e.target.value)}
                 />
                 <div className="modal-action">
-                  <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
-                  <button className="btn bg-yellow text-black" onClick={() => {
-                    reject();
-                    closeDeclineModal();
-                  }}>Decline</button>
+                  <button
+                    className="btn bg-red-400 text-black"
+                    onClick={closeDeclineModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn bg-yellow text-black"
+                    onClick={() => {
+                      reject();
+                      closeDeclineModal();
+                    }}
+                  >
+                    Decline
+                  </button>
                 </div>
               </div>
             </dialog>

@@ -1,17 +1,13 @@
-import { Footer } from '@components/common';
-import React, { useState } from 'react';
-import Header from '@components/teacher_com/Header';
+import { Header, Footer } from "@components/common";
+import React, { useState } from "react";
 
 export default function QuizFormat() {
   const [questions, setQuestions] = useState([
-    { question: '', options: ['', '', '', ''] },
+    { question: "", options: ["", "", "", ""] },
   ]);
 
   const addQuestion = () => {
-    setQuestions([
-      ...questions,
-      { question: '', options: ['', '', '', ''] },
-    ]);
+    setQuestions([...questions, { question: "", options: ["", "", "", ""] }]);
   };
 
   const removeQuestion = (index) => {
@@ -62,14 +58,17 @@ export default function QuizFormat() {
             <div className="my-10">
               <label className="text-3xl">
                 Enter your options
-                <br/>
+                <br />
                 Check mark the right answer for your question
               </label>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <div className="flex justify-between mb-4">
                 {[0, 1].map((oIndex) => (
-                  <div key={oIndex} className="flex items-center space-x-4 w-1/2 mx-10">
+                  <div
+                    key={oIndex}
+                    className="flex items-center space-x-4 w-1/2 mx-10"
+                  >
                     <div>
                       <input
                         type="checkbox"
@@ -91,7 +90,10 @@ export default function QuizFormat() {
               </div>
               <div className="flex justify-between mb-4">
                 {[2, 3].map((oIndex) => (
-                  <div key={oIndex} className="flex items-center space-x-4 w-1/2 mx-10">
+                  <div
+                    key={oIndex}
+                    className="flex items-center space-x-4 w-1/2 mx-10"
+                  >
                     <div>
                       <input
                         type="checkbox"

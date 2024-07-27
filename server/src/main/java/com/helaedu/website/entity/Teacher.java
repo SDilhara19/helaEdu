@@ -51,5 +51,6 @@ public class Teacher extends User{
         this.about = about;
         this.preferredSubjects = preferredSubjects;
         this.school = school;
+
     }
 }

@@ -13,7 +13,7 @@ const Dashboard = () => {
         className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
         style={{ width: "278px", height: "150px" }}
       >
-        <h2 className="text-3xl mb-2 text-blue-600">Students</h2>
+        <h2 className="text-3xl mb-2 text-blue">Students</h2>
         <div className="text-5xl text-black">{registeredStudents}</div>
       </div>
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
         className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
         style={{ width: "278px", height: "150px" }}
       >
-        <h2 className="text-3xl mb-2 text-blue-600">Teachers</h2>
+        <h2 className="text-3xl mb-2 text-blue">Teachers</h2>
         <div className="text-5xl text-black">{registeredTeachers}</div>
       </div>
 
@@ -31,7 +31,7 @@ const Dashboard = () => {
         className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
         style={{ width: "278px", height: "150px" }}
       >
-        <h2 className="text-3xl mb-2 text-blue-600">Moderators</h2>
+        <h2 className="text-3xl mb-2 text-blue">Moderators</h2>
         <div className="text-5xl text-black">{registeredModerators}</div>
       </div>
 
@@ -40,7 +40,7 @@ const Dashboard = () => {
         className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center"
         style={{ width: "278px", height: "150px" }}
       >
-        <h2 className="text-3xl mb-2 text-blue-600">Total Revenue</h2>
+        <h2 className="text-3xl mb-2 text-blue">Total Revenue</h2>
         <div className="text-5xl text-black">${totalRevenue}</div>
       </div>
     </div>

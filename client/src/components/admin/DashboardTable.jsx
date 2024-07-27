@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DashboardTableRow from '@/components/admin/DashboardTableRow';
+import Pagination from '@components/articles/Pagination'; // Ensure you have a Pagination component
 
 const DashboardTable = () => {
   const rows = [
@@ -12,18 +13,41 @@ const DashboardTable = () => {
     { userId: '7', userRole: 'Moderator', recentActivity: 'Approved Post', lastAccessedDate: '2024-07-14', lastAccessedTime: '8:00 AM' }
   ];
 
+  const [currentPage, setCurrentPage] = useState(1);
+    
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  const currentRows = rows.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  ).map((row) => (
+    <DashboardTableRow 
+      key={row.userId}
+      userId={row.userId}
+      userRole={row.userRole}
+      recentActivity={row.recentActivity}
+      lastAccessedDate={row.lastAccessedDate}
+      lastAccessedTime={row.lastAccessedTime}
+    />
+  ));
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div>
-      {rows.map((row) => (
-        <DashboardTableRow 
-          key={row.userId}
-          userId={row.userId}
-          userRole={row.userRole}
-          recentActivity={row.recentActivity}
-          lastAccessedDate={row.lastAccessedDate}
-          lastAccessedTime={row.lastAccessedTime}
+      <div>
+        {currentRows}
+      </div>
+      <div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
         />
-      ))}
+      </div>
     </div>
   );
 };
