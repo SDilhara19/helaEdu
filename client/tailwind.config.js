@@ -17,6 +17,8 @@ export default {
         white: "var(--color-bg)",
         black: "var(--color-text)",
         blue2: "var(--color-accent)",
+        gray1: "var(--color-dark-gray)",
+        gray2: "var(--color-light-gray)",
       },
       screens: {
         mw: { max: "800px" },
@@ -28,6 +30,9 @@ export default {
         header4: "1.75rem", // 28px
         text: "2.5rem", // 40px
         1: "1.25rem", // 20px
+      },
+      backgroundColor: {
+        'white-transparent': 'rgba(255, 255, 255, 0.5)',
       },
     },
   },
