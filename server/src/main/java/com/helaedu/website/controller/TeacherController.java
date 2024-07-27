@@ -2,7 +2,6 @@ package com.helaedu.website.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.ArticleDto;
-import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
@@ -176,7 +175,7 @@ public class TeacherController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+    public ResponseEntity<List<ArticleDto>> getAllArticlesByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");
         TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
         List<ArticleDto> articles = articleService.getArticlesByUser(teacherDto.getUserId());
@@ -217,6 +216,6 @@ public class TeacherController {
     public ResponseEntity<List<ArticleDto>> getCurrentTeacherArticles() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
         Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
-        return getAllArticledByTeacher(requestBody);
+        return getAllArticlesByTeacher(requestBody);
     }
 }

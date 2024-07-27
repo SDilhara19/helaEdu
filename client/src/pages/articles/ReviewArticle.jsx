@@ -1,5 +1,5 @@
 import { Footer } from '@components/common';
-import Header from '@components/teacher_com/Header';
+import Header from '@components/common/Header';
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import HTMLReactParser from 'html-react-parser';
 export default function ReviewArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
-  const [rejectReason, setRejectReason] = useState('');
+  const [rejectReason, setRejectReason] = useState("");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
@@ -34,7 +34,10 @@ export default function ReviewArticle() {
       console.log("Article approved:", response.data);
       navigate('/reviewList');
     } catch (error) {
-      console.error("Error approving article:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error approving article:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -44,7 +47,10 @@ export default function ReviewArticle() {
       console.log("Article rejected:", response.data);
       navigate('/reviewList');
     } catch (error) {
-      console.error("Error rejecting article:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error rejecting article:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -59,7 +65,7 @@ export default function ReviewArticle() {
   const closeDeclineModal = () => setIsDeclineModalOpen(false);
 
   return (
-    <div className={`${isModalOpen || isDeclineModalOpen ? 'modalOpen' : ''}`}>
+    <div className={`${isModalOpen || isDeclineModalOpen ? "modalOpen" : ""}`}>
       <Header />
       <div className='mx-64'>
         <h1 className=" text-5xl mt-10 ">Review Article</h1>
@@ -116,30 +122,44 @@ export default function ReviewArticle() {
             Reject Article
           </button>
         </div>
-        
+
         {isModalOpen && (
           <>
             {/* <div className="modalOverlay" /> */}
             <dialog open className="modal">
               <div className="modal-box max-w-3xl p-10">
-                <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
+                <p className="py-4 text-3xl">
+                  Are you sure you want to approve this teacher?
+                </p>
                 <div className="modal-action">
-                  <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
-                  <button className="btn bg-yellow text-black" onClick={() => {
-                    approve();
-                    closeModal();
-                  }}>Approve</button>
+                  <button
+                    className="btn bg-red-400 text-black"
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn bg-yellow text-black"
+                    onClick={() => {
+                      approve();
+                      closeModal();
+                    }}
+                  >
+                    Approve
+                  </button>
                 </div>
               </div>
             </dialog>
           </>
         )}
-       {isDeclineModalOpen && (
+        {isDeclineModalOpen && (
           <>
             <div className="modalOverlay" />
             <dialog open className="modal">
               <div className="modal-box max-w-3xl p-10">
-                <p className="py-4 text-3xl">Are you sure you want to decline this teacher?</p>
+                <p className="py-4 text-3xl">
+                  Are you sure you want to decline this teacher?
+                </p>
                 <br />
                 <input
                   type="text"
@@ -149,11 +169,21 @@ export default function ReviewArticle() {
                   onChange={(e) => setRejectReason(e.target.value)}
                 />
                 <div className="modal-action">
-                  <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
-                  <button className="btn bg-yellow text-black" onClick={() => {
-                    reject();
-                    closeDeclineModal();
-                  }}>Decline</button>
+                  <button
+                    className="btn bg-red-400 text-black"
+                    onClick={closeDeclineModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn bg-yellow text-black"
+                    onClick={() => {
+                      reject();
+                      closeDeclineModal();
+                    }}
+                  >
+                    Decline
+                  </button>
                 </div>
               </div>
             </dialog>

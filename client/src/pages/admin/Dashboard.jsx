@@ -25,7 +25,7 @@ const Dashboard = () => {
             <Sidebar />
           </div>
           <div className="content-wrapper mx-32 ">
-            <h1 className="  mt-20">Dashboard</h1>
+            <h1 className="ml-32  ">Dashboard</h1>
             <hr className='border-yellow border-t-4 ml-32  w-64   ' />
             <div className=" mx-32 flex  justify-between ">
               <div className="w-3/5 mx-10 h-auto rounded-xl shadow-xl p-9 ">

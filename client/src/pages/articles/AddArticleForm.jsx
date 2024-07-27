@@ -1,7 +1,6 @@
-import { Footer} from '@/components/common'
-import Header from '@components/teacher_com/Header'
-import React from 'react'
-import AddArticlesForm from '@/components/articles/AddArticlesForm'
+import { Header, Footer } from "@/components/common";
+import React from "react";
+import AddArticlesForm from "@/components/articles/AddArticlesForm";
 
 export default function AddArticleForm() {
   return (
@@ -10,5 +9,5 @@ export default function AddArticleForm() {
       <AddArticlesForm />
       <Footer />
     </div>
-  )
+  );
 }

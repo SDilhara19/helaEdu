@@ -65,7 +65,7 @@ public class TMController {
         }
     }
     @PostMapping("/by-email")
-    public ResponseEntity<Object> getTeacherByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Object> getTMByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");
         TeacherDto teacher = tmService.getTMByEmail(email);
         if (teacher != null) {
@@ -74,5 +74,27 @@ public class TMController {
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
         errorResponse.addViolation("email", "Email not found");
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleDto>> getAllArticlesByTM(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacherDto = tmService.getTMByEmail(email);
+        List<ArticleDto> articles = articleService.getArticlesByUser(teacherDto.getUserId());
+        return ResponseEntity.ok(articles);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> getCurrentTM() throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getTMByEmail(requestBody);
+    }
+
+    @GetMapping("/me/articles")
+    public ResponseEntity<List<ArticleDto>> getCurrentTMArticles() throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return getAllArticlesByTM(requestBody);
     }
 }

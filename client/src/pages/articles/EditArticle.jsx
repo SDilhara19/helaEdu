@@ -1,5 +1,5 @@
 import { Footer} from '@/components/common'
-import Header from '@components/teacher_com/Header'
+import Header from '@components/common/Header'
 import React from 'react'
 import EditArticle from '@/components/articles/EditArticle'
 

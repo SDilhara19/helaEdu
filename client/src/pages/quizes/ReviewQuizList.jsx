@@ -1,6 +1,5 @@
 import React from "react";
-import { Footer } from "@/components/common";
-import Header from "@components/teacher_com/Header";
+import { Header, Footer } from "@/components/common";
 import Banner from "../../components/Quiz/Banner";
 import QuizCard from "@components/Quiz/QuizCard";
 import { Link } from "react-router-dom";
@@ -13,8 +12,6 @@ const Articles = () => {
       <Banner />
       <QuizHead />
       <QuizCard />
-      
-      
 
       {/* <Link to="/addArticleForm">
        <AddArticleBtn buttonText="Add your Article" />
