@@ -62,7 +62,7 @@ const CardCarousel = () => {
           onClick={prevSlide}
         />
       )}
-      <div className="overflow-hidden w-full">
+      <div className=" w-full">
         <div
           className="flex transition-transform duration-300"
           style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}

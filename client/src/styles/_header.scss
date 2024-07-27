@@ -67,7 +67,7 @@ header {
             cursor: pointer;
         }
 
-        div {
+        div:not(.theme-toggle) {
             width: 46px;
             height: 46px;
         }

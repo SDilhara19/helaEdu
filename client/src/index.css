@@ -4,22 +4,57 @@
 
 :root {
     --color-bg: #ffffff;
-    --color-text: #000000;
+    --color-text: #343232;
     --color-primary: #0A6CF5; 
     --color-secondary: #F5A711; 
     --color-accent: #B5D2FC; 
+    --color-dark-gray: #6C6C6C;
+    --color-light-gray: #BBBBBB;
+
   }
-  
+   
   .dark {
     --color-bg: #282222;
     --color-text: #ffffff;
     --color-primary: #0A6CF5; 
     --color-secondary: #F5A711;
     --color-accent: #B5D2FC; 
+    --color-gray1:#6C6C6C;
   }
   
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
   }
-  
+
+  .s-text {
+    font-size: 1rem; /* 16px */
+    font-weight: 500; /* medium */
+  }
+
+  .n-text {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 400; /* regular */
+  }
+
+  .n-text-bold {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 500; /* medium */
+  }
+
+  .special-text {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 500; /* semibold */
+  }
+
+
+  .s-topic {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 600; /* semibold */
+  }
+
+  .m-topic {
+    font-size: 3.75rem; /* 60px */
+    font-weight: 700; /* bold */
+  }
+

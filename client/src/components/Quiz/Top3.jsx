@@ -9,7 +9,7 @@ const Top3 = () => {
         <div className='top-place'>
           <img src={second} alt="image" />
         </div>
-        <div className=''><span className='text-header2 text-black font-semibold '>2<sup className='ordinal text-1'>nd</sup></span></div>
+        <div className=''><span className='s-topic text-black'>2<sup className='ordinal text-1'>nd</sup></span></div>
         <div className='text-blue font-semibold text-header4 -mt-6 -mb-2'>Pathumi</div>
         <div className='text-blue2'>1290 Points</div>
       </div>
@@ -17,7 +17,7 @@ const Top3 = () => {
         <div className='top-place ring-4 first'>
           <img src={first} alt="image" />
         </div>
-        <div className=''><span className='text-header2 text-black font-semibold'>1<sup className='ordinal text-1'>st</sup></span></div>
+        <div className=''><span className='text-black s-topic'>1<sup className='ordinal text-1'>st</sup></span></div>
         <div className='text-blue font-semibold text-header4 -mt-6 -mb-2'>Sanduni</div>
         <div className='text-blue2'>1530 Points</div>
       </div>
@@ -25,7 +25,7 @@ const Top3 = () => {
         <div className='top-place'>
           <img src={third} alt="image" />
         </div>
-        <div className=''><span className='text-header2 text-black font-semibold '>3<sup className='ordinal text-1'>rd</sup></span></div>
+        <div className=''><span className='s-topic text-black'>3<sup className='ordinal text-1'>rd</sup></span></div>
         <div className='text-blue font-semibold text-header4 -mt-6 -mb-2'>Nirmal</div>
         <div className='text-blue2'>1390 Points</div>
       </div>

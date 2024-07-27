@@ -13,7 +13,6 @@ import lombok.Setter;
 public class Student extends User {
     private String noteId;
     private String subscriptionId;
-    private String profilePictureUrl;
 
     public Student(String userId, String firstName, String lastName, String email, String password, String regTimestamp, String noteId, String subscriptionId, String role, String profilePictureUrl) {
         super.setUserId(userId);
@@ -25,6 +24,6 @@ public class Student extends User {
         this.noteId = noteId;
         this.subscriptionId = subscriptionId;
         super.setRole(role);
-        this.setProfilePictureUrl(profilePictureUrl);
+        super.setProfilePictureUrl(profilePictureUrl);
     }
 }

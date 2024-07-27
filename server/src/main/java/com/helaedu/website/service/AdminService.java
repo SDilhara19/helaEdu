@@ -66,7 +66,7 @@ public class AdminService {
 
         firebaseAuth.createUser(request);
 
-        emailVerificationService.sendVerificationEmail(adminDto.getUserId(), adminDto.getEmail());
+        emailVerificationService.sendVerificationEmail(adminDto.getUserId(), adminDto.getEmail(), "admins");
         return adminRepository.createAdmin(admin);
     }
 

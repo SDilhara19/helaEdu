@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/files")
+@CrossOrigin(origins = "*")
 public class FileController {
 
     private final FirebaseStorageService firebaseStorageService;

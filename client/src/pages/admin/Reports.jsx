@@ -1,7 +1,6 @@
-import React from 'react';
-import { Footer } from '@/components/common';
-import Header from "@/components/teacher_com/Header";
-import Sidebar from '@/components/admin/Sidebar';
+import React from "react";
+import { Header } from "@/components/common";
+import Sidebar from "@/components/admin/Sidebar";
 // import CountBox from '@/components/admin/CountBox';
 // import Accessbtn from '@/components/admin/AccessBtn';
 // import Table from '@/components/admin/Table';
@@ -11,22 +10,30 @@ const Reports = () => {
   return (
     <>
       <Header />
-      <Sidebar />
-      <div style={{ marginTop: '30px', marginLeft: '270px', marginRight: '70px' }}>
-        <h1 className="text-5xl font-bold mb-12 relative inline-block">
-          Reports
-          <span 
-            className="absolute left-0 bottom-[-8px] bg-yellow-500"
-            style={{ height: '4px', width: '100%', maxWidth: '200px' }}
-          ></span>
-        </h1>
-        {/* <CountBox />
+      <div className="dashboard">
+        <div className="dashboard-wrapper">
+          <div className="sidebar-wrapper">
+            <Sidebar />
+          </div>
+          <div className="content-wrapper">
+            <h1
+              className="font-montserrat font-bold text-left mb-6"
+              style={{
+                fontSize: "3rem" /* Adjusted font size */,
+                textAlign: "center",
+                padding: "4rem",
+              }}
+            >
+              Reports
+              <br />
+            </h1>
+            {/* <CountBox />
         <Accessbtn></Accessbtn>
         <Table></Table>
         <SeeMoreBtn></SeeMoreBtn> */}
+          </div>
+        </div>
       </div>
-      <iframe></iframe>
-      <Footer />
     </>
   );
 };

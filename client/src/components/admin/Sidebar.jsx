@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="text-black shadow-2xl fixed left-0 h-full p-6 flex flex-col justify-between "
+      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between "
       style={{
         backgroundColor: "#F5F5F5",
         borderTopRightRadius: "1rem",
@@ -31,7 +31,7 @@ const Sidebar = () => {
             to="/Dashboard"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/Dashboard")
-                ? "bg-blue-500 text-white"
+                ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >
@@ -42,7 +42,7 @@ const Sidebar = () => {
             to="/Usermanagement"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/Usermanagement")
-                ? "bg-blue-500 text-white"
+                ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >
@@ -53,7 +53,7 @@ const Sidebar = () => {
             to="/reports"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/reports")
-                ? "bg-blue-500 text-white"
+                ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >
@@ -64,7 +64,7 @@ const Sidebar = () => {
             to="/notifications"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/notifications")
-                ? "bg-blue-500 text-white"
+                ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >
@@ -75,7 +75,7 @@ const Sidebar = () => {
             to="/settings"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/settings")
-                ? "bg-blue-500 text-white"
+                ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >

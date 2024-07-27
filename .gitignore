@@ -41,3 +41,4 @@ __pycache__/
 */Activate.ps1
 *.pyc 
 __pycache__/
+*/*/__pycache__/*

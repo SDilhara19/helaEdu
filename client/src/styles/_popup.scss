@@ -1,16 +1,17 @@
+
+
+
 .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
-  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+  } 
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -19,7 +20,14 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
   }
+  .modal-open {
+    overflow: hidden;
   
+    & > *:not(.modal):not(.modal-overlay) {
+      filter: blur(5px);
+      pointer-events: none;
+    }
+  }
   .edit-profile-modal .input {
     width: 100%;
     padding: 10px;
@@ -39,6 +47,26 @@
   }
   
   .edit-profile-modal .submit-button:hover {
-    background: #0056b3;
+    background: $primary-color;
   }
+
+  .underline {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background-color: $secondary-color;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .active .underline {
+    width: 100%;
+  }
+  
+  .visible {
+    width: 100%;
+  }
+  
+ 
   
