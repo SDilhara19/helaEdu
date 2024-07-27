@@ -6,10 +6,10 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import HTMLReactParser from 'html-react-parser';
- import Image from '@assets/img/articles/original.jpg';
  import Profile from '@assets/img/articles/profile.jpg';
 import Default from'@assets/img/articles/defaultArticle.jpg';
 export default function ViewArticle({title,content,tags,userName,date,imageRef}) {
+    const formattedDate = new Date(date).toLocaleDateString();
     const [isLiked, setIsLiked] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
     const parsedContent =HTMLReactParser(content);
@@ -32,7 +32,7 @@ export default function ViewArticle({title,content,tags,userName,date,imageRef})
                     </div>
                    
                     <div>
-                        <span className='text-2xl'>{date}</span>
+                        <span className='text-2xl'>{formattedDate}</span>
                     </div>
                 </div>
                 <br></br>

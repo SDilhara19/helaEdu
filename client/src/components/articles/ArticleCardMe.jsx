@@ -9,7 +9,7 @@ import HTMLReactParser from 'html-react-parser';
 import Article from "@assets/img/articles/article.jpg";
 import Profile from '@assets/img/articles/profile.jpg';
 
-export default function ArticleCardMe({ imageUrl, authorName, date, title, description, badges, status }) {
+export default function ArticleCardMe({ imageUrl,  title, description, badges, status , date}) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
 
@@ -26,26 +26,40 @@ export default function ArticleCardMe({ imageUrl, authorName, date, title, descr
       <div className="relative card w-96 h-auto shadow-xl overflow-hidden">
         <div className="h-80">
           <figure className="h-full">
+
             <img src={Article} className="w-full h-full object-cover" alt="Article" />
           </figure>
         </div>
         {status && (
           <div className="absolute top-0 right-0">
-            {/* <div className="relative w-16 h-16 bg-red-800"> */}
-              <div className="absolute top-0 right-0 w-0 h-0 border-l-16 border-l-transparent border-b-16 border-b-white">
-                <div className="absolute top-[-20px] right-[-20px] transform rotate-45 w-48 text-center">
-                  <span className="text-white text-xs font-bold">{status}</span>
-                </div>
+          
+            <div class="absolute top-0 right-0">
+              <div class="w-32 h-8 absolute top-4 -right-8">
+                  {status==='pending' ?(
+                    <div class="h-full w-full bg-blue text-white text-center leading-8 text-xl transform rotate-45">
+                    {status}
+                    </div>
+                  ):status=== 'approved' ?(
+                    <div class="h-full w-full bg-green-600 text-white text-center leading-8 text-xl transform rotate-45">
+                        {status}
+                    </div>
+                  ):status ==='rejected' ?(
+                    <div class="h-full w-full bg-red-600 text-white text-center leading-8 text-xl transform rotate-45">
+                        {status}
+                    </div>
+                  ):null}
+                 
               </div>
-            {/* </div> */}
+            </div>
+       
           </div>
         )}
         <div className="card-body p-4 flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center">
-                <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
-                <span className="text-sm ml-2">{authorName}</span>
+                {/* <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
+                <span className="text-sm ml-2">{authorName}</span> */}
               </div>
               <div className='flex items-center'>
                 <span className="text-sm">{date}</span>

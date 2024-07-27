@@ -6,7 +6,7 @@ import ArticleCard from '@components/articles/ArticleCard'
 import { pendingArticles } from '@services/ArticleService'
 import { getUserDetails } from '@services/TeacherService'
 import { Link } from 'react-router-dom';
-
+import Sort from '@components/articles/Sort';
 export default function reviewList() {
   const [articles, setArticles] = useState([]); // Initialize articles state
 
@@ -42,8 +42,16 @@ export default function reviewList() {
   return (
     <div>
       <Header />
-      {/* <Banner /> */}
-      <ArticleHead/>
+      <div className='mx-32 flex justify-between'>
+        <div className='my-16 '>
+          <h1>Pending Articles</h1>
+          <hr className="border-yellow border-t-4 "></hr>
+        </div>
+        <div>
+          <Sort/>
+        </div>
+      </div>
+      
       <div className="mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {articles.map((article) => (
             <div key={article.articleId} className="p-2">

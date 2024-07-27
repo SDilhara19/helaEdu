@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getArticleById, approveArticle, rejectArticle } from '@/services/ArticleService';
-
+import HTMLReactParser from 'html-react-parser';
 export default function ReviewArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
@@ -60,11 +60,11 @@ export default function ReviewArticle() {
   return (
     <div className={`${isModalOpen || isDeclineModalOpen ? 'modalOpen' : ''}`}>
       <Header />
-      <div>
-        <h1 className="text-center text-5xl mt-10 m-6">Review Article</h1>
-        <hr className='border-yellow border-t-2 w-full hover:border-white transition duration-300 ease-in-out' />
+      <div className='mx-64'>
+        <h1 className=" text-5xl mt-10 ">Review Article</h1>
+        <hr className='border-yellow border-t-4 w-96 my-4 ' />
       </div>
-      <div className="border border-blue rounded-2xl p-10 mx-32 mt-32">
+      <div className=" p-10 mx-64 mt-32">
         <h1 className="text-5xl">{article.title}</h1>
         <div className="card-actions flex justify-between mt-10">
           <div className="flex justify-start align-baseline">
@@ -94,7 +94,7 @@ export default function ReviewArticle() {
           />
         </div>
         <div className="text-xl">
-          <p className="text-2xl">{article.content}</p>
+          <p className="text-2xl">{HTMLReactParser(article.content)}</p>
         </div>
         <div className="flex justify-between mx-9">
           <div className="border border-blue rounded-xl p-6 m-2">
@@ -106,7 +106,7 @@ export default function ReviewArticle() {
           </div>
         </div>
       </div>
-      <div className="p-2 mx-32 mb-6 mt-8 flex justify-between ">
+      <div className="p-2 mx-64 mb-6 mt-8 flex justify-between ">
         <div>
           <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-40 h-16 hover:translate-x-2" onClick={openModal}>
               Approve

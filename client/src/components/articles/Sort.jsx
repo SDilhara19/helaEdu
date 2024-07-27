@@ -3,26 +3,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function Sort() {
+  const grades = ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5'];
   return (
-    <div>
-      <div className='flex space-x-4 text-sm'>
-            <span className='text-gray text-xl'>Sort By</span>
-            <button className='text-3xl px-6 py-2 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              All
+    <div className='flex justify-end items-center mt-16'>
+        <div className='flex space-x-4 text-sm'>
+          <span className='text-gray1 text-xl'>Sort By</span>
+          <button className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors'>
+            All
+          </button>
+          <button className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors'>
+            Date
+          </button>
+          <div className='dropdown dropdown-end'>
+            <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
+              Grade <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <button className=' text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Date
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 text-sm'>
+              {grades.map((grade, index) => (
+                <li  key={index} className='z-10'>
+                  <button className='text-xl w-full text-left px-4 py-2 hover:bg-gray-100 z-10'>{grade}</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='dropdown dropdown-end'>
+            <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
+              Subject <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <button className='text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Grade  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 text-sm z-10'>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Math</button></li>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Science</button></li>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>History</button></li>
+            </ul>
+          </div>
+          <div className='dropdown dropdown-end'>
+            <button tabIndex={0} className='text-xl px-6 py-2 rounded-lg border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'>
+              Tags <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
             </button>
-            <button className='text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Subject  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
-            </button>
-            <button className=' text-3xl px-6 rounded-lg border border-blue text-blue hover:bg-blue hover:text-white transition-colors'>
-              Tags  <FontAwesomeIcon icon={faChevronDown} className="text-blue text-lg size-7" />
-            </button>
-        </div>     
-    </div>
+            <ul tabIndex={0} className='dropdown-content menu p-1 shadow  rounded-box w-52 z-10'>
+              <li ><button className='w-full text-center px-4 py-2 hover:bg-gray-100 text-xl'>Tag 1</button></li>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Tag 2</button></li>
+              <li ><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Tag 3</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
   )
 }

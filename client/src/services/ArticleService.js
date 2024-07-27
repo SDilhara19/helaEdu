@@ -14,5 +14,6 @@ export const createArticle =(article,headers) => axios.post(CREATE_ARTICLE_URL,a
 export const approveArticle = (articleId) => axios.put(`${REST_API_BASE_URL}/${articleId}/approve`);
 export const rejectArticle = (articleId, rejectedReason) => axios.put(`${REST_API_BASE_URL}/${articleId}/decline`, null, { params: { rejectedReason } });
 export const uploadArticleCover = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadArticleCover`, formData, { headers:{...headers,"Content-Type":"multipart/form-data"} });
-
 export const uploadAdditionalFiles = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadAdditionalFiles`, formData, { headers });
+
+export const updateArticle =(articleId,article,) =>axios.put()

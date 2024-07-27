@@ -5,6 +5,7 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import HTMLReactParser from 'html-react-parser';
 import Article from "@assets/img/articles/article.jpg";
 import Profile from '@assets/img/articles/profile.jpg';
@@ -13,6 +14,7 @@ import DefaultArticle from '@assets/img/articles/defaultArticle.jpg'
 export default function ArticleCard({ imageUrl, authorName, date, title, description, badges }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
+  const formattedDate = new Date(date).toLocaleDateString();
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
@@ -42,7 +44,7 @@ export default function ArticleCard({ imageUrl, authorName, date, title, descrip
               <span className="text-sm ml-2">{authorName}</span>
             </div>
             <div className='flex items-center'>
-              <span className="text-sm">{date}</span>
+              <span className="text-sm">{formattedDate}</span>
             </div>
           </div>
           <h2 className="card-title text-2xl line-clamp-3">

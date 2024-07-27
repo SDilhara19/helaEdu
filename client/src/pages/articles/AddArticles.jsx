@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import { Footer } from '@/components/common';
 import { listArticlesByTeacher } from '@/services/ArticleService';
 import ArticleCardMe from '@components/articles/ArticleCardMe';
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
+
 export default function AddArticles() {
+  // const authHeader = useAuthHeader();
+  // const headers = {
+  //   Authorization: authHeader,
+  // };
   // const [articles, setArticles] =useState([])
   // useEffect(()=> {
   //   listArticlesByTeacher().then((response) =>{
@@ -12,7 +18,7 @@ export default function AddArticles() {
   //   }).catch(error=>{
   //     console.error(error);
   //   })
-  //   },[])
+  //   },[headers])
   const articles = [
     {
       id: '1',
@@ -39,7 +45,7 @@ export default function AddArticles() {
       title: 'Exploring AI in Modern Healthcare',
       content: 'A look into the various applications of AI in healthcare, including diagnostics, treatment plans, and patient care improvements.</p>',
       badges: ['AI', 'Healthcare', 'Technology'],
-      status:'pending',
+      status:'approved',
     }
   ];
   
@@ -66,14 +72,13 @@ export default function AddArticles() {
               <Link to={`/ViewMyArticles/1`}>
                 <ArticleCardMe
                   key={article.articleId}
-                  // imageUrl={article.imageRef}
-                  // authorImageUrl={article.authorImageUrl}
-                  authorName={article.authorName}
-                  date={article.publishedTimestamp}
+                  imageUrl={article.imageRef}
                   title={article.title}
                   description={article.content}
                   badges={article.tags}
                   status={article.status}
+                  date={article.publishedTimestamp}
+
                 />
               </Link>
             </div>
