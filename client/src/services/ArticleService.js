@@ -5,6 +5,7 @@ const APPROVE_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/ap
 const PENDING_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/pending`
 const CREATE_ARTICLE_URL=`${import.meta.env.VITE_REST_API_BASE_URL}/articles/create`
 
+
 export const listArticles=()=>axios.get(REST_API_BASE_URL);
 export const listArticlesByTeacher =(headers) => axios.get(TEACHER_ARTICLE_URL,{headers});
 export const approvedArticles=()=>axios.get(APPROVE_ARTICLE_URL);
@@ -16,4 +17,5 @@ export const rejectArticle = (articleId, rejectedReason) => axios.put(`${REST_AP
 export const uploadArticleCover = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadArticleCover`, formData, { headers:{...headers,"Content-Type":"multipart/form-data"} });
 export const uploadAdditionalFiles = (articleId, formData, headers) => axios.post(`${REST_API_BASE_URL}/${articleId}/uploadAdditionalFiles`, formData, { headers });
 
-// export const updateArticle =(articleId,article,) =>axios.put()
+export const updateArticle =(articleId,article,headers) =>axios.put(`${REST_API_BASE_URL}/${articleId}`,article,{headers});
+export const deleteArticle=(articleId) =>axios.delete(`${REST_API_BASE_URL}/${articleId}`);

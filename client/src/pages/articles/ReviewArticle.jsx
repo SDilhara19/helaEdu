@@ -7,6 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getArticleById, approveArticle, rejectArticle } from '@/services/ArticleService';
 import Default from '@assets/img/articles/defaultArticle.jpg'
 import HTMLReactParser from 'html-react-parser';
+
 export default function ReviewArticle() {
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);

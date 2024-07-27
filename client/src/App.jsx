@@ -69,7 +69,7 @@ function App() {
         <Route path="/Settings" element={<Settings />}></Route>
         <Route path="/Reports" element={<Reports />}></Route>
         <Route path="/subject" element={<Subject />} />
-        <Route path="/editArticle" element={<EditArticle />} />
+        <Route path="/editArticle/:articleId" element={<EditArticle />} />
         <Route path="/reviewQuiz" element={<ReviewQuiz/>} />
         <Route path="/reviewQuizList" element={<ReviewQuizList/>} />
       </Routes>

@@ -49,7 +49,7 @@ const Articles = () => {
                 <ArticleCard
                   key={article.articleId}
                   imageUrl={article.imageRef}
-                  // authorImageUrl={article.authorImageUrl}
+                  profilePictureUrl={article.profilePictureUrl}
                   authorName={article.authorName}
                   date={article.publishedTimestamp}
                   title={article.title}

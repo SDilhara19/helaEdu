@@ -12,6 +12,7 @@ export default function ProfileHero({ email, name ,profileImg}) {
 
   const [profileImage, setProfileImage] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  
   const [previewSrc, setPreviewSrc] = useState(profileImg);
   const navigator = useNavigate();
   const authHeader = useAuthHeader();
