@@ -6,7 +6,7 @@ import Articles from "@assets/img/articles/articles.png";
 import Users from "@assets/img/articles/social-media.png";
 import Notes from "@assets/img/articles/notes.png";
 import ProfileHero from "@components/teacher_com/ProfileHero";
-import { Header, Footer } from "@components/common";
+import { Header,Footer} from "@components/common";
 import { listTeacherDetails } from "@services/TeacherService";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { Link } from "react-router-dom";
@@ -19,7 +19,6 @@ const TProfile = () => {
   const headers = {
     Authorization: authHeader,
   };
-
   useEffect(() => {
     listTeacherDetails(headers)
       .then((response) => {
@@ -32,8 +31,7 @@ const TProfile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
-    setIsModalOpen(false); // Close modal after submission
+    setIsModalOpen(false); 
   };
 
   const openModal = () => {
@@ -47,8 +45,8 @@ const TProfile = () => {
   return (
     <div>
       <Header />
-      <ProfileHero email={teacher.email}/>
-     
+      <ProfileHero email={teacher.email} name={teacher.firstName} profileImg={teacher.profilePictureUrl} />
+    
       <div className="flex justify-between mr-32 ml-32 mt-32">
         <div className="w-1/2 mr-12 mt-12 shadow-xl p-12">
          
