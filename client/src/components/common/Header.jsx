@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBell } from "@fortawesome/fontawesome-free-regular";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { DarkModeProvider } from "@components/common/DarkModeContext";
 import DarkModeToggle from "@components/common/DarkModeToggle";
@@ -50,6 +51,9 @@ function Header() {
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
+              <DarkModeProvider>
+                <DarkModeToggle />
+              </DarkModeProvider>
               <div className="dropdown-wrapper">
                 <div className="dropdown dropdown-end">
                   <div className="flex-c">
@@ -57,7 +61,7 @@ function Header() {
                       tabIndex="0"
                       role="button"
                       icon={faBell}
-                      size="3x"
+                      size="2x"
                       className="notification-bell"
                     />
                   </div>
@@ -74,14 +78,15 @@ function Header() {
                   </ul>
                 </div>
               </div>
-              <div className="dropdown-wrapper">
+
+              <div className="dropdown-wrapper p-0">
                 <div className="dropdown dropdown-end">
                   <div className="profile-icon flex-c">
                     <FontAwesomeIcon
                       tabIndex="0"
                       role="button"
                       icon={faUser}
-                      size="3x"
+                      size="2x"
                     />
                   </div>
                   <ul tabIndex="0" className="menu dropdown-content shadow">
@@ -95,7 +100,7 @@ function Header() {
                       <h4
                         onClick={() => {
                           signOut();
-                          window.location.reload();
+                          window.location = "./auth";
                         }}
                       >
                         Log out
@@ -104,9 +109,6 @@ function Header() {
                   </ul>
                 </div>
               </div>
-              <DarkModeProvider>
-                <DarkModeToggle />
-              </DarkModeProvider>
             </div>
           ) : (
             <div className="auth-control">
