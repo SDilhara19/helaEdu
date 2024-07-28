@@ -70,13 +70,6 @@ public class StudentController {
             throw new RuntimeException(e);
         }
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<StudentDto>> getAllStudents() throws ExecutionException, InterruptedException {
-//        List<StudentDto> students = studentService.getAllStudents();
-//        return ResponseEntity.ok(students);
-//    }
-
     @GetMapping("/page/{page}")
     public ResponseEntity<List<StudentDto>> getAllStudents(@PathVariable int page) throws ExecutionException, InterruptedException {
         List<StudentDto> students = studentService.getAllStudents(page);
@@ -88,13 +81,12 @@ public class StudentController {
         StudentDto studentDto = studentService.getStudent(userId);
         if (studentDto != null) {
             return ResponseEntity.ok(studentDto);
-        } else {
+        }else{
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", "Student not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
-
     @PostMapping("/by-email")
     public ResponseEntity<Object> getStudentByEmail(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");
