@@ -46,8 +46,9 @@ public class StudentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String studentId = studentService.createStudent(studentDto);
-            return new ResponseEntity<>(studentId, HttpStatus.CREATED);
+            String userId = studentService.createStudent(studentDto);
+            SuccessResponse successResponse = new SuccessResponse("userId", userId);
+            return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("email", e.getMessage());
@@ -68,6 +69,19 @@ public class StudentController {
             return new ResponseEntity<>("Error uploading profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/deleteProfilePicture")
+    public ResponseEntity<Object> deleteProfilePicture(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        try {
+            studentService.deleteProfilePicture(email);
+            return new ResponseEntity<>("Profile picture deleted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IOException | ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error deleting profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -460,5 +474,12 @@ public class StudentController {
     public ResponseEntity<Object> uploadProfilePictureCurrentStudent(@RequestParam("profilePicture") MultipartFile profilePicture) throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
         return uploadProfilePicture(email, profilePicture);
+    }
+
+    @PostMapping("/me/deleteProfilePicture")
+    public ResponseEntity<Object> deleteProfilePictureCurrentStudent() throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return deleteProfilePicture(requestBody);
     }
 }

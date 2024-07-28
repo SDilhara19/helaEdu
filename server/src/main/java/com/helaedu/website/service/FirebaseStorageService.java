@@ -48,6 +48,18 @@ public class FirebaseStorageService {
         return uploadFile(file, "profile_pictures/" + email);
     }
 
+    public void deleteProfilePicture(String profilePictureUrl) throws IOException {
+        String bucketName = "helaedu-website.appspot.com";
+        String blobName = profilePictureUrl.replace(String.format("https://storage.googleapis.com/%s/", bucketName), "");
+
+        BlobId blobId = BlobId.of(bucketName, blobName);
+        boolean deleted = storage.delete(blobId);
+
+        if (!deleted) {
+            throw new StorageException(404, "File not found in Google Cloud Storage");
+        }
+    }
+
     public String uploadArticleCover(MultipartFile file, String articleId) throws IOException {
         return uploadFile(file, "article_cover_images/" + articleId);
     }
