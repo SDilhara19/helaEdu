@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import logo from "@assets/icons/hela-edu-white-text.svg";
-
+import background from '@assets/img/quiz-bg.svg'
 import Guidlines from './Guidlines'
-import Primary_Button from '@components/common/Primary_Button';
 import Questions from './Questions';
 import Score from './Score';
+import QuizHeader from './QuizHeader';
 
 const QuizBegin = ({ subject }) => {
     const questionbank = [
@@ -76,40 +75,43 @@ const QuizBegin = ({ subject }) => {
     };
 
     return (
-        <>
+        <div className="relative min-h-screen bg-cover bg-fixed " style={{ backgroundImage: `url(${background})` }}>
+
             <div>
-                <img src={logo} alt="" />
-                <h2 className='s-topic'>Weekly Quiz 1 </h2>
+                <QuizHeader />
+              
             </div>
             <div>
 
                 {!quizStarted ? (
-                <div>
-                    <Guidlines subject={subject} />
-                    <Primary_Button name="Start" click={startQuiz} />
-                </div>
+                    <div className=''>
+                        <Guidlines subject={subject} />
+                        <div className='text-center m-10 '>
+      <div className='button-29 animate-wiggle animate-infinite animate-ease-in' onClick={startQuiz}>Start Quiz!</div>
+                        </div>
+                    </div>
                 ) : currentQuestion < questions.length ? (
-          <Questions
-              questions={questions}
-              handleNextQuestion={handleNextQuestion}
-              currentQuestion={currentQuestion}
-              handleAnswerClick={handleAnswerClick}
-              timer={timer}
-              isLastQuestion={isLastQuestion}
-          />
-        ) : (
-          <Score
-             score={score}
-             setScore={setScore}
-             setCurrentQuestion={setCurrentQuestion}
-             setQuizStarted={setQuizStarted}
-             setIsLastQuestion={setIsLastQuestion}
-             setTimer={setTimer}            
-          />
-        )}
+                    <Questions
+                        questions={questions}
+                        handleNextQuestion={handleNextQuestion}
+                        currentQuestion={currentQuestion}
+                        handleAnswerClick={handleAnswerClick}
+                        timer={timer}
+                        isLastQuestion={isLastQuestion}
+                    />
+                ) : (
+                    <Score
+                        score={score}
+                        setScore={setScore}
+                        setCurrentQuestion={setCurrentQuestion}
+                        setQuizStarted={setQuizStarted}
+                        setIsLastQuestion={setIsLastQuestion}
+                        setTimer={setTimer}
+                    />
+                )}
             </div>
 
-        </>
+        </div>
     )
 }
 

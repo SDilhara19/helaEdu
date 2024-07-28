@@ -18,7 +18,7 @@ const QuizHeader = () => {
 
     return (
         <div className='flex justify-between px-10 shadow-sm bg-white items-center'>
-            <img className='' src={logo} alt="" />
+            <img className='hover:cursor-pointer' src={logo} alt="" onClick={() => handleIconClick('quiz')}/>
             <div className="s-topic mx-auto text-center ">
                     Weekly Brain Teaser
                 </div>

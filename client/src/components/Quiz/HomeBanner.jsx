@@ -9,8 +9,16 @@ import StartQuiz from "./SelectSubject";
 import Top3 from "./Top3";
 import bot from "@assets/img/robot-from-the-side.svg";
 import banner from "@assets/img/banner.png";
+import { useNavigate } from "react-router-dom";
 
 const HomeBanner = () => {
+
+  const navigator = useNavigate()
+
+  const handleIconClick = (path) => {
+    navigator(`/${path}`)
+  }
+
   return (
     <div
       className="flex mb-4"
@@ -21,13 +29,13 @@ const HomeBanner = () => {
       }}
     >
       <div className="flex-col">
-        <div className="icon-circle">
-          <FontAwesomeIcon icon={faTrophy} size="3x" className="black" />
+        <div className="icon-circle text-black bg-white hover:text-white hover:bg-black">
+          <FontAwesomeIcon icon={faTrophy} size="3x" onClick={() => handleIconClick('leaderboard/1')} />
         </div>
-        <div className="icon-circle">
-          <FontAwesomeIcon icon={faUserGroup} size="3x" className="black" />
+        <div className="icon-circle text-black bg-white hover:text-white hover:bg-black">
+          <FontAwesomeIcon icon={faUserGroup} size="3x" className="black" onClick={() => handleIconClick('friends/1')}/>
         </div>
-        <div className="icon-circle">
+        <div className="icon-circle text-black bg-white hover:text-white hover:bg-black" onClick={() => handleIconClick('history/1')}>
           <FontAwesomeIcon
             icon={faClockRotateLeft}
             size="3x"
@@ -44,7 +52,7 @@ const HomeBanner = () => {
                 </div> */}
         <div className="flex-col grow">
           <div>
-            <div className="flex justify-end">
+            <div className="flex justify-start">
               <div className="mx-6 text-1 font-semibold"> TOTAL SCORE: 322</div>
               <div className="mx-6 text-1 font-semibold">
                 {" "}
