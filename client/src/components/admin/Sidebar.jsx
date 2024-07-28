@@ -28,9 +28,9 @@ const Sidebar = () => {
       <div className="mt-16">
         <div className="flex flex-col space-y-8">
           <Link
-            to="/Dashboard"
+            to="/dashboard"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/Dashboard")
+              isActive("/dashboard")
                 ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
@@ -39,9 +39,9 @@ const Sidebar = () => {
             Dashboard
           </Link>
           <Link
-            to="/Usermanagement"
+            to="/userManagement"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/Usermanagement")
+              isActive("/userManagement")
                 ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}

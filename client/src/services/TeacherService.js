@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const GET_USER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm`;
+const GET_PENDING_USER_DETAILS_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/tm/pending`;
 const ADD_PROFILE_IMAGE = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/tm/uploadProfilePicture`;
@@ -20,5 +23,5 @@ export const addProfileImageToTeacher = (email, formData, headers) =>
   });
 export const approveTeachers = (email) =>
   axios.put(APPROVE_TEACHERS_URL, email);
-
-export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}`;
+export const getPendingTeachers = () => axios.get(GET_PENDING_USER_DETAILS_URL);
+// export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
