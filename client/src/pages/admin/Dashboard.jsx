@@ -1,10 +1,7 @@
 import React ,{useState} from "react";
 import { Header, Footer } from "@/components/common";
 import Sidebar from "@components/admin/Sidebar";
-import Graph from "@components/admin/Graph";
 import CountBox from "@components/admin/CountBox";
-import AccessBtn from "@components/admin/AccessBtn";
-import RecentlyAccessedRoles from "@/components/admin/RecentlyAccessedRoles";
 import DashboardTable from "@components/admin/DashboardTable";
 import TopTeachers from "@components/admin/TopTeachers";
 import ExampleChart from "@components/admin/ExampleChart";
@@ -25,7 +22,7 @@ const Dashboard = () => {
         change: '10%',
         changeType: 'increase',
         icon: <UsersIcon className="h-6 w-6 text-white" />,
-        bgColor: 'bg-blue-500',
+        bgColor: 'bg-blue',
       },
       {
         title: 'Teachers',
@@ -41,7 +38,7 @@ const Dashboard = () => {
         change: '2%',
         changeType: 'decrease',
         icon: <UserGroupIcon className="h-6 w-6 text-white" />,
-        bgColor: 'bg-yellow-500',
+        bgColor: 'bg-red-500',
       },
       {
         title: 'Total Revenue',
@@ -106,7 +103,7 @@ const Dashboard = () => {
                   <hr className="border-t-2 border-yellow mb-4 w-128" />
                 </div>
                   
-                  <a href="#" className="text-blue text-xl">See All</a>
+                  <p className="text-blue text-xl">See All</p>
                 </div>
                 <br></br>
                 <DashboardTable/>

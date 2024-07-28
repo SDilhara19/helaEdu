@@ -41,15 +41,16 @@ export default function reviewList() {
   return (
     <div>
       <Header />
-      <div className='mx-32 flex justify-between'>
+      <div className='mx-32 flex '>
         <div className='my-16 '>
           <h1>Pending Articles</h1>
           <hr className="border-yellow border-t-4 "></hr>
         </div>
-        <div>
+        
+      </div>
+      <div>
           <Sort/>
         </div>
-      </div>
       
       <div className="mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {articles.map((article) => (

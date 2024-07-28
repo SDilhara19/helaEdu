@@ -2,7 +2,7 @@ import React from 'react';
 
 const CountBox = ({ title, value, change, changeType, icon, bgColor }) => {
   return (
-    <div className={`bg-white shadow-xl p-4 rounded-lg text-center flex flex-col justify-center w-1/4 ${bgColor}`}>
+    <div className={`bg-white shadow-xl p-4 rounded-lg text-center flex flex-col justify-center w-1/4 `}>
       <div className={`flex justify-center items-center w-12 h-12 mb-4 rounded-full ${bgColor}`}>
         {icon}
       </div>

@@ -61,12 +61,9 @@ export default function TopTeachers() {
 
   return (
     <div>
-      <Header />
-      <div className='mx-24 my-8'>
-        <h1>Top Teachers</h1>
-        <hr className='border-yellow border-t-4 w-1/4' />
-        <br></br>
-        <br></br>
+     
+      <div className='mx-24 my-8 z-50'>
+       
         <div>
             {currentRows}
         </div>
@@ -79,7 +76,6 @@ export default function TopTeachers() {
       </div>
       </div>
 
-      <Footer />
     </div>
   );
 }

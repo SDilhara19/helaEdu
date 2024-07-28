@@ -25,7 +25,7 @@ export default function ArticleCard({ imageUrl, authorName, date, title, badges 
   };
 
   return (
-    <div className="card w-96 h-auto shadow-xl hover:scale-105 transition-transform overflow-hidden">
+    <div className="card w-96 h-auto shadow-xl bg-white hover:scale-105 transition-transform overflow-hidden">
       <div className="h-80">
         <figure className="h-full">
           {imageUrl ?(

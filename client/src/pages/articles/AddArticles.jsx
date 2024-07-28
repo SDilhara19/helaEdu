@@ -6,6 +6,7 @@ import { listArticlesByTeacher } from '@/services/ArticleService';
 import ArticleCardMe from '@components/articles/ArticleCardMe';
 import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 import AddArticleBtn from '@components/articles/AddArticleBtn';
+import Sort from '@components/articles/Sort';
 
 export default function AddArticles() {
   const authHeader = useAuthHeader();
@@ -25,10 +26,11 @@ export default function AddArticles() {
   return (
     <div>
       <Header />
-      <div className="flex justify-between mx-48 my-12 min-h-80">
+      <div className="flex justify-between mx-48 my-12 ">
         <div>
           <h1>My Articles</h1>
           <hr className='border-yellow border-t-4 w-full hover:border-white transition duration-300 ease-in-out'></hr>
+
 
         </div>
 
@@ -37,7 +39,9 @@ export default function AddArticles() {
             <AddArticleBtn/>
           </Link>
         </div>
+        
       </div>
+      <Sort/>
       <div className=" mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {articles.map((article) => (
             <div key={article.articleId} className="p-2">

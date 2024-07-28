@@ -82,12 +82,9 @@ export default function approveTeachers() {
 
   return (
     <div>
-      <Header />
+    
       <div className="mx-24 my-8">
-        <h1>Pending Teachers</h1>
-        <hr className="border-yellow border-t-4 w-1/4" />
-        <br></br>
-        <br></br>
+       
         <div>{currentRows}</div>
         <div>
           <Pagination
@@ -98,7 +95,6 @@ export default function approveTeachers() {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 }

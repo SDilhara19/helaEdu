@@ -30,7 +30,7 @@ import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
 import Subject from "@pages/subjects/Subject";
-import UserManagement from "@components/admin/Card";
+import UserManagement from "@pages/admin/UserManagement";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
 import EditArticle from "@pages/articles/EditArticle";
