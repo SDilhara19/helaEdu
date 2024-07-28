@@ -24,8 +24,6 @@ import ModeratorDetails from "@pages/admin/ModeratorDetails";
 import Notifications from "@pages/admin/Notifications";
 import ReviewQuiz from "@pages/quizes/ReviewQuiz";
 import ReviewQuizList from "@pages/quizes/ReviewQuizList";
-import ApproveTeachers from "@pages/admin/ApproveTeachers";
-import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Chat from "@components/chat/Chat";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
@@ -61,8 +59,7 @@ function App() {
         <Route path="/moderatorDetails" element={<ModeratorDetails />} />
         {/* <Route path="/moderatorManagement" element={<ModeratorManagement />} /> */}
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/approveTeachers" element={<ApproveTeachers />} />
-        <Route path="/topTeachers" element={<TopTeachers />} />
+        
         <Route path="/viewArticleMyself/:articleId" element={<ViewArticleMyself />} />
         <Route path="/subjectCatalog" element={<SubjectCatalog />} />
         <Route path="/UserManagement" element={<UserManagement />}></Route>

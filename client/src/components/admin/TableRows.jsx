@@ -1,22 +1,15 @@
 import React from 'react';
-import PendingRequests from "@components/articles/CommentList";
-// import Students from "@pages/admin/Students";
-// import Teachers from "@pages/admin/Teachers";
-// import Moderators from "@pages/admin/Moderators";
-import TopTeachers from "@pages/admin/TopTeachers";
-
+import ApproveTeachers from '@components/admin/ApproveTeachers';
+import TopTeachersPage from "@components/admin/TopTeachersPage"
+import Students from "@components/admin/Students";
 const TableRows = ({ isPending, isStudents, isTeachers, isModerators, isTopTeachers }) => {
   if (isPending) {
-    return <PendingRequests />;
+    return <ApproveTeachers />;
   }
-  {isPending ? (
-    <PendingRequests/>
-  ):(
-    <div>hiii</div>
-  )}
-//   if (isStudents) {
-//     return <Students />;
-//   }
+  
+  if (isStudents) {
+    return <Students />;
+  }
 //   if (isTeachers) {
 //     return <Teachers />;
 //   }
@@ -24,7 +17,7 @@ const TableRows = ({ isPending, isStudents, isTeachers, isModerators, isTopTeach
 //     return <Moderators />;
 //   }
   if (isTopTeachers) {
-    return <TopTeachers />;
+    return <TopTeachersPage />;
   }
   return null;
 };

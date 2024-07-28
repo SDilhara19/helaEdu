@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Footer, Header } from "@/components/common";
 import Sidebar from "@components/admin/Sidebar";
-import TableRows from "@/components/admin/TableRows"; // Assuming this component handles the table content based on the active tab
+import TableRows from "@/components/admin/TableRows"; 
 
 const UserManagement = () => {
   const [isPending, setIsPending] = useState(true);
@@ -46,8 +46,8 @@ const UserManagement = () => {
           <div className="sidebar-wrapper">
             <Sidebar />
           </div>
-          <div className="content-wrapper mx-32">
-            <div className="tabs text-sm flex justify-end mb-4">
+          <div className="content-wrapper ">
+            <div className="tabs text-sm flex justify-center mb-4">
               <button
                 onClick={() => handleTabClick("PendingRequests")}
                 className={`tab-button ${isPending ? "active" : ""}`}
@@ -79,10 +79,10 @@ const UserManagement = () => {
                 Top Teachers
               </button>
             </div>
-            <div className="tab-content">
+            <div className="">
               <TableRows 
                 isPending={isPending} 
-                // isStudents={isStudents} 
+                isStudents={isStudents} 
                 // isTeachers={isTeachers} 
                 // isModerators={isModerators} 
                 isTopTeachers={isTopTeachers} 

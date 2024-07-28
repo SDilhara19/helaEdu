@@ -1,5 +1,5 @@
 import TableRawForPending from "@components/admin/TableRowForPending";
-import { Header, Footer } from "@components/common";
+
 import React, { useState } from "react";
 import Pagination from "@components/articles/Pagination";
 const teacher = [
@@ -83,7 +83,7 @@ export default function approveTeachers() {
   return (
     <div>
     
-      <div className="mx-24 my-8">
+      <div className=" my-28">
        
         <div>{currentRows}</div>
         <div>
