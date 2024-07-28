@@ -40,18 +40,12 @@ public class TMController {
         }
     }
 
-
     @GetMapping("/{userId}/articles")
     public ResponseEntity<List<ArticleDto>> getAllArticlesByUser(@PathVariable String userId) throws ExecutionException, InterruptedException {
         List<ArticleDto> articles = articleService.getArticlesByUser(userId);
         return ResponseEntity.ok(articles);
     }
-//    @GetMapping("/me/articles")
-//    public ResponseEntity<List<ArticleDto>> getAllArticlesByMe() throws ExecutionException, InterruptedException {
-//        String email = UserUtil.getCurrentUserEmail();
-//        List<ArticleDto> articles = articleService.getArticlesByEmail(email);
-//        return ResponseEntity.ok(articles);
-//    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
         TeacherDto teacherDto = tmService.getTM(userId);
@@ -83,6 +77,25 @@ public class TMController {
         return ResponseEntity.ok(articles);
     }
 
+    @PostMapping("/deleteProfilePicture")
+    public ResponseEntity<Object> deleteProfilePicture(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        try {
+            tmService.deleteProfilePicture(email);
+            return new ResponseEntity<>("Profile picture deleted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IOException | ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error deleting profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity<Object> getPendingTMs() throws ExecutionException, InterruptedException {
+        List<TeacherDto> tms = tmService.getPendingTMs();
+        return ResponseEntity.ok(tms);
+    }
+
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentTM() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
@@ -95,5 +108,18 @@ public class TMController {
         String email = UserUtil.getCurrentUserEmail();
         Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
         return getAllArticlesByTM(requestBody);
+    }
+
+    @PostMapping("/me/uploadProfilePicture")
+    public ResponseEntity<Object> uploadProfilePictureCurrentTM(@RequestParam("profilePicture") MultipartFile profilePicture) throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        return uploadProfilePicture(email, profilePicture);
+    }
+
+    @PostMapping("/me/deleteProfilePicture")
+    public ResponseEntity<Object> deleteProfilePictureCurrentTM() throws ExecutionException, InterruptedException {
+        String email = UserUtil.getCurrentUserEmail();
+        Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
+        return deleteProfilePicture(requestBody);
     }
 }

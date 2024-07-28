@@ -1,5 +1,6 @@
 package com.helaedu.website.config;
 
+import com.helaedu.website.security.JwtRequestFilter;
 import com.helaedu.website.service.CustomUserDetailsService;
 import com.helaedu.website.util.JwtUtil;
 import org.springframework.context.annotation.Bean;
