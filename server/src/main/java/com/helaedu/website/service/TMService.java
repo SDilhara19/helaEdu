@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class TMService {
@@ -100,5 +102,29 @@ public class TMService {
         } else {
             throw new IllegalArgumentException("Teacher or moderator not found");
         }
+    }
+
+    public List<TeacherDto> getPendingTMs() throws ExecutionException, InterruptedException {
+        List<Teacher> tms = tmRepository.getPendingTMs();
+        return tms.stream().map(tm ->
+                        new TeacherDto(
+                                tm.getUserId(),
+                                tm.getFirstName(),
+                                tm.getLastName(),
+                                tm.getEmail(),
+                                tm.getPassword(),
+                                tm.getRegTimestamp(),
+                                tm.getIsModerator(),
+                                tm.getProofRef(),
+                                tm.getRole(),
+                                tm.isEmailVerified(),
+                                tm.getProfilePictureUrl(),
+                                tm.isApproved(),
+                                tm.getAbout(),
+                                tm.getPreferredSubjects(),
+                                tm.getSchool()
+                        )
+                )
+                .collect(Collectors.toList());
     }
 }
