@@ -229,11 +229,9 @@
   height: 100%;
 }
 
-.popup-box {
+@mixin popup-box-styles {
   background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, $primary-color 100%);
   border: 2px solid $secondary-color;
-  height: 250px;
-  width: 500px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -245,12 +243,26 @@
   transition: opacity 0.5s, transform 0.5s;
 }
 
-.popup-box.visible {
+.popup-box {
+  @include popup-box-styles;
+  height: 250px;
+  width: 500px;
+}
+
+// Another popup box with different dimensions
+.popup-box-large {
+  @include popup-box-styles;
+  height: 500px;
+  width: 400px;
+  flex-direction: column;
+}
+
+.popup-box-large.visible, .popup-box.visible {
   opacity: 1;
   transform: scale(1);
 }
 
-.popup-box.hidden {
+.popup-box-large.hidden, .popup-box.hidden {
   display: none;
 }
 
@@ -286,4 +298,14 @@
 
 .animated-icon {
   animation: fadeMove 2s ease-in infinite;
+}
+
+.congrats-img{
+  width: 155%;
+  position: absolute;
+  top: -90px
+}
+
+.bagde-wrapper{
+  width: 50%;
 }
