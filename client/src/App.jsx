@@ -34,6 +34,7 @@ import Subject from "@pages/subjects/Subject";
 import UserManagement from "@components/admin/Card";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
+import SProfile from "@pages/profiles/SProfile";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/quiz" element={<QuizHome />} />
-        <Route path="/quiz/1" element={<Quiz />} />
+        <Route path="/quiz/:subject" element={<Quiz />} />
         <Route path="/quizend/1" element={<QuizEnd />} />
         <Route path="/history/1" element={<History />} />
         <Route path="/friends/1" element={<Friends />} />
@@ -55,6 +56,7 @@ function App() {
         <Route path="/reviewArticle/:articleId" element={<ReviewArticle />} />
         <Route path="/assignmentList" element={<AssignmentList />} />
         <Route path="/tProfile" element={<TProfile />} />
+        <Route path="/sProfile" element={<SProfile/>} />
         <Route path="/createAssignments" element={<CreateAssignments />} />
         <Route path="/quizFormat" element={<QuizFormat />} />
         <Route path="/chat" element={<Chat />} />
