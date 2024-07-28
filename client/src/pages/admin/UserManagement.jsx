@@ -83,7 +83,7 @@ const UserManagement = () => {
               <TableRows 
                 isPending={isPending} 
                 isStudents={isStudents} 
-                // isTeachers={isTeachers} 
+                isTeachers={isTeachers} 
                 // isModerators={isModerators} 
                 isTopTeachers={isTopTeachers} 
               />
