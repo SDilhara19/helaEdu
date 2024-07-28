@@ -11,4 +11,4 @@ export const getUserDetails = (userId) =>axios.get(`${GET_USER_DETAILS_URL}/${us
 export const addProfileImageToTeacher =(email,formData,headers) =>axios.post(ADD_PROFILE_IMAGE,formData,{headers:{...headers,"Content-Type":"multipart/form-data"} });
 export const approveTeachers =(email)=>axios.put(APPROVE_TEACHERS_URL,email);
 
-export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
+// export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
