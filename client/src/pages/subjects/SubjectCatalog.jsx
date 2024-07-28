@@ -11,18 +11,18 @@ function SubjectCatalog() {
         <img className="catalog-img" src={banner} alt="" srcset="" />
 
         <div className="catalog-ul">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
+          <Card subject={""} />
         </div>
       </div>
       <Footer />

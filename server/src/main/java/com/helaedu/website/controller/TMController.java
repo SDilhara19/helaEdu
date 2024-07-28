@@ -28,7 +28,6 @@ public class TMController {
         this.tmService = tmService;
     }
 
-
     @PostMapping("/uploadProfilePicture")
     public ResponseEntity<Object> uploadProfilePicture(@RequestParam String email, @RequestParam("profilePicture") MultipartFile profilePicture) {
         try {

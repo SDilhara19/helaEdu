@@ -1,42 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "@assets/icons/hela-edu-white-text.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { authenticateUser } from "@services/AuthService";
 import { useNavigate } from "react-router-dom";
-import rightBanner from "@assets/img/hero-banner.svg";
 
 function Login({ setLoadingState }) {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [error, setError] = useState(false);
   const signIn = useSignIn();
   const navigator = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
     setLoadingState(true);
-    authenticateUser(formData).then((res) => {
-      if (res.status === 200) {
-        let auth = {
-          token: res.data.jwt,
-          type: "Bearer",
-        };
-        let status = signIn({ auth });
-        if (status) {
-          navigator("/");
+    authenticateUser(formData)
+      .then((res) => {
+        if (res.status === 200) {
+          let auth = {
+            token: res.data.jwt,
+            type: "Bearer",
+          };
+          let userState = { role: res.data.role };
+
+          let status = signIn({ auth, userState });
+          if (status) {
+            navigator("/");
+          }
         }
-      }
-    });
+      })
+      .catch((error) => {
+        let res = error.response;
+        if (res.status == 401) {
+          let violations = res.data.violations;
+          violations.forEach((error) => {
+            setError(error.errorMessage);
+          });
+          setLoadingState(false);
+        }
+      });
   };
   return (
     <>
       <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
         <div className="details flex-col-c">
-          <h2 className="m-3">Hello</h2>
           <h3 className="m-3">Sign into your account</h3>
+          <div className={`error-msg ${error ? "" : "no-display"}`}>
+            <span>{error}</span>
+          </div>
           <div className="m-3 w-10/12">
             <div className="flex-end input-wrapper">
               <FontAwesomeIcon icon={faEnvelope} size="2x" className="icon" />
@@ -88,7 +102,15 @@ function Login({ setLoadingState }) {
           </div>
           <div className="flex-c m-3">
             <h4>
-              Don't have an account? <span>Create</span>
+              Don't have an account?{" "}
+              <span
+                className="navigate"
+                onClick={() => {
+                  navigator("/auth", { state: { isLoginAction: false } });
+                }}
+              >
+                Create
+              </span>
             </h4>
           </div>
         </div>
