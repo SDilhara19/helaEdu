@@ -84,4 +84,21 @@ public class TMService {
         }
         return profilePictureUrl;
     }
+
+    public void deleteProfilePicture(String email) throws IOException, ExecutionException, InterruptedException {
+        Teacher tm = tmRepository.getTMByEmail(email);
+
+        if (tm != null) {
+            String profilePictureUrl = tm.getProfilePictureUrl();
+            if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
+                firebaseStorageService.deleteProfilePicture(profilePictureUrl);
+                tm.setProfilePictureUrl(null);
+                tmRepository.updateTMByEmail(email, tm);
+            } else {
+                throw new IllegalArgumentException("No profile picture to delete");
+            }
+        } else {
+            throw new IllegalArgumentException("Teacher or moderator not found");
+        }
+    }
 }

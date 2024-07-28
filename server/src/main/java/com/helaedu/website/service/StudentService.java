@@ -99,6 +99,24 @@ public class StudentService {
         return profilePictureUrl;
     }
 
+    public void deleteProfilePicture(String email) throws IOException, ExecutionException, InterruptedException {
+        Student student = studentRepository.getStudentByEmail(email);
+
+        if (student != null) {
+            String profilePictureUrl = student.getProfilePictureUrl();
+            if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
+                firebaseStorageService.deleteProfilePicture(profilePictureUrl);
+                student.setProfilePictureUrl(null);
+                studentRepository.updateStudentByEmail(email, student);
+            } else {
+                throw new IllegalArgumentException("No profile picture to delete");
+            }
+        } else {
+            throw new IllegalArgumentException("Student not found");
+        }
+    }
+
+
     public void verifyEmail(String userId) throws ExecutionException, InterruptedException, FirebaseAuthException {
         FirebaseAuth.getInstance();
 
