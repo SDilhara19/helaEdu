@@ -53,7 +53,7 @@ function GlobalRoutes() {
       {/* <Route path="/topTeachers" element={<TopTeachers />} /> */}
       <Route path="/viewMyArticles/1" element={<ViewArticleMyself />} />
       <Route path="/subjectCatalog" element={<SubjectCatalog />} />
-      <Route path="/userManagement" element={<UserManagement />}></Route>
+      <Route path="/userManagement" element={<UserManagement />} />
       <Route path="/Settings" element={<Settings />}></Route>
       <Route path="/Reports" element={<Reports />}></Route>
       <Route path="/subject" element={<Subject />} />
