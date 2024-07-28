@@ -91,6 +91,12 @@ public class TMController {
         }
     }
 
+    @GetMapping("/pending")
+    public ResponseEntity<Object> getPendingTMs() throws ExecutionException, InterruptedException {
+        List<TeacherDto> tms = tmService.getPendingTMs();
+        return ResponseEntity.ok(tms);
+    }
+
     @GetMapping("/me")
     public ResponseEntity<Object> getCurrentTM() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
