@@ -185,3 +185,11 @@
     top: 50%;
     transform: translateX(-50%);
 }
+
+.error-msg {
+    background-color: $danger-color;
+    padding: 1rem;
+    text-align: center;
+    color: $white-color;
+
+}

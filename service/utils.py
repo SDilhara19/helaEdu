@@ -1,7 +1,10 @@
 from flask import request, redirect
 import jwt
 
-SECRET_KEY = "eW91cl9nZW5lcmF0ZWRfc2VjcmV0X2tleV9zaG91bGRfYmVfMzJfYnl0ZXNfbG9uZw=="
+
+key_file = open("./config/public_key.pem")
+SECRET_KEY = key_file.read()
+key_file.close()
 
 
 def authenticate(func, *args, **kwargs):
@@ -10,13 +13,7 @@ def authenticate(func, *args, **kwargs):
         if "Authorization" in request.headers:
             auth_header = request.headers["Authorization"]
             token = auth_header.split(" ")[-1]
-            data = jwt.decode(
-                token,
-                key=SECRET_KEY,
-                algorithms=[
-                    "HS256",
-                ],
-            )
+            data = jwt.decode(token, key=SECRET_KEY, algorithms=["RS256"])
             user_data = data
             return func(user_data, *args, **kwargs)
         else:
@@ -25,4 +22,5 @@ def authenticate(func, *args, **kwargs):
         # print(e)
         # return redirect("/500", code=500)
 
+    wrapper.__name__ = func.__name__
     return wrapper
