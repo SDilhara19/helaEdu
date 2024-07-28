@@ -11,11 +11,14 @@ public class CustomUserDetails implements UserDetails {
     private final String password;
     @Getter
     private final String role;
+    @Getter
+    private final String profilePictureUrl;
 
-    public CustomUserDetails(String username, String password, String role, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetails(String username, String password, String role, String profilePictureUrl, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     @Override

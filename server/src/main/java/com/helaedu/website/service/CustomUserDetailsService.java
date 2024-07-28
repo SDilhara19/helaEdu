@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!student.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new CustomUserDetails(student.getEmail(), student.getPassword(), student.getRole(),
+                return new CustomUserDetails(student.getEmail(), student.getPassword(), student.getRole(), student.getProfilePictureUrl(),
                         Collections.singletonList(new SimpleGrantedAuthority(student.getRole())));
             }
 
@@ -47,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 if (!teacher.isEmailVerified()) {
                     throw new UsernameNotFoundException("Email not verified");
                 }
-                return new CustomUserDetails(teacher.getEmail(), teacher.getPassword(), teacher.getRole(),
+                return new CustomUserDetails(teacher.getEmail(), teacher.getPassword(), teacher.getRole(), teacher.getProfilePictureUrl(),
                         Collections.singletonList(new SimpleGrantedAuthority(teacher.getRole())));
             }
 
