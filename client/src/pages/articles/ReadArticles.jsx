@@ -35,7 +35,6 @@ export default function ReadArticle() {
 
     fetchArticle();
   }, [articleId]);
-
   if (!article) {
     return <div>Loading...</div>;
   }
@@ -50,8 +49,12 @@ export default function ReadArticle() {
             content={article.content}
             tags={article.tags}
             userName={article.authorName}
+            userProfile={article.profilePictureUrl}
             date={article.publishedTimestamp}
+            imageRef={article.imageRef}
+
           />
+
         </div>
         <div className="m-12 w-3/12">
           <h1>Top Articles</h1>

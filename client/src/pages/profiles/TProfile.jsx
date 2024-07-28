@@ -6,10 +6,11 @@ import Articles from "@assets/img/articles/articles.png";
 import Users from "@assets/img/articles/social-media.png";
 import Notes from "@assets/img/articles/notes.png";
 import ProfileHero from "@components/teacher_com/ProfileHero";
-import { Header, Footer } from "@components/common";
+import { Header,Footer} from "@components/common";
 import { listTeacherDetails } from "@services/TeacherService";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { Link } from "react-router-dom";
+
 const TProfile = () => {
   const [teacher, setTeacher] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,6 @@ const TProfile = () => {
   const headers = {
     Authorization: authHeader,
   };
-
   useEffect(() => {
     listTeacherDetails(headers)
       .then((response) => {
@@ -27,12 +27,11 @@ const TProfile = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [headers]);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
-    setIsModalOpen(false); // Close modal after submission
+    setIsModalOpen(false); 
   };
 
   const openModal = () => {
@@ -46,28 +45,25 @@ const TProfile = () => {
   return (
     <div>
       <Header />
-      <ProfileHero />
-      {/* <h2>{authHeader}</h2> */}
+      <ProfileHero email={teacher.email} name={teacher.firstName} profileImg={teacher.profilePictureUrl} />
+    
       <div className="flex justify-between mr-32 ml-32 mt-32">
         <div className="w-1/2 mr-12 mt-12 shadow-xl p-12">
-          {/* <h2 className='text-3xl text-blue mb-3'>About me:</h2>
-          <p className='text-2xl mb-6'> I'm a teacher sice 2013.</p> */}
+         
           <p className="text-2xl m-4">
-            <span className="text-blue">About me</span>:I'm a teacher sice 2013.
+            <span className="text-blue">About me</span>:{teacher.about}
           </p>
           <div>
             <p className="text-2xl m-4">
-              <span className="text-blue">Email</span>: userett45@gmail.com
+              <span className="text-blue">Email</span>: {teacher.email}
             </p>
-            <p className="text-2xl m-4">
-              <span className="text-blue">Contact No</span>: 0776767678
-            </p>
+            
             <p className="text-2xl m-4">
               <span className="text-blue">Working Institute / School</span>:
-              G/Rahula College
+              {teacher.school}
             </p>
             <p className="text-2xl m-4">
-              <span className="text-blue">Teaching Subject</span>: Science
+              <span className="text-blue">Teaching Subject</span>:{teacher.preferredSubjects}
             </p>
           </div>
           <div className="flex justify-end">

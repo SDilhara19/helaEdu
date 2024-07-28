@@ -1,0 +1,27 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+    margin-top:28px;
+  }
+  
+  .tab-button {
+    padding: 8px 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 15px; /* text-sm equivalent */
+    margin-left: 8px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+
+  }
+  
+  .tab-button.active {
+    border-bottom: 2px solid $secondary-color;
+    color: $secondary-color;
+  }
+  
+  .tab-content {
+    margin-top: 16px;
+  }
+  
