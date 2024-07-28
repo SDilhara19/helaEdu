@@ -2,7 +2,6 @@ package com.helaedu.website.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.helaedu.website.dto.ArticleDto;
-import com.helaedu.website.dto.StudentDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.ArticleService;
@@ -70,9 +69,15 @@ public class TeacherController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<TeacherDto>> getAllTeachers() throws ExecutionException, InterruptedException {
-        List<TeacherDto> teachers = teacherService.getAllTeachers();
+//    @GetMapping
+//    public ResponseEntity<List<TeacherDto>> getAllTeachers() throws ExecutionException, InterruptedException {
+//        List<TeacherDto> teachers = teacherService.getAllTeachers();
+//        return ResponseEntity.ok(teachers);
+//    }
+
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<TeacherDto>> getAllTeachers(@PathVariable int page) throws ExecutionException, InterruptedException {
+        List<TeacherDto> teachers = teacherService.getAllTeachers(page);
         return ResponseEntity.ok(teachers);
     }
 
@@ -85,6 +90,25 @@ public class TeacherController {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("userId", "Teacher not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/by-email/approve")
+    public ResponseEntity<Object> approveTeacherRegistration(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+        String email = requestBody.get("email");
+        TeacherDto teacher = teacherService.getTeacherByEmail(email);
+        if(teacher != null) {
+            teacher.setApproved(true);
+        }
+        try {
+            String result = teacherService.approveTeacher(teacher.getUserId());
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+            errorResponse.addViolation("userId", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            return new ResponseEntity<>("Error approving teacher", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -151,7 +175,7 @@ public class TeacherController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleDto>> getAllArticledByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
+    public ResponseEntity<List<ArticleDto>> getAllArticlesByTeacher(@RequestBody Map<String, String> requestBody) throws ExecutionException, InterruptedException {
         String email = requestBody.get("email");
         TeacherDto teacherDto = teacherService.getTeacherByEmail(email);
         List<ArticleDto> articles = articleService.getArticlesByUser(teacherDto.getUserId());
@@ -192,6 +216,6 @@ public class TeacherController {
     public ResponseEntity<List<ArticleDto>> getCurrentTeacherArticles() throws ExecutionException, InterruptedException {
         String email = UserUtil.getCurrentUserEmail();
         Map<String, String> requestBody = RequestUtil.createEmailRequestBody(email);
-        return getAllArticledByTeacher(requestBody);
+        return getAllArticlesByTeacher(requestBody);
     }
 }

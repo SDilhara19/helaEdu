@@ -1,19 +1,42 @@
-import React from 'react';
+import React from "react";
 
-const DashboardTableRow = ({ userId, userRole, recentActivity, lastAccessedDate, lastAccessedTime }) => {
+const DashboardTableRow = ({ name,email,validationProof,subjects}) => {
   return (
-    <div className="w-full flex justify-center my-4">
-      <div 
-        className="border border-blue-500 rounded-2xl w-10/12 h-20 flex justify-between items-center px-4"
-        style={{ marginLeft: '200px', marginRight: '50px' }} // Applying left and right margins
-      >
-        <div className="flex-1 px-2"><p className="text-xl">{userId}</p></div>
-        <div className="flex-1 px-2"><p className="text-xl">{userRole}</p></div>
-        <div className="flex-1 px-2"><p className="text-xl">{recentActivity}</p></div>
-        <div className="flex-1 px-2"><p className="text-xl">{lastAccessedDate}</p></div>
-        <div className="flex-1 px-2"><p className="text-xl">{lastAccessedTime}</p></div>
-      </div>
+    <div>
+    
+      <div className="w-full flex justify-center my-4">
+      
+        <div className="border border-blue rounded-2xl w-full h-14 flex justify-between items-center px-4">
+          <div className="bg-yellow rounded-full w-10 h-10 flex items-center justify-center mr-4">
+              <span className="text-white text-lg font-bold">{name.charAt(0)}</span>
+            </div>
+          <div className="flex-1 px-2">
+            <p className="text-xl">{name}</p>
+          </div>
+          <div className="flex-1 px-2">
+            <p className="text-xl">{email}</p>
+          </div>
+          <div className="flex-1 px-2">
+            <p className="text-xl">{validationProof}</p>
+          </div>
+          <div className="flex-1 px-2">
+            <p className="text-xl">{subjects}</p>
+          </div>
+          <div className="flex justify-between px-4">
+            
+              <div className="bg-blue rounded-2xl text-white text-lg px-2 py-1 mx-2">Approve
+
+              </div>
+              <div className="bg-red-500 rounded-2xl text-white text-lg px-2 py-1">Decline
+
+              </div>
+            
+          </div>
+          
+        </div>
     </div>
+    </div>
+   
   );
 };
 

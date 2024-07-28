@@ -1,14 +1,60 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPen,
-  faRocket,
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
-import robotFace from "@assets/icons/robot-face.svg";
-import profileFace from "@assets/icons/profile-face.png";
+import { faPen, faRocket } from "@fortawesome/free-solid-svg-icons";
+
+import { sendToChatBot, getChatBotHistory } from "@services/ChatBotService";
+import ChatContent from "@components/subject/ChatContent";
+
 function ChatBot() {
+  const [history, setHistory] = useState([]);
+  const textInputRef = useRef(null);
+  const rocketButtonRef = useRef(null);
+  const sendToChat = () => {
+    let content = textInputRef.current.value;
+    chatPayload.prompt = content;
+    let message = {
+      content: content,
+      type: "human",
+    };
+
+    setHistory((prevHistory) => [...prevHistory, message]);
+    textInputRef.current.value = "";
+
+    sendToChatBot(chatPayload).then((res) => {
+      let answer = res.data.response.answer;
+      let response = {
+        content: answer,
+        type: "ai",
+      };
+      setHistory((prevHistory) => [...prevHistory, response]);
+    });
+  };
+  const changeRocket = (elem) => {
+    if (elem.value) {
+      rocketButtonRef.current.classList.add("active");
+    } else {
+      rocketButtonRef.current.classList.remove("active");
+    }
+  };
+
+  let chatPayload = {
+    prompt: "",
+    grade: "11",
+    subject: "Geography",
+    student_id: "232",
+    chat_session_id: "chat8",
+  };
+
+  useEffect(() => {
+    getChatBotHistory({
+      chat_session_id: chatPayload.chat_session_id,
+    }).then((res) => {
+      history.push(res.data.response);
+      setHistory(...history);
+    });
+  }, []);
+
   return (
     <div className="chatbot">
       <div className="title-wrapper">
@@ -20,65 +66,28 @@ function ChatBot() {
           </h4>
         </div>
       </div>
-      <div className="content">
-        <div className="bot-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="user-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={profileFace} alt="user" />
-        </div>
-
-        <div className="bot-bubble">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="user-bubble shadow">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={profileFace} alt="user" />
-        </div>
-        <div className="bot-bubble">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-          <img src={robotFace} alt="bot" />
-        </div>
-        <div className="reference-bubble">
-          <div className="reference-control flex-c">
-            <h4>
-              <FontAwesomeIcon icon={faArrowLeft} size="1x" />
-              References
-              <FontAwesomeIcon icon={faArrowRight} size="1x" />
-            </h4>
-          </div>
-          <div className="flex-sb reference-location">
-            <h4>Source : Geogrophy Grade -10</h4>
-            <h4>Page : 17</h4>
-          </div>
-          <p className="references">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            sed aliquam laudantium repellendus nostrum voluptates tenetur?
-          </p>
-        </div>
-      </div>
+      <ChatContent messageList={history} />
       <div className="chat-control">
         <div className="chat-input-wrapper">
-          <textarea name="chat-input" id="chat-input" />
-          <FontAwesomeIcon icon={faRocket} size="3x" />
+          <textarea
+            name="chat-input"
+            id="chat-input"
+            ref={textInputRef}
+            onInput={(e) => changeRocket(e.target)}
+            onKeyDown={(e) => {
+              if (e.key == "Enter") {
+                e.preventDefault();
+                sendToChat();
+                changeRocket(rocketButtonRef.current);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={faRocket}
+            size="3x"
+            ref={rocketButtonRef}
+            onClick={sendToChat}
+          />
         </div>
       </div>
     </div>

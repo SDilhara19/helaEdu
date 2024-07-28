@@ -1,38 +1,18 @@
 import React from 'react';
 
-const Dashboard = () => {
-  const registeredStudents = 1500; 
-  const registeredTeachers = 200;  
-  const registeredModerators = 50;
-  const totalRevenue = 100;
-
+const CountBox = ({ title, value, change, changeType, icon, bgColor }) => {
   return (
-    <div className="flex justify-around p-8 space-x-4" style={{ marginLeft: '200px', marginRight: '100px' }}>
-      {/* Box 1 */}
-      <div className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center" style={{ width: '278px', height: '150px' }}>
-        <h2 className="text-3xl mb-2 text-blue-600">Students</h2>
-        <div className="text-5xl text-black">{registeredStudents}</div>
+    <div className={`bg-white shadow-xl p-4 rounded-lg text-center flex flex-col justify-center w-1/4 `}>
+      <div className={`flex justify-center items-center w-12 h-12 mb-4 rounded-full ${bgColor}`}>
+        {icon}
       </div>
-
-      {/* Box 2 */}
-      <div className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center" style={{ width: '278px', height: '150px' }}>
-        <h2 className="text-3xl mb-2 text-blue-600">Teachers</h2>
-        <div className="text-5xl text-black">{registeredTeachers}</div>
-      </div>
-
-      {/* Box 3 */}
-      <div className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center" style={{ width: '278px', height: '150px' }}>
-        <h2 className="text-3xl mb-2 text-blue-600">Moderators</h2>
-        <div className="text-5xl text-black">{registeredModerators}</div>
-      </div>
-
-      {/* Box 4 (New Box) */}
-      <div className="bg-white shadow-xl p-3 rounded-lg text-center flex flex-col justify-center" style={{ width: '278px', height: '150px' }}>
-        <h2 className="text-3xl mb-2 text-blue-600">Total Revenue</h2>
-        <div className="text-5xl text-black">${totalRevenue}</div>
+      <h2 className="text-2xl mb-2 text-gray-700">{title}</h2>
+      <div className="text-4xl font-bold text-gray-900">{value}</div>
+      <div className={`text-lg mt-2 ${changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}>
+        {change} {changeType === 'increase' ? '▲' : '▼'}
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default CountBox;

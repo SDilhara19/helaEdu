@@ -1,0 +1,27 @@
+.dashboard {
+    .dashboard-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .sidebar-wrapper {
+        position: relative;
+        min-width: 15vw;
+        min-height: 90vh;
+        height: 91vh;
+    }
+
+    .content-wrapper {
+        flex: 1 1 40rem;
+        max-height: 90vh;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        width: 80%;
+        // margin: auto;
+    }
+
+    .content {
+        width: 80%;
+        margin: auto;
+    }
+}

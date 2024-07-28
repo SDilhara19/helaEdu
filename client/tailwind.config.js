@@ -14,10 +14,12 @@ export default {
         // blue2: '#B5D2FC'
         blue: "var(--color-primary)",
         yellow: "var(--color-secondary)",
-        white: "var(--color-text)",
-        black: "var(--color-bg)",
+        white: "var(--color-bg)",
+        black: "var(--color-text)",
         blue2: "var(--color-accent)",
-        gray1:"var(--color-gray1)"
+        gray1: "var(--color-dark-gray)",
+        gray2: "var(--color-light-gray)",
+
       },
       screens: {
         mw: { max: "800px" },
@@ -30,18 +32,12 @@ export default {
         text: "2.5rem", // 40px
         1: "1.25rem", // 20px
       },
+      backgroundColor: {
+        'white-transparent': 'rgba(255, 255, 255, 0.5)',
+      },
     },
   },
   plugins: [require("daisyui")],
   darkMode: "class", // Enable dark mode support
-};
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("daisyui")],
 };
 

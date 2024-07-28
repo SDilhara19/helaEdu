@@ -3,6 +3,7 @@ package com.helaedu.website.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.helaedu.website.entity.Student;
 import com.helaedu.website.entity.Teacher;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +30,15 @@ public class TMRepository {
         ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("email", email).get();
         List<Teacher> teachers = future.get().toObjects(Teacher.class);
         return teachers.isEmpty() ? null : teachers.get(0);
+    }
+
+    public String updateTMByEmail(String email, Teacher tm) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference teachersCollection = dbFirestore.collection("teachers");
+        ApiFuture<QuerySnapshot> future = teachersCollection.whereEqualTo("email", email).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        DocumentReference documentReference = documents.get(0).getReference();
+        ApiFuture<WriteResult> updateFuture = documentReference.set(tm);
+        return updateFuture.get().getUpdateTime().toString();
     }
 }

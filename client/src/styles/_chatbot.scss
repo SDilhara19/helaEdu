@@ -20,6 +20,7 @@
 
     .content {
         max-height: 70vh;
+        height: 70vh;
         overflow-y: scroll;
         scrollbar-width: thin;
 
@@ -128,6 +129,12 @@
         svg {
             width: 24px;
             color: $gray-color;
+
+
+        }
+
+        .active {
+            color: $black-color;
         }
     }
 
