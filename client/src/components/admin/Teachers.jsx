@@ -1,52 +1,31 @@
 import TableRawTeachers from '@components/admin/TableRowTeachers';
-import { Header, Footer } from '@components/common';
-import React ,{useState} from 'react';
-import Pagination from '@components/articles/Pagination';
-const teacher = [
-    {
-      teacherId: 1,
-      firstName: 'M.perera',
-      email: 'perera23@gmail.com',
-      Grade:'6',
-     
-    },
-    {
-        teacherId: 4,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-        
-      },
-      {
-        teacherId: 5,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-      },
-      {
-        teacherId: 6,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-      }
-    
-  ];
+import React ,{useState, useEffect} from 'react';
+import Pagination from '@components/admin/Pagination';
+import { listAllTeachersDetails } from '@services/TeacherService';
   
 export default function Teachers() {
 
     const [currentPage, setCurrentPage] = useState(1);
-    
-    const rowsPerPage = 7;
-    const totalPages = Math.ceil(teacher.length / rowsPerPage);
+    const [teachers, setTeachers] = useState([]);
+    const totalPages =2;
 
-    const currentRows = teacher.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    ).map((teacher, index) => (
+    useEffect(() => {
+      const fetchTeachers = async () => {
+          const response = await listAllTeachersDetails(currentPage);
+          setTeachers(response.data); 
+          console.log(response.data);
+      };
+      fetchTeachers();
+    }, [currentPage]);
+    
+    const currentRows = teachers
+    .map((teacher) => (
         <TableRawTeachers
         key={teacher.teacherId}
         teacherId={teacher.teacherId}
+        profileRef={teacher.profilePictureUrl}
         firstName={teacher.firstName}
+        lastNAme={teacher.lastName}
         email={teacher.email}
         
        
@@ -68,7 +47,7 @@ export default function Teachers() {
             <Pagination
             totalPages={totalPages}
             currentPage={currentPage}
-            onPageChange={handlePageChange}
+            onPageChange={setCurrentPage}
             />
       </div>
       </div>

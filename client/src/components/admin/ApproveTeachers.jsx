@@ -37,6 +37,7 @@ export default function ApproveTeachers() {
         key={teacher.teacherId}
         teacherId={teacher.teacherId}
         firstName={teacher.firstName}
+        lastName={teacher.lastName}
         email={teacher.email}
         proofPdf={teacher.proofPdf}
       />

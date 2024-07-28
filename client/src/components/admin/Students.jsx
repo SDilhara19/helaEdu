@@ -1,5 +1,4 @@
 import TableRawStudents from '@components/admin/TableRowStudents';
-import { Header, Footer } from '@components/common';
 import React ,{useState , useEffect} from 'react';
 import Pagination from '@components/admin/Pagination';
 import { listStudentDetails } from '@services/StudentService';
