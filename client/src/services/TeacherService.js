@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const GET_USER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm`;
+const GET_PENDING_USER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm/pending`;
 const ADD_PROFILE_IMAGE =`${import.meta.env.VITE_REST_API_BASE_URL}/tm/uploadProfilePicture`
 const REST_API_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm/me`;
 
@@ -10,5 +11,5 @@ export const listTeacherDetails = (headers) =>axios.get(REST_API_BASE_URL, { hea
 export const getUserDetails = (userId) =>axios.get(`${GET_USER_DETAILS_URL}/${userId}`);
 export const addProfileImageToTeacher =(email,formData,headers) =>axios.post(ADD_PROFILE_IMAGE,formData,{headers:{...headers,"Content-Type":"multipart/form-data"} });
 export const approveTeachers =(email)=>axios.put(APPROVE_TEACHERS_URL,email);
-
+export const getPendingTeachers =()=>axios.get(GET_PENDING_USER_DETAILS_URL);
 // export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
