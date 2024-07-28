@@ -19,8 +19,8 @@ import Notifications from "@pages/admin/Notifications";
 import ReviewQuiz from "@pages/quizes/ReviewQuiz";
 import ReviewQuizList from "@pages/quizes/ReviewQuizList";
 
-import ApproveTeachers from "@pages/admin/ApproveTeachers";
-import TopTeachers from "@pages/admin/TopTeachers";
+import ApproveTeachers from "@components/admin/ApproveTeachers";
+import TopTeachers from "@components/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Test from "@components/test/Test";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
@@ -57,6 +57,8 @@ function GlobalRoutes() {
       <Route path="/Settings" element={<Settings />}></Route>
       <Route path="/Reports" element={<Reports />}></Route>
       <Route path="/subject" element={<Subject />} />
+      <Route path="/reviewQuiz" element={<ReviewQuiz />} />
+      <Route path="/reviewQuizList" element={<ReviewQuizList />} />
     </Routes>
   );
 }

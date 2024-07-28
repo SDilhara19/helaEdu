@@ -8,6 +8,7 @@ import ReadArticles from "@pages/articles/ReadArticles";
 import Articles from "@pages/articles/Articles";
 import ReviewList from "@pages/articles/ReviewList";
 import AuthorizeRoute from "@utils/AuthorizeRoute";
+import EditArticle from "@pages/articles/EditArticle";
 
 function ArticleRoutes() {
   return (
@@ -36,6 +37,7 @@ function ArticleRoutes() {
       />
       <Route path="/reviewArticle/:articleId" element={<ReviewArticle />} />
       <Route path="/reviewList" element={<ReviewList />} />
+      <Route path="/editArticle/:articleId" element={<EditArticle />} />
     </Routes>
   );
 }

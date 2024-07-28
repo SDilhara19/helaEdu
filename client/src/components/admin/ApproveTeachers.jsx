@@ -59,7 +59,7 @@ const teacher = [
   },
 ];
 
-export default function approveTeachers() {
+export default function ApproveTeachers() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const rowsPerPage = 7;
@@ -82,9 +82,7 @@ export default function approveTeachers() {
 
   return (
     <div>
-    
       <div className=" my-28">
-       
         <div>{currentRows}</div>
         <div>
           <Pagination
@@ -94,7 +92,6 @@ export default function approveTeachers() {
           />
         </div>
       </div>
-
     </div>
   );
 }
