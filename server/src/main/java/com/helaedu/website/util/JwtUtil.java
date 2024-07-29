@@ -5,10 +5,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Files;
 import java.security.Key;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +24,34 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    private String secretKey;
+    private PrivateKey privateKey;
+    private PublicKey publicKey;
 
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+    public JwtUtil() throws Exception {
+        this.privateKey = loadPrivateKey();
+        this.publicKey = loadPublicKey();
+    }
+
+    private PrivateKey loadPrivateKey() throws Exception {
+        byte[] keyBytes = Files.readAllBytes(new ClassPathResource("private_key.pem").getFile().toPath());
+        String privateKeyPEM = new String(keyBytes).replace("-----BEGIN PRIVATE KEY-----", "")
+                .replace("-----END PRIVATE KEY-----", "")
+                .replaceAll("\\s", "");
+        byte[] decoded = java.util.Base64.getDecoder().decode(privateKeyPEM);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePrivate(keySpec);
+    }
+
+    private PublicKey loadPublicKey() throws Exception {
+        byte[] keyBytes = Files.readAllBytes(new ClassPathResource("public_key.pem").getFile().toPath());
+        String publicKeyPEM = new String(keyBytes).replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")
+                .replaceAll("\\s", "");
+        byte[] decoded = java.util.Base64.getDecoder().decode(publicKeyPEM);
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePublic(keySpec);
     }
 
     public String extractEmail(String token) {
@@ -38,7 +68,7 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(publicKey).build().parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -53,7 +83,7 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+                .signWith(privateKey, SignatureAlgorithm.RS256).compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

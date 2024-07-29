@@ -7,6 +7,7 @@ import com.helaedu.website.entity.Student;
 import com.helaedu.website.entity.Teacher;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -40,5 +41,18 @@ public class TMRepository {
         DocumentReference documentReference = documents.get(0).getReference();
         ApiFuture<WriteResult> updateFuture = documentReference.set(tm);
         return updateFuture.get().getUpdateTime().toString();
+    }
+
+    public List<Teacher> getPendingTMs() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference tmsCollection = dbFirestore.collection("teachers");
+        ApiFuture<QuerySnapshot> future = tmsCollection.whereEqualTo("approved", false).get();
+        List<Teacher> tms = new ArrayList<>();
+        QuerySnapshot querySnapshot = future.get();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Teacher teacher = document.toObject(Teacher.class);
+            tms.add(teacher);
+        }
+        return tms;
     }
 }

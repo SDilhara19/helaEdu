@@ -1,10 +1,17 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-function Card() {
+function Card({ subject }) {
+  const navigator = useNavigate();
   return (
-    <div className="subject-card shadow-xl">
+    <div
+      className="subject-card shadow-xl card"
+      onClick={() => {
+        navigator("/subject");
+      }}
+    >
       <div className="card-icon">
         <FontAwesomeIcon icon={faBook} size="5x" />{" "}
       </div>
