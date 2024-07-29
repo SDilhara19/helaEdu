@@ -28,32 +28,43 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
     let files = uploadInputRef.current.files;
     if (formData.password !== formData.confirmPassword) {
       setError("Confirm Password didn't match the password");
-    } else if (!files) {
+    } else if (!files.length) {
       setError("Please upload proofs for verification");
     } else {
       setLoadingState(true);
-      let res = await createTeacher(formData);
-      if (res.status === 201) {
-        let userId = { role: res.data };
-        let formFile = new FormData();
-        formFile.append("proofFile", files[0]);
-        uploadTeacherProof(formFile, formData.email)
-          .then((res) => {
-            setSuccess(
-              "You will get notified once an Admin aprove the sign up"
-            );
-            setLoadingState(false);
-          })
-          .catch((error) => {
-            let res = error.response;
-            if (res.status == 400) {
-              let violations = res.data.violations;
-              violations.forEach((error) => {
-                setError(error.errorMessage);
-              });
+      try {
+        let res = await createTeacher(formData);
+        if (res.status === 201) {
+          let userId = { role: res.data };
+          let formFile = new FormData();
+          formFile.append("proofFile", files[0]);
+          uploadTeacherProof(formFile, formData.email)
+            .then((res) => {
+              setSuccess(
+                "You will get notified once an Admin aprove the sign up"
+              );
               setLoadingState(false);
-            }
+            })
+            .catch((error) => {
+              let res = error.response;
+              if (res.status == 400) {
+                let violations = res.data.violations;
+                violations.forEach((error) => {
+                  setError(error.errorMessage);
+                });
+                setLoadingState(false);
+              }
+            });
+        }
+      } catch (error) {
+        let res = error.response;
+        if (res.status == 400) {
+          let violations = res.data.violations;
+          violations.forEach((error) => {
+            setError(error.errorMessage);
           });
+        }
+        setLoadingState(false);
       }
     }
   };
