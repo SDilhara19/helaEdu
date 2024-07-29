@@ -57,7 +57,7 @@ function GlobalRoutes() {
       <Route path="/userManagement" element={<UserManagement />} />
       <Route path="/Settings" element={<Settings />}></Route>
       <Route path="/Reports" element={<Reports />}></Route>
-      <Route path="/subject" element={<Subject />} />
+      <Route path="/subject/:subject" element={<Subject />} />
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
       <Route path="/modDashboard" element={<ModDashboard/>}/>

@@ -7,12 +7,16 @@ import {
   Discussion,
   StickyNote,
 } from "@components/subject";
+import { useParams } from "react-router-dom";
 
 function Subject() {
+ 
+  const {subject} = useParams();
+  console.log(subject);
   const sideBarComponentMap = Object.freeze({
     PASSIVE: false,
     DISCUSSION: <Discussion />,
-    CHATBOT: <ChatBot />,
+    CHATBOT: <ChatBot  subject={subject}/>,
     STICKYNOTE: <StickyNote />,
   });
 
@@ -32,7 +36,7 @@ function Subject() {
             sideBarComponentMap={sideBarComponentMap}
             setSideBarComponent={setSideBarComponent}
           />
-          <PdfBook />
+          <PdfBook subject={subject}/>
         </div>
         <div className={`right-panel ${sideBarComponent ? "active" : ""}`}>
           {sideBarComponent}
