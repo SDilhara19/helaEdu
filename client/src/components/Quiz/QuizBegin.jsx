@@ -28,16 +28,18 @@ const QuizBegin = ({ subject }) => {
         },
     ];
 
+    const perQuestionTime = 1000
+
     const [questions, setQuestions] = useState(questionbank);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(perQuestionTime);
     const [quizStarted, setQuizStarted] = useState(false);
     const [isLastQuestion, setIsLastQuestion] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
-        if (quizStarted) {
+        if (quizStarted && currentQuestion < questions.length) {
             const interval = setInterval(() => {
                 setTimer(prevTimer => {
                     if (prevTimer > 0) {
@@ -45,28 +47,27 @@ const QuizBegin = ({ subject }) => {
                     } else {
                         setCurrentQuestion(prevQuestion => prevQuestion + 1);
                         // Reset timer for the next question
-                        return 10;
+                        return perQuestionTime;
                     }
                 });
-            }, 1000);
+            }, 10);
 
             return () => clearInterval(interval);
         }
     }, [currentQuestion, quizStarted]);
 
     const handleAnswerClick = (selectedAnswer) => {
-        console.log('Answer clicked:', selectedAnswer);
         if (selectedAnswer === questions[currentQuestion].answer) {
             setScore(prevScore => prevScore + 1);
         }
     };
 
     const handleNextQuestion = () => {
-        if (currentQuestion + 1 === questions.length) {
+        if (currentQuestion + 1 == questions.length) {
             setIsLastQuestion(true);
         }
         setCurrentQuestion(prevQuestion => prevQuestion + 1);
-        setTimer(10);
+        setTimer(perQuestionTime);
     };
 
     const startQuiz = () => {
@@ -107,6 +108,7 @@ const QuizBegin = ({ subject }) => {
                         handleAnswerClick={handleAnswerClick}
                         timer={timer}
                         isLastQuestion={isLastQuestion}
+                        questionTime={perQuestionTime}
                     />
                 ) :  (
                     <Score

@@ -15,7 +15,6 @@ import QuizFormat from "@pages/assignments/QuizFormat";
 import TProfile from "@pages/profiles/TProfile";
 
 import LeaderBoard from "@pages/leaderboard/LeaderBoard";
-import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
 import Dashboard from "@pages/admin/Dashboard";
@@ -44,7 +43,6 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/quiz" element={<QuizHome />} />
         <Route path="/quiz/:subject" element={<Quiz />} />
-        <Route path="/quizend/1" element={<QuizEnd />} />
         <Route path="/history/1" element={<History />} />
         <Route path="/friends/1" element={<Friends />} />
         <Route path="/leaderboard/1" element={<LeaderBoard />} />
