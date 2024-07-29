@@ -45,7 +45,7 @@ export default function ReviewArticle() {
     try {
       const response = await approveArticle(articleId);
       console.log("Article approved:", response.data);
-      navigate('/reviewList');
+      navigate("/articles/reviewList");
     } catch (error) {
       console.error(
         "Error approving article:",
@@ -58,7 +58,7 @@ export default function ReviewArticle() {
     try {
       const response = await rejectArticle(articleId, rejectReason);
       console.log("Article rejected:", response.data);
-      navigate('/reviewList');
+      navigate("/articles/reviewList");
     } catch (error) {
       console.error(
         "Error rejecting article:",

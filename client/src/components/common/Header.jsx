@@ -8,10 +8,14 @@ import { faBell } from "@fortawesome/fontawesome-free-regular";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { DarkModeProvider } from "@components/common/DarkModeContext";
 import DarkModeToggle from "@components/common/DarkModeToggle";
+import { userRoles } from "@utils/userRoles";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 function Header() {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+  const currentUserRole = useAuthUser()?.role;
+  // currentUserRole==userRoles.Admin
 
   return (
     <header>
