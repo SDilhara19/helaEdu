@@ -1,10 +1,13 @@
 import { ArticleRoutes, GlobalRoutes } from "@routes/index";
-
+import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div>
-      <GlobalRoutes />
-      <ArticleRoutes />
+      <Routes>
+        <Route path="/articles/*" element={<ArticleRoutes />} />
+
+        <Route path="/*" element={<GlobalRoutes />} />
+      </Routes>
     </div>
   );
 }

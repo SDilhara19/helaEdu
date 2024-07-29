@@ -13,7 +13,7 @@ import EditArticle from "@pages/articles/EditArticle";
 function ArticleRoutes() {
   return (
     <Routes>
-      <Route path="/articles" element={<Articles />} index={true} />
+      <Route path="/" element={<Articles />} />
       <Route path="/readArticles/:articleId" element={<ReadArticles />} />
 
       <Route
