@@ -13,6 +13,14 @@ const APPROVE_TEACHERS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/by-email/approve`;
 
+const CREATE_TEACHER_FORM_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/create`;
+
+const TEACHER_PROOF = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/uploadProofFile`;
+
 export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
 export const getUserDetails = (userId) =>
@@ -24,4 +32,15 @@ export const addProfileImageToTeacher = (email, formData, headers) =>
 export const approveTeachers = (email) =>
   axios.put(APPROVE_TEACHERS_URL, email);
 export const getPendingTeachers = () => axios.get(GET_PENDING_USER_DETAILS_URL);
+
+export const createTeacher = (userData) =>
+  axios.post(CREATE_TEACHER_FORM_URL, userData);
+
+export const teacherProof = (proofFile) =>
+  axios.post(TEACHER_PROOF, proofFile, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
 // export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/

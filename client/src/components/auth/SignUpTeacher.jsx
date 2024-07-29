@@ -1,23 +1,53 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "@assets/icons/hela-edu-white-text.svg";
 import {
   faEnvelope,
-  faBookOpen,
   faLock,
   faUser,
   faInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import rightBanner from "@assets/img/hero-banner.svg";
 
-function SignUpTeacher({ signUpType, setSignUpType }) {
-  const [formData, setFormData] = React.useState({
-    username: "",
+function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
+  const uploadInputRef = useRef(null);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     password: "",
+    confirmPassword: "",
+    email: "",
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setError("Confirm Password didn't match the password");
+    } else {
+      setLoadingState(true);
+      createStudent(formData)
+        .then((res) => {
+          if (res.status === 201) {
+            let userId = { role: res.data.userId };
+            if (userId) {
+              setSuccess("Verification Email have been send");
+              setLoadingState(false);
+            }
+          }
+        })
+        .catch((error) => {
+          let res = error.response;
+          if (res.status == 400) {
+            let violations = res.data.violations;
+            violations.forEach((error) => {
+              setError(error.errorMessage);
+            });
+            setLoadingState(false);
+          }
+        });
+    }
   };
   return (
     <>
@@ -49,11 +79,11 @@ function SignUpTeacher({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="firstname"
-                    id="firstname"
+                    name="firstName"
+                    id="firstName"
                     required
                   />
-                  <label htmlFor="firstname">First Name</label>
+                  <label htmlFor="firstName">First Name</label>
                 </div>
               </div>
 
@@ -62,27 +92,12 @@ function SignUpTeacher({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="lastname"
-                    id="lastname"
+                    name="lastName"
+                    id="lastName"
                     required
                   />
-                  <label htmlFor="lastname">Last Name</label>
+                  <label htmlFor="lastName">Last Name</label>
                 </div>
-              </div>
-            </div>
-            <h5>&nbsp;</h5>
-
-            <div className="flex-end input-wrapper">
-              <FontAwesomeIcon icon={faBookOpen} size="2x" className="icon" />
-              <div className="floating-input-label">
-                <input
-                  placeholder=""
-                  type="text"
-                  name="grade"
-                  id="grade"
-                  required
-                />
-                <label htmlFor="grade">Grade</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
@@ -121,11 +136,11 @@ function SignUpTeacher({ signUpType, setSignUpType }) {
                 <input
                   placeholder=""
                   type="password"
-                  name="confim_password"
-                  id="confim_password"
+                  name="confirmPassword"
+                  id="confirmPassword"
                   required
                 />
-                <label htmlFor="confim_password">Confirm Passowrd</label>
+                <label htmlFor="confirmPassword">Confirm Passowrd</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
@@ -139,6 +154,7 @@ function SignUpTeacher({ signUpType, setSignUpType }) {
               <span className="mx-1">
                 <FontAwesomeIcon icon={faInfo} size="2x" />
               </span>
+              <input type="file" name="file" ref={uploadInputRef} />
             </div>
           </div>
 

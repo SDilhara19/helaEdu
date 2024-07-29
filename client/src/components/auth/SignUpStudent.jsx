@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -9,18 +9,45 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { createStudent } from "@services/StudentService";
 
-function SignUpStudent({ signUpType, setSignUpType }) {
+function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+    grade: "",
+    email: "",
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    let formData = new FormData(e.target);
-    let password = formData.get("password");
-    let confirmPassword = formData.get("confim_password");
-    if (confirmPassword !== password) {
+
+    if (formData.password !== formData.confirmPassword) {
       setError("Confirm Password didn't match the password");
     } else {
-      createStudent(formData).then();
+      setLoadingState(true);
+      createStudent(formData)
+        .then((res) => {
+          if (res.status === 201) {
+            let userId = { role: res.data.userId };
+            if (userId) {
+              setSuccess("Verification Email have been send");
+              setLoadingState(false);
+            }
+          }
+        })
+        .catch((error) => {
+          let res = error.response;
+          if (res.status == 400) {
+            let violations = res.data.violations;
+            violations.forEach((error) => {
+              setError(error.errorMessage);
+            });
+            setLoadingState(false);
+          }
+        });
     }
   };
   return (
@@ -29,6 +56,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
         <div className="details flex-col-c">
           <div className={`error-msg ${error ? "" : "no-display"}`}>
             <span>{error}</span>
+          </div>
+          <div className={`success-msg ${success ? "" : "no-display"}`}>
+            <span>{success}</span>
           </div>
           <div className="form-header">
             <h3
@@ -58,6 +88,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                     type="text"
                     name="firstName"
                     id="firstName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, firstName: e.target.value });
+                    }}
                     required
                   />
                   <label htmlFor="firstName">First Name</label>
@@ -71,6 +104,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                     type="text"
                     name="lastName"
                     id="lastName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, lastName: e.target.value });
+                    }}
                     required
                   />
                   <label htmlFor="lastName">Last Name</label>
@@ -87,6 +123,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="text"
                   name="grade"
                   id="grade"
+                  onInput={(e) => {
+                    setFormData({ ...formData, grade: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="grade">Grade</label>
@@ -101,6 +140,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="text"
                   name="email"
                   id="email"
+                  onInput={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="email">Email</label>
@@ -115,6 +157,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="password"
                   name="password"
                   id="password"
+                  onInput={(e) => {
+                    setFormData({ ...formData, password: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="password">Passowrd</label>
@@ -128,11 +173,17 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                 <input
                   placeholder=""
                   type="password"
-                  name="confim_password"
-                  id="confim_password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  onInput={(e) => {
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    });
+                  }}
                   required
                 />
-                <label htmlFor="confim_password">Confirm Passowrd</label>
+                <label htmlFor="confirmPassword">Confirm Passowrd</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
