@@ -19,15 +19,16 @@ import Notifications from "@pages/admin/Notifications";
 import ReviewQuiz from "@pages/quizes/ReviewQuiz";
 import ReviewQuizList from "@pages/quizes/ReviewQuizList";
 
-import ApproveTeachers from "@pages/admin/ApproveTeachers";
-import TopTeachers from "@pages/admin/TopTeachers";
+// import ApproveTeachers from "@pages/admin/ApproveTeachers";
+// import TopTeachers from "@pages/admin/TopTeachers";
 import SubjectCatalog from "@pages/subjects/SubjectCatalog";
 import Test from "@components/test/Test";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
 import Subject from "@pages/subjects/Subject";
-import UserManagement from "@components/admin/Card";
+import UserManagement from "@pages/admin/UserManagement";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
+import ModDashboard from "@pages/profiles/ModDashboard";
 
 function GlobalRoutes() {
   return (
@@ -49,14 +50,17 @@ function GlobalRoutes() {
       <Route path="/moderatorDetails" element={<ModeratorDetails />} />
       {/* <Route path="/moderatorManagement" element={<ModeratorManagement />} /> */}
       <Route path="/notifications" element={<Notifications />} />
-      <Route path="/approveTeachers" element={<ApproveTeachers />} />
-      <Route path="/topTeachers" element={<TopTeachers />} />
-      <Route path="/viewMyArticles/1" element={<ViewArticleMyself />} />
+      {/* <Route path="/approveTeachers" element={<ApproveTeachers />} /> */}
+      {/* <Route path="/topTeachers" element={<TopTeachers />} /> */}
+      <Route path="/viewArticleMyself/:articleId" element={<ViewArticleMyself />} />
       <Route path="/subjectCatalog" element={<SubjectCatalog />} />
-      <Route path="/UserManagement" element={<UserManagement />}></Route>
+      <Route path="/userManagement" element={<UserManagement />} />
       <Route path="/Settings" element={<Settings />}></Route>
       <Route path="/Reports" element={<Reports />}></Route>
-      <Route path="/subject" element={<Subject />} />
+      <Route path="/subject/:subject" element={<Subject />} />
+      <Route path="/reviewQuiz" element={<ReviewQuiz />} />
+      <Route path="/reviewQuizList" element={<ReviewQuizList />} />
+      <Route path="/modDashboard" element={<ModDashboard/>}/>
     </Routes>
   );
 }

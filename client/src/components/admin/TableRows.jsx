@@ -2,6 +2,7 @@ import React from 'react';
 import ApproveTeachers from '@components/admin/ApproveTeachers';
 import TopTeachersPage from "@components/admin/TopTeachersPage"
 import Students from "@components/admin/Students";
+import Teachers from '@components/admin/Teachers';
 const TableRows = ({ isPending, isStudents, isTeachers, isModerators, isTopTeachers }) => {
   if (isPending) {
     return <ApproveTeachers />;
@@ -10,9 +11,9 @@ const TableRows = ({ isPending, isStudents, isTeachers, isModerators, isTopTeach
   if (isStudents) {
     return <Students />;
   }
-//   if (isTeachers) {
-//     return <Teachers />;
-//   }
+  if (isTeachers) {
+    return <Teachers />;
+  }
 //   if (isModerators) {
 //     return <Moderators />;
 //   }
