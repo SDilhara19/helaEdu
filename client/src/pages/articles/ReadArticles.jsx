@@ -52,9 +52,7 @@ export default function ReadArticle() {
             userProfile={article.profilePictureUrl}
             date={article.publishedTimestamp}
             imageRef={article.imageRef}
-
           />
-
         </div>
         <div className="m-12 w-3/12">
           <h1>Top Articles</h1>
@@ -66,7 +64,7 @@ export default function ReadArticle() {
           <PopArticleCard />
           <PopArticleCard />
           <br></br>
-          <Link to="/addArticleForm">
+          <Link to="/articles/addArticleForm">
             <AddArticleBtn />
           </Link>
           <iframe></iframe>

@@ -8,11 +8,12 @@ import ReadArticles from "@pages/articles/ReadArticles";
 import Articles from "@pages/articles/Articles";
 import ReviewList from "@pages/articles/ReviewList";
 import AuthorizeRoute from "@utils/AuthorizeRoute";
+import EditArticle from "@pages/articles/EditArticle";
 
 function ArticleRoutes() {
   return (
     <Routes>
-      <Route path="/articles" element={<Articles />} index={true} />
+      <Route path="/" element={<Articles />} />
       <Route path="/readArticles/:articleId" element={<ReadArticles />} />
 
       <Route
@@ -36,6 +37,7 @@ function ArticleRoutes() {
       />
       <Route path="/reviewArticle/:articleId" element={<ReviewArticle />} />
       <Route path="/reviewList" element={<ReviewList />} />
+      <Route path="/editArticle/:articleId" element={<EditArticle />} />
     </Routes>
   );
 }

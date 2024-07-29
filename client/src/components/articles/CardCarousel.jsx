@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import ArticleCard from '@components/articles/ArticleCard';
-import { approvedArticles } from '@/services/ArticleService';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import ArticleCard from "@components/articles/ArticleCard";
+import { approvedArticles } from "@/services/ArticleService";
 
 const CardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,8 +35,8 @@ const CardCarousel = () => {
 
   useEffect(() => {
     updateVisibleCards();
-    window.addEventListener('resize', updateVisibleCards);
-    return () => window.removeEventListener('resize', updateVisibleCards);
+    window.addEventListener("resize", updateVisibleCards);
+    return () => window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
   const nextSlide = () => {
@@ -65,14 +65,18 @@ const CardCarousel = () => {
       <div className=" w-full">
         <div
           className="flex transition-transform duration-300"
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
+          style={{
+            transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
+          }}
         >
           {articles.map((article) => (
             <div
               key={article.articleId}
-              className={`flex-shrink-0 p-2 ${visibleCards === 2 ? 'w-1/2' : 'w-1/5'}`} 
+              className={`flex-shrink-0 p-2 ${
+                visibleCards === 2 ? "w-1/2" : "w-1/5"
+              }`}
             >
-              <Link to={`/readArticles/${article.articleId}`}>
+              <Link to={`/articles/readArticles/${article.articleId}`}>
                 <ArticleCard
                   key={article.articleId}
                   imageUrl={article.imageRef}
