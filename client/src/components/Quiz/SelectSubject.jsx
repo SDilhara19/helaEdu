@@ -23,7 +23,7 @@ const StartQuiz = () => {
 
   return (
     <>
-      <div className='button-29 animate-wiggle animate-infinite animate-ease-in' onClick={() => document.getElementById('subjects_modal').showModal()}>Start Quiz!</div>
+      <div className='button-29 animate-bounce animate-thrice animate-duration-1000 animate-ease-linear animate-normal mt-10' onClick={() => document.getElementById('subjects_modal').showModal()}>Start Quiz!</div>
       <dialog id="subjects_modal" className="modal">
         <div className="modal-box w-11/12 max-w-7xl">
           <form method="dialog">

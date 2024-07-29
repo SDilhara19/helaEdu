@@ -7,7 +7,6 @@ import {
 import React from "react";
 import StartQuiz from "./SelectSubject";
 import Top3 from "./Top3";
-import bot from "@assets/img/robot-from-the-side.svg";
 import banner from "@assets/img/banner.png";
 import { useNavigate } from "react-router-dom";
 

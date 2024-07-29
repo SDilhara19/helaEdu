@@ -91,7 +91,7 @@ const QuizBegin = ({ subject }) => {
                         <Guidlines subject={subject} />
                         <div className='text-center m-10'>
                             <div
-                                className='button-29 animate-wiggle animate-infinite animate-ease-in'
+                                className='button-29 mt-10'
                                 onClick={showStartPopup}
                             >
                                 Start Quiz!
