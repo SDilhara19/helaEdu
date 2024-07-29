@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
-  faInfo,
   faLock,
   faUser,
   faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { createStudent } from "@services/StudentService";
+import { useNavigate } from "react-router-dom";
 
 function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
+  let navigator = useNavigate();
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -52,8 +53,12 @@ function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
   };
   return (
     <>
-      <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
-        <div className="details flex-col-c">
+      <form
+        method="POST"
+        className="left-pannel flex-c signup"
+        onSubmit={onSubmit}
+      >
+        <div className="details ">
           <div className={`error-msg ${error ? "" : "no-display"}`}>
             <span>{error}</span>
           </div>
@@ -188,9 +193,6 @@ function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
             </div>
             <h5>&nbsp;</h5>
           </div>
-          {/* <div className="placeholder">
-            <h4></h4>
-          </div> */}
 
           <div className="m-3">
             <button className="btn gold-button px-2">

@@ -7,8 +7,10 @@ import {
   faInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import { createTeacher, uploadTeacherProof } from "@services/TeacherService";
+import { useNavigate } from "react-router-dom";
 
 function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
+  let navigator = useNavigate();
   const uploadInputRef = useRef(null);
   const [proofFileName, setProofFileName] = useState(false);
   const [error, setError] = useState(false);
@@ -23,61 +25,64 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
 
   const formSubmit = async (e) => {
     e.preventDefault();
-    setError(false);
-    setSuccess(false);
+    resetMessages();
     let files = uploadInputRef.current.files;
+
     if (formData.password !== formData.confirmPassword) {
       setError("Confirm Password didn't match the password");
     } else if (!files.length) {
       setError("Please upload proofs for verification");
     } else {
-      setLoadingState(true);
-      try {
-        let res = await createTeacher(formData);
-        if (res.status === 201) {
-          let userId = { role: res.data };
-          let formFile = new FormData();
-          formFile.append("proofFile", files[0]);
-          uploadTeacherProof(formFile, formData.email)
-            .then((res) => {
-              setSuccess(
-                "You will get notified once an Admin aprove the sign up"
-              );
-              setLoadingState(false);
-            })
-            .catch((error) => {
-              let res = error.response;
-              if (res.status == 400) {
-                let violations = res.data.violations;
-                violations.forEach((error) => {
-                  setError(error.errorMessage);
-                });
-                setLoadingState(false);
-              }
-            });
-        }
-      } catch (error) {
-        let res = error.response;
-        if (res.status == 400) {
-          let violations = res.data.violations;
-          violations.forEach((error) => {
-            setError(error.errorMessage);
-          });
-        }
-        setLoadingState(false);
-      }
+      await submitTeacherDetails();
     }
   };
+
+  const resetMessages = () => {
+    setError(false);
+    setSuccess(false);
+  };
+
+  const submitTeacherDetails = async () => {
+    try {
+      setLoadingState(true);
+      await createTeacher(formData);
+      await uploadProofFile();
+    } catch (error) {
+      displayErrorMessage(error);
+    }
+  };
+
+  const uploadProofFile = async () => {
+    try {
+      let formData = new FormData();
+      formData.append("proofFile", files[0]);
+      await uploadTeacherProof(formData, formData.email);
+      setSuccess("You will get notified once an Admin aprove the sign up");
+      setLoadingState(false);
+    } catch (error) {
+      displayErrorMessage(error);
+    }
+  };
+
+  const displayErrorMessage = (error) => {
+    let errorResponse = error.response;
+    let violations = errorResponse.data.violations;
+    violations.forEach((errorObject) => {
+      setError(errorObject.errorMessage);
+    });
+    setLoadingState(false);
+  };
+
   return (
     <>
       <form
         method="POST"
-        className="left-pannel flex-c"
+        className="left-pannel flex-c signup"
         onSubmit={(e) => {
           e.preventDefault();
         }}
       >
-        <div className="details flex-col-c">
+        <div className="details ">
           <div className={`error-msg ${error ? "" : "no-display"}`}>
             <span>{error}</span>
           </div>
