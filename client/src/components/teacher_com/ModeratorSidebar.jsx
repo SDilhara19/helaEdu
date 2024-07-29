@@ -10,7 +10,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = () => {
+const ModeratorSidebar = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
@@ -28,7 +28,7 @@ const Sidebar = () => {
       <div className="mt-16">
         <div className="flex flex-col space-y-8">
           <Link
-            to="/dashboard"
+            to="/modDashboard"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/dashboard")
                 ? "bg-blue text-white"
@@ -39,7 +39,7 @@ const Sidebar = () => {
             Dashboard
           </Link>
           <Link
-            to="/userManagement"
+            to="/reviewList"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/userManagement")
                 ? "bg-blue text-white"
@@ -47,10 +47,10 @@ const Sidebar = () => {
             }`}
           >
             <FontAwesomeIcon icon={faUsers} className="mr-4" />
-            Users
+            Articles
           </Link>
           <Link
-            to="/reports"
+            to="/reviewList"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/reports")
                 ? "bg-blue text-white"
@@ -58,7 +58,7 @@ const Sidebar = () => {
             }`}
           >
             <FontAwesomeIcon icon={faChartLine} className="mr-4" />
-            Reports
+            Quizzes
           </Link>
           <Link
             to="/notifications"
@@ -80,7 +80,7 @@ const Sidebar = () => {
             }`}
           >
             <FontAwesomeIcon icon={faCog} className="mr-4" />
-            Account Settings
+            Reports
           </Link>
         </div>
       </div>
@@ -94,4 +94,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default ModeratorSidebar;

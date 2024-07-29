@@ -36,7 +36,7 @@ export default function Students() {
   return (
     <div>
       <div className=' my-28 z-50'>
-        <div>
+        <div className="min-h-72">
             {currentRows}
         </div>
         <div>

@@ -50,7 +50,7 @@ export default function ApproveTeachers() {
   return (
     <div>
       <div className="my-28">
-        <div>{currentRows}</div>
+        <div className="min-h-72">{currentRows}</div>
         <div>
           <Pagination
             totalPages={totalPages}

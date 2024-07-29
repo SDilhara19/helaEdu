@@ -7,7 +7,7 @@ import TopTeachers from "@components/admin/TopTeachers";
 import ExampleChart from "@components/admin/ExampleChart";
 import { CurrencyDollarIcon, UserGroupIcon, AcademicCapIcon, UsersIcon } from '@heroicons/react/outline';
 import UserRegistrationPieChart from "@components/admin/UserRegistrationPieChart";
-
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   
     const [active, setActive] = useState(null);
@@ -102,8 +102,10 @@ const Dashboard = () => {
                   <h2 className="text-3xl ">Teacher's Approval Requests</h2>
                   <hr className="border-t-2 border-yellow mb-4 w-128" />
                 </div>
+                  <Link to ="/UserManagement">
+                    <p className="text-blue text-xl">See All</p>
+                  </Link>
                   
-                  <p className="text-blue text-xl">See All</p>
                 </div>
                 <br></br>
                 <DashboardTable/>

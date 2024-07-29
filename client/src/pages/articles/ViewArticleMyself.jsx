@@ -107,7 +107,12 @@ export default function ViewArticleMyself() {
           <div>
             <h2 className='text-4xl mt-10 mb-4'>Moderator's Review</h2>
             <hr className='border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
-            <p className='text-gray1 text-2xl'>content has some errors</p>
+            {article.rejectedReason ? (
+              <p className='text-gray1 text-2xl'>content has some errors</p>
+            ):(
+              <p>No any reviews</p>
+            )}
+            
           </div>
         </div>
       </div>
