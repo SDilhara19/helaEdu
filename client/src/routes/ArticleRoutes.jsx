@@ -15,7 +15,6 @@ function ArticleRoutes() {
     <Routes>
       <Route path="/" element={<Articles />} />
       <Route path="/readArticles/:articleId" element={<ReadArticles />} />
-
       <Route
         path="/addArticles"
         element={
