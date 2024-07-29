@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "@assets/icons/hela-edu-white-text.svg";
 import {
   faEnvelope,
   faLock,
   faUser,
   faInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import rightBanner from "@assets/img/hero-banner.svg";
+import { createTeacher, uploadTeacherProof } from "@services/TeacherService";
 
 function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
   const uploadInputRef = useRef(null);
+  const [proofFileName, setProofFileName] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,38 +21,58 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
     email: "",
   });
 
-  const onSubmit = (e) => {
+  const formSubmit = async (e) => {
     e.preventDefault();
+    setError(false);
+    setSuccess(false);
+    let files = uploadInputRef.current.files;
     if (formData.password !== formData.confirmPassword) {
       setError("Confirm Password didn't match the password");
+    } else if (!files) {
+      setError("Please upload proofs for verification");
     } else {
       setLoadingState(true);
-      createStudent(formData)
-        .then((res) => {
-          if (res.status === 201) {
-            let userId = { role: res.data.userId };
-            if (userId) {
-              setSuccess("Verification Email have been send");
+      let res = await createTeacher(formData);
+      if (res.status === 201) {
+        let userId = { role: res.data };
+        let formFile = new FormData();
+        formFile.append("proofFile", files[0]);
+        uploadTeacherProof(formFile, formData.email)
+          .then((res) => {
+            setSuccess(
+              "You will get notified once an Admin aprove the sign up"
+            );
+            setLoadingState(false);
+          })
+          .catch((error) => {
+            let res = error.response;
+            if (res.status == 400) {
+              let violations = res.data.violations;
+              violations.forEach((error) => {
+                setError(error.errorMessage);
+              });
               setLoadingState(false);
             }
-          }
-        })
-        .catch((error) => {
-          let res = error.response;
-          if (res.status == 400) {
-            let violations = res.data.violations;
-            violations.forEach((error) => {
-              setError(error.errorMessage);
-            });
-            setLoadingState(false);
-          }
-        });
+          });
+      }
     }
   };
   return (
     <>
-      <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
+      <form
+        method="POST"
+        className="left-pannel flex-c"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className="details flex-col-c">
+          <div className={`error-msg ${error ? "" : "no-display"}`}>
+            <span>{error}</span>
+          </div>
+          <div className={`success-msg ${success ? "" : "no-display"}`}>
+            <span>{success}</span>
+          </div>
           <div className="form-header">
             <h3
               className={`m-3 ${signUpType == "teacher" ? "active" : ""}`}
@@ -81,6 +101,9 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
                     type="text"
                     name="firstName"
                     id="firstName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, firstName: e.target.value });
+                    }}
                     required
                   />
                   <label htmlFor="firstName">First Name</label>
@@ -94,6 +117,9 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
                     type="text"
                     name="lastName"
                     id="lastName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, lastName: e.target.value });
+                    }}
                     required
                   />
                   <label htmlFor="lastName">Last Name</label>
@@ -109,6 +135,9 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
                   type="text"
                   name="email"
                   id="email"
+                  onInput={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="email">Email</label>
@@ -123,6 +152,9 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
                   type="password"
                   name="password"
                   id="password"
+                  onInput={(e) => {
+                    setFormData({ ...formData, password: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="password">Passowrd</label>
@@ -138,6 +170,12 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
+                  onInput={(e) => {
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    });
+                  }}
                   required
                 />
                 <label htmlFor="confirmPassword">Confirm Passowrd</label>
@@ -146,20 +184,50 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
             <h5>&nbsp;</h5>
           </div>
           <div className="flex-sb w-8/12">
-            <h4>Verification Proof</h4>
-            <div className="upload-verification">
-              <button className="btn white-button px-2">
+            <h4 className="text-nowrap">Verification Proof</h4>
+            <div
+              className={proofFileName ? "upload-verification" : "no-display"}
+            >
+              <h4
+                className="text-cyan-600 cursor-pointer"
+                onClick={() => {
+                  uploadInputRef.current.click();
+                }}
+              >
+                {proofFileName}
+              </h4>
+            </div>
+            <div
+              className={proofFileName ? "no-display" : "upload-verification"}
+            >
+              <button
+                className="btn white-button px-2"
+                onClick={() => {
+                  uploadInputRef.current.click();
+                }}
+              >
                 <h4>Upload</h4>
               </button>
               <span className="mx-1">
                 <FontAwesomeIcon icon={faInfo} size="2x" />
               </span>
-              <input type="file" name="file" ref={uploadInputRef} />
+              <input
+                type="file"
+                name="file"
+                ref={uploadInputRef}
+                onChange={() => {
+                  let files = uploadInputRef.current.files;
+                  if (files) {
+                    setProofFileName(files[0].name);
+                  }
+                }}
+                className="no-display"
+              />
             </div>
           </div>
 
           <div className="m-3">
-            <button className="btn gold-button px-2">
+            <button className="btn gold-button px-2" onClick={formSubmit}>
               <h4>Sign Up</h4>
             </button>
           </div>

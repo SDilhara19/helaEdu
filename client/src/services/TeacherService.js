@@ -36,8 +36,8 @@ export const getPendingTeachers = () => axios.get(GET_PENDING_USER_DETAILS_URL);
 export const createTeacher = (userData) =>
   axios.post(CREATE_TEACHER_FORM_URL, userData);
 
-export const teacherProof = (proofFile) =>
-  axios.post(TEACHER_PROOF, proofFile, {
+export const uploadTeacherProof = (proofFile, email) =>
+  axios.post(`${TEACHER_PROOF}?email=${email}`, proofFile, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

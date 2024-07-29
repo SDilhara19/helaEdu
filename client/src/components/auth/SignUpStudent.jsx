@@ -188,9 +188,9 @@ function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
             </div>
             <h5>&nbsp;</h5>
           </div>
-          <div className="placeholder">
+          {/* <div className="placeholder">
             <h4></h4>
-          </div>
+          </div> */}
 
           <div className="m-3">
             <button className="btn gold-button px-2">
