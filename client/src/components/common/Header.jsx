@@ -8,10 +8,13 @@ import { faBell } from "@fortawesome/fontawesome-free-regular";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { DarkModeProvider } from "@components/common/DarkModeContext";
 import DarkModeToggle from "@components/common/DarkModeToggle";
+import { userRoles } from "@utils/userRoles";
 
 function Header() {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+  const currentUserRole = useAuthUser()?.role;
+  // currentUserRole==userRoles.Admin
 
   return (
     <header>
@@ -28,6 +31,7 @@ function Header() {
                 <h4>Home</h4>
               </div>
             </Link>
+
             <Link to="/SubjectCatalog">
               <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Subject</h4>

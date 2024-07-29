@@ -24,7 +24,7 @@ export default function ViewArticleMyself() {
   const DeleteArticle = async () => {
     try {
       await deleteArticle(articleId);
-      navigate("/addArticles");
+      navigate("/articles/addArticles");
     } catch (error) {
       console.error("Failed to delete article", error);
     }
