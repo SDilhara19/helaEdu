@@ -15,7 +15,7 @@ export default function PopArticleCard({title,userName,userProfile,imageRef,date
       <div className="card-body w-2/3 p-4 ">
         <h2 className="card-title text-2xl  ">{title}</h2>
         <div className="card-actions flex justify-between mt-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-1">
             <img
               className="w-10 h-10 rounded-full"
               src={userProfile}
@@ -23,7 +23,7 @@ export default function PopArticleCard({title,userName,userProfile,imageRef,date
             />
             <span className="text-lg ">{userName}</span>
           </div>
-          <div>
+          <div className='flex-1'>
             <span className="text-lg ">{date}</span>
           </div>
         </div>

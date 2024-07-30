@@ -17,7 +17,6 @@ export default function ReviewArticle() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
-  
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -31,7 +30,8 @@ export default function ReviewArticle() {
 
         setArticle({
           ...articleData,
-          authorName: userDetails.firstName,
+          firstName: userDetails.firstName,
+          lastName:userDetails.lastName,
         });
       } catch (error) {
         console.error(error);
@@ -86,69 +86,60 @@ export default function ReviewArticle() {
           <div className="sidebar-wrapper">
             <Sidebar />
           </div>
-          <div className="content-wrapper mx-32">
+          <div className="content-wrapper mx-32 ">
             <div className={`${isModalOpen || isDeclineModalOpen ? "modalOpen" : ""}`}>
-              <div>
-
-              </div>
-              <div>
-                
-              </div>
               <div className="">
                 <h1 className="text-3xl mt-10">Review Article</h1>
                 <hr className="border-yellow border-t-4 w-96 my-4" />
               </div>
-              <div className="p-10">
-                <h1 className="text-3xl font-bold">{article.title}</h1>
-                <div className="card-actions flex justify-between mt-10">
-                  <div className="flex justify-start align-baseline">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                      alt="Rounded avatar"
-                    />
-                    <span className="text-2xl">{article.authorName}</span>
-                  </div>
-                  <div>
-                    <span className="text-2xl">{formattedDate}</span>
-                  </div>
-                </div>
-                <div className="my-14">
-                  {article.imageRef ? (
-                    <img className="w-99/100 h-auto" src={article.imageRef} alt="Article" />
-                  ) : (
-                    <img className="w-99/100 h-auto" src={Default} alt="Default" />
-                  )}
-                </div>
-                <div className="text-xl">
-                  <p className="text-xl">{HTMLReactParser(article.content)}</p>
-                </div>
-                <div className="flex justify-start m-7">
-                  {article.tags && article.tags.map((tag, index) => (
-                    <div key={index} className="border-none text-gray1 text-2xl px-2 py-5">
-                      #{tag}
+              <div className='flex justify-between'>
+                <div className='w-8/12'>
+                  <div className="p-10">
+                    <h1 className="text-3xl font-bold">{article.title}</h1>
+                    
+                    <div className="my-14">
+                      {article.imageRef ? (
+                        <img className="w-full h-auto" src={article.imageRef} alt="Article" />
+                      ) : (
+                        <img className="w-full h-auto" src={Default} alt="Default" />
+                      )}
                     </div>
-                  ))}
-                </div>
-                <div className="flex justify-between mx-9">
-                  <div className="rounded-xl m-2">
-                    <FontAwesomeIcon icon={faFile} className="text-4xl hover:text-yellow cursor-pointer hover:translate-x-1" style={{ color: '#6C6C6C' }} />
-                    <span className="text-2xl text-gray1 hover:text-yellow cursor-pointer">myFile.pdf</span>
+                    <div className="text-xl">
+                      <p className="text-xl">{HTMLReactParser(article.content)}</p>
+                    </div>
+                    <div className="flex flex-wrap">
+                      {article.tags && article.tags.map((tag, index) => (
+                        <div key={index} className="border-none text-gray1 text-2xl px-2 py-1 mr-2 mb-2">
+                          #{tag}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-start mt-7">
+                      <div className="rounded-xl m-2 flex items-center">
+                        <FontAwesomeIcon icon={faFile} className="text-4xl hover:text-yellow cursor-pointer hover:translate-x-1" style={{ color: '#6C6C6C' }} />
+                        <a href={article.additionalFilesRefs} download className="text-2xl text-gray1 hover:text-yellow cursor-pointer ml-2">
+                          {article.additionalFilesRefs ? 'Download File' : 'No File Available'}
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="p-2 mx-64 mb-6 mt-8 flex justify-between">
-                <div>
-                  <button className="bg-yellow text-white font-bold text-3xl py-2 px-4 rounded w-96 h-16 hover:translate-x-2" onClick={openModal}>
+                <div className='w-3/12  items-center'>
+                  <div className="my-10">
+                        <p className='my-2 text-2xl'>Author : <span className="text-2xl ml-2">{article.firstName} {article.lastName}</span></p>
+                        <p className='my-2 text-2xl'>Submitted Date :<span className="text-2xl">{formattedDate}</span></p>
+                    </div>  
+                  <button className="bg-yellow text-black text-xl py-2 px-4 rounded w-52 h-16 hover:translate-x-2 mb-4" onClick={openModal}>
                     Approve Article
                   </button>
-                </div>
-                <div>
-                  <button className="bg-red-500 text-white font-bold w-96 h-16 text-3xl rounded bottom-4 right-4 hover:translate-x-2" onClick={openDeclineModal}>
+                  <br></br>
+                  <button className="bg-red-500 text-black text-xl py-2 px-4  w-52 h-16 rounded hover:translate-x-2" onClick={openDeclineModal}>
                     Reject Article
                   </button>
                 </div>
-                {isModalOpen && (
+              </div>
+            </div>
+            {isModalOpen && (
                   <dialog open className="modal">
                     <div className="modal-box max-w-3xl p-10">
                       <p className="py-4 text-3xl">
@@ -208,8 +199,6 @@ export default function ReviewArticle() {
                     </div>
                   </dialog>
                 )}
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export default function reviewList() {
     const fetchApprovedArticles = async () => {
       try {
         const response = await pendingArticles();
-        const articles = response.data.slice(0, 3);
+        const articles = response.data;
         console.log(articles);
 
         const articlesWithUserDetails = await Promise.all(
@@ -61,7 +61,7 @@ export default function reviewList() {
             <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {articles.map((article) => (
                 <div key={article.articleId} className="p-2">
-                  <Link to={`/reviewArticle/${article.articleId}`}>
+                  <Link to={`/articles/reviewArticle/${article.articleId}`}>
                     <ArticleCard
                       key={article.articleId}
                       imageUrl={article.imageRef}

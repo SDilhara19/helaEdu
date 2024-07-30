@@ -16,44 +16,44 @@ export default function ReadArticle() {
   const topArticles = [
     {
       title: "Exploring the Wonders of the Universe",
-      authorName: "John Doe",
+      authorName: "Nisala Gamage",
       profilePictureUrl: "https://images.unsplash.com/photo-1546820389-44d77e1f3b31",
-      publishedTimestamp: "2023-07-15T14:48:00.000Z",
+      publishedTimestamp: "2023-07-15",
       imageRef: "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6",
     },
     {
       title: "The Future of Artificial Intelligence",
-      authorName: "Jane Smith",
+      authorName: "Kaweesha Prasadi",
       profilePictureUrl: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-      publishedTimestamp: "2023-06-10T10:20:00.000Z",
+      publishedTimestamp: "2023-06-10",
       imageRef: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
     },
     {
       title: "A Guide to Healthy Living",
-      authorName: "Mark Johnson",
+      authorName: "Sadun Perera",
       profilePictureUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce",
-      publishedTimestamp: "2023-05-25T09:30:00.000Z",
+      publishedTimestamp: "2023-05-25",
       imageRef: "https://images.unsplash.com/photo-1518680662109-849c651ab4d0",
     },
     {
       title: "Understanding Quantum Computing",
-      authorName: "Emily Davis",
+      authorName: "Saduni Dihara",
       profilePictureUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-      publishedTimestamp: "2023-04-05T16:00:00.000Z",
+      publishedTimestamp: "2023-04-05",
       imageRef: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
     },
     {
       title: "The Art of Minimalist Design",
-      authorName: "Michael Brown",
+      authorName: "Masha Fernando",
       profilePictureUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
-      publishedTimestamp: "2023-03-22T11:15:00.000Z",
+      publishedTimestamp: "2023-03-22",
       imageRef: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
     },
     {
       title: "Exploring Ancient Civilizations",
-      authorName: "Sophia Wilson",
+      authorName: "Sonali Tharushika",
       profilePictureUrl: "https://images.unsplash.com/photo-1524578271613-e9d1b1b2a474",
-      publishedTimestamp: "2023-02-18T08:45:00.000Z",
+      publishedTimestamp: "2023-02-18",
       imageRef: "https://images.unsplash.com/photo-1525103042018-3bdcffc5b09a",
     }
   ];
@@ -69,7 +69,9 @@ export default function ReadArticle() {
 
         const articleWithUserDetails = {
           ...article,
-          authorName: userDetails.firstName,
+          firstName: userDetails.firstName,
+          lastName: userDetails.lastName,
+          userId:userDetails.userId,
         };
 
         setArticle(articleWithUserDetails);
@@ -91,13 +93,18 @@ export default function ReadArticle() {
       <div className="flex justify-between mx-24">
         <div className="w-8/12">
           <ViewArticle
+            articleId={article.articleId}
             title={article.title}
             content={article.content}
             tags={article.tags}
-            userName={article.authorName}
+            firstName={article.firstName}
+            lastName={article.lastName}
             userProfile={article.profilePictureUrl}
             date={article.publishedTimestamp}
             imageRef={article.imageRef}
+            additionalFilesRefs={article.additionalFilesRefs}
+            userId={article.userId}
+            upvote={article.upvote}
           />
         </div>
         <div className="m-12 w-3/12">
