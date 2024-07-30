@@ -11,4 +11,4 @@ export const listStudentDetails = (pageNo) =>
   axios.get(`${GET_STUDENT_DETAILS_URL}/${pageNo}`);
 
 export const createStudent = (userData) =>
-  axios.post(`${CREATE_STUDENT}/`, userData);
+  axios.post(`${CREATE_STUDENT}`, userData);

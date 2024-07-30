@@ -37,37 +37,38 @@ function Header() {
                 <h4>Subject</h4>
               </div>
             </Link>
-            {currentUserRole==userRoles.Teacher ?(
+            {currentUserRole == userRoles.Teacher ? (
               <Link to="/assignmentList">
                 <div className="nav-text flex-c m-4 cursor-pointer">
                   <h4>Assignments</h4>
                 </div>
               </Link>
-            ):currentUserRole==userRoles.Moderator ?(
+            ) : currentUserRole == userRoles.Moderator ? (
               <Link to="/assignmentList">
                 <div className="nav-text flex-c m-4 cursor-pointer">
                   <h4>Assignments</h4>
                 </div>
               </Link>
-              ):(<Link to="/quiz">
+            ) : (
+              <Link to="/quiz">
                 <div className="nav-text flex-c m-4 cursor-pointer">
                   <h4>Quiz</h4>
                 </div>
-              </Link>)}
-            
+              </Link>
+            )}
+
             <Link to="/articles">
               <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
               </div>
             </Link>
-            {currentUserRole==userRoles.Student ?(
+            {currentUserRole == userRoles.Student ? (
               <Link to="/leaderboard/1">
-              <a className="nav-text flex-c m-4 cursor-pointer">
-                <h4>Leaderboard</h4>
-              </a>
+                <a className="nav-text flex-c m-4 cursor-pointer">
+                  <h4>Leaderboard</h4>
+                </a>
               </Link>
-            ):(null)}
-           
+            ) : null}
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
@@ -111,51 +112,58 @@ function Header() {
                   </div>
                   <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
-                    {currentUserRole ==userRoles.Student ?(
-                      <Link to="#">
+                      {currentUserRole == userRoles.Student ? (
+                        <Link to="#">
                           <h4> My Profile</h4>
-                      </Link>
-                    ):currentUserRole==userRoles.Teacher ?(
-                      <Link to="/tProfile">
+                        </Link>
+                      ) : currentUserRole == userRoles.Teacher ? (
+                        <Link to="/tProfile">
                           <h4> My Profile</h4>
-                      </Link>
-                    ):currentUserRole==userRoles.Moderator ?(
-                      <Link to="/tProfile">
+                        </Link>
+                      ) : currentUserRole == userRoles.Moderator ? (
+                        <Link to="/tProfile">
                           <h4> My Profile</h4>
-                      </Link>
-                    ):(null)}
-                      
+                        </Link>
+                      ) : null}
                     </li>
                     <li>
-                    {currentUserRole ==userRoles.Student ?(
-                      <Link to="/SubjectCatalog">
+                      {currentUserRole == userRoles.Student ? (
+                        <Link to="/SubjectCatalog">
                           <h4> Chat</h4>
-                      </Link>
-                    ):currentUserRole==userRoles.Teacher ?(
-                      <Link to="/SubjectCatalog">
+                        </Link>
+                      ) : currentUserRole == userRoles.Teacher ? (
+                        <Link to="/SubjectCatalog">
                           <h4> Chat</h4>
-                      </Link>
-                    ):currentUserRole==userRoles.Moderator ?(
-                      <Link to="/SubjectCatalog">
+                        </Link>
+                      ) : currentUserRole == userRoles.Moderator ? (
+                        <Link to="/SubjectCatalog">
                           <h4> Chat</h4>
-                      </Link>
-                    ):(null)}
-                      
+                        </Link>
+                      ) : null}
                     </li>
-                    <li>
-                    {currentUserRole ==userRoles.Admin ?(
-                      <Link to="/dashboard">
+
+                    <li
+                      className={
+                        currentUserRole == userRoles.Admin ||
+                        currentUserRole == userRoles.Moderator
+                          ? ""
+                          : "no-display"
+                      }
+                    >
+                      {currentUserRole == userRoles.Admin ? (
+                        <Link to="/dashboard">
                           <h4>Dashboard</h4>
-                      </Link>
-                    ):currentUserRole==userRoles.Moderator ?(
-                      <Link to="/modDashboard">
+                        </Link>
+                      ) : currentUserRole == userRoles.Moderator ? (
+                        <Link to="/modDashboard">
                           <h4>Dashboard</h4>
-                      </Link>
-                    ):(null)}
+                        </Link>
+                      ) : null}
                     </li>
                     <li>
                       <h4>Grades</h4>
                     </li>
+
                     <li>
                       <h4>Stickies</h4>
                     </li>
@@ -163,7 +171,7 @@ function Header() {
                       <h4
                         onClick={() => {
                           signOut();
-                          window.location = "./auth";
+                          window.location = "/auth";
                         }}
                       >
                         Log out
