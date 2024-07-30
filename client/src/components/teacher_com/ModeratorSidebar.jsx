@@ -39,7 +39,7 @@ const ModeratorSidebar = () => {
             Dashboard
           </Link>
           <Link
-            to="/reviewList"
+            to="/articles/reviewList"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
               isActive("/userManagement")
                 ? "bg-blue text-white"

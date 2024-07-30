@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Header from '@components/common/Header'
-import ArticleCard from '@components/articles/ArticleCard'
-import { pendingArticles } from '@services/ArticleService'
-import { getUserDetails } from '@services/TeacherService'
-import { Link } from 'react-router-dom';
-import Sort from '@components/articles/Sort';
-import Sidebar from '@components/teacher_com/ModeratorSidebar';
+import React, { useState, useEffect } from "react";
+import Header from "@components/common/Header";
+import ArticleCard from "@components/articles/ArticleCard";
+import { pendingArticles } from "@services/ArticleService";
+import { getUserDetails } from "@services/TeacherService";
+import { Link } from "react-router-dom";
+import Sort from "@components/articles/Sort";
+import Sidebar from "@components/teacher_com/ModeratorSidebar";
 
 export default function reviewList() {
   const [articles, setArticles] = useState([]); // Initialize articles state
@@ -47,21 +47,20 @@ export default function reviewList() {
             <Sidebar />
           </div>
           <div className="content-wrapper mx-32">
-          <div className='flex '>
-              <div className='my-16 '>
+            <div className="flex ">
+              <div className="my-16 ">
                 <h1>Pending Articles</h1>
                 <hr className="border-yellow border-t-4 "></hr>
               </div>
-              
             </div>
             <div>
-                <Sort/>
-              </div>
-            
+              <Sort />
+            </div>
+
             <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {articles.map((article) => (
                 <div key={article.articleId} className="p-2">
-                  <Link to={`/reviewArticle/${article.articleId}`}>
+                  <Link to={`/articles/reviewArticle/${article.articleId}`}>
                     <ArticleCard
                       key={article.articleId}
                       imageUrl={article.imageRef}
@@ -79,7 +78,6 @@ export default function reviewList() {
           </div>
         </div>
       </div>
-            
     </>
   );
 }
