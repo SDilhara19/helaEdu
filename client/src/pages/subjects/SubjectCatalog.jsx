@@ -9,18 +9,18 @@ function SubjectCatalog() {
     "Catholicism",
     "Geography",
     "HealthScience",
-     "ICT",
-     "Mathamatics",
-    "Science" ,
+    "ICT",
+    "Mathematics",
+    "Science",
   ];
   return (
     <>
       <Header />
       <div className="subject-catalog">
-        <img className="catalog-img" src={banner} alt="" srcset="" />
+        <img className="catalog-img" src={banner} alt="" />
 
         <div className="catalog-ul">
-        {subjects.map((subject, index) => (
+          {subjects.map((subject, index) => (
             <Card key={index} subject={subject} />
           ))}
         </div>
