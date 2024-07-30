@@ -32,6 +32,7 @@ import UserManagement from "@pages/admin/UserManagement";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
 import ModDashboard from "@pages/profiles/ModDashboard";
+import HeroLanding from "@pages/landing/HeroLanding";
 
 function GlobalRoutes() {
   return (
@@ -45,7 +46,7 @@ function GlobalRoutes() {
       <Route path="/leaderboard/1" element={<LeaderBoard />} />
       <Route path="/assignmentList" element={<AssignmentList />} />
       <Route path="/tProfile" element={<TProfile />} />
-      <Route path="/sProfile" element={<SProfile/>} />
+      <Route path="/sProfile" element={<SProfile />} />
       <Route path="/createAssignments" element={<CreateAssignments />} />
       <Route path="/quizFormat" element={<QuizFormat />} />
       <Route path="/test" element={<Test />} />
@@ -55,7 +56,10 @@ function GlobalRoutes() {
       <Route path="/notifications" element={<Notifications />} />
       {/* <Route path="/approveTeachers" element={<ApproveTeachers />} /> */}
       {/* <Route path="/topTeachers" element={<TopTeachers />} /> */}
-      <Route path="/viewArticleMyself/:articleId" element={<ViewArticleMyself />} />
+      <Route
+        path="/viewArticleMyself/:articleId"
+        element={<ViewArticleMyself />}
+      />
       <Route path="/subjectCatalog" element={<SubjectCatalog />} />
       <Route path="/userManagement" element={<UserManagement />} />
       <Route path="/Settings" element={<Settings />}></Route>
@@ -63,9 +67,10 @@ function GlobalRoutes() {
       <Route path="/subject/:subject" element={<Subject />} />
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
-      <Route path="/modDashboard" element={<ModDashboard/>}/>
+      <Route path="/modDashboard" element={<ModDashboard />} />
       <Route path="/notes" element={<AllNotes />} />
-      <Route path="/notes/new" element={<NewNote/>} />
+      <Route path="/notes/new" element={<NewNote />} />
+      <Route path="/land" element={<HeroLanding />} />
     </Routes>
   );
 }
