@@ -35,6 +35,9 @@ import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
 import SProfile from "@pages/profiles/SProfile";
 
+import AllNotes from "@pages/personalNotes/AllNotes";
+import NewNote from "@pages/personalNotes/NewNote";
+
 function App() {
   return (
     <div>
@@ -70,6 +73,8 @@ function App() {
         <Route path="/Settings" element={<Settings />}></Route>
         <Route path="/Reports" element={<Reports />}></Route>
         <Route path="/subject" element={<Subject />} />
+        <Route path="/notes/1" element={<AllNotes />} />
+        <Route path="/notes/new" element={<NewNote/>} />
       </Routes>
     </div>
   );

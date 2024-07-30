@@ -3,8 +3,6 @@ import { Header } from '@components/common'
 import background from '@assets/img/quiz-bg.svg';
 import SubjectList from '@components/leaderboard/SubjectList';
 import HistoryTable from '@components/Quiz/HistoryTable';
-// import SubjectList from '@components/leaderboard/SubjectList';
-// import History from '@components/quiz/History';
 
 
 const History = () => {
