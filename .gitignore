@@ -33,8 +33,11 @@ compose.yml
 */__pycache__/*
 
 
+*/.env
+
 /textbooks
 __pycache__/
+.DS_Store
 
 */activate.bat
 */Activate.ps1

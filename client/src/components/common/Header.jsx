@@ -165,6 +165,9 @@ function Header() {
                     </li>
 
                     <li>
+                      <h4>Stickies</h4>
+                    </li>
+                    <li>
                       <h4
                         onClick={() => {
                           signOut();

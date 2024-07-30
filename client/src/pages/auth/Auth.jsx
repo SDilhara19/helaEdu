@@ -36,13 +36,7 @@ function Auth() {
             }}
           />
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure rem id
-            pariatur aspernatur quia aperiam ad vero, dolore maxime, iusto fuga
-            velit deleniti consequatur qui, veritatis libero facilis
-            voluptatibus facere magni itaque ut cum beatae dolores voluptatum!
-            Animi atque earum neque, explicabo, accusamus exercitationem libero
-            nulla quasi consequatur assumenda veniam similique pariatur odio
-            repudiandae. Voluptas, illo nihil ?
+          Your ultimate self-study platform, designed to make learning engaging and effective. Start your journey to academic excellence today with HelaEdu!
           </p>
         </div>
       </div>

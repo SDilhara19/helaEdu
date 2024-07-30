@@ -34,10 +34,13 @@ export default {
       },
       backgroundColor: {
         'white-transparent': 'rgba(255, 255, 255, 0.5)',
+        'gray-transparent': 'rgba(187, 187, 187, 0.2)',
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), 
+    require('tailwindcss-animated')
+  ],
   darkMode: "class", // Enable dark mode support
 };
 
