@@ -2,6 +2,15 @@ import React from "react";
 import bot from "@assets/img/bot.svg";
 import logo from "@assets/icons/hela-edu-black-text.svg";
 import land from "@assets/img/Land bg.svg";
+
+import maths from "@assets/img/subjects/maths.png";
+import science from "@assets/img/subjects/2.png";
+import geography from "@assets/img/subjects/3.png";
+import bussiness from "@assets/img/subjects/4.png";
+import buddhism from "@assets/img/subjects/5.png";
+import islam from "@assets/img/subjects/6.png";
+import christian from "@assets/img/subjects/7.png";
+import hinduism from "@assets/img/subjects/8.png";
 function Hero2() {
   return (
     <div className="hero2">
@@ -43,6 +52,65 @@ function Hero2() {
           </div>
         </div>
       </main>
+      <section className="subject-section">
+        <h3>Subjects</h3>
+        <div className="my-4">
+          <div className="flex-sa">
+            <button
+              className="lg:tooltip custom-tooltip"
+              data-tip="Mathematics"
+            >
+              <div className="subject-circles">
+                <img src={maths} alt="image" />
+              </div>
+            </button>
+            <div className="lg:tooltip custom-tooltip" data-tip="Science">
+              <div className="subject-circles">
+                <img src={science} alt="image" />
+              </div>
+            </div>
+            <div className="lg:tooltip custom-tooltip" data-tip="Geography">
+              <div className="subject-circles">
+                <img src={geography} alt="image" />
+              </div>
+            </div>
+            <div
+              className="lg:tooltip custom-tooltip"
+              data-tip="B. Studies & Acc."
+            >
+              <div className="subject-circles">
+                <img src={bussiness} alt="image" />
+              </div>
+            </div>
+            <div className="lg:tooltip custom-tooltip" data-tip="Buddhism">
+              <div className="subject-circles">
+                <img src={buddhism} alt="image" />
+              </div>
+            </div>
+            <div className="lg:tooltip custom-tooltip" data-tip="Hinduism">
+              <div className="subject-circles">
+                <img src={hinduism} alt="image" />
+              </div>
+            </div>
+            <div className="lg:tooltip custom-tooltip" data-tip="Christian">
+              <div className="subject-circles">
+                <img src={christian} alt="image" />
+              </div>
+            </div>
+            <div className="lg:tooltip custom-tooltip" data-tip="Islam">
+              <div className="subject-circles">
+                <img src={islam} alt="image" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="article-header">
+        <h3>Most Popular Articles</h3>
+      </div>
+      <section className="article-section">
+        <h3></h3>
+      </section>
     </div>
   );
 }

@@ -39,7 +39,7 @@
     .pannel {
         width: 100%;
         flex: 1 1 40rem;
-        min-height: 70vh
+        min-height: 50vh
     }
 
     .left-pannel {
@@ -91,5 +91,25 @@
         h3 {
             text-align: center;
         }
+    }
+
+    .subject-section {
+        width: 90%;
+        margin: 2rem auto;
+    }
+
+    .article-header {
+        width: 90%;
+        margin: 2rem auto;
+    }
+
+    .article-section {
+        margin: 2rem auto;
+    }
+
+    .article {
+        .left {}
+
+        .right {}
     }
 }
