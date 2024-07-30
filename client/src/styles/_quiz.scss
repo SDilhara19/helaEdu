@@ -149,7 +149,7 @@
 
 .thead-main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 2fr 1fr;
   background-color: $primary-color;
   color: $white-color;
   text-align: center;
@@ -158,10 +158,13 @@
   min-height: 45px;
 }
 
-.th-main {
-  padding: 15px;
-
+.history-table{
+  grid-template-columns: 1fr 1fr 1fr;
 }
+// .th-main {
+
+
+// }
 
 .tbody-main {
   display: grid;
