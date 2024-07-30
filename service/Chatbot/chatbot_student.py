@@ -11,7 +11,9 @@ from langchain_openai import ChatOpenAI
 import os
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = (
+    "sk-None-x9obQKPkYCv9CSNrYlvjT3BlbkFJtaA554W5Y4p1G4y4H8QV"
+)
 
 
 # llm = Ollama(model="orca-mini", temperature=0)

@@ -7,6 +7,7 @@ import buddhism from "@assets/img/subjects/5.png";
 import islam from "@assets/img/subjects/6.png";
 import christian from "@assets/img/subjects/7.png";
 import hinduism from "@assets/img/subjects/8.png";
+import { useNavigate } from 'react-router-dom';
 
 
 const Subjects = () => {
@@ -46,20 +47,26 @@ const Subjects = () => {
     }
   ]
 
+  const navigator = useNavigate()
+
+  const handleSubjectClick = (subject) => {
+    navigator(`./${subject}`)
+  };
+
 
   return (
     <div className='w-9/12 m-auto my-20'>
       <h1 className='font-medium p-8'>Choose your subject</h1>
       <div className='grid grid-cols-6 gap-12'>
         {subjects.map(subject => (
-          <div className='subject-cards '>
+          <div className='subject-cards hover:cursor-pointer' onClick={() => handleSubjectClick(subject.name)}>
             <img src={subject.value} alt="image" />
             <div className='text-1'>{subject.name}</div>
           </div>
         ))}
       </div>
       <div className='flex justify-center my-12'>
-        <button className='bg-black text-white rounded-full font-normal text-1 px-60 py-4 mx-auto'>Enroll in more subjects</button>
+        <button className='bg-black text-white rounded-full font-normal text-1 px-60 py-4 mx-auto' >Enroll fin more subjects</button>
       </div>
     </div>
   )
