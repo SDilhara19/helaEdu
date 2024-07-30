@@ -1,6 +1,8 @@
 import React from "react";
 import robotFace from "@assets/icons/robot-face.svg";
 import profileFace from "@assets/icons/profile-face.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 
 function ChatBubble({ content, type }) {
   switch (type) {
