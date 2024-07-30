@@ -7,14 +7,29 @@ import {
   faUser,
   faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
+import { createStudent } from "@services/StudentService";
+
 function SignUpStudent({ signUpType, setSignUpType }) {
+  const [error, setError] = useState(false);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    let formData = new FormData(e.target);
+    let password = formData.get("password");
+    let confirmPassword = formData.get("confim_password");
+    if (confirmPassword !== password) {
+      setError("Confirm Password didn't match the password");
+    } else {
+      createStudent(formData).then();
+    }
   };
   return (
     <>
       <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
         <div className="details flex-col-c">
+          <div className={`error-msg ${error ? "" : "no-display"}`}>
+            <span>{error}</span>
+          </div>
           <div className="form-header">
             <h3
               className={`m-3 ${signUpType == "teacher" ? "active" : ""}`}
@@ -41,11 +56,11 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="firstname"
-                    id="firstname"
+                    name="firstName"
+                    id="firstName"
                     required
                   />
-                  <label htmlFor="firstname">First Name</label>
+                  <label htmlFor="firstName">First Name</label>
                 </div>
               </div>
 
@@ -54,11 +69,11 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="lastname"
-                    id="lastname"
+                    name="lastName"
+                    id="lastName"
                     required
                   />
-                  <label htmlFor="lastname">Last Name</label>
+                  <label htmlFor="lastName">Last Name</label>
                 </div>
               </div>
             </div>
@@ -127,13 +142,21 @@ function SignUpStudent({ signUpType, setSignUpType }) {
           </div>
 
           <div className="m-3">
-            <button className="btn white-button px-2">
+            <button className="btn gold-button px-2">
               <h4>Sign Up</h4>
             </button>
           </div>
           <div className="flex-c m-3">
             <h4>
-              Already have an account? <span>Sign In</span>
+              Already have an account?{" "}
+              <span
+                className="navigate"
+                onClick={() => {
+                  navigator("/auth", { state: { isLoginAction: true } });
+                }}
+              >
+                Sign In
+              </span>
             </h4>
           </div>
         </div>

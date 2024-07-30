@@ -53,10 +53,10 @@ public class ArticleService {
         return articleRepository.createArticle(article);
     }
 
-    public String uploadArticleCover(String articleId, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
+    public String uploadArticleCover(String articleId, MultipartFile articleCoverImage) throws IOException, ExecutionException, InterruptedException {
         Article article = articleRepository.getArticleById(articleId);
 
-        String articleCoverUrl = firebaseStorageService.uploadArticleCover(profilePicture, articleId);
+        String articleCoverUrl = firebaseStorageService.uploadArticleCover(articleCoverImage, articleId);
 
         if(article != null) {
             article.setImageRef(articleCoverUrl);
@@ -237,13 +237,16 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    public void upvoteArticle(String articleId, String userId) throws ExecutionException, InterruptedException {
+    public void upvoteArticle(String articleId, String email) throws ExecutionException, InterruptedException {
         Article article = articleRepository.getArticleById(articleId);
         if(article == null) {
             throw new IllegalArgumentException("Article not found");
         }
-        if (!article.getUpvote().contains(userId)) {
-            article.getUpvote().add(userId);
+        if (!article.getUpvote().contains(email)) {
+            article.getUpvote().add(email);
+            articleRepository.updateArticle(articleId, article);
+        } else {
+            article.getUpvote().remove(email);
             articleRepository.updateArticle(articleId, article);
         }
     }

@@ -6,7 +6,7 @@ import { faPen, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { sendToChatBot, getChatBotHistory } from "@services/ChatBotService";
 import ChatContent from "@components/subject/ChatContent";
 
-function ChatBot() {
+function ChatBot({subject}) {
   const [history, setHistory] = useState([]);
   const textInputRef = useRef(null);
   const rocketButtonRef = useRef(null);
@@ -41,7 +41,7 @@ function ChatBot() {
   let chatPayload = {
     prompt: "",
     grade: "11",
-    subject: "Geography",
+    subject: {subject},
     student_id: "232",
     chat_session_id: "chat8",
   };
@@ -59,7 +59,7 @@ function ChatBot() {
     <div className="chatbot">
       <div className="title-wrapper">
         <div className="title flex-sb">
-          <h3>Lorem ipsum dolor sit amet.</h3>
+          <h3>{subject}</h3>
           <h4>
             Grade 10
             <FontAwesomeIcon icon={faPen} className="pen-icon" />

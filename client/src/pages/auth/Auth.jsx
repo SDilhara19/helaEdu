@@ -24,7 +24,7 @@ function Auth() {
       <div className="right-pannel flex-c">
         <img src={rightBanner} alt="" className="banner-image" />
         <div className="banner flex-col-c">
-          <h2>Welcome Back!</h2>
+          <h2>{isLoginAction ? "Welcome Back!" : "Welcome!"}</h2>
           <img src={logo} alt="" srcSet="" className="w-full" />
           <p>
           Your ultimate self-study platform, designed to make learning engaging and effective. Start your journey to academic excellence today with HelaEdu!

@@ -67,6 +67,34 @@
   .visible {
     width: 100%;
   }
+
+  // articlecard css
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 4.5rem; 
+    line-height: 1.5;
+  }
+
+  .truncate-badges {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .placeholder-hidden {
+    visibility: hidden;
+  }
+
+  // icons 
+  .icon-theme{
+    color: $primary-color;
+    cursor: pointer;
+    font-size: 25px;
+  }
   
  
   

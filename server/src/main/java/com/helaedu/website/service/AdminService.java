@@ -24,27 +24,21 @@ import java.util.stream.Collectors;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
-
     @Autowired
     private EmailVerificationService emailVerificationService;
-
     @Autowired
     private FirebaseStorageService firebaseStorageService;
-
     public AdminService(AdminRepository adminRepository, FirebaseStorageService firebaseStorageService) {
         this.adminRepository = adminRepository;
         this.firebaseStorageService = firebaseStorageService;
     }
-
     public String createAdmin(AdminDto adminDto) throws ExecutionException, InterruptedException, FirebaseAuthException {
         Admin existingAdmin = adminRepository.getAdminByEmail(adminDto.getEmail());
         if (existingAdmin != null) {
             throw new IllegalArgumentException("Email already exists");
         }
-
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String userId = UniqueIdGenerator.generateUniqueId("ad", adminRepository::exists);
-
         Admin admin = new Admin(
                 userId,
                 adminDto.getFirstName(),
@@ -72,9 +66,7 @@ public class AdminService {
 
     public String uploadProfilePicture(String email, MultipartFile profilePicture) throws IOException, ExecutionException, InterruptedException {
         Admin admin = adminRepository.getAdminByEmail(email);
-
         String profilePictureUrl = firebaseStorageService.uploadProfilePicture(profilePicture, email);
-
         if(admin != null) {
             admin.setProfilePictureUrl(profilePictureUrl);
             adminRepository.updateAdminByEmail(email, admin);
@@ -95,7 +87,6 @@ public class AdminService {
             throw new IllegalArgumentException("Admin not found");
         }
     }
-
     public List<AdminDto> getAllAdmins() throws ExecutionException, InterruptedException {
         List<Admin> admins = adminRepository.getAllAdmins();
         return admins.stream().map(admin ->
@@ -112,7 +103,6 @@ public class AdminService {
                 )
                 .collect(Collectors.toList());
     }
-
     public AdminDto getAdmin(String userId) throws ExecutionException, InterruptedException {
         Admin admin = adminRepository.getAdminById(userId);
         if (admin != null) {

@@ -46,6 +46,10 @@
             padding: 2.1rem;
         }
 
+        .gold-button {
+            margin: 0;
+        }
+
     }
 
     .right-pannel {
@@ -114,5 +118,16 @@
         input {
             padding: 4px 0;
         }
+    }
+
+    .error-msg {
+        font-size: 1.4rem;
+        width: 80%;
+        border-radius: 1rem;
+    }
+
+    .navigate {
+        color: $primary-color;
+        cursor: pointer;
     }
 }

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import Question from './Question';
-import Answer from './Answer';
-import Primary_Button from '@components/common/Primary_Button';
+import React, { useState, useEffect } from "react";
+import Question from "./Question";
+import Answer from "./Answer";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 const Questions = ({ questions,
     handleNextQuestion,
@@ -10,10 +10,10 @@ const Questions = ({ questions,
     const optionIds = ['A', 'B', 'C', 'D'];
     const [selectedOption, setSelectedOption] = useState(null);
 
-    const handleOptionClick = (option) => {
-        setSelectedOption(option);
-        handleAnswerClick(option);
-    };
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    handleAnswerClick(option);
+  };
 
     return (
         <div>
@@ -34,7 +34,4 @@ const Questions = ({ questions,
             </div>
         </div>
 
-    )
-}
-
-export default Questions
+export default Questions;

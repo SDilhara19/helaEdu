@@ -143,13 +143,21 @@ function SignUpTeacher({ signUpType, setSignUpType }) {
           </div>
 
           <div className="m-3">
-            <button className="btn white-button px-2">
+            <button className="btn gold-button px-2">
               <h4>Sign Up</h4>
             </button>
           </div>
           <div className="flex-c m-3">
             <h4>
-              Already have an account? <span>Sign In</span>
+              Already have an account?{" "}
+              <span
+                className="navigate"
+                onClick={() => {
+                  navigator("/auth", { state: { isLoginAction: true } });
+                }}
+              >
+                Sign In
+              </span>
             </h4>
           </div>
         </div>
