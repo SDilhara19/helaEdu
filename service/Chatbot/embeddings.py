@@ -1,13 +1,13 @@
 from lang_funcs import *
 from PyPDF2 import PdfReader, PdfWriter
 
-
+# Function for creating embeddings using FAISS
 def main():
 
     embed = load_embedding_model(model_path="all-MiniLM-L6-v2")
 
     docs = load_pdf_data(
-        file_path="/Users/helaEdu/server/textbooks/grade10/Maths_I.pdf"
+        file_path="/Users/helaEdu/textbooks/10/ICT.pdf"
     )
 
     documents = split_docs(documents=docs)
@@ -21,9 +21,7 @@ if __name__ == "__main__":
     main()
 
 
-def remove_pages(output_pdf, pages_to_remove):
-    input_pdf = "/Users/helaEdu/server/textbooks/grade10/Maths_I.pdf"
-    input_pdf = "/Users/helaEdu/server/textbooks/grade10/Maths_I00.pdf"
+def remove_pages(input_pdf, output_pdf, pages_to_remove):
 
     reader = PdfReader(input_pdf)
     writer = PdfWriter()
@@ -37,10 +35,7 @@ def remove_pages(output_pdf, pages_to_remove):
     with open(output_pdf, "wb") as out_pdf:
         writer.write(out_pdf)
 
+    return True
 
-# Example usage
-input_pdf = "input.pdf"
-output_pdf = "output.pdf"
-pages_to_remove = [0, 2]  # List of pages to remove (0-indexed)
+# remove_pages("/Users/helaEdu/textbooks/grade10/HealthScience.pdf","/Users/helaEdu/textbooks/10/HealthScience.pdf", [])
 
-remove_pages(input_pdf, output_pdf, pages_to_remove)

@@ -6,9 +6,10 @@
   margin: 0 4px 0 4px;
 }
 
-.q_progress_block.completed{
+.q_progress_block.completed {
   background: $secondary-color;
 }
+
 .curve-text {
   font-size: 24px;
   fill: #000;
@@ -40,15 +41,16 @@
 
 }
 
-.top-place-dark{
-    border-radius: 100%;
-    top: 0;
-    border: 2px solid $white-color;
-    height: 16rem;
-    width: 16rem;  
-  }
+.top-place-dark {
+  border-radius: 100%;
+  top: 0;
+  border: 2px solid $white-color;
+  height: 16rem;
+  width: 16rem;
+}
 
-.top-place img, .top-place-dark img {
+.top-place img,
+.top-place-dark img {
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -157,7 +159,7 @@
 }
 
 .th-main {
-  padding:15px;
+  padding: 15px;
 
 }
 
@@ -173,7 +175,7 @@
   text-align: left;
   border-radius: 20px;
   margin: 5px;
-  
+
 }
 
 .td-main {
@@ -184,7 +186,7 @@
 
 
 
-.rank-circle{
+.rank-circle {
   height: 3rem;
   width: 3rem;
   background-color: $secondary-color;
@@ -194,7 +196,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight:700;
+  font-weight: 700;
 }
 
 .subject-circles {
@@ -260,24 +262,27 @@
   flex-direction: column;
 }
 
-.popup-box-large.visible, .popup-box.visible {
+.popup-box-large.visible,
+.popup-box.visible {
   opacity: 1;
   transform: scale(1);
 }
 
-.popup-box-large.hidden, .popup-box.hidden {
+.popup-box-large.hidden,
+.popup-box.hidden {
   display: none;
 }
 
 @keyframes popIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .animate-pop-in {
@@ -289,10 +294,12 @@
     opacity: 0;
     transform: translateY(0) translateX(0);
   }
+
   50% {
     opacity: 0.5;
     transform: translateY(-50px) translateX(50px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(-500px) translateX(300px);
@@ -303,13 +310,35 @@
   animation: fadeMove 2s ease-in infinite;
 }
 
-.congrats-img{
+.congrats-img {
   width: 155%;
   position: absolute;
   top: -90px
 }
 
-.bagde-wrapper{
+.bagde-wrapper {
   width: 50%;
 }
 
+.profile-card {
+  margin: 1rem;
+  width: 170px;
+  height: 100px;
+  padding: 5px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.profile-thumbnail {
+    text-align: right;
+}
+
+.prof-img{
+  height: 45px;
+  width: 45px;
+  overflow: hidden;
+}

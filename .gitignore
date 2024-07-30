@@ -34,7 +34,8 @@ compose.yml
 
 
 */.env
-/textbooks
+/textbooks/grade10
+/textbooks/grade11
 __pycache__/
 .DS_Store
 

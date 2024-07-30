@@ -34,6 +34,7 @@ export default {
       },
       backgroundColor: {
         'white-transparent': 'rgba(255, 255, 255, 0.5)',
+        'gray-transparent': 'rgba(187, 187, 187, 0.2)',
       },
     },
   },
