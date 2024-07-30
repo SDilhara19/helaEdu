@@ -17,9 +17,9 @@ const Sidebar = () => {
 
   return (
     <div
-      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between "
+      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between bg-white "
       style={{
-        backgroundColor: "#F5F5F5",
+        // backgroundColor: "#F5F5F5",
         borderTopRightRadius: "1rem",
         borderBottomRightRadius: "1rem",
         width: "15vw",
@@ -28,9 +28,9 @@ const Sidebar = () => {
       <div className="mt-16">
         <div className="flex flex-col space-y-8">
           <Link
-            to="/Dashboard"
+            to="/dashboard"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/Dashboard")
+              isActive("/dashboard")
                 ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
@@ -39,15 +39,15 @@ const Sidebar = () => {
             Dashboard
           </Link>
           <Link
-            to="/Usermanagement"
+            to="/userManagement"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/Usermanagement")
+              isActive("/userManagement")
                 ? "bg-blue text-white"
                 : "hover:bg-gray-200 text-black"
             }`}
           >
             <FontAwesomeIcon icon={faUsers} className="mr-4" />
-            User Management
+            Users
           </Link>
           <Link
             to="/reports"

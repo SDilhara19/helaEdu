@@ -40,7 +40,12 @@ export default function ArticleCard({ imageUrl, authorName, date, title, badges 
         <div>
           <div className="flex justify-between items-center mb-2">
             <div className="flex items-center">
-              <img className="w-8 h-8 rounded-full" src={profilePictureUrl} alt="Author avatar" />
+            {profilePictureUrl ?(
+               <img className="w-8 h-8 rounded-full" src={profilePictureUrl} alt="Author avatar" />
+              ):(
+                <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
+              )}
+              
               <span className="text-sm ml-2">{authorName}</span>
             </div>
             <div className='flex items-center'>

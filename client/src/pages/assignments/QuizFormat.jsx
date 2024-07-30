@@ -72,7 +72,7 @@ export default function QuizFormat() {
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">
@@ -97,7 +97,7 @@ export default function QuizFormat() {
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">

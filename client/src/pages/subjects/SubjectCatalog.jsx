@@ -4,6 +4,15 @@ import { Header, Footer } from "@components/common";
 import banner from "@assets/img/subject_background.png";
 
 function SubjectCatalog() {
+  const subjects = [
+    "BusinessStudies",
+    "Catholism",
+    "Geography",
+    "HealthScience",
+     "ICT",
+     "Mathamatics",
+    "Science" ,
+  ];
   return (
     <>
       <Header />
@@ -11,18 +20,9 @@ function SubjectCatalog() {
         <img className="catalog-img" src={banner} alt="" srcset="" />
 
         <div className="catalog-ul">
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
-          <Card subject={""} />
+        {subjects.map((subject, index) => (
+            <Card key={index} subject={subject} />
+          ))}
         </div>
       </div>
       <Footer />

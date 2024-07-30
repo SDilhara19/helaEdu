@@ -33,7 +33,6 @@ compose.yml
 */__pycache__/*
 
 
-*/.env
 /textbooks
 __pycache__/
 

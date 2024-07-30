@@ -8,10 +8,14 @@ import { faBell } from "@fortawesome/fontawesome-free-regular";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { DarkModeProvider } from "@components/common/DarkModeContext";
 import DarkModeToggle from "@components/common/DarkModeToggle";
+import { userRoles } from "@utils/userRoles";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 function Header() {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+  const currentUserRole = useAuthUser()?.role;
+  // currentUserRole==userRoles.Admin
 
   return (
     <header>
@@ -33,21 +37,37 @@ function Header() {
                 <h4>Subject</h4>
               </div>
             </Link>
-            <Link to="/quiz">
-              <div className="nav-text flex-c m-4 cursor-pointer">
-                <h4>Quiz</h4>
-              </div>
-            </Link>
+            {currentUserRole==userRoles.Teacher ?(
+              <Link to="/assignmentList">
+                <div className="nav-text flex-c m-4 cursor-pointer">
+                  <h4>Assignments</h4>
+                </div>
+              </Link>
+            ):currentUserRole==userRoles.Moderator ?(
+              <Link to="/assignmentList">
+                <div className="nav-text flex-c m-4 cursor-pointer">
+                  <h4>Assignments</h4>
+                </div>
+              </Link>
+              ):(<Link to="/quiz">
+                <div className="nav-text flex-c m-4 cursor-pointer">
+                  <h4>Quiz</h4>
+                </div>
+              </Link>)}
+            
             <Link to="/articles">
               <div className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Articles</h4>
               </div>
             </Link>
-            <Link to="/leaderboard/1">
+            {currentUserRole==userRoles.Student ?(
+              <Link to="/leaderboard/1">
               <a className="nav-text flex-c m-4 cursor-pointer">
                 <h4>Leaderboard</h4>
               </a>
-            </Link>
+              </Link>
+            ):(null)}
+           
           </div>
           {isAuthenticated ? (
             <div className="logged-in-header">
@@ -91,7 +111,47 @@ function Header() {
                   </div>
                   <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
-                      <h4>Profile</h4>
+                    {currentUserRole ==userRoles.Student ?(
+                      <Link to="#">
+                          <h4> My Profile</h4>
+                      </Link>
+                    ):currentUserRole==userRoles.Teacher ?(
+                      <Link to="/tProfile">
+                          <h4> My Profile</h4>
+                      </Link>
+                    ):currentUserRole==userRoles.Moderator ?(
+                      <Link to="/tProfile">
+                          <h4> My Profile</h4>
+                      </Link>
+                    ):(null)}
+                      
+                    </li>
+                    <li>
+                    {currentUserRole ==userRoles.Student ?(
+                      <Link to="/SubjectCatalog">
+                          <h4> Chat</h4>
+                      </Link>
+                    ):currentUserRole==userRoles.Teacher ?(
+                      <Link to="/SubjectCatalog">
+                          <h4> Chat</h4>
+                      </Link>
+                    ):currentUserRole==userRoles.Moderator ?(
+                      <Link to="/SubjectCatalog">
+                          <h4> Chat</h4>
+                      </Link>
+                    ):(null)}
+                      
+                    </li>
+                    <li>
+                    {currentUserRole ==userRoles.Admin ?(
+                      <Link to="/dashboard">
+                          <h4>Dashboard</h4>
+                      </Link>
+                    ):currentUserRole==userRoles.Moderator ?(
+                      <Link to="/modDashboard">
+                          <h4>Dashboard</h4>
+                      </Link>
+                    ):(null)}
                     </li>
                     <li>
                       <h4>Grades</h4>

@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Sort() {
   const [startDate, setStartDate] = useState(null);
-  const grades = ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5'];
+  const grades = ['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12', 'Grade 13'];
 
   return (
     <div className='flex justify-center items-center mb-10'>
@@ -45,12 +45,16 @@ export default function Sort() {
             tabIndex={0}
             className='text-xl px-10 py-3 rounded-sm border border-gray1 text-gray1 hover:bg-blue hover:text-white transition-colors flex items-center'
           >
-            Subject <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2" />
+            Subject <FontAwesomeIcon icon={faChevronDown} className="text-gray1 text-sm ml-2 z-50" />
           </button>
-          <ul tabIndex={0} className='dropdown-content menu p-1 shadow rounded-box w-52 text-sm z-10'>
-            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Math</button></li>
+          <ul tabIndex={0} className='dropdown-content menu p-1 shadow rounded-box w-52 text-sm  z-50'>
+            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Mathamatics</button></li>
             <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Science</button></li>
             <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>History</button></li>
+            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>English</button></li>
+            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Sinhala</button></li>
+            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Biology</button></li>
+            <li><button className='w-full text-left px-4 py-2 hover:bg-gray-100 text-xl'>Art</button></li>
           </ul>
         </div>
         <div className='dropdown dropdown-end'>

@@ -1,13 +1,13 @@
-import React from "react";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import React, { useEffect, useState } from "react";
 
 function Test() {
-  const auth = useAuthUser().role;
+  let [foo, setFoo] = useState(0);
+  useEffect(() => {
+    console.log("Working");
+  }, [foo]);
   return (
     <>
       <h2> test</h2>
-
-      <h4>Hello {auth}</h4>
     </>
   );
 }

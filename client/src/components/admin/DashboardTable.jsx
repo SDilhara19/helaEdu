@@ -1,14 +1,29 @@
-import React from 'react';
+import React ,{useState , useEffect} from 'react';
 import DashboardTableRow from '@/components/admin/DashboardTableRow';
 import DashboardTableHeader from '@/components/admin/DashboardTableHeader';
+import { getPendingTeachers } from '@services/TeacherService';
 
 const DashboardTable = () => {
-  const rows = [
-    { userId: '1', name: 'K.P.Hewagamage', email: 'usert34@gmail.com', validationProof: 'proof.pdf', subjects: 'mathmatics' },
-    { userId: '3', name: 'K.P.Hewagamage', email: 'usert34@gmail.com', validationProof: 'proof.pdf', subjects: 'mathmatics' },
-    { userId: '5', name: 'K.P.Hewagamage', email: 'usert34@gmail.com', validationProof: 'proof.pdf', subjects: 'mathmatics' },
-    
-  ];
+  const [teachers, setTeachers] = useState([]);
+  useEffect(() => {
+    const fetchPendingTeachers = async () => {
+      try {
+        const response = await getPendingTeachers();
+        const fetchedTeachers = response.data.slice(0,3);
+        if (Array.isArray(fetchedTeachers)) {
+          setTeachers(fetchedTeachers);
+        } else {
+          setTeachers([]); 
+        }
+      } catch (error) {
+        console.error(error);
+        setTeachers([]); 
+      }
+    };
+
+    fetchPendingTeachers();
+  }, []);
+
 
   return (
     <div>
@@ -20,15 +35,16 @@ const DashboardTable = () => {
             validationProof="validationProof"
             subjects="subjects"
           />
-        {rows.map((row) => (
+        {teachers.map((row) => (
           <DashboardTableRow
             key={row.userId}
-            name={row.name}
+            name={row.firstName}
             email={row.email}
-            validationProof={row.validationProof}
-            subjects={row.subjects}
+            validationProof={row.proofRef}
+            // subjects={row.subjects}
           />
         ))}
+        
       </div>
       
     </div>
