@@ -37,13 +37,13 @@ const Questions = ({
             id={optionIds[index]}
             onclick={() => handleOptionClick(option)}
             selectedOption={selectedOption}
-          />
+        />
         ))}
       </div>
 
       <div className="flex justify-end mx-32 mt-32">
-        <Primary_Button
-          name={isLastQuestion ? "Submit" : "Next"}
+        <PrimaryButton
+  name={isLastQuestion ? "Submit" : "Next"}
           click={handleNextQuestion}
         />
       </div>
