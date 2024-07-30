@@ -20,7 +20,8 @@ function ArticleRoutes() {
         element={
           <AuthorizeRoute
             Component={AddArticles}
-            allowedUserRole={userRoles.Teacher}
+            allowedUserRole={[userRoles.Teacher, userRoles.Student]}
+            multiple={true}
           />
         }
       />
@@ -30,7 +31,8 @@ function ArticleRoutes() {
         element={
           <AuthorizeRoute
             Component={AddArticleForm}
-            allowedUserRole={userRoles.Teacher}
+            allowedUserRole={[userRoles.Teacher, userRoles.Student]}
+            multiple={true}
           />
         }
       />
