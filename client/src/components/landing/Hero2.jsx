@@ -41,15 +41,30 @@ function Hero2() {
         </div>
         <div className="right-pannel">
           <div className="chat-box flex-col-sa box-shadow">
-            {/* <h2 className="text-center">
-              Hi there, 👋 <br />
-              how can I help you today
-            </h2> */}
-            {/* 
-            <div className="flex-sb p-2 m-auto w-10/12">
-              <button className="btn black-button">Sinhala</button>
-              <button className="btn black-button">English</button>
-            </div> */}
+            <h2 className="text-center">
+              Hey! <br />
+              Need Help in academics?
+            </h2>
+            <div className="chat-buttons">
+              <div className="button-wrapper" style={{ gridArea: "button1" }}>
+                <button className="blue-button">
+                  <h4>Geography</h4>
+                </button>
+              </div>
+              <div className="button-wrapper" style={{ gridArea: "button2" }}>
+                <button className="blue-button">
+                  <h4>ICT</h4>
+                </button>
+              </div>
+              <div className="button-wrapper" style={{ gridArea: "button3" }}>
+                <button className="blue-button">
+                  <h4>Science</h4>
+                </button>
+              </div>
+            </div>
+            <div className="w-10/12">
+              <button className="btn black-button w-full">Start a chat</button>
+            </div>
           </div>
           <div className="bot-wrapper flex-end">
             <img src={bot} alt="" className="" />

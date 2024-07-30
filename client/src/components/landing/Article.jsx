@@ -34,7 +34,7 @@ function Article({ alignment, img }) {
               </div>
               <div className="buttons flex">
                 <div>
-                  <button className="blue-button flex-sa bookmark-button">
+                  <button className="blue-button flex-sb bookmark-button">
                     <FontAwesomeIcon icon={faBookmark} size="2x" />
 
                     <h4>Read Later</h4>

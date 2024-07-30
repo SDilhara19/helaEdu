@@ -25,6 +25,7 @@
         margin-right: 0;
         z-index: 1;
         position: relative;
+        top: -25%;
     }
 
     .banner-bg {
@@ -46,6 +47,7 @@
 
     .right-pannel {
         @extend .pannel;
+        position: relative;
 
     }
 
@@ -247,5 +249,57 @@
         display: flex !important;
 
 
+    }
+
+    .stat-details {
+        h4 {
+            text-wrap: nowrap;
+            font-size: 1.5rem;
+        }
+    }
+
+    .chat-box {
+        height: 40vh;
+        border-radius: 2rem;
+        padding: 1.5rem;
+        background: $white-color;
+        z-index: 1;
+        position: absolute;
+        bottom: 0;
+        width: 70%;
+        right: 10%;
+
+        button {
+            cursor: pointer !important;
+        }
+
+        h2 {
+            margin: 1rem;
+            color: $black-color ;
+            font-size: 2.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            margin: 1rem;
+        }
+    }
+
+    .chat-buttons {
+        display: none;
+        grid-template: 'button1 button2'
+            'button3 button3';
+        gap: 1rem;
+        margin: 1rem;
+        align-items: center;
+
+        .button-wrapper {
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
+        }
     }
 }
