@@ -39,7 +39,8 @@ public class EmailVerificationService {
 
         String verificationLink = firebaseAuth.generateEmailVerificationLink(email, actionCodeSettings);
         String subject = "Verify your email address";
-        String text = "Please click the link below to verify your email address:\n" + verificationLink;
+        String text = "Please click the link below to verify your email address:\n" + verificationLink +
+                "\nThen use http:localhost:5173/auth to sign in.";
         emailService.sendSimpleMessage(email, subject, text);
     }
 

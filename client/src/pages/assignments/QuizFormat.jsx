@@ -1,11 +1,15 @@
 import { Header, Footer } from "@components/common";
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function QuizFormat() {
+ 
   const [questions, setQuestions] = useState([
     { question: "", options: ["", "", "", ""] },
   ]);
-
+  const navigate = useNavigate();
+  const navigatePage = () => {
+    navigate("/assignmentList");
+  };
   const addQuestion = () => {
     setQuestions([...questions, { question: "", options: ["", "", "", ""] }]);
   };
@@ -50,12 +54,12 @@ export default function QuizFormat() {
               <br />
               <br />
               <input
-                className="border border-blue rounded-xl h-32 w-full"
+                className="border border-blue rounded-lg h-32 w-full"
                 value={q.question}
                 onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
               />
             </div>
-            <div className="my-10">
+            <div className=" mx-10 my-10">
               <label className="text-3xl">
                 Enter your options
                 <br />
@@ -72,13 +76,13 @@ export default function QuizFormat() {
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">
                       <input
                         placeholder={`option ${oIndex + 1}`}
-                        className="border border-blue rounded-xl h-16 w-full text-xl"
+                        className="border border-blue rounded-lg h-16 w-full text-xl px-4"
                         value={q.options[oIndex]}
                         onChange={(e) =>
                           handleOptionChange(qIndex, oIndex, e.target.value)
@@ -97,13 +101,13 @@ export default function QuizFormat() {
                     <div>
                       <input
                         type="checkbox"
-                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.black)] [--chkfg:blue] checked:border-blue"
+                        className="checkbox border-blue h-16 w-16 [--chkbg:theme(colors.white)] [--chkfg:blue] checked:border-blue"
                       />
                     </div>
                     <div className="w-full">
                       <input
                         placeholder={`option ${oIndex + 1}`}
-                        className="border border-blue rounded-xl h-16 w-full text-xl"
+                        className="border border-blue rounded-lg h-16 w-full text-xl px-4"
                         value={q.options[oIndex]}
                         onChange={(e) =>
                           handleOptionChange(qIndex, oIndex, e.target.value)
@@ -113,19 +117,24 @@ export default function QuizFormat() {
                   </div>
                 ))}
               </div>
+              <div className="">
+                <label className="text-3xl">Total Score </label><br></br>
+                <input className="border border-blue rounded-lg h-16  text-xl px-4" />
+              </div>
             </div>
           </div>
         ))}
         <div className="flex justify-between mx-10 mb-10">
-          <button
-            className="bg-yellow text-white px-10 py-3 rounded-xl text-2xl"
-            onClick={addQuestion}
-          >
-            Add Question
-          </button>
-          {/* <button className="bg-yellow text-white px-10 py-3 rounded-xl text-2xl">
-            Next
-          </button> */}
+          
+          <button className="bg-yellow text-white px-10 py-3 rounded-xl text-2xl" onClick={addQuestion}>
+                Add Question
+              </button>
+         {/* <Link to="/assignmentList"> */}
+            <button className="bg-blue text-white px-10 py-3 rounded-xl text-2xl" onClick={navigatePage}>
+                Submit Assignment
+              </button>
+          {/* </Link>  */}
+           
         </div>
       </div>
       <Footer />

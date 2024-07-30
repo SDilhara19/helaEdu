@@ -24,7 +24,7 @@ export default function ViewArticleMyself() {
   const DeleteArticle = async () => {
     try {
       await deleteArticle(articleId);
-      navigate("/addArticles");
+      navigate("/articles/addArticles");
     } catch (error) {
       console.error("Failed to delete article", error);
     }
@@ -38,7 +38,9 @@ export default function ViewArticleMyself() {
         const userDetails = userResponse.data;
         const articleWithUserDetails = {
           ...article,
-          authorName: userDetails.firstName,
+          firstName: userDetails.firstName,
+          lastName:userDetails.lastName,
+          coverImage:userDetails.profilePictureUrl,
         };
         setArticle(articleWithUserDetails);
       } catch (error) {
@@ -65,13 +67,13 @@ export default function ViewArticleMyself() {
               </p>
               <div className="modal-action">
                 <button
-                  className="btn bg-red-400 text-black text-2xl"
+                  className="btn bg-red-400 text-white text-2xl"
                   onClick={closeDeleteModal}
                 >
                   Cancel
                 </button>
                 <button
-                  className="btn bg-yellow text-black text-2xl"
+                  className="btn bg-blue text-white text-2xl"
                   onClick={DeleteArticle}
                 >
                   Delete
@@ -81,20 +83,24 @@ export default function ViewArticleMyself() {
           </dialog>
         )}
         <div className="w-9/12">
+       
           <ViewArticle
             title={article.title}
             content={article.content}
             tags={article.tags}
-            userName={article.authorName}
+            firstName={article.firstName}
+            lastName={article.lastName}
             date={article.publishedTimestamp}
             imageRef={article.imageRef}
+            userProfile={article.coverImage}
+            additionalFilesRefs={article.additionalFilesRefs}
           />
         </div>
         <div className="mt-64 w-3/12">
           <h2 className="text-4xl mt-10 mb-4">Actions</h2>
           <hr className="border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
           <div className="my-7">
-            <Link to={`articles/editArticle/${article.articleId}`}>
+            <Link to={`../editArticle/${article.articleId}`}>
               <h2 className="text-3xl text-gray1 hover:text-blue cursor-pointer my-2">
                 Edit Your Article
               </h2>
@@ -112,7 +118,11 @@ export default function ViewArticleMyself() {
           <div>
             <h2 className="text-4xl mt-10 mb-4">Moderator's Review</h2>
             <hr className="border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
-            <p className="text-gray1 text-2xl">content has some errors</p>
+            {article.rejectedReason ? (
+              <p className="text-gray1 text-2xl">content has some errors</p>
+            ) : (
+              <p>No any reviews</p>
+            )}
           </div>
         </div>
       </div>

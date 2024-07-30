@@ -86,7 +86,7 @@ export default function EditArticle() {
                 await uploadAdditionalFiles(articleId, formData, headers);
             }
 
-            navigator('/addArticles');
+            navigator('/articles/addArticles');
         } catch (error) {
             console.error('Failed to update article or upload files', error);
         }
@@ -123,7 +123,7 @@ export default function EditArticle() {
                         </div>
                         <div className='w-4/6 mw:w-2/3'>
                             <input
-                                className='border border-blue rounded-2xl w-full h-20 hover:border-yellow'
+                                className='border border-blue rounded-2xl w-full h-20 hover:border-yellow p-2'
                                 type="text"
                                 value={title}
                                 onChange={handleTitle}
@@ -177,7 +177,7 @@ export default function EditArticle() {
                                 Attach Additional files
                             </span>
                             <br />
-                            <div className="border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6">
+                            <div className="border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6 mx-6">
                                 <FontAwesomeIcon
                                 icon={faUpload}
                                 className="text-4xl justify-center"
@@ -245,7 +245,7 @@ export default function EditArticle() {
                 </div>
 
                 <div className='flex justify-center'>
-                    <button className='bg-blue text-4xl text-white rounded-2xl p-6' type="submit">Submit</button>
+                    <button className='bg-blue text-2xl text-white rounded-2xl p-6' type="submit">Submit</button>
                 </div>
             </form>
         </div>

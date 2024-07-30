@@ -11,7 +11,7 @@ import Article from "@assets/img/articles/article.jpg";
 import Profile from '@assets/img/articles/profile.jpg';
 import DefaultArticle from '@assets/img/articles/defaultArticle.jpg'
 
-export default function ArticleCard({ imageUrl, authorName, date, title, badges ,profilePictureUrl}) {
+export default function ArticleCard({ imageUrl, firstName,lastName, date, title, badges ,profilePictureUrl}) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString();
@@ -40,8 +40,13 @@ export default function ArticleCard({ imageUrl, authorName, date, title, badges 
         <div>
           <div className="flex justify-between items-center mb-2">
             <div className="flex items-center">
-              <img className="w-8 h-8 rounded-full" src={profilePictureUrl} alt="Author avatar" />
-              <span className="text-sm ml-2">{authorName}</span>
+            {profilePictureUrl ?(
+               <img className="w-8 h-8 rounded-full" src={profilePictureUrl} alt="Author avatar" />
+              ):(
+                <img className="w-8 h-8 rounded-full" src={Profile} alt="Author avatar" />
+              )}
+              
+              <span className="text-sm ml-2">{firstName} {lastName}</span>
             </div>
             <div className='flex items-center'>
               <span className="text-sm">{formattedDate}</span>

@@ -1,21 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
-  faInfo,
   faLock,
   faUser,
   faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
-function SignUpStudent({ signUpType, setSignUpType }) {
+import { createStudent } from "@services/StudentService";
+import { useNavigate } from "react-router-dom";
+
+function SignUpStudent({ signUpType, setSignUpType, setLoadingState }) {
+  let navigator = useNavigate();
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+    grade: "",
+    email: "",
+  });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    let formData = new FormData(e.target);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Confirm Password didn't match the password");
+    } else {
+      setLoadingState(true);
+      createStudent(formData)
+        .then((res) => {
+          if (res.status === 201) {
+            let userId = { role: res.data.userId };
+            if (userId) {
+              setSuccess("Verification Email have been send");
+              setLoadingState(false);
+            }
+          }
+        })
+        .catch((error) => {
+          let res = error.response;
+          if (res.status == 400) {
+            let violations = res.data.violations;
+            violations.forEach((error) => {
+              setError(error.errorMessage);
+            });
+            setLoadingState(false);
+          }
+        });
+    }
   };
   return (
     <>
-      <form method="POST" className="left-pannel flex-c" onSubmit={onSubmit}>
-        <div className="details flex-col-c">
+      <form
+        method="POST"
+        className="left-pannel flex-c signup"
+        onSubmit={onSubmit}
+      >
+        <div className="details ">
+          <div className={`error-msg ${error ? "" : "no-display"}`}>
+            <span>{error}</span>
+          </div>
+          <div className={`success-msg ${success ? "" : "no-display"}`}>
+            <span>{success}</span>
+          </div>
           <div className="form-header">
             <h3
               className={`m-3 ${signUpType == "teacher" ? "active" : ""}`}
@@ -42,11 +91,14 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="firstname"
-                    id="firstname"
+                    name="firstName"
+                    id="firstName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, firstName: e.target.value });
+                    }}
                     required
                   />
-                  <label htmlFor="firstname">First Name</label>
+                  <label htmlFor="firstName">First Name</label>
                 </div>
               </div>
 
@@ -55,11 +107,14 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   <input
                     placeholder=""
                     type="text"
-                    name="lastname"
-                    id="lastname"
+                    name="lastName"
+                    id="lastName"
+                    onInput={(e) => {
+                      setFormData({ ...formData, lastName: e.target.value });
+                    }}
                     required
                   />
-                  <label htmlFor="lastname">Last Name</label>
+                  <label htmlFor="lastName">Last Name</label>
                 </div>
               </div>
             </div>
@@ -73,6 +128,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="text"
                   name="grade"
                   id="grade"
+                  onInput={(e) => {
+                    setFormData({ ...formData, grade: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="grade">Grade</label>
@@ -87,6 +145,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="text"
                   name="email"
                   id="email"
+                  onInput={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="email">Email</label>
@@ -101,6 +162,9 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                   type="password"
                   name="password"
                   id="password"
+                  onInput={(e) => {
+                    setFormData({ ...formData, password: e.target.value });
+                  }}
                   required
                 />
                 <label htmlFor="password">Passowrd</label>
@@ -114,17 +178,20 @@ function SignUpStudent({ signUpType, setSignUpType }) {
                 <input
                   placeholder=""
                   type="password"
-                  name="confim_password"
-                  id="confim_password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  onInput={(e) => {
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    });
+                  }}
                   required
                 />
-                <label htmlFor="confim_password">Confirm Passowrd</label>
+                <label htmlFor="confirmPassword">Confirm Passowrd</label>
               </div>
             </div>
             <h5>&nbsp;</h5>
-          </div>
-          <div className="placeholder">
-            <h4></h4>
           </div>
 
           <div className="m-3">

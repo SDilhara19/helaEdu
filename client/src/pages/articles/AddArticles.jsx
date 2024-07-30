@@ -25,7 +25,7 @@ export default function AddArticles() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-128">
       <Header />
       <div className="flex justify-between mx-48 my-12 ">
         <div>
