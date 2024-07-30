@@ -6,7 +6,7 @@ import banner from "@assets/img/subject_background.png";
 function SubjectCatalog() {
   const subjects = [
     "BusinessStudies",
-    "Catholism",
+    "Catholicism",
     "Geography",
     "HealthScience",
      "ICT",

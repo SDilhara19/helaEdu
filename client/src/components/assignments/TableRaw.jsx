@@ -1,7 +1,7 @@
 // TableRaw.js
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/fontawesome-free-regular';
 import SharePopup from '@components/assignments/SharePopup';
 import StartPopup from '@components/assignments/StartPopup';
@@ -46,11 +46,12 @@ export default function TableRaw({ assignmentId, title, dueDate, instruction, no
           <div className='flex-1 text-left'>
             <p className='text-2xl'>{totalTime}</p>
           </div>
-          <div className='flex-1 text-left'>
-            <button className='bg-blue rounded-xl p-2 text-lg mx-2' onClick={openStartClick}>Start Quiz</button>
-            <button className='bg-yellow rounded-xl p-2 text-lg' onClick={handleShareClick}>Share</button>
+          <div className='text-left'>
+            <button className='bg-blue text-white rounded-xl p-2 text-lg mx-2' onClick={openStartClick}>Start Quiz</button>
+            {/* <button className='bg-yellow rounded- p-2 text-lg' onClick={handleShareClick}> <FontAwesomeIcon icon={faShare} className='text-xl m-2 hover:text-yellow hover:translate-x-1' /></button> */}
           </div>
           <div className='flex justify-end'>
+            <FontAwesomeIcon icon={faShare} onClick={handleShareClick} className='text-xl m-2 hover:text-yellow hover:translate-x-1' />
             <FontAwesomeIcon icon={faSearch} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
             <FontAwesomeIcon icon={faEdit} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
             <FontAwesomeIcon icon={faTrash} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />

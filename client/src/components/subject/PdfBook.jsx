@@ -12,7 +12,7 @@ const pdfMapping = {
   science: pdfScience,
   geography: pdfGeography,
   businessstudies: pdfBusiness,
-  catholism: pdfCatholics,
+  catholicism: pdfCatholics,
   healthscience: pdfHealthScience,
   ict: pdfICT,
   

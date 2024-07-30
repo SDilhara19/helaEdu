@@ -6,14 +6,14 @@ export default function CreateAssignments() {
     <div>
       <Header />
       <div className="my-24 mx-96 border border-blue rounded-lg p-8 shadow-lg">
-        <div className="flex justify-between mb-6">
+        {/* <div className="flex justify-between mb-6">
           <div className="w-3/5">
             <label className="text-3xl block mb-2 ">Select a Group</label>
             <select className="border border-blue h-16 rounded-lg w-full px-4 text-xl">
               <option className="h-16">11C Mathematics II</option>
               <option className="h-16">11C Mathematics I</option>
               <option className="h-16">11E Mathematics I</option>
-              {/* Add other options here */}
+              
             </select>
           </div>
           <div className="flex items-center flex-start">
@@ -22,7 +22,7 @@ export default function CreateAssignments() {
               Create a Group
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="flex justify-between mb-6">
           <div className="w-3/5 mr-8">
             <label className="text-3xl block mb-2 ">Title</label>

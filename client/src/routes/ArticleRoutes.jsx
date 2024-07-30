@@ -20,7 +20,7 @@ function ArticleRoutes() {
         element={
           <AuthorizeRoute
             Component={AddArticles}
-            allowedUserRole={userRoles.Teacher}
+            allowedUserRole={userRoles.Moderator}
           />
         }
       />

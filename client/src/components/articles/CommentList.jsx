@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Comments from './Comments';
+import Comments from '@components/articles/Comments';
 import AddComment from './AddComment';
 
 const commentsData = [

@@ -14,6 +14,9 @@ const APPROVE_TEACHERS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/by-email/approve`;
 const GET_TEACHER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers/page`;
+const EDIT_TEACHER_PROFILE = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/me`;
 
 export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
@@ -28,3 +31,5 @@ export const approveTeachers = (email) =>
 export const getPendingTeachers = () => axios.get(GET_PENDING_USER_DETAILS_URL);
 export const promoteToModerator =(userId)=>axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
 export const listAllTeachersDetails = (pageNo)  =>axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);
+export const editTeacherProfile = (formData, headers) =>
+  axios.put(`${EDIT_TEACHER_PROFILE}`, formData, { headers });

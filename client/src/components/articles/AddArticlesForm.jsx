@@ -90,7 +90,7 @@ export default function AddArticlesForm() {
         await uploadAdditionalFiles(articleId, formData, headers);
       }
 
-      navigator("/articles/addArticles");
+      navigate("/articles/addArticles");
     } catch (error) {
       console.error("Failed to create article or upload files", error);
     }
