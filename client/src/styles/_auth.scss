@@ -3,14 +3,24 @@
     width: 100%;
     display: flex;
 
+    .signup {
+        .form-header {
+            margin: 0 auto;
+        }
+
+        .form-wrapper {
+            margin: 2rem;
+            padding: 2rem;
+        }
+
+
+    }
 
     .form-header {
         width: 100%;
-        margin: auto;
         display: flex;
         align-items: stretch;
         justify-content: stretch;
-        margin-bottom: 0;
 
 
         h3.active {
@@ -40,6 +50,10 @@
 
         .details {
             width: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
         }
 
         .placeholder {
@@ -50,6 +64,18 @@
             margin: 0;
         }
 
+    }
+
+    .upload-verfication {
+        h4 {
+
+            text-align: end;
+            padding: 0.5rem;
+            text-wrap: nowrap;
+            margin: 1rem;
+            cursor: pointer;
+            color: rgb(8 145 178);
+        }
     }
 
     .right-pannel {
@@ -123,7 +149,11 @@
     .error-msg {
         font-size: 1.4rem;
         width: 80%;
-        border-radius: 1rem;
+    }
+
+    .success-msg {
+        font-size: 1.4rem;
+        width: 80%;
     }
 
     .navigate {

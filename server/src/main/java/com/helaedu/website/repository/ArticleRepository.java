@@ -120,13 +120,13 @@ public class ArticleRepository {
         return articles;
     }
 
-    public String updateArticleStatus(String articleId, String newStatus, String reviewedModeratorId) throws ExecutionException, InterruptedException {
+    public String updateArticleStatus(String articleId, String newStatus, String reviewedModeratorEmail) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("articles").document(articleId);
 
         Map<String, Object> updates = new HashMap<>();
         updates.put("status", newStatus);
-        updates.put("reviewedModeratorId", reviewedModeratorId);
+        updates.put("reviewedModeratorId", reviewedModeratorEmail);
 
         ApiFuture<WriteResult> future = documentReference.update(updates);
         return future.get().getUpdateTime().toString();
