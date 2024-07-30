@@ -70,6 +70,7 @@ function GlobalRoutes() {
       <Route path="/modDashboard" element={<ModDashboard />} />
       <Route path="/notes" element={<AllNotes />} />
       <Route path="/notes/new" element={<NewNote />} />
+      <Route path="/land" element={<HeroLanding />} />
     </Routes>
   );
 }
