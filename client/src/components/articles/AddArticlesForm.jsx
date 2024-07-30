@@ -9,7 +9,7 @@ import {
 } from "@services/ArticleService";
 import { useNavigate } from "react-router-dom";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from "react-dropzone";
 
 export default function AddArticlesForm() {
   const coverImageInputRef = useRef(null);
@@ -34,7 +34,7 @@ export default function AddArticlesForm() {
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
-  const navigate = useNavigate();
+  const navigator = useNavigate();
   const authHeader = useAuthHeader;
   const headers = {
     Authorization: authHeader(),
@@ -53,10 +53,8 @@ export default function AddArticlesForm() {
     getInputProps: getInputPropsAdditional,
   } = useDropzone({ onDrop: onDropAdditionalFiles });
 
-  const {
-    getRootProps: getRootPropsCover,
-    getInputProps: getInputPropsCover,
-  } = useDropzone({ onDrop: onDropCoverImage, multiple: false });
+  const { getRootProps: getRootPropsCover, getInputProps: getInputPropsCover } =
+    useDropzone({ onDrop: onDropCoverImage, multiple: false });
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -193,7 +191,11 @@ export default function AddArticlesForm() {
                 {...getRootPropsAdditional()}
                 className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6 mx-6"
               >
-                <input {...getInputPropsAdditional()} name="additionalFiles" multiple />
+                <input
+                  {...getInputPropsAdditional()}
+                  name="additionalFiles"
+                  multiple
+                />
                 <FontAwesomeIcon
                   icon={faUpload}
                   className="text-4xl justify-center"
@@ -201,9 +203,7 @@ export default function AddArticlesForm() {
                 <br />
                 <p className="text-3xl">
                   Drag & drop or{" "}
-                  <span className="text-blue cursor-pointer">
-                    Choose files
-                  </span>{" "}
+                  <span className="text-blue cursor-pointer">Choose files</span>{" "}
                   to upload
                 </p>
                 {additionalFiles.length > 0 && (
@@ -213,32 +213,30 @@ export default function AddArticlesForm() {
                 )}
               </div>
             </div>
-      <div>
-        <span className="text-3xl">Upload Cover Image</span>
-        <br />
-        <div
-          {...getRootPropsCover()}
-          className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6"
-        >
-          <input {...getInputPropsCover()} name="articleCoverImage" />
-          <FontAwesomeIcon
-            icon={faUpload}
-            className="text-4xl justify-center"
-          />
-          <br />
-          <p className="text-3xl">
-            Drag & drop or{" "}
-            <span className="text-blue cursor-pointer">
-              Choose files
-            </span>{" "}
-            to upload
-          </p>
-          {coverImage && (
-            <div className="text-xl mt-4">{coverImage.name}</div>
-          )}
-        </div>
-      </div>
-    </div>
+            <div>
+              <span className="text-3xl">Upload Cover Image</span>
+              <br />
+              <div
+                {...getRootPropsCover()}
+                className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6"
+              >
+                <input {...getInputPropsCover()} name="articleCoverImage" />
+                <FontAwesomeIcon
+                  icon={faUpload}
+                  className="text-4xl justify-center"
+                />
+                <br />
+                <p className="text-3xl">
+                  Drag & drop or{" "}
+                  <span className="text-blue cursor-pointer">Choose files</span>{" "}
+                  to upload
+                </p>
+                {coverImage && (
+                  <div className="text-xl mt-4">{coverImage.name}</div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="flex justify-center">

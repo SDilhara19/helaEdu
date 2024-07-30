@@ -94,7 +94,7 @@ export default function ViewArticleMyself() {
           <h2 className="text-4xl mt-10 mb-4">Actions</h2>
           <hr className="border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
           <div className="my-7">
-            <Link to={`articles/editArticle/${article.articleId}`}>
+            <Link to={`../editArticle/${article.articleId}`}>
               <h2 className="text-3xl text-gray1 hover:text-blue cursor-pointer my-2">
                 Edit Your Article
               </h2>
@@ -110,14 +110,13 @@ export default function ViewArticleMyself() {
           <hr className="border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
           <Engagment />
           <div>
-            <h2 className='text-4xl mt-10 mb-4'>Moderator's Review</h2>
-            <hr className='border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
+            <h2 className="text-4xl mt-10 mb-4">Moderator's Review</h2>
+            <hr className="border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
             {article.rejectedReason ? (
-              <p className='text-gray1 text-2xl'>content has some errors</p>
-            ):(
+              <p className="text-gray1 text-2xl">content has some errors</p>
+            ) : (
               <p>No any reviews</p>
             )}
-            
           </div>
         </div>
       </div>

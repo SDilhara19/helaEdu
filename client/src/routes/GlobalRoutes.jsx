@@ -29,6 +29,7 @@ import UserManagement from "@pages/admin/UserManagement";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
 import ModDashboard from "@pages/profiles/ModDashboard";
+import HeroLanding from "@pages/landing/HeroLanding";
 
 function GlobalRoutes() {
   return (
@@ -52,7 +53,10 @@ function GlobalRoutes() {
       <Route path="/notifications" element={<Notifications />} />
       {/* <Route path="/approveTeachers" element={<ApproveTeachers />} /> */}
       {/* <Route path="/topTeachers" element={<TopTeachers />} /> */}
-      <Route path="/viewArticleMyself/:articleId" element={<ViewArticleMyself />} />
+      <Route
+        path="/viewArticleMyself/:articleId"
+        element={<ViewArticleMyself />}
+      />
       <Route path="/subjectCatalog" element={<SubjectCatalog />} />
       <Route path="/userManagement" element={<UserManagement />} />
       <Route path="/Settings" element={<Settings />}></Route>
@@ -60,7 +64,6 @@ function GlobalRoutes() {
       <Route path="/subject/:subject" element={<Subject />} />
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
-      <Route path="/modDashboard" element={<ModDashboard/>}/>
     </Routes>
   );
 }

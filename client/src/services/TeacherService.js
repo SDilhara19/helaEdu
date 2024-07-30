@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TEACHER_BASE_URL =`${import.meta.env.VITE_REST_API_BASE_URL}/teachers`;
+const TEACHER_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers`;
 const GET_USER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm`;
 const GET_PENDING_USER_DETAILS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
