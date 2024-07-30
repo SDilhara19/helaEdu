@@ -157,6 +157,9 @@ function Header() {
                       <h4>Grades</h4>
                     </li>
                     <li>
+                      <h4>Stickies</h4>
+                    </li>
+                    <li>
                       <h4
                         onClick={() => {
                           signOut();

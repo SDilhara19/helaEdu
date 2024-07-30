@@ -1,0 +1,58 @@
+
+
+:root {
+    --color-bg: #ffffff;
+    --color-text: #343232;
+    --color-primary: #0A6CF5; 
+    --color-secondary: #F5A711; 
+    --color-accent: #B5D2FC; 
+    --color-dark-gray: #6C6C6C;
+    --color-light-gray: #BBBBBB;
+
+  }
+  .note-card{
+    margin: 20px;
+    width: 250px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.note-card:hover{
+    background-color: rgba(251, 215, 150, 0.1);
+    cursor: pointer;
+}
+
+.note-card-side{
+    flex: 1;
+    height: 100%;
+    padding: 10px;
+    box-shadow: rgba(93, 93, 255, 0.25) 0px 50px 100px -20px, rgba(5, 75, 239, 0.3) 0px 30px 60px -30px, rgba(10, 123, 236, 0.35) 0px -2px 6px 0px inset;
+
+
+}
+
+.note-card-right{
+    @extend .note-card-side;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    text-align: justify;
+
+}
+
+.note-card-left{
+    @extend .note-card-side;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center; 
+    display: flex;          
+    align-items: center;    
+    justify-content: center;
+ 
+}
+
+.subject-card {
+   
+  }
