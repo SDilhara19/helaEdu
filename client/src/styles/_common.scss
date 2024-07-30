@@ -89,8 +89,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 5px 10px 5px;
+    margin: 5px 5px 5px 5px;
+    z-index: 90;
 
+}
+.icon-circle:hover{
+    cursor: pointer;
 }
 
 

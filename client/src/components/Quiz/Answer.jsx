@@ -21,7 +21,7 @@ const Answer = ({id, option, onclick, selectedOption}) => {
             color: 
         selectedOption === option ? 
             'white' : '#0A6CF5',  }}>
-        {id}. {option}
+        {`${id}).`} {option}
       </button>
     );
   };

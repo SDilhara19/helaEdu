@@ -7,11 +7,14 @@ import AssignmentList from "@pages/assignments/AssignmentList";
 import CreateAssignments from "@pages/assignments/CreateAssignments";
 import QuizFormat from "@pages/assignments/QuizFormat";
 import TProfile from "@pages/profiles/TProfile";
+import SProfile from "@pages/profiles/SProfile";
 
 import LeaderBoard from "@pages/leaderboard/LeaderBoard";
-import QuizEnd from "@pages/quizes/QuizEnd";
 import History from "@pages/quizes/History";
 import Friends from "@pages/quizes/Friends";
+
+import AllNotes from "@pages/personalNotes/AllNotes";
+import NewNote from "@pages/personalNotes/NewNote";
 import Dashboard from "@pages/admin/Dashboard";
 import ModeratorDetails from "@pages/admin/ModeratorDetails";
 // import ModeratorManagement from "@pages/admin/ModeratorManagement";
@@ -36,13 +39,13 @@ function GlobalRoutes() {
       <Route path="/" element={<Landing />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/quiz" element={<QuizHome />} />
-      <Route path="/quiz/1" element={<Quiz />} />
-      <Route path="/quizend/1" element={<QuizEnd />} />
+      <Route path="/quiz/:subject" element={<Quiz />} />
       <Route path="/history/1" element={<History />} />
       <Route path="/friends/1" element={<Friends />} />
       <Route path="/leaderboard/1" element={<LeaderBoard />} />
       <Route path="/assignmentList" element={<AssignmentList />} />
       <Route path="/tProfile" element={<TProfile />} />
+      <Route path="/sProfile" element={<SProfile/>} />
       <Route path="/createAssignments" element={<CreateAssignments />} />
       <Route path="/quizFormat" element={<QuizFormat />} />
       <Route path="/test" element={<Test />} />
@@ -61,6 +64,8 @@ function GlobalRoutes() {
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
       <Route path="/modDashboard" element={<ModDashboard/>}/>
+      <Route path="/notes" element={<AllNotes />} />
+      <Route path="/notes/new" element={<NewNote/>} />
     </Routes>
   );
 }

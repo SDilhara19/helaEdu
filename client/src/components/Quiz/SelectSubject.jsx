@@ -7,8 +7,7 @@ import buddhism from "@assets/img/subjects/5.png";
 import islam from "@assets/img/subjects/6.png";
 import christian from "@assets/img/subjects/7.png";
 import hinduism from "@assets/img/subjects/8.png";
-import Guidlines from './Guidlines';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const StartQuiz = () => {
@@ -24,7 +23,7 @@ const StartQuiz = () => {
 
   return (
     <>
-      <div className='button-29' onClick={() => document.getElementById('subjects_modal').showModal()}>Start Quiz!</div>
+      <div className='button-29 animate-bounce animate-thrice animate-duration-1000 animate-ease-linear animate-normal mt-10' onClick={() => document.getElementById('subjects_modal').showModal()}>Start Quiz!</div>
       <dialog id="subjects_modal" className="modal">
         <div className="modal-box w-11/12 max-w-7xl">
           <form method="dialog">

@@ -80,7 +80,7 @@ def create_embeddings(chunks, embedding_model, storing_path="Chatbot/vectorstore
     return vectorstore
 
 
-def load_vectorstore(embedding_model, storing_path="Chatbot/vectorstore"):
+def load_vectorstore(embedding_model, storing_path="Chatbot/vectorstore/10"):
 
     embeddings = load_embedding_model(embedding_model)
     # Loading the saved vector store
