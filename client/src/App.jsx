@@ -73,7 +73,7 @@ function App() {
         <Route path="/Settings" element={<Settings />}></Route>
         <Route path="/Reports" element={<Reports />}></Route>
         <Route path="/subject" element={<Subject />} />
-        <Route path="/notes/1" element={<AllNotes />} />
+        <Route path="/notes" element={<AllNotes />} />
         <Route path="/notes/new" element={<NewNote/>} />
       </Routes>
     </div>
