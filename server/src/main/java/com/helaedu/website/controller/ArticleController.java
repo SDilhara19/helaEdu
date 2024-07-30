@@ -3,6 +3,7 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.ArticleDto;
 import com.helaedu.website.dto.TeacherDto;
 import com.helaedu.website.dto.ValidationErrorResponse;
+import com.helaedu.website.entity.Teacher;
 import com.helaedu.website.service.ArticleService;
 import com.helaedu.website.service.TMService;
 import com.helaedu.website.util.UserUtil;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -144,10 +146,16 @@ public class ArticleController{
     @PutMapping("/{articleId}/approve")
     public ResponseEntity<Object> approveArticle(@PathVariable String articleId) throws ExecutionException, InterruptedException {
         try {
-            String userId = UserUtil.getCurrentUserEmail();
-
-            String result = articleService.approveArticle(articleId, userId);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            //todo
+            String email = UserUtil.getCurrentUserEmail();
+            ArticleDto articleDto = articleService.getArticle(articleId);
+            TeacherDto moderatorDto = tmService.getTM(articleDto.getUserId());
+            if(!Objects.equals(moderatorDto.getEmail(), email)){
+                String result = articleService.approveArticle(articleId, email);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Error approving article", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (IllegalArgumentException e) {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("articleId", e.getMessage());
