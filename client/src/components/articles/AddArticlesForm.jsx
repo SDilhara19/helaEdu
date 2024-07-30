@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload, faShare } from "@fortawesome/free-solid-svg-icons";
 import TextEditor from "@components/articles/TextEditor";
@@ -9,11 +9,11 @@ import {
 } from "@services/ArticleService";
 import { useNavigate } from "react-router-dom";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import { useDropzone } from 'react-dropzone';
 
 export default function AddArticlesForm() {
   const coverImageInputRef = useRef(null);
   const additionalFilesInputRef = useRef(null);
-  //   const coverImageFormRef = useRef(null);
   const handleUploadClick = (ref) => {
     ref.current.click();
   };
@@ -34,21 +34,32 @@ export default function AddArticlesForm() {
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
-  const navigator = useNavigate();
-  const authHeader = useAuthHeader();
+  const navigate = useNavigate();
+  const authHeader = useAuthHeader;
   const headers = {
-    Authorization: authHeader,
+    Authorization: authHeader(),
   };
+
+  const onDropAdditionalFiles = useCallback((acceptedFiles) => {
+    setAdditionalFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+  }, []);
+
+  const onDropCoverImage = useCallback((acceptedFiles) => {
+    setCoverImage(acceptedFiles[0]);
+  }, []);
+
+  const {
+    getRootProps: getRootPropsAdditional,
+    getInputProps: getInputPropsAdditional,
+  } = useDropzone({ onDrop: onDropAdditionalFiles });
+
+  const {
+    getRootProps: getRootPropsCover,
+    getInputProps: getInputPropsCover,
+  } = useDropzone({ onDrop: onDropCoverImage, multiple: false });
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
-  };
-  const handleCoverImageChange = (e) => {
-    setCoverImage(e.target.files[0]);
-  };
-
-  const handleAdditionalFilesChange = (e) => {
-    setAdditionalFiles(Array.from(e.target.files));
   };
 
   const saveArticle = async (e) => {
@@ -178,7 +189,11 @@ export default function AddArticlesForm() {
                 Attach Additional files
               </span>
               <br />
-              <div className="border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6">
+              <div
+                {...getRootPropsAdditional()}
+                className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6 mx-6"
+              >
+                <input {...getInputPropsAdditional()} name="additionalFiles" multiple />
                 <FontAwesomeIcon
                   icon={faUpload}
                   className="text-4xl justify-center"
@@ -186,10 +201,7 @@ export default function AddArticlesForm() {
                 <br />
                 <p className="text-3xl">
                   Drag & drop or{" "}
-                  <span
-                    onClick={() => handleUploadClick(additionalFilesInputRef)}
-                    className="text-blue cursor-pointer"
-                  >
+                  <span className="text-blue cursor-pointer">
                     Choose files
                   </span>{" "}
                   to upload
@@ -200,54 +212,38 @@ export default function AddArticlesForm() {
                   </div>
                 )}
               </div>
-
-              <input
-                type="file"
-                ref={additionalFilesInputRef}
-                style={{ display: "none" }}
-                onChange={handleAdditionalFilesChange}
-                name="additionalFiles"
-                multiple
-              />
             </div>
-            <div>
-              <span className="text-3xl">Upload Cover Image</span>
-              <br />
-              <div className="border border-dashed border-4 rounded-xl p-16 flex-c flex-col my-6">
-                <FontAwesomeIcon
-                  icon={faUpload}
-                  className="text-4xl justify-center"
-                />
-                <br />
-                <p className="text-3xl">
-                  Drag & drop or{" "}
-                  <span
-                    onClick={() => handleUploadClick(coverImageInputRef)}
-                    className="text-blue cursor-pointer"
-                  >
-                    Choose files
-                  </span>{" "}
-                  to upload
-                </p>
-                {coverImage && (
-                  <div className="text-xl mt-4">{coverImage.name}</div>
-                )}
-              </div>
-
-              <input
-                type="file"
-                ref={coverImageInputRef}
-                style={{ display: "none" }}
-                onChange={handleCoverImageChange}
-                name="articleCoverImage"
-              />
-            </div>
-          </div>
+      <div>
+        <span className="text-3xl">Upload Cover Image</span>
+        <br />
+        <div
+          {...getRootPropsCover()}
+          className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6"
+        >
+          <input {...getInputPropsCover()} name="articleCoverImage" />
+          <FontAwesomeIcon
+            icon={faUpload}
+            className="text-4xl justify-center"
+          />
+          <br />
+          <p className="text-3xl">
+            Drag & drop or{" "}
+            <span className="text-blue cursor-pointer">
+              Choose files
+            </span>{" "}
+            to upload
+          </p>
+          {coverImage && (
+            <div className="text-xl mt-4">{coverImage.name}</div>
+          )}
+        </div>
+      </div>
+    </div>
         </div>
 
         <div className="flex justify-center">
           <button
-            className="bg-blue text-4xl text-white rounded-2xl p-6"
+            className="bg-blue text-3xl text-white rounded-2xl p-4"
             type="submit"
           >
             Submit

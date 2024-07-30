@@ -17,9 +17,9 @@ const Sidebar = () => {
 
   return (
     <div
-      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between "
+      className="text-black shadow-2xl left-0 h-full p-6 flex flex-col justify-between bg-white "
       style={{
-        backgroundColor: "#F5F5F5",
+        // backgroundColor: "#F5F5F5",
         borderTopRightRadius: "1rem",
         borderBottomRightRadius: "1rem",
         width: "15vw",
@@ -47,7 +47,7 @@ const Sidebar = () => {
             }`}
           >
             <FontAwesomeIcon icon={faUsers} className="mr-4" />
-            User Management
+            Users
           </Link>
           <Link
             to="/reports"

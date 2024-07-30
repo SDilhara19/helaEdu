@@ -37,6 +37,7 @@ export default function ApproveTeachers() {
         key={teacher.teacherId}
         teacherId={teacher.teacherId}
         firstName={teacher.firstName}
+        lastName={teacher.lastName}
         email={teacher.email}
         proofPdf={teacher.proofPdf}
       />
@@ -49,7 +50,7 @@ export default function ApproveTeachers() {
   return (
     <div>
       <div className="my-28">
-        <div>{currentRows}</div>
+        <div className="min-h-72">{currentRows}</div>
         <div>
           <Pagination
             totalPages={totalPages}

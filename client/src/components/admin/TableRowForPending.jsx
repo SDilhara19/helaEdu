@@ -1,29 +1,50 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { approveTeachers } from '@services/TeacherService';
 
-export default function TableRowForPending({ teacherId, firstName, email, proofPdf }) {
+export default function TableRowForPending({ teacherId, firstName, lastName, email, proofPdf }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
-
   const openDeclineModal = () => setIsDeclineModalOpen(true);
   const closeDeclineModal = () => setIsDeclineModalOpen(false);
+
+  const handleApprove = async () => {
+    try {
+      await approveTeachers({ email });
+      window.location.reload();
+      
+    } catch (error) {
+      console.error("Error approving teacher:", error);
+    
+    }
+  };
 
   return (
     <div className='flex justify-center my-4'>
       <div className='border border-blue rounded-3xl w-10/12 h-16 px-7 py-4 flex justify-between items-center'>
-        <div className='flex-1 text-left'><p className='text-xl text-left'>{teacherId}</p></div>
-        <div className='flex-1 text-left'><p className='text-xl text-left'>{firstName}</p></div>
-        <div className='flex-1 text-left'><p className='text-xl text-left'>{email}</p></div>
-        <div className='flex-1 text-left'><p className='text-xl text-left'>{proofPdf}</p></div>
-        {/* <div className='  text-left'>
-          <FontAwesomeIcon icon={faFile} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
-          <p className='text-2xl text-left'>{proofPdf}</p>
-        </div> */}
+        <div className="bg-yellow rounded-full w-10 h-10 flex items-center justify-center mr-4">
+          <span className="text-white text-lg font-bold">{firstName.charAt(0)}</span>
+        </div>
+        <div className='flex-1 text-left'>
+          <p className='text-xl text-left'>{firstName} {lastName}</p>
+        </div>
+        <div className='flex-1 text-left'>
+          <p className='text-xl text-left'>{email}</p>
+        </div>
+        <div className='flex-1 text-left'>
+            <embed 
+                src={proofPdf} 
+                width="100%" 
+                height="600px" 
+                className='text-xl' 
+            />
+        </div>
+
         <div className='flex items-center'>
           <div className='mx-1'>
             <FontAwesomeIcon icon={faSearch} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
@@ -34,7 +55,7 @@ export default function TableRowForPending({ teacherId, firstName, email, proofP
             </div>
           </div>
           <div className='mx-1'>
-            <div className='rounded-3xl bg-red-500 px-2 hover:translate-x-1 cursor-pointer' onClick={openDeclineModal} >
+            <div className='rounded-3xl bg-red-500 px-2 hover:translate-x-1 cursor-pointer' onClick={openDeclineModal}>
               <p className='text-xl py-2'>Decline</p>
             </div>
           </div>
@@ -44,36 +65,28 @@ export default function TableRowForPending({ teacherId, firstName, email, proofP
       {isModalOpen && (
         <dialog open className="modal">
           <div className="modal-box">
-            
             <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
             <div className="modal-action">
               <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
-              <button className="btn bg-yellow text-black" onClick={() => {
-                // Add approve logic here
-                closeModal();
-              }}>Approve</button>
+              <button className="btn bg-yellow text-black" onClick={handleApprove}>Approve</button>
             </div>
           </div>
         </dialog>
       )}
 
-        {isDeclineModalOpen && (
-                <dialog open className="modal">
-                <div className="modal-box">
-                    
-                    <p className="py-4 text-3xl">Are you sure you want to decline this teacher?</p>
-                    <br></br>
-                    <input type="text" placeholder='Add your feedback' className='border border-blue w-full rounded-2xl p-5'></input>
-                    <div className="modal-action">
-                    <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
-                    <button className="btn bg-yellow text-black" onClick={() => {
-                        // Add approve logic here
-                        closeDeclineModal();
-                    }}>Approve</button>
-                    </div>
-                </div>
-                </dialog>
-            )}
+      {isDeclineModalOpen && (
+        <dialog open className="modal">
+          <div className="modal-box">
+            <p className="py-4 text-3xl">Are you sure you want to decline this teacher?</p>
+            <br />
+            <input type="text" placeholder='Add your feedback' className='border border-blue w-full rounded-2xl p-5'></input>
+            <div className="modal-action">
+              <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
+              <button className="btn bg-yellow text-black" onClick={closeDeclineModal}>Decline</button>
+            </div>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 }

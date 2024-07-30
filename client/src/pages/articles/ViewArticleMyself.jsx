@@ -110,9 +110,14 @@ export default function ViewArticleMyself() {
           <hr className="border-yellow border-t-4 w-1/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
           <Engagment />
           <div>
-            <h2 className="text-4xl mt-10 mb-4">Moderator's Review</h2>
-            <hr className="border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10"></hr>
-            <p className="text-gray1 text-2xl">content has some errors</p>
+            <h2 className='text-4xl mt-10 mb-4'>Moderator's Review</h2>
+            <hr className='border-yellow border-t-4 w-2/3 hover:border-white transition duration-300 ease-in-out mb-10'></hr>
+            {article.rejectedReason ? (
+              <p className='text-gray1 text-2xl'>content has some errors</p>
+            ):(
+              <p>No any reviews</p>
+            )}
+            
           </div>
         </div>
       </div>

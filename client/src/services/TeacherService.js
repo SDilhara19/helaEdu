@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const TEACHER_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers`;
 const GET_USER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm`;
 const GET_PENDING_USER_DETAILS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
@@ -12,6 +13,10 @@ const REST_API_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm/me`;
 const APPROVE_TEACHERS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/by-email/approve`;
+
+const GET_TEACHER_DETAILS_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/page`;
 
 const CREATE_TEACHER_FORM_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
@@ -44,3 +49,7 @@ export const uploadTeacherProof = (proofFile, email) =>
   });
 
 // export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
+export const promoteToModerator = (userId) =>
+  axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
+export const listAllTeachersDetails = (pageNo) =>
+  axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);
