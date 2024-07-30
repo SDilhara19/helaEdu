@@ -24,7 +24,7 @@ public class TeacherDto {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotEmpty(message = "Password is required")
+//    @NotEmpty(message = "Password is required")
     private String password;
 
     private String regTimestamp;
