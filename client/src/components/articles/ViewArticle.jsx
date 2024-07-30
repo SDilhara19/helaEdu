@@ -103,7 +103,7 @@ export default function ViewArticle({ articleId, userId, upvote, title, content,
                     </div>
                     <div className='flex justify-start'>
                         <div className='relative'>
-                            <span className="absolute bottom-10 right-9 translate-x-1/2 translate-y-1/2 text-xs bg-black text-white rounded-full w-6 h-6 flex items-center justify-center">{upvote.length}</span>
+                            <span className="absolute bottom-10 right-9 translate-x-1/2 translate-y-1/2 text-xs bg-black text-white rounded-full w-6 h-6 flex items-center justify-center">5</span>
                             <FontAwesomeIcon icon={isLiked ? faThumbsUpSolid : faThumbsUpRegular} className='text-xl size-14 mx-10 relative' style={{ color: "blue", cursor: 'pointer' }} onClick={toggleLike} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}/>
                         </div>
                         <div className='relative'>

@@ -73,7 +73,7 @@ const TProfile = () => {
   return (
     <div>
       <Header />
-      <ProfileHero email={teacher.email} name={teacher.firstName} profileImg={teacher.profilePictureUrl} />
+      <ProfileHero email={teacher.email} firstName={teacher.firstName} lastName={teacher.lastName}  profileImg={teacher.profilePictureUrl} />
       <div className="flex justify-between mr-32 ml-32 mt-32">
         <div className="w-1/2 mr-12 mt-12 shadow-2xl p-12">
           <p className="text-2xl m-4">
@@ -106,7 +106,7 @@ const TProfile = () => {
               <p className="text-2xl">My Assignments</p>
             </div>
           </Link>
-          <Link to="/addArticles">
+          <Link to="/articles/addArticles">
             <div className="shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold">
               <img src={Articles} className="w-20 h-20" alt="Articles" />
               <p className="text-2xl"> My Articles</p>

@@ -129,11 +129,11 @@ export default function ReviewArticle() {
                         <p className='my-2 text-2xl'>Author : <span className="text-2xl ml-2">{article.firstName} {article.lastName}</span></p>
                         <p className='my-2 text-2xl'>Submitted Date :<span className="text-2xl">{formattedDate}</span></p>
                     </div>  
-                  <button className="bg-yellow text-black text-xl py-2 px-4 rounded w-52 h-16 hover:translate-x-2 mb-4" onClick={openModal}>
+                  <button className="bg-blue text-xl text-white py-2 px-4 rounded w-52 h-16 hover:translate-x-2 mb-4" onClick={openModal}>
                     Approve Article
                   </button>
                   <br></br>
-                  <button className="bg-red-500 text-black text-xl py-2 px-4  w-52 h-16 rounded hover:translate-x-2" onClick={openDeclineModal}>
+                  <button className="bg-red-500 text-white text-xl py-2 px-4  w-52 h-16 rounded hover:translate-x-2" onClick={openDeclineModal}>
                     Reject Article
                   </button>
                 </div>
@@ -147,13 +147,13 @@ export default function ReviewArticle() {
                       </p>
                       <div className="modal-action">
                         <button
-                          className="btn bg-red-400 text-black"
+                          className="btn bg-red-500 text-white"
                           onClick={closeModal}
                         >
                           Cancel
                         </button>
                         <button
-                          className="btn bg-yellow text-black"
+                          className="btn bg-blue text-white"
                           onClick={() => {
                             approve();
                             closeModal();
@@ -181,13 +181,13 @@ export default function ReviewArticle() {
                       />
                       <div className="modal-action">
                         <button
-                          className="btn bg-red-400 text-black"
+                          className="btn bg-red-500 text-white"
                           onClick={closeDeclineModal}
                         >
                           Cancel
                         </button>
                         <button
-                          className="btn bg-yellow text-black"
+                          className="btn bg-blue text-white"
                           onClick={() => {
                             reject();
                             closeDeclineModal();

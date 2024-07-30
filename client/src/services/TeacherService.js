@@ -13,10 +13,22 @@ const REST_API_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm/me`;
 const APPROVE_TEACHERS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/by-email/approve`;
-const GET_TEACHER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers/page`;
+// const GET_TEACHER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers/page`;
 const EDIT_TEACHER_PROFILE = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/me`;
+
+const GET_TEACHER_DETAILS_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/page`;
+
+const CREATE_TEACHER_FORM_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/create`;
+
+const TEACHER_PROOF = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/uploadProofFile`;
 
 export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
@@ -33,3 +45,19 @@ export const promoteToModerator =(userId)=>axios.put(`${TEACHER_BASE_URL}/${user
 export const listAllTeachersDetails = (pageNo)  =>axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);
 export const editTeacherProfile = (formData, headers) =>
   axios.put(`${EDIT_TEACHER_PROFILE}`, formData, { headers });
+
+export const createTeacher = (userData) =>
+  axios.post(CREATE_TEACHER_FORM_URL, userData);
+
+export const uploadTeacherProof = (proofFile, email) =>
+  axios.post(`${TEACHER_PROOF}?email=${email}`, proofFile, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+// export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
+// export const promoteToModerator = (userId) =>
+//   axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
+// export const listAllTeachersDetails = (pageNo) =>
+  // axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);

@@ -24,7 +24,9 @@ export default function reviewList() {
             const userDetails = userResponse.data;
             return {
               ...article,
-              authorName: userDetails.firstName,
+              firstName: userDetails.firstName,
+              lastName: userDetails.lastName,
+              coverImage: userDetails.profilePictureUrl,
             };
           })
         );
@@ -65,8 +67,9 @@ export default function reviewList() {
                     <ArticleCard
                       key={article.articleId}
                       imageUrl={article.imageRef}
-                      authorImageUrl={article.profilePictureUrl}
-                      authorName={article.authorName}
+                      profilePictureUrl={article.coverImage}
+                      firstName={article.firstName}
+                      lastName={article.lastName}
                       date={article.publishedTimestamp}
                       title={article.title}
                       description={article.content}

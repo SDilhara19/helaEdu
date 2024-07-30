@@ -7,9 +7,11 @@ import ViewArticle from "@/components/articles/ViewArticle";
 import { Header, Footer } from "@/components/common";
 import { getArticleById } from "@/services/ArticleService";
 import { getUserDetails } from "@services/TeacherService";
-
+import { userRoles } from "@utils/userRoles";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export default function ReadArticle() {
+  const currentUserRole = useAuthUser()?.role;
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
 
@@ -72,6 +74,7 @@ export default function ReadArticle() {
           firstName: userDetails.firstName,
           lastName: userDetails.lastName,
           userId:userDetails.userId,
+          coverImage:userDetails.profilePictureUrl,
         };
 
         setArticle(articleWithUserDetails);
@@ -99,7 +102,7 @@ export default function ReadArticle() {
             tags={article.tags}
             firstName={article.firstName}
             lastName={article.lastName}
-            userProfile={article.profilePictureUrl}
+            userProfile={article.coverImage}
             date={article.publishedTimestamp}
             imageRef={article.imageRef}
             additionalFilesRefs={article.additionalFilesRefs}
@@ -124,9 +127,15 @@ export default function ReadArticle() {
             </div>
           ))}
           <br />
-          <Link to="/addArticleForm">
-            <AddArticleBtn />
-          </Link>
+          {currentUserRole == userRoles.Teacher ? (
+            <Link to="/articles/addArticleForm">
+              <AddArticleBtn />
+            </Link>
+          ): currentUserRole == userRoles.Moderator ? (
+            <Link to="/articles/addArticleForm">
+              <AddArticleBtn />
+            </Link>
+          ):(null)}
           <iframe title="dummy"></iframe>
         </div>
       </div>

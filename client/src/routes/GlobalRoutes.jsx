@@ -64,6 +64,7 @@ function GlobalRoutes() {
       <Route path="/subject/:subject" element={<Subject />} />
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
+      <Route path="/modDashboard" element={<ModDashboard/>}/>
     </Routes>
   );
 }
