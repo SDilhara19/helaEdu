@@ -28,6 +28,7 @@ import Subject from "@pages/subjects/Subject";
 import UserManagement from "@pages/admin/UserManagement";
 import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
+import HeroLanding from "@pages/landing/HeroLanding";
 
 function GlobalRoutes() {
   return (
@@ -59,6 +60,7 @@ function GlobalRoutes() {
       <Route path="/subject" element={<Subject />} />
       <Route path="/reviewQuiz" element={<ReviewQuiz />} />
       <Route path="/reviewQuizList" element={<ReviewQuizList />} />
+      <Route path="/hero2" element={<HeroLanding />} />
     </Routes>
   );
 }
