@@ -14,7 +14,7 @@ export default function reviewList() {
     const fetchApprovedArticles = async () => {
       try {
         const response = await pendingArticles();
-        const articles = response.data.slice(0, 3);
+        const articles = response.data;
         console.log(articles);
 
         const articlesWithUserDetails = await Promise.all(
@@ -24,7 +24,9 @@ export default function reviewList() {
             const userDetails = userResponse.data;
             return {
               ...article,
-              authorName: userDetails.firstName,
+              firstName: userDetails.firstName,
+              lastName: userDetails.lastName,
+              coverImage: userDetails.profilePictureUrl,
             };
           })
         );
@@ -64,8 +66,9 @@ export default function reviewList() {
                     <ArticleCard
                       key={article.articleId}
                       imageUrl={article.imageRef}
-                      authorImageUrl={article.profilePictureUrl}
-                      authorName={article.authorName}
+                      profilePictureUrl={article.coverImage}
+                      firstName={article.firstName}
+                      lastName={article.lastName}
                       date={article.publishedTimestamp}
                       title={article.title}
                       description={article.content}

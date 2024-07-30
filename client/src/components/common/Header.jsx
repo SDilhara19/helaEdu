@@ -11,6 +11,7 @@ import DarkModeToggle from "@components/common/DarkModeToggle";
 import { userRoles } from "@utils/userRoles";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
+
 function Header() {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
@@ -86,7 +87,7 @@ function Header() {
                       className="notification-bell"
                     />
                   </div>
-                  <ul tabIndex="0" className="menu dropdown-content shadow">
+                  {/* <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
                       <h4>Grades</h4>
                     </li>
@@ -96,7 +97,7 @@ function Header() {
                     <li>
                       <h4>Grades</h4>
                     </li>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
 

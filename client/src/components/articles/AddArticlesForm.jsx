@@ -133,12 +133,12 @@ export default function AddArticlesForm() {
                 value={title}
                 onChange={handleTitle}
                 name="title"
-              />
+              required />
             </div>
           </div>
           <div className="my-7">
             <span className="text-3xl">Content</span>
-            <TextEditor content={content} setContent={setContent} />
+            <TextEditor content={content} setContent={setContent} required/>
           </div>
           <div>
             <span className="text-3xl">Select Your Tags</span>
