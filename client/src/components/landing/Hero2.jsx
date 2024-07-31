@@ -2,6 +2,7 @@ import React from "react";
 import bot from "@assets/img/bot.svg";
 import logo from "@assets/icons/hela-edu-black-text2.svg";
 import land from "@assets/img/Land bg.svg";
+import { useNavigate } from "react-router-dom";
 
 import maths from "@assets/img/subjects/maths.png";
 import science from "@assets/img/subjects/2.png";
@@ -16,6 +17,7 @@ import articleImg3 from "@assets/img/Top Articles/Young indian woman in blue sar
 import Article from "@components/landing/Article";
 import hinduism from "@assets/img/subjects/8.png";
 function Hero2() {
+  let navigator = useNavigate();
   return (
     <div className="hero2">
       <div className="flex-c">
@@ -29,7 +31,14 @@ function Hero2() {
           <div className="hero-text-box">
             <div className="subscribe">
               <h3 className="text-center blue">Subscribe to premium now</h3>
-              <h3 className="text-center white">Subscribe</h3>
+              <h3
+                className="text-center white"
+                onClick={() => {
+                  navigator("/premiumPlan");
+                }}
+              >
+                Subscribe
+              </h3>
             </div>
             <h4 className="mt-4">
               Your ultimate self-study platform, designed to make learning

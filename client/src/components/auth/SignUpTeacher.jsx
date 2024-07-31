@@ -54,9 +54,10 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
 
   const uploadProofFile = async () => {
     try {
-      let formData = new FormData();
-      formData.append("proofFile", files[0]);
-      await uploadTeacherProof(formData, formData.email);
+      let files = uploadInputRef.current.files;
+      let formDetails = new FormData();
+      formDetails.append("proofFile", files[0]);
+      await uploadTeacherProof(formDetails, formData.email);
       setSuccess("You will get notified once an Admin aprove the sign up");
       setLoadingState(false);
     } catch (error) {
@@ -65,6 +66,8 @@ function SignUpTeacher({ signUpType, setSignUpType, setLoadingState }) {
   };
 
   const displayErrorMessage = (error) => {
+    console.log(error);
+
     let errorResponse = error.response;
     let violations = errorResponse.data.violations;
     violations.forEach((errorObject) => {
