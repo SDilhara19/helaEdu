@@ -33,11 +33,12 @@ import Settings from "@pages/admin/Settings";
 import Reports from "@pages/admin/Reports";
 import ModDashboard from "@pages/profiles/ModDashboard";
 import HeroLanding from "@pages/landing/HeroLanding";
-
+import PremiumPlan from "@pages/landing/PremiumPlan";
 function GlobalRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/" element={<HeroLanding />} />
+
       <Route path="/auth" element={<Auth />} />
       <Route path="/quiz" element={<QuizHome />} />
       <Route path="/quiz/:subject" element={<Quiz />} />
@@ -71,6 +72,7 @@ function GlobalRoutes() {
       <Route path="/notes" element={<AllNotes />} />
       <Route path="/notes/new" element={<NewNote />} />
       <Route path="/land" element={<HeroLanding />} />
+      <Route path="/premiumPlan" element={<PremiumPlan />} />
     </Routes>
   );
 }

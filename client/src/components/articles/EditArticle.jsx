@@ -86,7 +86,7 @@ export default function EditArticle() {
                 await uploadAdditionalFiles(articleId, formData, headers);
             }
 
-            navigator('/addArticles');
+            navigator('/articles/addArticles');
         } catch (error) {
             console.error('Failed to update article or upload files', error);
         }

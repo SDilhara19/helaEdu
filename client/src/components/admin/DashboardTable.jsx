@@ -33,7 +33,7 @@ const DashboardTable = () => {
             name="name"
             email="email"
             validationProof="validationProof"
-            subjects="subjects"
+            // subjects="subjects"
           />
         {teachers.map((row) => (
           <DashboardTableRow

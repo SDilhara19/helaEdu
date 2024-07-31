@@ -11,6 +11,7 @@ import DarkModeToggle from "@components/common/DarkModeToggle";
 import { userRoles } from "@utils/userRoles";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
+
 function Header() {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
@@ -49,13 +50,13 @@ function Header() {
                   <h4>Assignments</h4>
                 </div>
               </Link>
-            ) : (
+            ) : currentUserRole == userRoles.Student ? (
               <Link to="/quiz">
                 <div className="nav-text flex-c m-4 cursor-pointer">
                   <h4>Quiz</h4>
                 </div>
               </Link>
-            )}
+            ):(null)}
 
             <Link to="/articles">
               <div className="nav-text flex-c m-4 cursor-pointer">
@@ -86,7 +87,7 @@ function Header() {
                       className="notification-bell"
                     />
                   </div>
-                  <ul tabIndex="0" className="menu dropdown-content shadow">
+                  {/* <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
                       <h4>Grades</h4>
                     </li>
@@ -96,7 +97,7 @@ function Header() {
                     <li>
                       <h4>Grades</h4>
                     </li>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
 
@@ -165,7 +166,10 @@ function Header() {
                     </li>
 
                     <li>
-                      <h4>Stickies</h4>
+                      <Link to ="/notes">
+                        <h4>Stickies</h4>
+                      </Link>
+                      
                     </li>
                     <li>
                       <h4

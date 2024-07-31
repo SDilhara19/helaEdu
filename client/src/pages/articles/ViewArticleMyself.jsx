@@ -38,7 +38,9 @@ export default function ViewArticleMyself() {
         const userDetails = userResponse.data;
         const articleWithUserDetails = {
           ...article,
-          authorName: userDetails.firstName,
+          firstName: userDetails.firstName,
+          lastName:userDetails.lastName,
+          coverImage:userDetails.profilePictureUrl,
         };
         setArticle(articleWithUserDetails);
       } catch (error) {
@@ -65,13 +67,13 @@ export default function ViewArticleMyself() {
               </p>
               <div className="modal-action">
                 <button
-                  className="btn bg-red-400 text-black text-2xl"
+                  className="btn bg-red-400 text-white text-2xl"
                   onClick={closeDeleteModal}
                 >
                   Cancel
                 </button>
                 <button
-                  className="btn bg-yellow text-black text-2xl"
+                  className="btn bg-blue text-white text-2xl"
                   onClick={DeleteArticle}
                 >
                   Delete
@@ -81,13 +83,17 @@ export default function ViewArticleMyself() {
           </dialog>
         )}
         <div className="w-9/12">
+       
           <ViewArticle
             title={article.title}
             content={article.content}
             tags={article.tags}
-            userName={article.authorName}
+            firstName={article.firstName}
+            lastName={article.lastName}
             date={article.publishedTimestamp}
             imageRef={article.imageRef}
+            userProfile={article.coverImage}
+            additionalFilesRefs={article.additionalFilesRefs}
           />
         </div>
         <div className="mt-64 w-3/12">

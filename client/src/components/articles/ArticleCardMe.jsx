@@ -24,7 +24,7 @@ export default function ArticleCardMe({ imageUrl,  title, description, badges, s
 
   return (
     <div className='relative hover:scale-105 transition-transform'>
-      <div className="relative card w-96 h-auto shadow-xl overflow-hidden">
+      <div className="relative card w-96 h-auto shadow-xl overflow-hidden bg-white">
         <div className="h-80">
           <figure className="h-full">
           {imageUrl ? (

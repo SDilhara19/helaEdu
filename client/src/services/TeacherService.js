@@ -13,6 +13,10 @@ const REST_API_BASE_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/tm/me`;
 const APPROVE_TEACHERS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/by-email/approve`;
+// const GET_TEACHER_DETAILS_URL = `${import.meta.env.VITE_REST_API_BASE_URL}/teachers/page`;
+const EDIT_TEACHER_PROFILE = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/teachers/me`;
 
 const GET_TEACHER_DETAILS_URL = `${
   import.meta.env.VITE_REST_API_BASE_URL
@@ -25,6 +29,9 @@ const CREATE_TEACHER_FORM_URL = `${
 const TEACHER_PROOF = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/uploadProofFile`;
+const GET_MODERATOR_DETAILS_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/moderators/page`;
 
 export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
@@ -37,6 +44,10 @@ export const addProfileImageToTeacher = (email, formData, headers) =>
 export const approveTeachers = (email) =>
   axios.put(APPROVE_TEACHERS_URL, email);
 export const getPendingTeachers = () => axios.get(GET_PENDING_USER_DETAILS_URL);
+export const promoteToModerator =(userId)=>axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
+export const listAllTeachersDetails = (pageNo)  =>axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);
+export const editTeacherProfile = (formData, headers) =>
+  axios.put(`${EDIT_TEACHER_PROFILE}`, formData, { headers });
 
 export const createTeacher = (userData) =>
   axios.post(CREATE_TEACHER_FORM_URL, userData);
@@ -47,9 +58,12 @@ export const uploadTeacherProof = (proofFile, email) =>
       "Content-Type": "multipart/form-data",
     },
   });
+ export const deleteTeachers =(teacherId) =>axios.delete( `${TEACHER_BASE_URL}/${teacherId}`);
+ export const listModeratorDetails = (pageNo) =>
+  axios.get(`${GET_MODERATOR_DETAILS_URL}/${pageNo}`);
 
 // export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
-export const promoteToModerator = (userId) =>
-  axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
-export const listAllTeachersDetails = (pageNo) =>
-  axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);
+// export const promoteToModerator = (userId) =>
+//   axios.put(`${TEACHER_BASE_URL}/${userId}/promote)`);
+// export const listAllTeachersDetails = (pageNo) =>
+  // axios.get(`${GET_TEACHER_DETAILS_URL}/${pageNo}`);

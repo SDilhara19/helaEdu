@@ -22,7 +22,7 @@ export default function Students() {
     const currentRows = students.map((student) => (
       <TableRawStudents
         key={student.userId}
-        studentId={student.userId}
+        userId={student.userId}
         profileRef={student.profilePictureUrl}
         firstName={student.firstName}
         lastName={student.lastName}

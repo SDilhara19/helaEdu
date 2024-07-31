@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "@components/common/Header";
-import { Link } from "react-router-dom";
 import { Footer } from "@/components/common";
 import { listArticlesByTeacher } from "@/services/ArticleService";
 import ArticleCardMe from "@components/articles/ArticleCardMe";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import AddArticleBtn from "@components/articles/AddArticleBtn";
+import ArticleHead from "@components/articles/ArticleHead";
 import Sort from "@components/articles/Sort";
+import { Link } from "react-router-dom";
+import banner from "@assets/img/subject_background.png";
+
 
 export default function AddArticles() {
   const authHeader = useAuthHeader();
@@ -23,42 +26,36 @@ export default function AddArticles() {
         console.error(error);
       });
   }, []);
-
   return (
-    <div>
+    <>
       <Header />
-      <div className="flex justify-between mx-48 my-12 ">
-        <div>
-          <h1>My Articles</h1>
-          <hr className="border-yellow border-t-4 w-full hover:border-white transition duration-300 ease-in-out"></hr>
-        </div>
+      <div className="subject-catalog">
+        <img className="catalog-img" src={banner} alt="" srcset="" />
 
-        <div>
-          <Link to="/articles/addArticleForm">
-            <AddArticleBtn />
-          </Link>
-        </div>
-      </div>
-      <Sort />
-      <div className=" mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {articles.map((article) => (
-          <div key={article.articleId} className="p-2">
-            <Link to={`/articles/viewArticleMyself/${article.articleId}`}>
-              <ArticleCardMe
-                key={article.articleId}
-                imageUrl={article.imageRef}
-                title={article.title}
-                description={article.content}
-                badges={article.tags}
-                status={article.status}
-                date={article.publishedTimestamp}
-              />
-            </Link>
+        <div className="">
+          <ArticleHead />
+          <div className="mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {articles.map((article) => (
+            <div key={article.articleId} className="p-2">
+              <Link to={`/articles/viewArticleMyself/${article.articleId}`}>
+                <ArticleCardMe
+                  key={article.articleId}
+                  imageUrl={article.imageRef}
+                  title={article.title}
+                  description={article.content}
+                  badges={article.tags}
+                  status={article.status}
+                  date={article.publishedTimestamp}
+                />
+              </Link>
+            </div>
+          ))}
           </div>
-        ))}
+        </div>
       </div>
-
+     
       <Footer />
-    </div>
+    </>
   );
-}
+};
+
