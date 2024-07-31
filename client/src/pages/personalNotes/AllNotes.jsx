@@ -20,10 +20,10 @@ const AllNotes = () => {
             <div className='px-64 mt-12 h-full w-full'>
                 <div className='flex justify-between items-center'>
                     <div className='p-10 h-1/5'>
-                        <div className='s-topic'>Stickies</div>
+                        <div className='s-topic'>Sticky Notes</div>
                         <div className='n-text'>Stay updated with your own knowledge </div>
                     </div>
-                    <button className="py-3 px-10 border-blue bg-blue rounded-2xl n-text text-white flex justify-center items-center gap-8" onClick={() => handleIconClick()}>
+                    <button className="py-3 px-10 border-blue bg-blue rounded-2xl n-text text-white  gap-8" onClick={() => handleIconClick()}>
                         <p>New Note </p>    <FontAwesomeIcon icon={faPlus} size="1x" />
                     </button>
                 </div>
