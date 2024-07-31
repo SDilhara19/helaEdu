@@ -26,6 +26,23 @@ const QuizBegin = ({ subject }) => {
       answer: "Western",
       id: 3,
     },
+    {
+      question: "What is not a significant feature of paddy cultivation?",
+      options: [
+        "It is a staple food of Sri Lankans",
+        "It provides raw materials for many industries",
+        "It is a Production of organic fertilizer",
+        "It is popular among many countries",
+      ],
+      answer: "It is popular among many countries",
+      id: 4,
+    },
+    {
+      question: "What is a vegetable grown in dry zone?",
+      options: ["Potatoes", "Drumsticks", "Long beans", "Carrot"],
+      answer: "Drumsticks",
+      id: 5,
+    },
   ];
 
   const perQuestionTime = 1000;
