@@ -4,7 +4,8 @@ import { faFile, faSearch , faTrash } from '@fortawesome/free-solid-svg-icons';
 import Profile from '@assets/img/articles/profile.jpg';
 import { deleteStudents } from '@services/StudentService';
 
-export default function TableRowStudents({ userId, firstName,lastName, email ,profileRef}) {
+
+export default function TableRowModerators({ userId, firstName,lastName, email ,profileRef}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
  
   const openModal = () => setIsModalOpen(true);

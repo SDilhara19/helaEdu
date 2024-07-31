@@ -29,6 +29,9 @@ const CREATE_TEACHER_FORM_URL = `${
 const TEACHER_PROOF = `${
   import.meta.env.VITE_REST_API_BASE_URL
 }/teachers/uploadProofFile`;
+const GET_MODERATOR_DETAILS_URL = `${
+  import.meta.env.VITE_REST_API_BASE_URL
+}/moderators/page`;
 
 export const listTeacherDetails = (headers) =>
   axios.get(REST_API_BASE_URL, { headers });
@@ -55,6 +58,9 @@ export const uploadTeacherProof = (proofFile, email) =>
       "Content-Type": "multipart/form-data",
     },
   });
+ export const deleteTeachers =(teacherId) =>axios.delete( `${TEACHER_BASE_URL}/${teacherId}`);
+ export const listModeratorDetails = (pageNo) =>
+  axios.get(`${GET_MODERATOR_DETAILS_URL}/${pageNo}`);
 
 // export const listStudentDetails = `${import.meta.env.VITE_REST_API_BASE_URL}/
 // export const promoteToModerator = (userId) =>

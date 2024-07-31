@@ -50,13 +50,13 @@ function Header() {
                   <h4>Assignments</h4>
                 </div>
               </Link>
-            ) : (
+            ) : currentUserRole == userRoles.Student ? (
               <Link to="/quiz">
                 <div className="nav-text flex-c m-4 cursor-pointer">
                   <h4>Quiz</h4>
                 </div>
               </Link>
-            )}
+            ):(null)}
 
             <Link to="/articles">
               <div className="nav-text flex-c m-4 cursor-pointer">
@@ -166,7 +166,10 @@ function Header() {
                     </li>
 
                     <li>
-                      <h4>Stickies</h4>
+                      <Link to ="/notes">
+                        <h4>Stickies</h4>
+                      </Link>
+                      
                     </li>
                     <li>
                       <h4

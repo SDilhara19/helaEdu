@@ -19,9 +19,9 @@ const DashboardTableHeader = ({ user,name,email,validationProof,subjects}) => {
           <div className="flex-1 px-2">
             <p className="text-xl">{validationProof}</p>
           </div>
-          <div className="flex-1 px-2">
+          {/* <div className="flex-1 px-2">
             <p className="text-xl">{subjects}</p>
-          </div>
+          </div> */}
          
           <div className="flex-1 px-2">
             <p className="text-xl"></p>
