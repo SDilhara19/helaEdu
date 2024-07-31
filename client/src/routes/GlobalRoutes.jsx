@@ -37,7 +37,8 @@ import PremiumPlan from "@pages/landing/PremiumPlan";
 function GlobalRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/" element={<HeroLanding />} />
+
       <Route path="/auth" element={<Auth />} />
       <Route path="/quiz" element={<QuizHome />} />
       <Route path="/quiz/:subject" element={<Quiz />} />
