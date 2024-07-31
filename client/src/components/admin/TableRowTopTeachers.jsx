@@ -26,11 +26,11 @@ export default function TableRowTopTeachers({ teacherId, firstName, email,contac
         </dialog>
       )}
       <div className='border border-blue rounded-3xl w-10/12 h-16 px-7 py-4 flex justify-between items-center'>
-        <div><p className='text-xl'>{teacherId}</p></div>
+        <div ><p className='text-xl'>{teacherId}</p></div>
+        
         <div><p className='text-xl'>{firstName}</p></div>
         <div><p className='text-xl'>{email}</p></div>
-        <div><p className='text-xl'>{contactNo}</p></div>
-        <div><p className='text-xl'>{subjects}</p></div>
+       
         <div className='flex items-center'>
           <div className='mx-1'>
             <FontAwesomeIcon icon={faSearch} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />

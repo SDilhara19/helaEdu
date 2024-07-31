@@ -36,14 +36,13 @@ export default function TableRowForPending({ teacherId, firstName, lastName, ema
         <div className='flex-1 text-left'>
           <p className='text-xl text-left'>{email}</p>
         </div>
-        <div className='flex-1 text-left'>
-            <embed 
-                src={proofPdf} 
-                width="100%" 
-                height="600px" 
-                className='text-xl' 
-            />
-        </div>
+        <div className="flex-1 px-2">
+            <p className="text-xl">
+              <a href={proofPdf } download className="text-gray1 text-sm hover:text-yellow cursor-pointer ">
+                {proofPdf  ? 'Download File' : 'No File Available'}
+              </a>
+              </p>
+          </div>
 
         <div className='flex items-center'>
           <div className='mx-1'>
@@ -67,8 +66,8 @@ export default function TableRowForPending({ teacherId, firstName, lastName, ema
           <div className="modal-box">
             <p className="py-4 text-3xl">Are you sure you want to approve this teacher?</p>
             <div className="modal-action">
-              <button className="btn bg-red-400 text-black" onClick={closeModal}>Cancel</button>
-              <button className="btn bg-yellow text-black" onClick={handleApprove}>Approve</button>
+              <button className="btn bg-red-400 text-white" onClick={closeModal}>Cancel</button>
+              <button className="btn bg-blue text-white" onClick={handleApprove}>Approve</button>
             </div>
           </div>
         </dialog>
@@ -81,8 +80,8 @@ export default function TableRowForPending({ teacherId, firstName, lastName, ema
             <br />
             <input type="text" placeholder='Add your feedback' className='border border-blue w-full rounded-2xl p-5'></input>
             <div className="modal-action">
-              <button className="btn bg-red-400 text-black" onClick={closeDeclineModal}>Cancel</button>
-              <button className="btn bg-yellow text-black" onClick={closeDeclineModal}>Decline</button>
+              <button className="btn bg-red-400 text-white" onClick={closeDeclineModal}>Cancel</button>
+              <button className="btn bg-yellow text-white" onClick={closeDeclineModal}>Decline</button>
             </div>
           </div>
         </dialog>

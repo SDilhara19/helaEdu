@@ -1,60 +1,37 @@
 import TableRawModerators from '@components/admin/TableRowModerators';
 import { Header, Footer } from '@components/common';
-import React ,{useState} from 'react';
-import Pagination from '@components/articles/Pagination';
-const moderator = [
-    {
-      moderatorId: 1,
-      firstName: 'M.perera',
-      email: 'perera23@gmail.com',
-      Grade:'6',
-     
-    },
-    {
-        moderatorId: 4,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-        
-      },
-      {
-        moderatorId: 5,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-      },
-      {
-        moderatorId: 6,
-        firstName: 'M.perera',
-        email: 'perera23@gmail.com',
-        Grade:'6',
-      }
-    
-  ];
+import React ,{useState , useEffect} from 'react';
+import Pagination from '@components/admin/Pagination';
+import { listModeratorDetails } from '@services/TeacherService';
+
+export default function Moderators() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [moderators, setModerators] = useState([]);
+  const totalPages = 2; 
   
-export default function moderators() {
-
-    const [currentPage, setCurrentPage] = useState(1);
-    
-    const rowsPerPage = 7;
-    const totalPages = Math.ceil(moderator.length / rowsPerPage);
-
-    const currentRows = moderator.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    ).map((moderator, index) => (
-        <TableRawModerators
-        key={moderator.moderatorId}
-        moderatorId={moderator.moderatorId}
-        firstName={moderator.firstName}
-        email={moderator.email}
-        
-       
-        />
-    ));
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
+  useEffect(() => {
+    const fetchModerators = async () => {
+        const response = await listModeratorDetails(currentPage);
+        setModerators(response.data); 
+        console.log(response.data);
     };
+    fetchModerators();
+  }, [currentPage]);
+
+  const currentRows = moderators.map((moderator) => (
+    <TableRawModerators
+      key={moderator.userId}
+      userId={moderator.userId}
+      profileRef={moderator.profilePictureUrl}
+      firstName={moderator.firstName}
+      lastName={moderator.lastName}
+      email={moderator.email}
+    />
+  ));
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
 
   return (
     <div>
@@ -68,7 +45,7 @@ export default function moderators() {
             <Pagination
             totalPages={totalPages}
             currentPage={currentPage}
-            onPageChange={handlePageChange}
+            onPageChange={setCurrentPage}
             />
       </div>
       </div>

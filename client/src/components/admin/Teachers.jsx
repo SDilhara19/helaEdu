@@ -21,11 +21,11 @@ export default function Teachers() {
     const currentRows = teachers
     .map((teacher) => (
         <TableRawTeachers
-        key={teacher.teacherId}
-        teacherId={teacher.teacherId}
+        key={teacher.userId}
+        userId={teacher.userId}
         profileRef={teacher.profilePictureUrl}
         firstName={teacher.firstName}
-        lastNAme={teacher.lastName}
+        lastName={teacher.lastName}
         email={teacher.email}
         
        
