@@ -42,7 +42,7 @@ const Questions = ({
       </div>
 
       <div className="flex justify-end mx-32 mt-32">
-        <button className="gold-button w-64" onClick={handleNextQuestion}><h4> {isLastQuestion ? "Submit" : "Next"}</h4> </button>
+        <button className="gold-button w-64" onClick={() => handleNextQuestion({timer})}><h4> {isLastQuestion ? "Submit" : "Next"}</h4> </button>
       </div>
     </div>
   );

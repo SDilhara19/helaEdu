@@ -3,8 +3,14 @@ import congratulations from '@assets/img/congrats-banner.svg';
 import goldBadge from '@assets/img/badges/gold.svg';
 import { useNavigate } from 'react-router-dom';
 
+const formatTime = (time) => {
+  const min = Math.floor(time / 6000);
+  const seconds = Math.floor((time % 6000) / 100);
+  const miniseconds = time % 100;
+  return `${min}:${seconds < 10 ? "0" : ""}${seconds}:${miniseconds < 10 ? "0" : ""}${miniseconds}`;
+};
 
-const Score = ({ score }) => {
+const Score = ({ score, totalTime }) => {
 
   const navigator = useNavigate()
 
@@ -32,7 +38,7 @@ const Score = ({ score }) => {
                 </tr>
                 <tr className='border-none'>
                   <td className=''>Time Taken</td>
-                  <td className='text-right'>12:23 s</td>
+                  <td className='text-right'>{formatTime(totalTime)} s</td>
                 </tr>
                 <tr className='border-none'>
                   <td className=''>Total Score</td>

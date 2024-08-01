@@ -54,6 +54,7 @@ const QuizBegin = ({ subject }) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
     if (quizStarted && currentQuestion < questions.length) {
@@ -62,25 +63,34 @@ const QuizBegin = ({ subject }) => {
           if (prevTimer > 0) {
             return prevTimer - 1;
           } else {
-            setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-            // Reset timer for the next question
-            return perQuestionTime;
+            setTotalTime((prevTime) => prevTime + perQuestionTime);
+            if (currentQuestion + 1 < questions.length) {
+              setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+              return perQuestionTime;
+            } else {
+              setIsLastQuestion(true);
+              setQuizStarted(false);
+              clearInterval(interval);
+              return 0;
+            }
           }
         });
       }, 10);
 
       return () => clearInterval(interval);
     }
-  }, [currentQuestion, quizStarted]);
+  }, [quizStarted, currentQuestion, questions.length]);
 
   const handleAnswerClick = (selectedAnswer) => {
     if (selectedAnswer === questions[currentQuestion].answer) {
       setScore((prevScore) => prevScore + 1);
     }
+    handleNextQuestion(timer);
   };
 
-  const handleNextQuestion = () => {
-    if (currentQuestion + 1 == questions.length) {
+  const handleNextQuestion = (remainingTime) => {
+    setTotalTime((prevTime) => prevTime + (perQuestionTime - remainingTime));
+    if (currentQuestion + 1 === questions.length) {
       setIsLastQuestion(true);
     }
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
@@ -90,6 +100,11 @@ const QuizBegin = ({ subject }) => {
   const startQuiz = () => {
     setQuizStarted(true);
     setShowPopup(false);
+    setScore(0);
+    setCurrentQuestion(0);
+    setTotalTime(0);
+    setTimer(perQuestionTime);
+    setIsLastQuestion(false);
   };
 
   const showStartPopup = () => {
@@ -134,6 +149,7 @@ const QuizBegin = ({ subject }) => {
             setQuizStarted={setQuizStarted}
             setIsLastQuestion={setIsLastQuestion}
             setTimer={setTimer}
+            totalTime={totalTime}
           />
         )}
       </div>
