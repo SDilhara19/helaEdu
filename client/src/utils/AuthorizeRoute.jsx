@@ -1,21 +1,12 @@
 import React from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
-function AuthorizeRoute({
-  allowedUserRole = "all",
-  multiple = false,
-  Component,
-}) {
+function AuthorizeByRole({ allowedUserRole = [], Component }) {
   const currentUserRole = useAuthUser()?.role;
-  let isUserValid = allowedUserRole == "all" ? true : false;
 
-  if (multiple) {
-    allowedUserRole.forEach((role) => {
-      isUserValid |= currentUserRole == role;
-    });
-  } else {
-    isUserValid |= currentUserRole == allowedUserRole;
-  }
+  allowedUserRole.forEach((role) => {
+    isUserValid |= currentUserRole === role;
+  });
 
   if (isUserValid) {
     return <Component />;
@@ -23,4 +14,15 @@ function AuthorizeRoute({
     return <h3>Forbidden</h3>;
   }
 }
-export default AuthorizeRoute;
+
+function AuthrizeById({ userId, Component }) {
+  const currentUserId = useAuthUser()?.userId;
+
+  if (currentUserId === userId) {
+    return <Component />;
+  } else {
+    return <h3>Forbidden</h3>;
+  }
+}
+
+export { AuthorizeByRole as AuthorizeRole, AuthrizeById as AuthrizeId };

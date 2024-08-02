@@ -19,45 +19,51 @@ export default function ReadArticle() {
     {
       title: "Exploring the Wonders of the Universe",
       authorName: "Nisala Gamage",
-      profilePictureUrl: "https://images.unsplash.com/photo-1546820389-44d77e1f3b31",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1546820389-44d77e1f3b31",
       publishedTimestamp: "2023-07-15",
       imageRef: "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6",
     },
     {
       title: "The Future of Artificial Intelligence",
       authorName: "Kaweesha Prasadi",
-      profilePictureUrl: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
       publishedTimestamp: "2023-06-10",
       imageRef: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
     },
     {
       title: "A Guide to Healthy Living",
       authorName: "Sadun Perera",
-      profilePictureUrl: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce",
       publishedTimestamp: "2023-05-25",
       imageRef: "https://images.unsplash.com/photo-1518680662109-849c651ab4d0",
     },
     {
       title: "Understanding Quantum Computing",
       authorName: "Saduni Dihara",
-      profilePictureUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
       publishedTimestamp: "2023-04-05",
       imageRef: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
     },
     {
       title: "The Art of Minimalist Design",
       authorName: "Masha Fernando",
-      profilePictureUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9",
       publishedTimestamp: "2023-03-22",
       imageRef: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
     },
     {
       title: "Exploring Ancient Civilizations",
       authorName: "Sonali Tharushika",
-      profilePictureUrl: "https://images.unsplash.com/photo-1524578271613-e9d1b1b2a474",
+      profilePictureUrl:
+        "https://images.unsplash.com/photo-1524578271613-e9d1b1b2a474",
       publishedTimestamp: "2023-02-18",
       imageRef: "https://images.unsplash.com/photo-1525103042018-3bdcffc5b09a",
-    }
+    },
   ];
 
   useEffect(() => {
@@ -73,8 +79,8 @@ export default function ReadArticle() {
           ...article,
           firstName: userDetails.firstName,
           lastName: userDetails.lastName,
-          userId:userDetails.userId,
-          coverImage:userDetails.profilePictureUrl,
+          userId: userDetails.userId,
+          coverImage: userDetails.profilePictureUrl,
         };
 
         setArticle(articleWithUserDetails);
@@ -111,8 +117,8 @@ export default function ReadArticle() {
           />
         </div>
         <div className="m-12 w-3/12">
-          <h1>Top Articles</h1>
-          <hr className="border-yellow border-t-4 w-2/4"></hr>
+          <h1>Recommended Articles</h1>
+          <hr className="border-yellow border-t-4 w-4/4"></hr>
           <br />
           {topArticles.map((topArticle, index) => (
             <div key={index}>
@@ -131,11 +137,11 @@ export default function ReadArticle() {
             <Link to="/articles/addArticleForm">
               <AddArticleBtn />
             </Link>
-          ): currentUserRole == userRoles.Moderator ? (
+          ) : currentUserRole == userRoles.Moderator ? (
             <Link to="/articles/addArticleForm">
               <AddArticleBtn />
             </Link>
-          ):(null)}
+          ) : null}
           <iframe title="dummy"></iframe>
         </div>
       </div>
