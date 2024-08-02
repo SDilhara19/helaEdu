@@ -27,11 +27,16 @@ function ChatBot({ subject }) {
 
     sendToChatBot(chatPayload).then((res) => {
       let answer = res.data.response.answer;
+      let references = res.data.response.references;
       let response = {
         content: answer,
         type: "ai",
       };
-      setHistory((prevHistory) => [...prevHistory, response]);
+      let reference = {
+        content: references,
+        type: "reference",
+      };
+      setHistory((prevHistory) => [...prevHistory, response, reference]);
     });
   };
   const changeRocket = (elem) => {
@@ -47,7 +52,7 @@ function ChatBot({ subject }) {
     grade: "11",
     subject: { subject },
     student_id: "232",
-    chat_session_id: "chat8",
+    chat_session_id: "chat9",
   };
 
   useEffect(() => {

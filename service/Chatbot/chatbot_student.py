@@ -11,15 +11,15 @@ from langchain_openai import ChatOpenAI
 import os
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["OPENAI_API_KEY"] = (
-    "sk-None-x9obQKPkYCv9CSNrYlvjT3BlbkFJtaA554W5Y4p1G4y4H8QV"
-)
+# os.environ["OPENAI_API_KEY"] = (
+#     "sk-None-x9obQKPkYCv9CSNrYlvjT3BlbkFJtaA554W5Y4p1G4y4H8QV"
+# )
 
 
-# llm = Ollama(model="orca-mini", temperature=0)
+llm = Ollama(model="orca-mini", temperature=0)
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(model="gpt-4")
+# openai_api_key = os.getenv("OPENAI_API_KEY")
+# llm = ChatOpenAI(model="gpt-4")
 
 retriever = load_vectorstore(embedding_model="all-MiniLM-L6-v2")
 
