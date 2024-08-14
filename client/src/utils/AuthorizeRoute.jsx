@@ -1,10 +1,11 @@
 import React from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
-function AuthorizeByRole({ allowedUserRole = [], Component }) {
+function AuthorizeByRole({ allowedUserRoles = [], Component }) {
+  let isUserValid = false;
   const currentUserRole = useAuthUser()?.role;
 
-  allowedUserRole.forEach((role) => {
+  allowedUserRoles.forEach((role) => {
     isUserValid |= currentUserRole === role;
   });
 
