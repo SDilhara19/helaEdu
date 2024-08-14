@@ -16,27 +16,9 @@ function ArticleRoutes() {
     <Routes>
       <Route path="/" element={<Articles />} />
       <Route path="/readArticles/:articleId" element={<ReadArticles />} />
-      <Route
-        path="/addArticles"
-        element={
-          <AuthorizeRole
-            Component={AddArticles}
-            allowedUserRole={[userRoles.Teacher, userRoles.Moderator]}
-            multiple={true}
-          />
-        }
-      />
+      <Route path="/addArticles" element={<AddArticles />} />
 
-      <Route
-        path="/addArticleForm"
-        element={
-          <AuthorizeRole
-            Component={AddArticleForm}
-            allowedUserRole={[userRoles.Teacher, userRoles.Moderator]}
-            multiple={true}
-          />
-        }
-      />
+      <Route path="/addArticleForm" element={<AddArticleForm />} />
       <Route path="/reviewArticle/:articleId" element={<ReviewArticle />} />
       <Route path="/reviewList" element={<ReviewList />} />
       <Route path="/editArticle/:articleId" element={<EditArticleForm />} />
