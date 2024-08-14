@@ -52,7 +52,7 @@ function ChatBot({ subject }) {
     grade: "11",
     subject: { subject },
     student_id: "232",
-    chat_session_id: "chat9",
+    chat_session_id: "chat11",
   };
 
   useEffect(() => {
