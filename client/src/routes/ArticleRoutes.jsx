@@ -21,7 +21,7 @@ function ArticleRoutes() {
         element={
           <AuthorizeRole
             Component={AddArticles}
-            allowedUserRole={[userRoles.Teacher, userRoles.Moderator]}
+            allowedUserRoles={[userRoles.Teacher, userRoles.Moderator]}
             multiple={true}
           />
         }
@@ -32,7 +32,7 @@ function ArticleRoutes() {
         element={
           <AuthorizeRole
             Component={AddArticleForm}
-            allowedUserRole={[userRoles.Teacher, userRoles.Moderator]}
+            allowedUserRoles={[userRoles.Teacher, userRoles.Moderator]}
             multiple={true}
           />
         }
