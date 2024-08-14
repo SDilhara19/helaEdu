@@ -43,7 +43,7 @@ const Articles = () => {
     <>
       <Header />
       <div className="subject-catalog">
-        <img className="catalog-img" src={banner} alt="" srcset="" />
+        <img className="catalog-img" src={banner} alt="" srcSet="" />
 
         <div className="">
           <ArticleHead />

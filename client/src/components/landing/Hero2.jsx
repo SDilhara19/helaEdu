@@ -21,10 +21,10 @@ function Hero2() {
   return (
     <div className="hero2">
       <div className="flex-c">
-        <img src={logo} alt="" srcset="" className="banner-logo" />
+        <img src={logo} alt="" srcSet="" className="banner-logo" />
       </div>
       <div>
-        <img src={land} alt="" srcset="" className="banner-bg" />
+        <img src={land} alt="" srcSet="" className="banner-bg" />
       </div>
       <main className="pannels">
         <div className="left-pannel flex-c">

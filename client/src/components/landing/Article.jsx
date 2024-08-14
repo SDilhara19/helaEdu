@@ -50,7 +50,7 @@ function Article({ alignment, img }) {
           </div>
         </div>
         <div className="article-right-panel">
-          <img src={img} alt="" srcset="" />
+          <img src={img} alt="" srcSet="" />
         </div>
       </div>
     </div>
