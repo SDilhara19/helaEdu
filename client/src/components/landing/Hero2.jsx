@@ -29,7 +29,7 @@ function Hero2() {
           <div className="hero-text-box">
             <div className="subscribe">
               <h3 className="text-center blue">Subscribe to premium now</h3>
-              <h3 className="text-center white">Subscribe</h3>
+              <h3 className="text-center white ">Subscribe</h3>
             </div>
             <h4 className="mt-4">
               Your ultimate self-study platform, designed to make learning
