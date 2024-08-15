@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faRocket } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPen,
+  faRocket,
+  faCircleUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { sendToChatBot, getChatBotHistory } from "@services/ChatBotService";
 import ChatContent from "@components/subject/ChatContent";
 
-function ChatBot({subject}) {
+function ChatBot({ subject }) {
   const [history, setHistory] = useState([]);
   const textInputRef = useRef(null);
   const rocketButtonRef = useRef(null);
@@ -23,11 +27,16 @@ function ChatBot({subject}) {
 
     sendToChatBot(chatPayload).then((res) => {
       let answer = res.data.response.answer;
+      let references = res.data.response.references;
       let response = {
         content: answer,
         type: "ai",
       };
-      setHistory((prevHistory) => [...prevHistory, response]);
+      let reference = {
+        content: references,
+        type: "reference",
+      };
+      setHistory((prevHistory) => [...prevHistory, response, reference]);
     });
   };
   const changeRocket = (elem) => {
@@ -41,9 +50,9 @@ function ChatBot({subject}) {
   let chatPayload = {
     prompt: "",
     grade: "11",
-    subject: {subject},
+    subject: { subject },
     student_id: "232",
-    chat_session_id: "chat8",
+    chat_session_id: "chat11",
   };
 
   useEffect(() => {

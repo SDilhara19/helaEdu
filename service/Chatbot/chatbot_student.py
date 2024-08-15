@@ -19,7 +19,7 @@ os.environ["OPENAI_API_KEY"] = (
 # llm = Ollama(model="orca-mini", temperature=0)
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(model="gpt-4")
+llm = ChatOpenAI(model="gpt-4o")
 
 retriever = load_vectorstore(embedding_model="all-MiniLM-L6-v2")
 
