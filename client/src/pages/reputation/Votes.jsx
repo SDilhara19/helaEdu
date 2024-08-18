@@ -1,6 +1,6 @@
 import React from 'react'
 import { Footer, Header } from '@components/common'
-import ActivityBar from '@components/teacher_com/ActivityBar'
+import ActivityBar from '@components/reputation/ActivityBar'
 export default function Votes() {
   return (
     

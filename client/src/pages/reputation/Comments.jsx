@@ -1,12 +1,9 @@
 import React from 'react'
-import { Footer, Header } from '@components/common'
+import { Header , Footer } from '@components/common'
 import ActivityBar from '@components/reputation/ActivityBar'
-import Summaries from '@components/reputation/Summary'
-import ActivityList from '@components/reputation/ActivityList'
-export default function Summary() {
+export default function Comments() {
   return (
-    
-    <>
+       <>
       <Header />
       <div className="dashboard">
         <div className="dashboard-wrapper mb-9">
@@ -14,15 +11,13 @@ export default function Summary() {
             <ActivityBar />
           </div>
           <div className="content-wrapper mx-36">
-            <h1 className='my-10 mx-10'>Summary</h1>
-            <Summaries/>
-            <ActivityList/>
+            <h1 className='my-10 mx-10'>Summary</h1>          
           </div>
         </div>
       </div>
       <Footer/>
             
     </>
-    
+   
   )
 }
