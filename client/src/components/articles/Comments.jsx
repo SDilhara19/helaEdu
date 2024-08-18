@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import AddReply from './AddReply'; // Import AddReply component
-
+import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons';
+import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsDown as faThumbsDownRegular } from '@fortawesome/free-regular-svg-icons';
+import { faThumbsDown as faThumbsDownSolid } from '@fortawesome/free-solid-svg-icons';
 function Comment({ comment, onAddReply }) {
   const [showReplies, setShowReplies] = useState(false);
   const [showAddReply, setShowAddReply] = useState(false);
@@ -36,6 +39,8 @@ function Comment({ comment, onAddReply }) {
             <FontAwesomeIcon icon={faChevronDown} className="mr-1" />
             {comment.replies.length}
           </span>
+          <p><FontAwesomeIcon icon={faThumbsUpRegular} /></p>
+          <p><FontAwesomeIcon icon={faThumbsDownRegular} /></p>
           <span className="cursor-pointer" onClick={() => setShowAddReply(true)}>Reply</span>
           <span className="cursor-pointer">Report</span>
         </div>

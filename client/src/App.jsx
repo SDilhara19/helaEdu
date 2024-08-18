@@ -1,5 +1,5 @@
 import { ArticleRoutes, GlobalRoutes } from "@routes/index";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div>

@@ -112,7 +112,7 @@ const TProfile = () => {
               <p className="text-2xl"> My Articles</p>
             </div>
           </Link>
-          <Link to="/">
+          <Link to="/reputationPoints">
             <div className="shadow-xl rounded-lg w-full h-56 flex flex-col items-center justify-center text-xl font-semibold">
               <img src={Users} className="w-20 h-20" alt="Users" />
               <p className="text-2xl">My Reputation Points</p>
