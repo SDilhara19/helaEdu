@@ -1,6 +1,7 @@
 import React from 'react'
 import { Footer, Header } from '@components/common'
 import ActivityBar from '@components/reputation/ActivityBar'
+import VoteG from '@components/reputation/VotesG'
 export default function Votes() {
   return (
     
@@ -12,19 +13,50 @@ export default function Votes() {
             <ActivityBar />
           </div>
           <div className="content-wrapper mx-32">
-            <h1 className='my-10'>Summary</h1>
-            <div className='flex justify-start'>
-                <div className='rounded-xl border border-blue p-10 w-128 h-72 mx-8'>
-                    <p>Reputation Points</p>
+            <h1 className='my-10'>Votes</h1>
+            <div>
+                <div className='mt-9 mb-10'>
+                    <VoteG/>
                 </div>
-                <div className='rounded-xl border border-blue p-10 w-128 h-72 mx-8'>
-                    <p>Badges</p>
-                </div>
-                <div className='rounded-xl border border-blue p-10 w-80 h-72 mx-8'>
-                    <p>Measure your impact
-                    Your posts and helpful actions here help hundreds or thousands of people searching for help</p>
-                </div>
+                <div className='p-4'>
+                    <table className='w-full'>
+                        <thead>
+                        <tr className='my-6 py-9 border-b border-gray-300'>
+                            <th className='text-2xl py-4 w-2/6'>Points</th>
+                            <th className='text-2xl py-4 w-4/6'>Activity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr className='border-b border-gray-300'>
+                            <th className='py-4 flex justify-center'>
+                                <div className='rounded-sm bg-blue w-20 h-14 p-4 text-white text-center'>+10</div>
+                            </th>
+                            <td className='py-4'>
+                                <p>Your posts and helpful actions here help hundreds or thousands of people searching for help</p>
+                            </td>
+                        </tr>
+                        <tr className='border-b border-gray-300'>
+                            <th className='py-4 flex justify-center'>
+                                <div className='rounded-sm bg-blue w-20 h-14 p-4 text-white text-center'>+10</div>
+                            </th>
+                            <td className='py-4'>
+                                <p>Your posts and helpful actions here help hundreds or thousands of people searching for help</p>
+                            </td>
+                        </tr>
+                        <tr className='border-b border-gray-300'>
+                            <th className='py-4 flex justify-center'>
+                            <div className='rounded-sm bg-blue w-20 h-14 p-4 text-white text-center'>+10</div>
+                            </th>
+                            <td className='py-4'>
+                            <p>Your posts and helpful actions here help hundreds or thousands of people searching for help</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
             </div>
+            
           </div>
         </div>
       </div>

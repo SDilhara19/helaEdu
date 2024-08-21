@@ -31,7 +31,7 @@ export default function ReputationG() {
 
   return (
     <Chart>
-      <div style={{ width: 'full',height:'400px' , margin: '3 auto' }}>
+      <div style={{ width: 'full',height:'300px' , margin: '3 auto' }}>
         <Bar data={data} options={options} />
       </div>
     </Chart>

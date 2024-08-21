@@ -2,11 +2,11 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTachometerAlt,
+  faThumbsUp,
   faUsers,
   faChartLine,
-  faBell,
-  faCog,
+  faComment,
+  faIdBadge
  
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -49,28 +49,8 @@ const ActivityBar = () => {
             <FontAwesomeIcon icon={faUsers} className="mr-4" />
             Reputation
           </Link>
-          <Link
-            to="/votes"
-            className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/votes")
-                ? "bg-blue text-white"
-                : "hover:bg-gray-200 text-black"
-            }`}
-          >
-            <FontAwesomeIcon icon={faChartLine} className="mr-4" />
-            Votes
-          </Link>
-          <Link
-            to="/comments"
-            className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
-              isActive("/comments")
-                ? "bg-blue text-white"
-                : "hover:bg-gray-200 text-black"
-            }`}
-          >
-            <FontAwesomeIcon icon={faBell} className="mr-4" />
-            Comments
-          </Link>
+         
+         
           <Link
             to="/badges"
             className={`text-2xl flex items-center p-4 rounded transition-colors duration-300 ${
@@ -79,7 +59,7 @@ const ActivityBar = () => {
                 : "hover:bg-gray-200 text-black"
             }`}
           >
-            <FontAwesomeIcon icon={faBell} className="mr-4" />
+            <FontAwesomeIcon icon={faIdBadge} className="mr-4"/>
            Badges
           </Link>
          
