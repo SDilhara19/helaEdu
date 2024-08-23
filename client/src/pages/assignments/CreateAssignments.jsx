@@ -43,10 +43,8 @@ export default function CreateAssignments() {
       const response = await createAssignment(assignment, headers);
       console.log("Create Assignment Response:", response);
       const assignmentId = response.data;
-      console.log(assignmentId);
-      
+      navigate(`/quizFormat/${assignmentId}`);
 
-      navigate("/assignmentList");
     } catch (error) {
       console.error("Failed to create assignment", error);
       setError("Failed to create assignment");

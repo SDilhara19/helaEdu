@@ -55,7 +55,7 @@ function GlobalRoutes() {
       <Route path="/tProfile" element={<TProfile />} />
       <Route path="/sProfile" element={<SProfile />} />
       <Route path="/createAssignments" element={<CreateAssignments />} />
-      <Route path="/quizFormat" element={<QuizFormat />} />
+      <Route path="/quizFormat/:assginmentId" element={<QuizFormat />} />
       <Route path="/test" element={<Test />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/moderatorDetails" element={<ModeratorDetails />} />
