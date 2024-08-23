@@ -3,8 +3,7 @@ import { Footer, Header } from '@components/common'
 import ActivityBar from '@components/reputation/ActivityBar'
 import ReputationG from '@components/reputation/ReputationG'
 export default function ReputationPoints() {
-  return (
-    
+  return (  
     <>
       <Header />
       <div className="dashboard">
@@ -32,7 +31,7 @@ export default function ReputationPoints() {
                                 <div className='rounded-sm bg-blue w-20 h-14 p-4 text-white text-center'>+10</div>
                             </th>
                             <td className='py-4'>
-                                <p>Your posts and helpful actions here help hundreds or thousands of people searching for help</p>
+                                <p>Add an article titled "Social Geographies of Education: Looking Within, and Beyond, School Boundaries"</p>
                             </td>
                         </tr>
                         <tr className='border-b border-gray-300'>

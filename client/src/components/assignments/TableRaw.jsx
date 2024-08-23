@@ -6,7 +6,7 @@ import { faEdit } from '@fortawesome/fontawesome-free-regular';
 import SharePopup from '@components/assignments/SharePopup';
 import StartPopup from '@components/assignments/StartPopup';
 
-export default function TableRaw({ assignmentId, title, dueDate, instruction, noOfQuiz, totalTime }) {
+export default function TableRaw({ assignmentId, title, instruction,publishedDate,totalTime }) {
   const [showPopup, setShowPopup] = useState(false);
   const [startPopup, setStartPopup] =useState(false);
   const handleShareClick = () => {
@@ -26,24 +26,22 @@ export default function TableRaw({ assignmentId, title, dueDate, instruction, no
 
   return (
     <div>
+     
       <div className='border border-blue rounded-3xl w-10/12 mx-auto my-4 px-7 py-4'>
         <div className='flex justify-between items-center'>
-          <div className='flex-1 text-left'>
+          {/* <div className='flex-1 text-left'>
             <p className='text-2xl'>{assignmentId}</p>
-          </div>
-          <div className='flex-1 text-left'>
+          </div> */}
+          <div className='flex-1 text-left overflow-hidden'>
             <p className='text-2xl'>{title}</p>
-          </div>
-          <div className='flex-1 text-left'>
-            <p className='text-2xl'>{dueDate}</p>
-          </div>
-          <div className='flex-1 text-left'>
+          </div>        
+          <div className='flex-1 text-left overflow-scroll '>
             <p className='text-2xl'>{instruction}</p>
           </div>
-          <div className='text-left ml-16'>
-            <p className='text-2xl'>{noOfQuiz}</p>
+          <div className='flex-1 text-left overflow-x-hidden'>
+            <p className='text-2xl'>{publishedDate}</p>
           </div>
-          <div className='flex-1 text-left'>
+          <div className='flex-1 text-left overflow-x-hidden'>
             <p className='text-2xl'>{totalTime}</p>
           </div>
           <div className='text-left'>
