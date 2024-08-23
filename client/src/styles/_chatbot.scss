@@ -60,6 +60,7 @@
 
     .reference-bubble {
         @extend .bubble;
+        pointer-events: all !important;
         margin-right: auto;
         background: transparent;
         color: $black-color;
@@ -83,6 +84,7 @@
             background: $black-color;
             padding: 0.5rem 1rem;
             border-radius: 1rem;
+            user-select: none;
 
         }
 

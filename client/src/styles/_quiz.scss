@@ -1,3 +1,15 @@
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #343232;
+  --color-primary: #0A6CF5; 
+  --color-secondary: #F5A711; 
+  --color-accent: #B5D2FC; 
+  --color-dark-gray: #6C6C6C;
+  --color-light-gray: #BBBBBB;
+  
+}
+
 .q_progress_block {
   background: $white-color;
   width: 44px;
@@ -225,16 +237,17 @@
 }
 
 .popup-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
+  // position: fixed;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  z-index: 1000;
+  height: 90vh;
 }
 
 @mixin popup-box-styles {
@@ -263,6 +276,7 @@
   height: 500px;
   width: 400px;
   flex-direction: column;
+  padding-bottom: 50px;
 }
 
 .popup-box-large.visible,
@@ -321,6 +335,8 @@
 
 .bagde-wrapper {
   width: 50%;
+  z-index: 1200;
+
 }
 
 .profile-card {
@@ -334,6 +350,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
+  overflow: hidden;
 }
 
 .profile-thumbnail {
@@ -344,4 +361,8 @@
   height: 45px;
   width: 45px;
   overflow: hidden;
+}
+
+.quiz-button{
+  background-color: var();
 }

@@ -9,7 +9,7 @@ import {
 } from "@services/ArticleService";
 import { useNavigate } from "react-router-dom";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from "react-dropzone";
 
 export default function AddArticlesForm() {
   const coverImageInputRef = useRef(null);
@@ -34,17 +34,40 @@ export default function AddArticlesForm() {
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const authHeader = useAuthHeader;
   const headers = {
     Authorization: authHeader(),
   };
 
+  const validateFileTypes = (files, validTypes) => {
+    for (let file of files) {
+      const fileType = file.type.split("/")[1];
+      if (!validTypes.includes(fileType)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const onDropAdditionalFiles = useCallback((acceptedFiles) => {
+    const validTypes = ["pdf", "msword", "vnd.openxmlformats-officedocument.wordprocessingml.document", "jpeg", "png"];
+    if (!validateFileTypes(acceptedFiles, validTypes)) {
+      setError("Additional files must be pdf, word, jpg, jpeg, or png.");
+      return;
+    }
+    setError("");
     setAdditionalFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
   }, []);
 
   const onDropCoverImage = useCallback((acceptedFiles) => {
+    const validTypes = ["jpeg", "png"];
+    if (!validateFileTypes(acceptedFiles, validTypes)) {
+      setError("Cover image must be jpg, jpeg, or png.");
+      return;
+    }
+    setError("");
     setCoverImage(acceptedFiles[0]);
   }, []);
 
@@ -53,10 +76,8 @@ export default function AddArticlesForm() {
     getInputProps: getInputPropsAdditional,
   } = useDropzone({ onDrop: onDropAdditionalFiles });
 
-  const {
-    getRootProps: getRootPropsCover,
-    getInputProps: getInputPropsCover,
-  } = useDropzone({ onDrop: onDropCoverImage, multiple: false });
+  const { getRootProps: getRootPropsCover, getInputProps: getInputPropsCover } =
+    useDropzone({ onDrop: onDropCoverImage, multiple: false });
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -64,6 +85,11 @@ export default function AddArticlesForm() {
 
   const saveArticle = async (e) => {
     e.preventDefault();
+
+    if (!title.trim() || !content.trim()) {
+      setError("Title and Content are required.");
+      return;
+    }
 
     const article = {
       title,
@@ -90,9 +116,10 @@ export default function AddArticlesForm() {
         await uploadAdditionalFiles(articleId, formData, headers);
       }
 
-      navigator("/articles/addArticles");
+      navigate("/articles/addArticles");
     } catch (error) {
       console.error("Failed to create article or upload files", error);
+      setError("Failed to create article or upload files. Please try again.");
     }
   };
 
@@ -122,6 +149,7 @@ export default function AddArticlesForm() {
     <div className="mx-96 my-20 mw:mx-10">
       <h1>Add Your Article</h1>
       <hr className="border-yellow border-t-4 w-1/5" />
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={saveArticle}>
         <div className="p-10">
           <div className="flex justify-around align-baseline my-5">
@@ -135,12 +163,13 @@ export default function AddArticlesForm() {
                 value={title}
                 onChange={handleTitle}
                 name="title"
+                required
               />
             </div>
           </div>
           <div className="my-7">
             <span className="text-3xl">Content</span>
-            <TextEditor content={content} setContent={setContent} />
+            <TextEditor content={content} setContent={setContent} required />
           </div>
           <div>
             <span className="text-3xl">Select Your Tags</span>
@@ -193,7 +222,11 @@ export default function AddArticlesForm() {
                 {...getRootPropsAdditional()}
                 className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6 mx-6"
               >
-                <input {...getInputPropsAdditional()} name="additionalFiles" multiple />
+                <input
+                  {...getInputPropsAdditional()}
+                  name="additionalFiles"
+                  multiple
+                />
                 <FontAwesomeIcon
                   icon={faUpload}
                   className="text-4xl justify-center"
@@ -201,9 +234,7 @@ export default function AddArticlesForm() {
                 <br />
                 <p className="text-3xl">
                   Drag & drop or{" "}
-                  <span className="text-blue cursor-pointer">
-                    Choose files
-                  </span>{" "}
+                  <span className="text-blue cursor-pointer">Choose files</span>{" "}
                   to upload
                 </p>
                 {additionalFiles.length > 0 && (
@@ -213,40 +244,37 @@ export default function AddArticlesForm() {
                 )}
               </div>
             </div>
-      <div>
-        <span className="text-3xl">Upload Cover Image</span>
-        <br />
-        <div
-          {...getRootPropsCover()}
-          className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6"
-        >
-          <input {...getInputPropsCover()} name="articleCoverImage" />
-          <FontAwesomeIcon
-            icon={faUpload}
-            className="text-4xl justify-center"
-          />
-          <br />
-          <p className="text-3xl">
-            Drag & drop or{" "}
-            <span className="text-blue cursor-pointer">
-              Choose files
-            </span>{" "}
-            to upload
-          </p>
-          {coverImage && (
-            <div className="text-xl mt-4">{coverImage.name}</div>
-          )}
+            <div>
+              <span className="text-3xl">Upload Cover Image</span>
+              <br />
+              <div
+                {...getRootPropsCover()}
+                className="border border-dashed border-4 rounded-xl p-16 flex flex-col my-6"
+              >
+                <input {...getInputPropsCover()} name="articleCoverImage" />
+                <FontAwesomeIcon
+                  icon={faUpload}
+                  className="text-4xl justify-center"
+                />
+                <br />
+                <p className="text-3xl">
+                  Drag & drop or{" "}
+                  <span className="text-blue cursor-pointer">Choose file</span>{" "}
+                  to upload
+                </p>
+                {coverImage && (
+                  <div className="text-xl mt-4">{coverImage.name}</div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-        </div>
-
-        <div className="flex justify-center">
+        <div className="mx-auto text-center">
           <button
-            className="bg-blue text-3xl text-white rounded-2xl p-4"
+            className="bg-blue hover:bg-yellow rounded-2xl py-6 px-20 text-4xl text-white"
             type="submit"
           >
-            Submit
+            Submit Article
           </button>
         </div>
       </form>

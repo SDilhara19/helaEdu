@@ -19,3 +19,4 @@ export const uploadAdditionalFiles = (articleId, formData, headers) => axios.pos
 
 export const updateArticle =(articleId,article,headers) =>axios.put(`${REST_API_BASE_URL}/${articleId}`,article,{headers});
 export const deleteArticle=(articleId) =>axios.delete(`${REST_API_BASE_URL}/${articleId}`);
+export const addUpvote=(articleId,headers)=>axios.put(`${REST_API_BASE_URL}/${articleId}/upvote`,{headers});

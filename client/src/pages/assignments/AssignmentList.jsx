@@ -79,7 +79,7 @@ export default function AssignmentList() {
         </div>
         <div>
           <Link to="/createAssignments">
-            <button className="bg-yellow text-white rounded-xl p-4 text-3xl">
+            <button className="bg-blue text-white rounded-xl p-4 text-3xl">
               Create Assignment
             </button>
           </Link>

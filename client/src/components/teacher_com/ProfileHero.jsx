@@ -8,7 +8,7 @@ import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 import { useNavigate } from 'react-router-dom';
 import Profile from "@assets/img/articles/profile.jpg"
 
-export default function ProfileHero({ email, name ,profileImg}) {
+export default function ProfileHero({ email, firstName ,lastName,profileImg}) {
 
   const [profileImage, setProfileImage] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -132,7 +132,7 @@ export default function ProfileHero({ email, name ,profileImg}) {
           </div>
         </div>
         <div className='absolute left-96 my-6 mx-10'>
-          <h1 className='text-5xl'>{name}</h1>
+          <h1 className='text-5xl'>{firstName} {lastName}</h1>
           <p className='text-3xl'>Teacher</p>
           <div className='flex justify-start'>
             <div className='rounded-full w-16 h-16 bg-yellow'>

@@ -10,16 +10,16 @@ import Top3 from '@components/Quiz/Top3'
 
 const LeaderBoard = () => {
   return (
-    <div className=''>
+    <div className='max-h-screen'>
       <Header />
       <div className="relative min-h-screen bg-cover bg-fixed " style={{ backgroundImage: `url(${background})` }}>
-        <div className='flex px-32 w-full'>
-          <div className='w-full'>
+        <div className='flex px-32 w-full '>
+          <div className='w-full '>
             <div>
               <h1 className='xs-topic'>Leaderboard</h1>
             </div>
             <div className='flex w-full my-10'>
-              <div className=' flex-1'>
+              <div className=' flex-1 h-auto '>
                 <Top3 />
                 <ScoreTable />
               </div>

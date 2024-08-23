@@ -9,12 +9,11 @@ import banner from "@assets/img/subject_background.png";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]); // Initialize articles state
-
   useEffect(() => {
     const fetchApprovedArticles = async () => {
       try {
         const response = await approvedArticles();
-        const articles = response.data.slice(0, 3);
+        const articles = response.data;
         console.log(articles);
 
         const articlesWithUserDetails = await Promise.all(
@@ -24,7 +23,9 @@ const Articles = () => {
             const userDetails = userResponse.data;
             return {
               ...article,
-              authorName: userDetails.firstName,
+              firstName: userDetails.firstName,
+              lastName: userDetails.lastName,
+              coverImage: userDetails.profilePictureUrl,
             };
           })
         );
@@ -42,7 +43,7 @@ const Articles = () => {
     <>
       <Header />
       <div className="subject-catalog">
-        <img className="catalog-img" src={banner} alt="" srcset="" />
+        <img className="catalog-img" src={banner} alt="" srcSet="" />
 
         <div className="">
           <ArticleHead />
@@ -53,8 +54,9 @@ const Articles = () => {
                   <ArticleCard
                     key={article.articleId}
                     imageUrl={article.imageRef}
-                    profilePictureUrl={article.profilePictureUrl}
-                    authorName={article.authorName}
+                    profilePictureUrl={article.coverImage}
+                    firstName={article.firstName}
+                    lastName={article.lastName}
                     date={article.publishedTimestamp}
                     title={article.title}
                     description={article.content}

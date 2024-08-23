@@ -183,6 +183,7 @@ public class TeacherController {
     }
 
     @GetMapping("/verify-email")
+
     public ResponseEntity<String> verifyEmail(@RequestParam String uid) {
         try {
             teacherService.verifyEmail(uid);
