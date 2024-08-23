@@ -1,5 +1,6 @@
 package com.helaedu.website.dto;
 
+import com.helaedu.website.entity.AssignmentQuiz;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,34 +21,13 @@ public class AssignmentDto {
     @NotEmpty(message = "Title is required")
     private String title;
 
-
-
-    @NotEmpty(message="Due date is required")
-    private String dueDate;
-
-
     @NotEmpty(message = "Instructions are required")
     private String instructions;
 
-    private Integer noOfQuestions;
-
-    @NotEmpty(message = "time period is required")
+    @NotEmpty(message = "Total time is required")
     private String totalTime;
-
 
     private String publishedTimestamp;
     private String userId;
-    private List<AssignmentQuizDto> quizzes = new ArrayList<>();
-
-
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class QuizDto {
-        private String questionText;
-        private List<String> options;
-        private String correctAnswer;
-    }
+    private List<AssignmentQuiz> quizzes;
 }

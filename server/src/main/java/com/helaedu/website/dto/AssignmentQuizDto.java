@@ -21,5 +21,8 @@ public class AssignmentQuizDto {
     @NotEmpty(message = "Correct answer is required")
     private String correctAnswer;
 
-    private String assignmentId; // to link it with the assignment
+    private String assignmentId;
+
+    @NotEmpty(message = "Marks is required")
+    private int marks;
 }
