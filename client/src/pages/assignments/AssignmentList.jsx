@@ -5,26 +5,34 @@ import Pagination from "@components/articles/Pagination";
 import { Link } from "react-router-dom";
 import { listAssignment } from "@services/AssignmentService";
 import TableRowHeader from "@components/assignments/TableRowHeader";
+import { listTeacherDetails } from "@services/TeacherService";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 
 export default function AssignmentList() {
+
   const [assignment, setAssignment] = useState([]); 
+  const authHeader = useAuthHeader();
+  const headers = {
+    Authorization: authHeader,
+  };
 
   useEffect(() => {
-    const fetchAssignment = async () => {
+    const fetchAssignments = async () => {
       try {
-        const response = await listAssignment();
-        const assignment = response.data;
+        const teacherDetails =await listTeacherDetails(headers);
+        const teacherResponse = teacherDetails.data.userId;
+        console.log(teacherResponse);
+        const assignmentDetails = await listAssignment(teacherResponse);
+        const assignment = assignmentDetails.data;
+
         console.log(assignment);
-
-       
-
         setAssignment(assignment);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchAssignment();
+    fetchAssignments();
   }, []);
 
 
