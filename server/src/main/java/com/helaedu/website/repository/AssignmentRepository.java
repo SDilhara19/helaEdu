@@ -50,7 +50,7 @@ public class AssignmentRepository {
         documentReference.set(assignment);
     }
 
-    public List<Assignment> getAssignmentsByUserId(String teacherId) throws ExecutionException, InterruptedException {
+    public List<Assignment> getAssignmentsByTM(String teacherId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference assignmentsCollection = dbFirestore.collection("assignments");
         Query query = assignmentsCollection.whereEqualTo("userId", teacherId);

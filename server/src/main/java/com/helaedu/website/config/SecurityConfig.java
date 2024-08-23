@@ -65,7 +65,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/assignments/**").hasRole("MODERATOR")
+                        .requestMatchers(HttpMethod.POST, "/assignments/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/files/teacher-proof").hasRole("ADMIN")
