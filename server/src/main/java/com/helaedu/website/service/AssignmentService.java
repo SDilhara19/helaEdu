@@ -8,7 +8,6 @@ import com.helaedu.website.repository.AssignmentRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -41,6 +40,23 @@ public class AssignmentService {
 
     public List<AssignmentDto> getAllAssignments() throws ExecutionException, InterruptedException {
         List<Assignment> assignments = assignmentRepository.getAllAssignments();
+        return assignments.stream()
+                .map(assignment ->
+                        new AssignmentDto(
+                                assignment.getAssignmentId(),
+                                assignment.getTitle(),
+                                assignment.getInstructions(),
+                                assignment.getTotalTime(),
+                                assignment.getPublishedTimestamp(),
+                                assignment.getUserId(),
+                                assignment.getQuizzes()
+                        )
+                )
+                .collect(Collectors.toList());
+    }
+
+    public List<AssignmentDto> getAssignmentsByTM(String userId) throws ExecutionException, InterruptedException {
+        List<Assignment> assignments = assignmentRepository.getAssignmentsByTM(userId);
         return assignments.stream()
                 .map(assignment ->
                         new AssignmentDto(

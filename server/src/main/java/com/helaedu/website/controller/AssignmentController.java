@@ -58,6 +58,12 @@ public class AssignmentController {
         }
     }
 
+    @GetMapping("/tm/{userId}")
+    public ResponseEntity<Object> getAssignmentsByTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<AssignmentDto> assignments = assignmentService.getAssignmentsByTM(userId);
+        return ResponseEntity.ok(assignments);
+    }
+
     @PostMapping("/{assignmentId}/quizzes")
     public String addQuizzesToAssignment(@PathVariable String assignmentId, @RequestBody List<AssignmentQuizDto> quizzes) throws ExecutionException, InterruptedException {
         return assignmentService.addQuizzesToAssignment(assignmentId, quizzes);
