@@ -17,4 +17,5 @@ public class AssignmentQuiz {
     private List<String> options;
     private String correctAnswer;
     private String assignmentId;
+    private int marks;
 }

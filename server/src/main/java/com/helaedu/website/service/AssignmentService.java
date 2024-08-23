@@ -3,6 +3,7 @@ package com.helaedu.website.service;
 import com.helaedu.website.dto.AssignmentDto;
 import com.helaedu.website.dto.AssignmentQuizDto;
 import com.helaedu.website.entity.Assignment;
+import com.helaedu.website.entity.AssignmentQuiz;
 import com.helaedu.website.repository.AssignmentRepository;
 import com.helaedu.website.util.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
@@ -21,24 +22,17 @@ public class AssignmentService {
         this.assignmentRepository = assignmentRepository;
     }
 
-    public String createAssignment(AssignmentDto assignmentDto) throws ExecutionException, InterruptedException {
+    public String createAssignment(String userId, AssignmentDto assignmentDto) throws ExecutionException, InterruptedException {
 
         String assignmentId = UniqueIdGenerator.generateUniqueId("as", assignmentRepository::exists);
-
-//        LocalDateTime publishedTimestamp = assignmentDto.getPublishedTimestamp() != null ?
-//                assignmentDto.getPublishedTimestamp() :
-//                LocalDateTime.now();
 
         Assignment assignment = new Assignment(
                 assignmentId,
                 assignmentDto.getTitle(),
-                assignmentDto.getDueDate(),
                 assignmentDto.getInstructions(),
-                assignmentDto.getNoOfQuestions(),
                 assignmentDto.getTotalTime(),
                 assignmentDto.getPublishedTimestamp(),
-                assignmentDto.getUserId(),
-
+                userId,
                 new ArrayList<>()
         );
 
@@ -52,24 +46,13 @@ public class AssignmentService {
                         new AssignmentDto(
                                 assignment.getAssignmentId(),
                                 assignment.getTitle(),
-                                assignment.getDueDate(),
                                 assignment.getInstructions(),
-                                assignment.getNoOfQuestions(),
                                 assignment.getTotalTime(),
-                                assignment.getPublishedTimestamp().toString(),
+                                assignment.getPublishedTimestamp(),
                                 assignment.getUserId(),
-                                assignment.getQuizzes().stream()
-                                        .map(quiz -> new AssignmentQuizDto(
-                                                quiz.getQuizId(),
-                                                quiz.getQuestion(),
-                                                quiz.getOptions(),
-                                                quiz.getCorrectAnswer(),
-                                                quiz.getAssignmentId()
-
-
-                                        ))
-                                        .collect(Collectors.toList())
-                        ))
+                                assignment.getQuizzes()
+                        )
+                )
                 .collect(Collectors.toList());
     }
 
@@ -79,29 +62,34 @@ public class AssignmentService {
             return new AssignmentDto(
                     assignment.getAssignmentId(),
                     assignment.getTitle(),
-                    assignment.getDueDate(),
                     assignment.getInstructions(),
-                    assignment.getNoOfQuestions(),
                     assignment.getTotalTime(),
                     assignment.getPublishedTimestamp(),
                     assignment.getUserId(),
-                    assignment.getQuizzes().stream()
-                            .map(quiz -> new AssignmentQuizDto(
-                                    quiz.getQuizId(),
-                                    quiz.getQuestion(),
-                                    quiz.getOptions(),
-                                    quiz.getCorrectAnswer(),
-                                    quiz.getAssignmentId()
-
-                            ))
-                            .collect(Collectors.toList())
-            );
+                    assignment.getQuizzes()
+                    );
         }
         return null;
     }
 
-//    public String deleteAssignment(String assignmentId) throws ExecutionException, InterruptedException {
-//        return assignmentRepository.deleteAssignment(assignmentId);
-//    }
+    public String addQuizzesToAssignment(String assignmentId, List<AssignmentQuizDto> quizzes) throws ExecutionException, InterruptedException {
+        Assignment assignment = assignmentRepository.getAssignmentById(assignmentId);
+        if (assignment != null) {
+            List<AssignmentQuiz> quizEntities = quizzes.stream()
+                    .map(quizDto -> new AssignmentQuiz(
+                            quizDto.getQuizId(),
+                            quizDto.getQuestion(),
+                            quizDto.getOptions(),
+                            quizDto.getCorrectAnswer(),
+                            quizDto.getAssignmentId(),
+                            quizDto.getMarks()
+                    ))
+                    .toList();
 
+            assignment.getQuizzes().addAll(quizEntities);
+            assignmentRepository.updateAssignment(assignmentId, assignment);
+            return "Quizzes added successfully";
+        }
+        return "Assignment not found";
+    }
 }
