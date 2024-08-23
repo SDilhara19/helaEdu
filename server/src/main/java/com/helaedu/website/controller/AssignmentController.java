@@ -3,6 +3,8 @@ package com.helaedu.website.controller;
 import com.helaedu.website.dto.*;
 import com.helaedu.website.dto.AssignmentDto;
 import com.helaedu.website.service.AssignmentService;
+import com.helaedu.website.service.TMService;
+import com.helaedu.website.service.TeacherService;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,8 +21,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class AssignmentController {
     private final AssignmentService assignmentService;
-    public AssignmentController(AssignmentService assignmentService){
+    private final TMService tmService;
+
+    public AssignmentController(AssignmentService assignmentService, TMService tmService){
         this.assignmentService = assignmentService;
+        this.tmService = tmService;
     }
     @PostMapping("/create")
     public ResponseEntity<Object> createAssignment(@Valid @RequestBody AssignmentDto assignmentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
@@ -32,7 +37,8 @@ public class AssignmentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String userId = UserUtil.getCurrentUserEmail();
+            String email = UserUtil.getCurrentUserEmail();
+            String userId = tmService.getTMByEmail(email).getUserId();
             assignmentService.createAssignment(userId, assignmentDto);
             return new ResponseEntity<>(userId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
