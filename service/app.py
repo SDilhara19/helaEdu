@@ -1,6 +1,8 @@
 from flask import Flask
-from Blueprint.chat import chat
+
+# from Blueprint.chat import chat
 from Blueprint.status_codes import status_codes
+from Blueprint.articles import articles
 from flask_cors import CORS
 
 
@@ -12,7 +14,9 @@ def create_app():
     CORS(app, resources={"/*": {"origins": "*"}})
     fireo.connection(from_file="config/credentials.json")
 
-    app.register_blueprint(chat, url_prefix="/chat")
+    # app.register_blueprint(chat, url_prefix="/chat")
+    app.register_blueprint(articles, url_prefix="/articles")
+
     app.register_blueprint(status_codes, url_prefix="/status_code")
 
     return app

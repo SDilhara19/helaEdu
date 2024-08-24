@@ -34,6 +34,7 @@ import Reports from "@pages/admin/Reports";
 import ModDashboard from "@pages/profiles/ModDashboard";
 import HeroLanding from "@pages/landing/HeroLanding";
 import PremiumPlan from "@pages/landing/PremiumPlan";
+import { AuthorizeId } from "@utils/AuthorizeRoute";
 function GlobalRoutes() {
   return (
     <Routes>
@@ -50,7 +51,7 @@ function GlobalRoutes() {
       <Route path="/sProfile" element={<SProfile />} />
       <Route path="/createAssignments" element={<CreateAssignments />} />
       <Route path="/quizFormat" element={<QuizFormat />} />
-      <Route path="/test" element={<Test />} />
+      <Route path="/test" element={<AuthorizeId Component={Test} />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/moderatorDetails" element={<ModeratorDetails />} />
       {/* <Route path="/moderatorManagement" element={<ModeratorManagement />} /> */}

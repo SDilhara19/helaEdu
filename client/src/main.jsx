@@ -8,10 +8,11 @@ import AuthProvider from "react-auth-kit";
 import authStore from "@utils/authStore.js";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import allReducers from "@reducers/index.js";
+import { userIdSlice } from "@reducers/index.js";
 
 const store = configureStore({
-  reducer: allReducers,
+  reducer: { isUserValid: userIdSlice.reducer },
+  devTools: true,
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
