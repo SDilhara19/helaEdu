@@ -53,7 +53,7 @@ export default function CreateAssignments() {
   return (
     <div>
       <Header />
-      <div className="my-24 mx-96 border border-blue rounded-lg p-8 shadow-lg">
+      <div className="my-24 mx-96  rounded-lg p-8 shadow-xl">
       {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={saveAssignment}>
         <div className=" mb-6">

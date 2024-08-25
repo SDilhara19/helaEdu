@@ -39,6 +39,8 @@ import Summary from "@pages/reputation/Summary";
 import Votes from "@pages/reputation/Votes";
 import Comments from "@pages/reputation/Comments";
 import Badges from "@pages/reputation/Badges";
+import ReviewdQuiz from "@pages/assignments/ReviewdQuiz";
+
 
 function GlobalRoutes() {
   return (
@@ -84,7 +86,7 @@ function GlobalRoutes() {
       <Route path="/votes" element={<Votes/>} />
       <Route path="/comments" element={<Comments/>} />
       <Route path="/badges" element={<Badges/>} />
-     
+      <Route path="/reviewQuizzes" element={<ReviewdQuiz/>} />
     </Routes>
   );
 }

@@ -27,7 +27,7 @@ const Question = ({
         <br />
         <br />
         <input
-          className="border border-blue rounded-lg h-32 w-full"
+          className="border border-blue rounded-lg h-32 w-full  px-4 "
           value={questionData.question}
           onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
         />
@@ -36,7 +36,7 @@ const Question = ({
         <label className="text-3xl">
           Enter your options
           <br />
-          Check mark the right answer for your question
+          <span className="text-xl">Check mark the right answer for your question</span>
         </label>
         <br />
         <br />
@@ -51,11 +51,11 @@ const Question = ({
                 name={`correctAnswer-${qIndex}`}
                 checked={questionData.correctAnswer === option}
                 onChange={() => handleCorrectAnswerChange(qIndex, option)}
-                className="radio border-blue h-16 w-16"
+                className="radio border-blue h-10 w-10"
               />
               <input
                 placeholder={`Option ${oIndex + 1}`}
-                className="border border-blue rounded-lg h-16 w-10/12 text-xl px-4"
+                className="border border-blue rounded-lg h-16 w-11/12 text-xl px-4"
                 value={option}
                 onChange={(e) =>
                   handleOptionChange(qIndex, oIndex, e.target.value)

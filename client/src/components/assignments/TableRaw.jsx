@@ -6,7 +6,7 @@ import { faEdit } from '@fortawesome/fontawesome-free-regular';
 import SharePopup from '@components/assignments/SharePopup';
 import StartPopup from '@components/assignments/StartPopup';
 
-export default function TableRaw({ assignmentId, title, instruction,publishedDate,totalTime }) {
+export default function TableRaw({ assignmentId, title, instruction,publishedDate,totalTime,onClose ,onView }) {
   const [showPopup, setShowPopup] = useState(false);
   const [startPopup, setStartPopup] =useState(false);
   const handleShareClick = () => {
@@ -46,9 +46,9 @@ export default function TableRaw({ assignmentId, title, instruction,publishedDat
           <div className='flex justify-end w-3/12'>
             <button className='bg-blue text-white rounded-xl p-2 text-lg mx-2' onClick={openStartClick}>Start Quiz</button>
             <FontAwesomeIcon icon={faShare} onClick={handleShareClick} className='text-xl m-2 hover:text-yellow hover:translate-x-1' />
-            <FontAwesomeIcon icon={faSearch} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
+            <FontAwesomeIcon icon={faSearch} onClick={onView} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
             <FontAwesomeIcon icon={faEdit} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
-            <FontAwesomeIcon icon={faTrash} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
+            <FontAwesomeIcon icon={faTrash} onClick={onClose} className='text-2xl m-2 hover:text-yellow hover:translate-x-1' />
           </div>
         </div>
       </div>

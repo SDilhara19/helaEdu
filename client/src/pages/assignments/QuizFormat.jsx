@@ -2,7 +2,7 @@ import { Header, Footer } from "@components/common";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addQuizzes } from "@services/AssignmentService";
-import Question from "./Question";  // Import the Question component
+import Question from "@components/assignments/Question";
 
 export default function QuizFormat() {
   const [questions, setQuestions] = useState([
@@ -67,7 +67,7 @@ export default function QuizFormat() {
   return (
     <div>
       <Header />
-      <div className="border border-blue rounded-xl mx-64 my-20 p-10">
+      <div className=" shadow-xl rounded-xl mx-96 my-20 p-10">
         {questions.map((q, qIndex) => (
           <Question
             key={qIndex}
