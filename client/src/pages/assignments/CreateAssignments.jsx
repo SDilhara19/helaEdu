@@ -1,77 +1,112 @@
 import { Header, Footer } from "@components/common";
-import React from "react";
+import React , {useState,useEffect} from "react";
 import { Link } from "react-router-dom";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import { useNavigate } from "react-router-dom";
+import { createAssignment } from "@services/AssignmentService";
 export default function CreateAssignments() {
+
+  const [title,setTitle]=useState("");
+  const [instructions,setInstruction]=useState("");
+  const [totalTime,setTotalTime]=useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const authHeader = useAuthHeader;
+  const headers = {
+    Authorization: authHeader(),
+  };
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  const handleInstruction = (e) => {
+    setInstruction(e.target.value);
+  };
+  const handleTotalTime = (e) => {
+    setTotalTime(e.target.value);
+  };
+
+  const saveAssignment = async (e) => {
+    e.preventDefault();
+
+    if (!title.trim() || !instructions.trim() || !totalTime.trim()) {
+      setError("All the fileds are required.");
+      return;
+    }
+
+    const assignment = {
+      title,
+      instructions,
+      totalTime,
+    };
+
+    try {
+      const response = await createAssignment(assignment, headers);
+      console.log("Create Assignment Response:", response);
+      const assignmentId = response.data;
+      navigate(`/quizFormat/${assignmentId}`);
+
+    } catch (error) {
+      console.error("Failed to create assignment", error);
+      setError("Failed to create assignment");
+    }
+  };
   return (
     <div>
       <Header />
-      <div className="my-24 mx-96 border border-blue rounded-lg p-8 shadow-lg">
-        {/* <div className="flex justify-between mb-6">
-          <div className="w-3/5">
-            <label className="text-3xl block mb-2 ">Select a Group</label>
-            <select className="border border-blue h-16 rounded-lg w-full px-4 text-xl">
-              <option className="h-16">11C Mathematics II</option>
-              <option className="h-16">11C Mathematics I</option>
-              <option className="h-16">11E Mathematics I</option>
+      <div className="my-24 mx-96  rounded-lg p-8 shadow-xl">
+      {error && <div className="text-red-500 mb-4">{error}</div>}
+      <form onSubmit={saveAssignment}>
+        <div className=" mb-6">
+            
+            <div className=" ">
+              <label className="text-3xl block mb-2 ">Title</label>
+              <input
+                placeholder="Enter title"
+                className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
+                value={title}
+                onChange={handleTitle}
+                name="title"
+                required/>
+            </div>
+            
+          </div>
+          <div className="mb-6">
+            <label className="text-3xl block mb-2 ">
+              Instructions for student
+            </label>
+            <textarea
+              placeholder="Enter instructions"
+              className="border border-blue h-40 rounded-lg w-full px-4 text-xl"
+              value={instructions}
+                onChange={handleInstruction}
+                name="instructions"
+                required></textarea>
+          </div>
+          <div className="flex justify-between mb-6">
+          
+            <div className="w-4/5">
+              <label className="text-3xl block mb-2 ">Total Time</label>
+              <input
+                placeholder="Enter total time"
+                className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
+                value={totalTime}
+                onChange={handleTotalTime}
+                name="totalTime"
+                required/>
+            </div>
+            <div className="flex items-end">
               
-            </select>
+                <button className="bg-yellow text-white text-2xl px-8 py-4 rounded-lg ml-4" type="submit">
+                  Create Quiz
+                </button>
+              
+            </div>
           </div>
-          <div className="flex items-center flex-start">
-            <p className="text-2xl">Need a new group</p>
-            <span className="text-blue text-2xl ml-2 cursor-pointer">
-              Create a Group
-            </span>
-          </div>
-        </div> */}
-        <div className="flex justify-between mb-6">
-          <div className="w-3/5 mr-8">
-            <label className="text-3xl block mb-2 ">Title</label>
-            <input
-              placeholder="Enter title"
-              className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
-            />
-          </div>
-          <div className="w-2/5">
-            <label className="text-3xl block mb-2 ">Due Date (Optional)</label>
-            <input
-              type="date"
-              className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
-            />
-          </div>
+
+              
+            </form>
+        
         </div>
-        <div className="mb-6">
-          <label className="text-3xl block mb-2 ">
-            Instructions for student
-          </label>
-          <textarea
-            placeholder="Enter instructions"
-            className="border border-blue h-40 rounded-lg w-full px-4 text-xl"
-          ></textarea>
-        </div>
-        <div className="flex justify-between mb-6">
-          <div className="w-2/5">
-            <label className="text-3xl block mb-2 ">No of Questions</label>
-            <input
-              placeholder="Enter number of questions"
-              className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
-            />
-          </div>
-          <div className="w-2/5">
-            <label className="text-3xl block mb-2 ">Total Time</label>
-            <input
-              placeholder="Enter total time"
-              className="border border-blue h-16 rounded-lg w-full px-4 text-xl"
-            />
-          </div>
-          <div className="flex items-end">
-            <Link to="/quizFormat">
-              <button className="bg-yellow text-white text-2xl px-8 py-4 rounded-lg ml-4">
-                Create Quiz
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
       <Footer />
     </div>
   );

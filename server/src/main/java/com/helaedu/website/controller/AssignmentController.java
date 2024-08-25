@@ -39,8 +39,8 @@ public class AssignmentController {
         try {
             String email = UserUtil.getCurrentUserEmail();
             String userId = tmService.getTMByEmail(email).getUserId();
-            assignmentService.createAssignment(userId, assignmentDto);
-            return new ResponseEntity<>(userId, HttpStatus.CREATED);
+            String assignmentId= assignmentService.createAssignment(userId, assignmentDto);
+            return new ResponseEntity<>(assignmentId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
