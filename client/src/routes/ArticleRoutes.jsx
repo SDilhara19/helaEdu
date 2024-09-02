@@ -40,8 +40,12 @@ function ArticleRoutes() {
       <Route path="/editArticle/:articleId" element={<EditArticleForm />} />
       <Route
         path="/viewArticleMyself/:articleId"
-        element={<ViewArticleMyself />}
+        element={<AuthorizeId Component={ViewArticleMyself} />}
       />
+      {/* <Route
+        path="/viewArticleMyself/:articleId"
+        element={<ViewArticleMyself />}
+      /> */}
     </Routes>
   );
 }
