@@ -32,6 +32,9 @@ compose.yml
 */__pycache__
 */__pycache__/*
 
+**/firebase-service-account.json
+
+
 
 */.env
 

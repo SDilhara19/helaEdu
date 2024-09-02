@@ -32,4 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 
-/resources/firebase-service-account.json
