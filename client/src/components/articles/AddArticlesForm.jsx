@@ -12,6 +12,7 @@ import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { useDropzone } from "react-dropzone";
 
 export default function AddArticlesForm() {
+  
   const coverImageInputRef = useRef(null);
   const additionalFilesInputRef = useRef(null);
   const handleUploadClick = (ref) => {

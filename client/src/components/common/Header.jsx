@@ -114,7 +114,7 @@ function Header() {
                   <ul tabIndex="0" className="menu dropdown-content shadow">
                     <li>
                       {currentUserRole == userRoles.Student ? (
-                        <Link to="#">
+                        <Link to="/sProfile">
                           <h4> My Profile</h4>
                         </Link>
                       ) : currentUserRole == userRoles.Teacher ? (

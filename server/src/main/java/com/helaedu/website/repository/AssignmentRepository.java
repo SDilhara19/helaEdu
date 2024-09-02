@@ -44,7 +44,13 @@ public class AssignmentRepository {
         return null;
     }
 
-    public List<Assignment> getAssignmentsByUserId(String teacherId) throws ExecutionException, InterruptedException {
+    public void updateAssignment(String assignmentId, Assignment assignment) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("assignments").document(assignmentId);
+        documentReference.set(assignment);
+    }
+
+    public List<Assignment> getAssignmentsByTM(String teacherId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference assignmentsCollection = dbFirestore.collection("assignments");
         Query query = assignmentsCollection.whereEqualTo("userId", teacherId);

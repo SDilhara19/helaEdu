@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 import banner from "@assets/img/subject_background.png";
 
 const Articles = () => {
-  const [articles, setArticles] = useState([]); // Initialize articles state
+  const [articles, setArticles] = useState([]); 
+  const [visibleArticles, setVisibleArticles] = useState(8); 
+
   useEffect(() => {
     const fetchApprovedArticles = async () => {
       try {
@@ -39,6 +41,10 @@ const Articles = () => {
     fetchApprovedArticles();
   }, []);
 
+  const handleSeeMore = () => {
+    setVisibleArticles((prevVisible) => prevVisible + 4); 
+  };
+
   return (
     <>
       <Header />
@@ -48,7 +54,7 @@ const Articles = () => {
         <div className="">
           <ArticleHead />
           <div className="mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {articles.map((article) => (
+            {articles.slice(0, visibleArticles).map((article) => (
               <div key={article.articleId} className="p-2">
                 <Link to={`/articles/readArticles/${article.articleId}`}>
                   <ArticleCard
@@ -66,29 +72,20 @@ const Articles = () => {
               </div>
             ))}
           </div>
+
+       
+          {visibleArticles < articles.length && (
+            <div className="text-right mt-4">
+              <button
+                className=" text-blue px-4 py-2 rounded text-2xl mr-64"
+                onClick={handleSeeMore}
+              >
+                See More
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      {/* <div className="min-h-128  " >
-        <ArticleHead />
-        <div className="mx-44 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {articles.map((article) => (
-            <div key={article.articleId} className="p-2">
-              <Link to={`/readArticles/${article.articleId}`}>
-                <ArticleCard
-                  key={article.articleId}
-                  imageUrl={article.imageRef}
-                  profilePictureUrl={article.profilePictureUrl}
-                  authorName={article.authorName}
-                  date={article.publishedTimestamp}
-                  title={article.title}
-                  description={article.content}
-                  badges={article.tags}
-                />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div> */}
       <Footer />
     </>
   );

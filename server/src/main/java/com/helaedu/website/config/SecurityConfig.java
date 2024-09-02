@@ -38,7 +38,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.PUT, "/students/**").hasRole("STUDENT")
                         .requestMatchers(HttpMethod.POST, "/students/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/students/**").hasAnyRole("STUDENT", "ADMIN")
+//                        .requestMatchers(HttpMethod.DELETE, "/students/**").hasAnyRole("STUDENT", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/students/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/students/verify-email").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/students/**").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/students/**").permitAll()
@@ -56,17 +57,20 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/teachers/**").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyRole("TEACHER", "MODERATOR")
-                                .requestMatchers(HttpMethod.GET, "/teachers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/teachers/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/moderators/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/moderators/**").hasRole("MODERATOR")
 
                         .requestMatchers(HttpMethod.GET, "/subscriptions/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
 
-                                .requestMatchers(HttpMethod.GET, "/files/teacher-proof").hasRole("ADMIN")
-                                .anyRequest().permitAll()
+                        .requestMatchers(HttpMethod.POST, "/assignments/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/assignments/**").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/files/teacher-proof").hasRole("ADMIN")
+
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);

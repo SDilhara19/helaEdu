@@ -7,7 +7,8 @@ import { addProfileImageToTeacher } from '@services/TeacherService';
 import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 import { useNavigate } from 'react-router-dom';
 import Profile from "@assets/img/articles/profile.jpg"
-
+import SilverBadge from "@assets/icons/silverBadge.svg"
+import GoldBadge from "@assets/icons/goldBadge.svg"
 export default function ProfileHero({ email, firstName ,lastName,profileImg}) {
 
   const [profileImage, setProfileImage] = useState(null);
@@ -135,9 +136,13 @@ export default function ProfileHero({ email, firstName ,lastName,profileImg}) {
           <h1 className='text-5xl'>{firstName} {lastName}</h1>
           <p className='text-3xl'>Teacher</p>
           <div className='flex justify-start'>
-            <div className='rounded-full w-16 h-16 bg-yellow'>
+            <div className='relative rounded-full w-16 h-16 '>
+              <img src={SilverBadge}/>
+              <div className='absolute bottom-0 right-1 rounded-full w-6 h-5 px-1 bg-yellow'><p className='text-sm'>x2</p></div>
             </div>
-            <div className='rounded-full w-16 h-16 bg-yellow mx-6'>
+            <div className='relative rounded-full w-16 h-16  mx-6'>
+              <img src={GoldBadge}/>
+              <div className='absolute bottom-0 right-1 rounded-full w-6 h-5 px-1 bg-yellow'><p className='text-sm'>x3</p></div>
             </div>
           </div>
         </div>

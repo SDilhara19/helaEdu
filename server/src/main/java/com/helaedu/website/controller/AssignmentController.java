@@ -1,9 +1,10 @@
 package com.helaedu.website.controller;
 
+import com.helaedu.website.dto.*;
 import com.helaedu.website.dto.AssignmentDto;
-import com.helaedu.website.dto.AssignmentDto;
-import com.helaedu.website.dto.ValidationErrorResponse;
 import com.helaedu.website.service.AssignmentService;
+import com.helaedu.website.service.TMService;
+import com.helaedu.website.service.TeacherService;
 import com.helaedu.website.util.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,11 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(origins = "*")
 public class AssignmentController {
     private final AssignmentService assignmentService;
-    public AssignmentController(AssignmentService assignmentService){
+    private final TMService tmService;
+
+    public AssignmentController(AssignmentService assignmentService, TMService tmService){
         this.assignmentService = assignmentService;
+        this.tmService = tmService;
     }
     @PostMapping("/create")
     public ResponseEntity<Object> createAssignment(@Valid @RequestBody AssignmentDto assignmentDto, BindingResult bindingResult) throws ExecutionException, InterruptedException {
@@ -33,14 +37,12 @@ public class AssignmentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
         try {
-            String userId = UserUtil.getCurrentUserEmail();
-            assignmentDto.setUserId(userId);
-            String assignmentId = assignmentService.createAssignment(assignmentDto);
+            String email = UserUtil.getCurrentUserEmail();
+            String userId = tmService.getTMByEmail(email).getUserId();
+            String assignmentId= assignmentService.createAssignment(userId, assignmentDto);
             return new ResponseEntity<>(assignmentId, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (ExecutionException | InterruptedException e) {
-            return new ResponseEntity<>("Error creating assignment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -49,6 +51,7 @@ public class AssignmentController {
         List<AssignmentDto> assignments = assignmentService.getAllAssignments();
         return ResponseEntity.ok(assignments);
     }
+
     @GetMapping("/{assignmentId}")
     public ResponseEntity<Object> getAssignment(@PathVariable String assignmentId) throws ExecutionException, InterruptedException {
         AssignmentDto assignmentDto = assignmentService.getAssignment(assignmentId);
@@ -57,9 +60,18 @@ public class AssignmentController {
         } else {
             ValidationErrorResponse errorResponse = new ValidationErrorResponse();
             errorResponse.addViolation("assignmentId", "Assignment not found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);        }
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
     }
 
+    @GetMapping("/tm/{userId}")
+    public ResponseEntity<Object> getAssignmentsByTM(@PathVariable String userId) throws ExecutionException, InterruptedException {
+        List<AssignmentDto> assignments = assignmentService.getAssignmentsByTM(userId);
+        return ResponseEntity.ok(assignments);
+    }
 
-
+    @PostMapping("/{assignmentId}/quizzes")
+    public String addQuizzesToAssignment(@PathVariable String assignmentId, @RequestBody List<AssignmentQuizDto> quizzes) throws ExecutionException, InterruptedException {
+        return assignmentService.addQuizzesToAssignment(assignmentId, quizzes);
+    }
 }
