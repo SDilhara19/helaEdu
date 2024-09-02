@@ -7,7 +7,7 @@ import ReviewArticle from "@pages/articles/ReviewArticle";
 import ReadArticles from "@pages/articles/ReadArticles";
 import Articles from "@pages/articles/Articles";
 import ReviewList from "@pages/articles/ReviewList";
-import { AuthorizeRoles, AuthrizeId } from "@utils/AuthorizeRoute";
+import { AuthorizeRoles, AuthorizeId } from "@utils/AuthorizeRoute";
 import ViewArticleMyself from "@pages/articles/ViewArticleMyself";
 import EditArticleForm from "@pages/articles/EditArticleForm";
 
@@ -22,7 +22,6 @@ function ArticleRoutes() {
           <AuthorizeRoles
             Component={AddArticles}
             allowedUserRoles={[userRoles.Teacher, userRoles.Moderator]}
-            multiple={true}
           />
         }
       />
@@ -33,7 +32,6 @@ function ArticleRoutes() {
           <AuthorizeRoles
             Component={AddArticleForm}
             allowedUserRoles={[userRoles.Teacher, userRoles.Moderator]}
-            multiple={true}
           />
         }
       />
@@ -42,8 +40,12 @@ function ArticleRoutes() {
       <Route path="/editArticle/:articleId" element={<EditArticleForm />} />
       <Route
         path="/viewArticleMyself/:articleId"
-        element={<ViewArticleMyself />}
+        element={<AuthorizeId Component={ViewArticleMyself} />}
       />
+      {/* <Route
+        path="/viewArticleMyself/:articleId"
+        element={<ViewArticleMyself />}
+      /> */}
     </Routes>
   );
 }

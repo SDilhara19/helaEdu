@@ -1,8 +1,2 @@
-import theme from "@reducers/theme";
-import { combineReducers } from "redux";
-
-const allReducers = combineReducers({
-  theme,
-});
-
-export default allReducers;
+export { validateUserId, resetUserState } from "@reducers/userId";
+export { default as userIdSlice } from "@reducers/userId";

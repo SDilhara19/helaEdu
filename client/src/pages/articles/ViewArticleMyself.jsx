@@ -6,12 +6,14 @@ import { Header, Footer } from "@components/common";
 import { deleteArticle, getArticleById } from "@services/ArticleService";
 import { getUserDetails } from "@services/TeacherService";
 import { useNavigate } from "react-router-dom";
+import { useAuthorizer } from "@hooks/index";
 
 export default function ViewArticleMyself() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
   const navigate = useNavigate();
+  const authorizer = useAuthorizer();
 
   const openDeleteModal = () => {
     setIsPopupOpen(true);
@@ -39,9 +41,10 @@ export default function ViewArticleMyself() {
         const articleWithUserDetails = {
           ...article,
           firstName: userDetails.firstName,
-          lastName:userDetails.lastName,
-          coverImage:userDetails.profilePictureUrl,
+          lastName: userDetails.lastName,
+          coverImage: userDetails.profilePictureUrl,
         };
+        authorizer.authorize(userDetails.userId);
         setArticle(articleWithUserDetails);
       } catch (error) {
         console.error("Failed to fetch article", error);
@@ -83,7 +86,6 @@ export default function ViewArticleMyself() {
           </dialog>
         )}
         <div className="w-9/12">
-       
           <ViewArticle
             title={article.title}
             content={article.content}

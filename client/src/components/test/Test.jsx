@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useAuthorizer } from "@hooks";
+import { useEffect } from "react";
 
 function Test() {
-  let [foo, setFoo] = useState(0);
+  const auth = useAuthorizer();
+
   useEffect(() => {
-    console.log("Working");
-  }, [foo]);
+    async function foo() {
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      await sleep(5000);
+      console.log("finished");
+      auth.authorize(false);
+    }
+    foo();
+  }, []);
+
   return (
     <>
-      <h2> test</h2>
+      <h2 onClick={() => {}}>Foo</h2>
     </>
   );
 }

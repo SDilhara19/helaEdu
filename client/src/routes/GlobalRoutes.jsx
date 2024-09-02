@@ -34,13 +34,6 @@ import Reports from "@pages/admin/Reports";
 import ModDashboard from "@pages/profiles/ModDashboard";
 import HeroLanding from "@pages/landing/HeroLanding";
 import PremiumPlan from "@pages/landing/PremiumPlan";
-import ReputationPoints from "@pages/reputation/ReputationPoints";
-import Summary from "@pages/reputation/Summary";
-import Votes from "@pages/reputation/Votes";
-import Comments from "@pages/reputation/Comments";
-import Badges from "@pages/reputation/Badges";
-import ReviewdQuiz from "@pages/assignments/ReviewdQuiz";
-
 
 function GlobalRoutes() {
   return (
@@ -57,7 +50,8 @@ function GlobalRoutes() {
       <Route path="/tProfile" element={<TProfile />} />
       <Route path="/sProfile" element={<SProfile />} />
       <Route path="/createAssignments" element={<CreateAssignments />} />
-      <Route path="/quizFormat/:assginmentId" element={<QuizFormat />} />
+
+      <Route path="/quizFormat" element={<QuizFormat />} />
       <Route path="/test" element={<Test />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/moderatorDetails" element={<ModeratorDetails />} />
@@ -81,12 +75,12 @@ function GlobalRoutes() {
       <Route path="/notes/new" element={<NewNote />} />
       <Route path="/land" element={<HeroLanding />} />
       <Route path="/premiumPlan" element={<PremiumPlan />} />
-      <Route path="/reputationPoints" element={<ReputationPoints/>} />
-      <Route path="/summary" element={<Summary/>} />
-      <Route path="/votes" element={<Votes/>} />
-      <Route path="/comments" element={<Comments/>} />
-      <Route path="/badges" element={<Badges/>} />
-      <Route path="/reviewQuizzes" element={<ReviewdQuiz/>} />
+      <Route path="/reputationPoints" element={<ReputationPoints />} />
+      <Route path="/summary" element={<Summary />} />
+      <Route path="/votes" element={<Votes />} />
+      <Route path="/comments" element={<Comments />} />
+      <Route path="/badges" element={<Badges />} />
+      <Route path="/reviewQuizzes" element={<ReviewdQuiz />} />
     </Routes>
   );
 }
